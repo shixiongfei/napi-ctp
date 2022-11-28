@@ -1,0 +1,32 @@
+{
+  "name": "napi-ctp",
+  "version": "0.1.0",
+  "description": "Node API for CTP",
+  "main": "index.js",
+  "scripts": {
+    "install": "node-gyp-build",
+    "prebuild": "prebuildify --napi",
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shixiongfei/napi-ctp.git"
+  },
+  "keywords": [
+    "ctp",
+    "nodectp"
+  ],
+  "author": "shixiongfei",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/shixiongfei/napi-ctp/issues"
+  },
+  "homepage": "https://github.com/shixiongfei/napi-ctp#readme",
+  "devDependencies": {
+    "node-gyp": "^9.3.0",
+    "prebuildify": "^5.0.1"
+  },
+  "dependencies": {
+    "node-gyp-build": "^4.5.0"
+  }
+}
