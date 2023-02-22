@@ -1,5 +1,5 @@
 /*
- * trader_handler.cpp
+ * traderspi.cpp
  *
  * Copyright (c) 2022, 2023 Xiongfei Shi
  *
@@ -9,10 +9,8 @@
  * https://github.com/shixiongfei/napi-ctp
  */
 
-#include "trader_handler.h"
+#include "traderspi.h"
 
-TraderHandler::TraderHandler()
-  : m_pAPI(nullptr) {
-}
+TraderSpi::TraderSpi() {}
 
-TraderHandler::~TraderHandler() { }
+TraderSpi::~TraderSpi() {}

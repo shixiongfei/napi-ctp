@@ -4,8 +4,10 @@
       "target_name": "napi_ctp",
       "sources": [
         "./src/napi_ctp.cpp",
-        "./src/md_handler.cpp",
-        "./src/trader_handler.cpp"
+        "./src/mdspi.cpp",
+        "./src/mdapi.cpp",
+        "./src/traderspi.cpp",
+        "./src/traderapi.cpp"
       ],
       "include_dirs": [
         "./tradeapi"

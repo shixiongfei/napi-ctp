@@ -1,5 +1,5 @@
 /*
- * md_handler.h
+ * mdspi.h
  *
  * Copyright (c) 2022, 2023 Xiongfei Shi
  *
@@ -9,18 +9,15 @@
  * https://github.com/shixiongfei/napi-ctp
  */
 
-#ifndef __MD_HANDLER_H__
-#define __MD_HANDLER_H__
+#ifndef __MDSPI_H__
+#define __MDSPI_H__
 
 #include "ThostFtdcMdApi.h"
 
-class MDHandler : public CThostFtdcMdSpi {
+class MdSpi : public CThostFtdcMdSpi {
 public:
-  MDHandler();
-  virtual ~MDHandler();
-
-private:
-  CThostFtdcMdApi *m_pAPI;
+  MdSpi();
+  virtual ~MdSpi();
 };
 
-#endif /* __MD_HANDLER_H__ */
+#endif /* __MDSPI_H__ */

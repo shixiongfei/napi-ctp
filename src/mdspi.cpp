@@ -1,5 +1,5 @@
 /*
- * md_handler.cpp
+ * mdspi.cpp
  *
  * Copyright (c) 2022, 2023 Xiongfei Shi
  *
@@ -9,10 +9,8 @@
  * https://github.com/shixiongfei/napi-ctp
  */
 
-#include "md_handler.h"
+#include "mdspi.h"
 
-MDHandler::MDHandler()
-  : m_pAPI(nullptr) {
-}
+MdSpi::MdSpi() {}
 
-MDHandler::~MDHandler() { }
+MdSpi::~MdSpi() {}
