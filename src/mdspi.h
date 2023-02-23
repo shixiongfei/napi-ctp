@@ -12,7 +12,7 @@
 #ifndef __MDSPI_H__
 #define __MDSPI_H__
 
-#include "ThostFtdcMdApi.h"
+#include "napi_ctp.h"
 
 class MdSpi : public CThostFtdcMdSpi {
 public:

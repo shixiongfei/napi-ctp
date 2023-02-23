@@ -10,3 +10,7 @@
  */
 
 #include "mdapi.h"
+
+napi_value createMarketData(napi_env env, napi_callback_info info) {
+  return nullptr;
+}

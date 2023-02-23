@@ -12,6 +12,8 @@
 #ifndef __TRADERAPI_H__
 #define __TRADERAPI_H__
 
-#include "ThostFtdcTraderApi.h"
+#include "napi_ctp.h"
+
+napi_value createTrader(napi_env env, napi_callback_info info);
 
 #endif /* __TRADERAPI_H__ */

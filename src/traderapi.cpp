@@ -10,3 +10,7 @@
  */
 
 #include "traderapi.h"
+
+napi_value createTrader(napi_env env, napi_callback_info info) {
+  return nullptr;
+}

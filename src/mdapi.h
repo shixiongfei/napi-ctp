@@ -12,6 +12,8 @@
 #ifndef __MDAPI_H__
 #define __MDAPI_H__
 
-#include "ThostFtdcMdApi.h"
+#include "napi_ctp.h"
+
+napi_value createMarketData(napi_env env, napi_callback_info info);
 
 #endif /* __MDAPI_H__ */

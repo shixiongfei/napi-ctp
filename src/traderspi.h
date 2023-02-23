@@ -12,7 +12,7 @@
 #ifndef __TRADERSPI_H__
 #define __TRADERSPI_H__
 
-#include "ThostFtdcTraderApi.h"
+#include "napi_ctp.h"
 
 class TraderSpi : public CThostFtdcTraderSpi {
 public:
