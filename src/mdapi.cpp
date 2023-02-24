@@ -11,6 +11,10 @@
 
 #include "mdapi.h"
 
+napi_status defineMarketData(napi_env env, napi_ref *constructor) {
+  return napi_ok;
+}
+
 napi_value createMarketData(napi_env env, napi_callback_info info) {
   return nullptr;
 }

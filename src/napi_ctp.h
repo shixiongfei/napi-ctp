@@ -16,6 +16,11 @@
 #include "ThostFtdcMdApi.h"
 #include "ThostFtdcTraderApi.h"
 
+typedef struct Constructors {
+  napi_ref marketData;
+  napi_ref trader;
+} Constructors;
+
 #define arraySize(a) ((int)(sizeof(a) / sizeof(*a)))
 
 #endif /* __NAPI_CTP_H__ */
