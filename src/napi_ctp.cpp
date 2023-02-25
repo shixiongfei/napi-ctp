@@ -59,6 +59,7 @@ static napi_status defineMethods(napi_env env, napi_value exports) {
   napi_property_descriptor props[] = {
       {"createTrader", 0, createTrader, 0, 0, 0, napi_default, 0},
       {"createMarketData", 0, createMarketData, 0, 0, 0, napi_default, 0}};
+
   return napi_define_properties(env, exports, arraySize(props), props);
 }
 
