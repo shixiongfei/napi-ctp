@@ -12,9 +12,10 @@
 #ifndef __NAPI_CTP_H__
 #define __NAPI_CTP_H__
 
-#include <node_api.h>
 #include "ThostFtdcMdApi.h"
 #include "ThostFtdcTraderApi.h"
+#include <assert.h>
+#include <node_api.h>
 
 typedef struct Constructors {
   napi_ref marketData;

@@ -9,12 +9,11 @@
  * https://github.com/shixiongfei/napi-ctp
  */
 
-#include <assert.h>
+#include "napi_ctp.h"
+#include "mdapi.h"
+#include "traderapi.h"
 #include <stdlib.h>
 #include <string.h>
-#include "napi_ctp.h"
-#include "traderapi.h"
-#include "mdapi.h"
 
 static void destructor(napi_env env, void *data, void *hint) {
   napi_status status;
@@ -36,17 +35,13 @@ static void destructor(napi_env env, void *data, void *hint) {
   free(constructors);
 }
 
-static napi_value init(napi_env env, napi_value exports) {
+static napi_status defineConstructors(napi_env env) {
   napi_status status;
-  napi_property_descriptor props[] = {
-    {"createTrader", 0, createTrader, 0, 0, 0, napi_default, 0},
-    {"createMarketData", 0, createMarketData, 0, 0, 0, napi_default, 0}
-  };
   Constructors *constructors = (Constructors *)malloc(sizeof(Constructors));
 
   if (!constructors) {
     napi_throw_error(env, "OutOfMemory", "Out of memory");
-    return nullptr;
+    return napi_object_expected;
   }
 
   memset(constructors, 0, sizeof(Constructors));
@@ -57,10 +52,23 @@ static napi_value init(napi_env env, napi_value exports) {
   status = defineTrader(env, &constructors->trader);
   assert(status == napi_ok);
 
-  status = napi_define_properties(env, exports, arraySize(props), props);
+  return napi_set_instance_data(env, constructors, destructor, nullptr);
+}
+
+static napi_status defineMethods(napi_env env, napi_value exports) {
+  napi_property_descriptor props[] = {
+      {"createTrader", 0, createTrader, 0, 0, 0, napi_default, 0},
+      {"createMarketData", 0, createMarketData, 0, 0, 0, napi_default, 0}};
+  return napi_define_properties(env, exports, arraySize(props), props);
+}
+
+static napi_value init(napi_env env, napi_value exports) {
+  napi_status status;
+
+  status = defineConstructors(env);
   assert(status == napi_ok);
 
-  status = napi_set_instance_data(env, constructors, destructor, nullptr);
+  status = defineMethods(env, exports);
   assert(status == napi_ok);
 
   return exports;
