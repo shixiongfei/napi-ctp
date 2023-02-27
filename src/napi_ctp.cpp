@@ -60,7 +60,7 @@ static napi_status defineMethods(napi_env env, napi_value exports) {
       {"createTrader", 0, createTrader, 0, 0, 0, napi_default, 0},
       {"createMarketData", 0, createMarketData, 0, 0, 0, napi_default, 0}};
 
-  return napi_define_properties(env, exports, arraySize(props), props);
+  return napi_define_properties(env, exports, arraysize(props), props);
 }
 
 static napi_value init(napi_env env, napi_value exports) {
@@ -102,15 +102,25 @@ napi_status defineClass(napi_env env, const char *name,
 }
 
 napi_value createInstance(napi_env env, napi_callback_info info,
-                          napi_ref constructor) {
+                          napi_ref constructor, size_t argc) {
   napi_status status;
   napi_value cons, instance;
 
   status = napi_get_reference_value(env, constructor, &cons);
   assert(status == napi_ok);
 
-  status = napi_new_instance(env, cons, 0, nullptr, &instance);
-  assert(status == napi_ok);
+  if (argc > 0) {
+    dynarray(napi_value, args, argc);
+
+    status = napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
+    assert(status == napi_ok);
+
+    status = napi_new_instance(env, cons, argc, args, &instance);
+    assert(status == napi_ok);
+  } else {
+    status = napi_new_instance(env, cons, 0, nullptr, &instance);
+    assert(status == napi_ok);
+  }
 
   return instance;
 }
