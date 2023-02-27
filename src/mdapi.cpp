@@ -20,35 +20,15 @@ static napi_value marketDataNew(napi_env env, napi_callback_info info) {
 }
 
 napi_status defineMarketData(napi_env env, napi_ref *constructor) {
-  napi_status status;
-  napi_value cons;
   napi_property_descriptor props[] = {
       {"getApiVersion", 0, getApiVersion, 0, 0, 0, napi_default, 0},
   };
-
-  status = napi_define_class(env, "MarketData", NAPI_AUTO_LENGTH, marketDataNew,
-                             nullptr, arraySize(props), props, &cons);
-  assert(status == napi_ok);
-
-  return napi_create_reference(env, cons, 1, constructor);
+  return defineClass(env, "MarketData", marketDataNew, arraySize(props), props,
+                     constructor);
 }
 
 napi_value createMarketData(napi_env env, napi_callback_info info) {
-  napi_status status;
-  napi_value cons, instance;
-  Constructors *constructors;
-
-  status = napi_get_instance_data(env, (void **)&constructors);
-  assert(status == napi_ok);
-
-  if (!constructors)
-    return nullptr;
-
-  status = napi_get_reference_value(env, constructors->marketData, &cons);
-  assert(status == napi_ok);
-
-  status = napi_new_instance(env, cons, 0, nullptr, &instance);
-  assert(status == napi_ok);
-
-  return instance;
+  Constructors *constructors = getConstructors(env);
+  return constructors ? createInstance(env, info, constructors->marketData)
+                      : nullptr
 }
