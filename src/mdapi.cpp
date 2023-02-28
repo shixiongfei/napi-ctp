@@ -158,13 +158,13 @@ static napi_value marketDataNew(napi_env env, napi_callback_info info) {
 
 napi_status defineMarketData(napi_env env, napi_ref *constructor) {
   napi_property_descriptor props[] = {
-      NAPI_DEFINE_METHOD(getApiVersion),
-      NAPI_DEFINE_METHOD(subscribeMarketData),
-      NAPI_DEFINE_METHOD(unsubscribeMarketData),
-      NAPI_DEFINE_METHOD(subscribeForQuoteRsp),
-      NAPI_DEFINE_METHOD(unsubscribeForQuoteRsp),
-      NAPI_DEFINE_METHOD(userLogin),
-      NAPI_DEFINE_METHOD(userLogout),
+      DECLARE_NAPI_METHOD(getApiVersion),
+      DECLARE_NAPI_METHOD(subscribeMarketData),
+      DECLARE_NAPI_METHOD(unsubscribeMarketData),
+      DECLARE_NAPI_METHOD(subscribeForQuoteRsp),
+      DECLARE_NAPI_METHOD(unsubscribeForQuoteRsp),
+      DECLARE_NAPI_METHOD(userLogin),
+      DECLARE_NAPI_METHOD(userLogout),
   };
   return defineClass(env, "MarketData", marketDataNew, arraysize(props), props,
                      constructor);

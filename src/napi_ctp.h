@@ -33,9 +33,9 @@ typedef struct Constructors {
 
 #define arraysize(a) ((int)(sizeof(a) / sizeof(*a)))
 
-#define NAPI_DEFINE_METHOD_(name, method)                                      \
+#define DECLARE_NAPI_METHOD_(name, method)                                     \
   { name, 0, method, 0, 0, 0, napi_default, 0 }
-#define NAPI_DEFINE_METHOD(method) NAPI_DEFINE_METHOD_(#method, method)
+#define DECLARE_NAPI_METHOD(method) DECLARE_NAPI_METHOD_(#method, method)
 
 int sequenceId();
 
