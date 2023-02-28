@@ -87,49 +87,15 @@ int sequenceId() {
 #endif
 }
 
-Mutex::Mutex() {
-#ifdef _WIN32
-  InitializeCriticalSection(&_mutex);
-#else
-  pthread_mutexattr_t attr;
-  pthread_mutexattr_init(&attr);
-  pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE);
-  pthread_mutex_init(&_mutex, &attr);
-  pthread_mutexattr_destroy(&attr);
-#endif
-}
+Mutex::Mutex() { uv_mutex_init(&_mutex); }
 
-Mutex::~Mutex() {
-#ifdef _WIN32
-  DeleteCriticalSection(&_mutex);
-#else
-  pthread_mutex_destroy(&_mutex);
-#endif
-}
+Mutex::~Mutex() { uv_mutex_destroy(&_mutex); }
 
-void Mutex::lock() {
-#ifdef _WIN32
-  EnterCriticalSection(&_mutex);
-#else
-  pthread_mutex_lock(&_mutex);
-#endif
-}
+void Mutex::lock() { uv_mutex_lock(&_mutex); }
 
-bool Mutex::tryLock() {
-#ifdef _WIN32
-  return TRUE == TryEnterCriticalSection(&_mutex);
-#else
-  return 0 == pthread_mutex_trylock(&_mutex);
-#endif
-}
+bool Mutex::tryLock() { return 0 == uv_mutex_trylock(&_mutex); }
 
-void Mutex::unlock() {
-#ifdef _WIN32
-  LeaveCriticalSection(&_mutex);
-#else
-  pthread_mutex_unlock(&_mutex);
-#endif
-}
+void Mutex::unlock() { uv_mutex_unlock(&_mutex); }
 
 Constructors *getConstructors(napi_env env) {
   napi_status status;

@@ -16,12 +16,7 @@
 #include "ThostFtdcTraderApi.h"
 #include <assert.h>
 #include <node_api.h>
-
-#ifdef _WIN32
-#include <Windows.h>
-#else
-#include <pthread.h>
-#endif
+#include <uv.h>
 
 #ifdef _MSC_VER
 #include <malloc.h>
@@ -53,12 +48,7 @@ public:
   bool tryLock();
   void unlock();
 
-private:
-#ifdef _WIN32
-  CRITICAL_SECTION _mutex;
-#else
-  pthread_mutex_t _mutex;
-#endif
+  uv_mutex_t _mutex;
 };
 
 class AutoLock {
