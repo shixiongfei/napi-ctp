@@ -57,8 +57,8 @@ static napi_status defineConstructors(napi_env env) {
 
 static napi_status defineMethods(napi_env env, napi_value exports) {
   napi_property_descriptor props[] = {
-      NAPI_DEFINE_METHOD(createTrader),
       NAPI_DEFINE_METHOD(createMarketData),
+      NAPI_DEFINE_METHOD(createTrader),
   };
   return napi_define_properties(env, exports, arraysize(props), props);
 }

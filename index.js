@@ -1,7 +1,7 @@
 /*
  * index.js
  *
- * Copyright (c) 2022 Xiongfei Shi
+ * Copyright (c) 2022, 2023 Xiongfei Shi
  *
  * Author: Xiongfei Shi <xiongfei.shi(a)icloud.com>
  * License: Apache-2.0
