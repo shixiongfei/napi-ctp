@@ -38,6 +38,31 @@ static napi_value getApiVersion(napi_env env, napi_callback_info info) {
   return version;
 }
 
+static napi_value subscribeMarketData(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value unsubscribeMarketData(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value subscribeForQuoteRsp(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value unsubscribeForQuoteRsp(napi_env env,
+                                         napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value userLogin(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value userLogout(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
 static void marketDataDestructor(napi_env env, void *data, void *hint) {
   MarketData *marketData = (MarketData *)data;
 
@@ -133,7 +158,13 @@ static napi_value marketDataNew(napi_env env, napi_callback_info info) {
 
 napi_status defineMarketData(napi_env env, napi_ref *constructor) {
   napi_property_descriptor props[] = {
-      {"getApiVersion", 0, getApiVersion, 0, 0, 0, napi_default, 0},
+      NAPI_DEFINE_METHOD(getApiVersion),
+      NAPI_DEFINE_METHOD(subscribeMarketData),
+      NAPI_DEFINE_METHOD(unsubscribeMarketData),
+      NAPI_DEFINE_METHOD(subscribeForQuoteRsp),
+      NAPI_DEFINE_METHOD(unsubscribeForQuoteRsp),
+      NAPI_DEFINE_METHOD(userLogin),
+      NAPI_DEFINE_METHOD(userLogout),
   };
   return defineClass(env, "MarketData", marketDataNew, arraysize(props), props,
                      constructor);

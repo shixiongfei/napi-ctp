@@ -28,7 +28,7 @@ static napi_value traderNew(napi_env env, napi_callback_info info) {
 
 napi_status defineTrader(napi_env env, napi_ref *constructor) {
   napi_property_descriptor props[] = {
-      {"getApiVersion", 0, getApiVersion, 0, 0, 0, napi_default, 0},
+      NAPI_DEFINE_METHOD(getApiVersion),
   };
   return defineClass(env, "Trader", traderNew, arraysize(props), props,
                      constructor);

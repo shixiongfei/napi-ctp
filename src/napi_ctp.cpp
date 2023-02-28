@@ -57,9 +57,9 @@ static napi_status defineConstructors(napi_env env) {
 
 static napi_status defineMethods(napi_env env, napi_value exports) {
   napi_property_descriptor props[] = {
-      {"createTrader", 0, createTrader, 0, 0, 0, napi_default, 0},
-      {"createMarketData", 0, createMarketData, 0, 0, 0, napi_default, 0}};
-
+      NAPI_DEFINE_METHOD(createTrader),
+      NAPI_DEFINE_METHOD(createMarketData),
+  };
   return napi_define_properties(env, exports, arraysize(props), props);
 }
 
@@ -76,6 +76,60 @@ static napi_value init(napi_env env, napi_value exports) {
 }
 
 NAPI_MODULE(NODE_GYP_MODULE_NAME, init)
+
+static long volatile sequenceLastId = 0;
+
+int sequenceId() {
+#ifdef _MSC_VER
+  return (int)InterlockedIncrement(&sequenceLastId);
+#else
+  return (int)__sync_add_and_fetch(&sequenceLastId, 1);
+#endif
+}
+
+Mutex::Mutex() {
+#ifdef _WIN32
+  InitializeCriticalSection(&_mutex);
+#else
+  pthread_mutexattr_t attr;
+  pthread_mutexattr_init(&attr);
+  pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE);
+  pthread_mutex_init(&_mutex, &attr);
+  pthread_mutexattr_destroy(&attr);
+#endif
+}
+
+Mutex::~Mutex() {
+#ifdef _WIN32
+  DeleteCriticalSection(&_mutex);
+#else
+  pthread_mutex_destroy(&_mutex);
+#endif
+}
+
+void Mutex::lock() {
+#ifdef _WIN32
+  EnterCriticalSection(&_mutex);
+#else
+  pthread_mutex_lock(&_mutex);
+#endif
+}
+
+bool Mutex::tryLock() {
+#ifdef _WIN32
+  return TRUE == TryEnterCriticalSection(&_mutex);
+#else
+  return 0 == pthread_mutex_trylock(&_mutex);
+#endif
+}
+
+void Mutex::unlock() {
+#ifdef _WIN32
+  LeaveCriticalSection(&_mutex);
+#else
+  pthread_mutex_unlock(&_mutex);
+#endif
+}
 
 Constructors *getConstructors(napi_env env) {
   napi_status status;

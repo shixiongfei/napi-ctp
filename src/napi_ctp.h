@@ -17,7 +17,13 @@
 #include <assert.h>
 #include <node_api.h>
 
-#if defined(_MSC_VER)
+#ifdef _WIN32
+#include <Windows.h>
+#else
+#include <pthread.h>
+#endif
+
+#ifdef _MSC_VER
 #include <malloc.h>
 #define dynarray(type, name, size)                                             \
   type *name = (type *)_alloca((size) * sizeof(type))
@@ -31,6 +37,38 @@ typedef struct Constructors {
 } Constructors;
 
 #define arraysize(a) ((int)(sizeof(a) / sizeof(*a)))
+
+#define NAPI_DEFINE_METHOD_(name, method)                                      \
+  { name, 0, method, 0, 0, 0, napi_default, 0 }
+#define NAPI_DEFINE_METHOD(method) NAPI_DEFINE_METHOD_(#method, method)
+
+int sequenceId();
+
+class Mutex {
+public:
+  Mutex();
+  ~Mutex();
+
+  void lock();
+  bool tryLock();
+  void unlock();
+
+private:
+#ifdef _WIN32
+  CRITICAL_SECTION _mutex;
+#else
+  pthread_mutex_t _mutex;
+#endif
+};
+
+class AutoLock {
+public:
+  AutoLock(Mutex &mutex) : _mutex(mutex) { _mutex.lock(); }
+  ~AutoLock() { _mutex.unlock(); }
+
+private:
+  Mutex &_mutex;
+};
 
 Constructors *getConstructors(napi_env env);
 
