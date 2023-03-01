@@ -31,6 +31,11 @@ typedef struct Constructors {
   napi_ref trader;
 } Constructors;
 
+typedef struct Message {
+  int event;
+  void *data;
+} Message;
+
 #define arraysize(a) ((int)(sizeof(a) / sizeof(*a)))
 
 #define DECLARE_NAPI_METHOD_(name, method)                                     \

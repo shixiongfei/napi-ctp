@@ -13,11 +13,16 @@
 #define __MDSPI_H__
 
 #include "napi_ctp.h"
+#include <queue>
 
 class MdSpi : public CThostFtdcMdSpi {
 public:
   MdSpi();
   virtual ~MdSpi();
+
+private:
+  Mutex _mutex;
+  std::queue<Message> _queue;
 };
 
 #endif /* __MDSPI_H__ */
