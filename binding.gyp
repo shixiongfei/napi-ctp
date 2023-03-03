@@ -3,11 +3,7 @@
     {
       "target_name": "napi_ctp",
       "sources": [
-        "<(module_root_dir)/src/napi_ctp.cpp",
-        "<(module_root_dir)/src/mdspi.cpp",
-        "<(module_root_dir)/src/mdapi.cpp",
-        "<(module_root_dir)/src/traderspi.cpp",
-        "<(module_root_dir)/src/traderapi.cpp"
+        "<(module_root_dir)/src/*.cpp"
       ],
       "include_dirs": [
         "<(module_root_dir)/tradeapi"

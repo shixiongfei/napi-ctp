@@ -16,7 +16,6 @@
 #include "ThostFtdcTraderApi.h"
 #include <assert.h>
 #include <node_api.h>
-#include <uv.h>
 
 #ifdef _MSC_VER
 #include <malloc.h>
@@ -31,11 +30,6 @@ typedef struct Constructors {
   napi_ref trader;
 } Constructors;
 
-typedef struct Message {
-  int event;
-  void *data;
-} Message;
-
 #define arraysize(a) ((int)(sizeof(a) / sizeof(*a)))
 
 #define DECLARE_NAPI_METHOD_(name, method)                                     \
@@ -43,27 +37,6 @@ typedef struct Message {
 #define DECLARE_NAPI_METHOD(method) DECLARE_NAPI_METHOD_(#method, method)
 
 int sequenceId();
-
-class Mutex {
-public:
-  Mutex();
-  ~Mutex();
-
-  void lock();
-  bool tryLock();
-  void unlock();
-
-  uv_mutex_t _mutex;
-};
-
-class AutoLock {
-public:
-  AutoLock(Mutex &mutex) : _mutex(mutex) { _mutex.lock(); }
-  ~AutoLock() { _mutex.unlock(); }
-
-private:
-  Mutex &_mutex;
-};
 
 Constructors *getConstructors(napi_env env);
 

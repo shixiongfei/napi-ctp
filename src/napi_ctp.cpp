@@ -77,6 +77,10 @@ static napi_value init(napi_env env, napi_value exports) {
 
 NAPI_MODULE(NODE_GYP_MODULE_NAME, init)
 
+#ifdef _WIN32
+#include <Windows.h>
+#endif
+
 static long volatile sequenceLastId = 0;
 
 int sequenceId() {
@@ -86,16 +90,6 @@ int sequenceId() {
   return (int)__sync_add_and_fetch(&sequenceLastId, 1);
 #endif
 }
-
-Mutex::Mutex() { uv_mutex_init(&_mutex); }
-
-Mutex::~Mutex() { uv_mutex_destroy(&_mutex); }
-
-void Mutex::lock() { uv_mutex_lock(&_mutex); }
-
-bool Mutex::tryLock() { return 0 == uv_mutex_trylock(&_mutex); }
-
-void Mutex::unlock() { uv_mutex_unlock(&_mutex); }
 
 Constructors *getConstructors(napi_env env) {
   napi_status status;
