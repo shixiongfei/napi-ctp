@@ -3,20 +3,22 @@
     {
       "target_name": "napi_ctp",
       "sources": [
-        "<(module_root_dir)/src/*.cpp"
+        "./src/*.cpp"
       ],
       "include_dirs": [
-        "<(module_root_dir)/tradeapi"
+        "./tradeapi"
       ],
       "conditions": [
         ['OS=="mac"', {
           "library_dirs": [
-            "<(module_root_dir)/tradeapi/macos",
-            "<(module_root_dir)/tradeapi/macos/libs"
+            "<(module_root_dir)/tradeapi/macos"
           ],
           "libraries": [
             "libthostmduserapi_v6.6.7_MacOS_20220302.a",
-            "libthosttraderapi-v6.6.7_MacOS_20220302.a"
+            "libthosttraderapi-v6.6.7_MacOS_20220302.a",
+            "<(module_root_dir)/tradeapi/macos/libs/comunicationkeylib.a",
+            "<(module_root_dir)/tradeapi/macos/libs/libcrypto.a",
+            "<(module_root_dir)/tradeapi/macos/libs/libssl.a"
           ]
         }],
         ['OS=="win"', {
