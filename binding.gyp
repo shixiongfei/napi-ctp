@@ -3,7 +3,13 @@
     {
       "target_name": "napi_ctp",
       "sources": [
-        "./src/*.cpp"
+        "./src/binding.cpp",
+        "./src/mdapi.cpp",
+        "./src/mdspi.cpp",
+        "./src/message_queue.cpp",
+        "./src/napi_ctp.cpp",
+        "./src/traderapi.cpp",
+        "./src/traderspi.cpp"
       ],
       "include_dirs": [
         "./tradeapi"
