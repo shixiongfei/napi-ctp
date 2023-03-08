@@ -48,4 +48,14 @@ napi_status defineClass(napi_env env, const char *name,
 napi_value createInstance(napi_env env, napi_callback_info info,
                           napi_ref constructor, size_t argc);
 
+template <typename T> static inline uintptr_t copyData(T *data) {
+  T *p = (T *)malloc(sizeof(T));
+
+  if (!p)
+    return 0;
+
+  *p = *data;
+  return (uintptr_t)p;
+}
+
 #endif /* __NAPI_CTP_H__ */

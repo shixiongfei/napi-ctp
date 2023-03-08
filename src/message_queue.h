@@ -19,7 +19,7 @@ enum { QUEUE_FAILED = -1, QUEUE_TIMEOUT, QUEUE_SUCCESS };
 
 typedef struct Message {
   int event;
-  void *data;
+  uintptr_t data;
 } Message;
 
 class MessageQueue {
@@ -28,7 +28,7 @@ public:
   ~MessageQueue();
 
   void push(const Message &message);
-  int pop(Message *message, unsigned int millisec = UINT_MAX);
+  int pop(Message *message, unsigned int millisec);
 
 private:
   uv_cond_t _cond;
