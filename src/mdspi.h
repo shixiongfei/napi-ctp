@@ -15,20 +15,20 @@
 #include "message_queue.h"
 #include "napi_ctp.h"
 
-#define EM_BASE                     0x1000
-#define EM_CONNECTED                (EM_BASE + 1)
-#define EM_DISCONNECTED             (EM_BASE + 2)
-#define EM_HEARTBEATWARNING         (EM_BASE + 3)
-#define EM_USERLOGIN                (EM_BASE + 4)
-#define EM_USERLOGOUT               (EM_BASE + 5)
-#define EM_QUERYMULTICASTINSTRUMENT (EM_BASE + 6)
-#define EM_ERROR                    (EM_BASE + 7)
-#define EM_SUBMARKETDATA            (EM_BASE + 8)
-#define EM_UNSUBMARKETDATA          (EM_BASE + 9)
-#define EM_SUBFORQUOTE              (EM_BASE + 10)
-#define EM_UNSUBFORQUOTE            (EM_BASE + 11)
-#define EM_DEPTHMARKETDATA          (EM_BASE + 12)
-#define EM_FORQUOTE                 (EM_BASE + 13)
+#define EM_BASE                       0x1000
+#define EM_FRONTCONNECTED             (EM_BASE + 1)
+#define EM_FRONTDISCONNECTED          (EM_BASE + 2)
+#define EM_HEARTBEATWARNING           (EM_BASE + 3)
+#define EM_RSPUSERLOGIN               (EM_BASE + 4)
+#define EM_RSPUSERLOGOUT              (EM_BASE + 5)
+#define EM_RSPQRYMULTICASTINSTRUMENT  (EM_BASE + 6)
+#define EM_RSPERROR                   (EM_BASE + 7)
+#define EM_RSPSUBMARKETDATA           (EM_BASE + 8)
+#define EM_RSPUNSUBMARKETDATA         (EM_BASE + 9)
+#define EM_RSPSUBFORQUOTERSP          (EM_BASE + 10)
+#define EM_RSPUNSUBFORQUOTERSP        (EM_BASE + 11)
+#define EM_RTNDEPTHMARKETDATA         (EM_BASE + 12)
+#define EM_RTNFORQUOTERSP             (EM_BASE + 13)
 
 class MdSpi : public CThostFtdcMdSpi {
 public:

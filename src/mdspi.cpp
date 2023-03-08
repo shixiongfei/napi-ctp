@@ -20,12 +20,12 @@ int MdSpi::poll(Message *message, unsigned int millisec) {
 }
 
 void MdSpi::OnFrontConnected() {
-  Message msg = {EM_CONNECTED, 0};
+  Message msg = {EM_FRONTCONNECTED, 0};
   _msgq.push(msg);
 }
 
 void MdSpi::OnFrontDisconnected(int nReason) {
-  Message msg = {EM_DISCONNECTED, (uintptr_t)nReason};
+  Message msg = {EM_FRONTDISCONNECTED, (uintptr_t)nReason};
   _msgq.push(msg);
 }
 
@@ -38,7 +38,7 @@ void MdSpi::OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin, CThostFtd
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  Message msg = {EM_USERLOGIN, copyData(pRspUserLogin)};
+  Message msg = {EM_RSPUSERLOGIN, copyData(pRspUserLogin)};
   _msgq.push(msg);
 }
 
@@ -46,7 +46,7 @@ void MdSpi::OnRspUserLogout(CThostFtdcUserLogoutField *pUserLogout, CThostFtdcRs
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  Message msg = {EM_USERLOGOUT, copyData(pUserLogout)};
+  Message msg = {EM_RSPUSERLOGOUT, copyData(pUserLogout)};
   _msgq.push(msg);
 }
 
@@ -54,12 +54,12 @@ void MdSpi::OnRspQryMulticastInstrument(CThostFtdcMulticastInstrumentField *pMul
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  Message msg = {EM_QUERYMULTICASTINSTRUMENT, copyData(pMulticastInstrument)};
+  Message msg = {EM_RSPQRYMULTICASTINSTRUMENT, copyData(pMulticastInstrument)};
   _msgq.push(msg);
 }
 
 void MdSpi::OnRspError(CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-  Message msg = {EM_ERROR, copyData(pRspInfo)};
+  Message msg = {EM_RSPERROR, copyData(pRspInfo)};
   _msgq.push(msg);
 }
 
@@ -67,7 +67,7 @@ void MdSpi::OnRspSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstr
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  Message msg = {EM_SUBMARKETDATA, copyData(pSpecificInstrument)};
+  Message msg = {EM_RSPSUBMARKETDATA, copyData(pSpecificInstrument)};
   _msgq.push(msg);
 }
 
@@ -75,7 +75,7 @@ void MdSpi::OnRspUnSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificIns
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  Message msg = {EM_UNSUBMARKETDATA, copyData(pSpecificInstrument)};
+  Message msg = {EM_RSPUNSUBMARKETDATA, copyData(pSpecificInstrument)};
   _msgq.push(msg);
 }
 
@@ -83,7 +83,7 @@ void MdSpi::OnRspSubForQuoteRsp(CThostFtdcSpecificInstrumentField *pSpecificInst
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  Message msg = {EM_SUBFORQUOTE, copyData(pSpecificInstrument)};
+  Message msg = {EM_RSPSUBFORQUOTERSP, copyData(pSpecificInstrument)};
   _msgq.push(msg);
 }
 
@@ -91,17 +91,17 @@ void MdSpi::OnRspUnSubForQuoteRsp(CThostFtdcSpecificInstrumentField *pSpecificIn
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  Message msg = {EM_UNSUBFORQUOTE, copyData(pSpecificInstrument)};
+  Message msg = {EM_RSPUNSUBFORQUOTERSP, copyData(pSpecificInstrument)};
   _msgq.push(msg);
 }
 
 void MdSpi::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) {
-  Message msg = {EM_DEPTHMARKETDATA, copyData(pDepthMarketData)};
+  Message msg = {EM_RTNDEPTHMARKETDATA, copyData(pDepthMarketData)};
   _msgq.push(msg);
 }
 
 void MdSpi::OnRtnForQuoteRsp(CThostFtdcForQuoteRspField *pForQuoteRsp) {
-  Message msg = {EM_FORQUOTE, copyData(pForQuoteRsp)};
+  Message msg = {EM_RTNFORQUOTERSP, copyData(pForQuoteRsp)};
   _msgq.push(msg);
 }
 
