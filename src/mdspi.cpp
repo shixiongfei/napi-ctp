@@ -11,9 +11,30 @@
 
 #include "mdspi.h"
 
+static bool isFreeable(int event) {
+  switch(event) {
+    case EM_FRONTCONNECTED:
+    case EM_FRONTDISCONNECTED:
+    case EM_HEARTBEATWARNING:
+      return false;
+    default:
+      return true;
+  }
+}
+
 MdSpi::MdSpi() {}
 
-MdSpi::~MdSpi() {}
+MdSpi::~MdSpi() {
+  Message msg;
+
+  while (QUEUE_SUCCESS == poll(&msg, 0)) {
+    if (!isFreeable(msg.event))
+      continue;
+
+    void *data = (void *)msg.data;
+    free(data);
+  }
+}
 
 int MdSpi::poll(Message *message, unsigned int millisec) {
   return _msgq.pop(message, millisec);

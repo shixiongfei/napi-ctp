@@ -11,9 +11,30 @@
 
 #include "traderspi.h"
 
+static bool isFreeable(int event) {
+  switch(event) {
+    case ET_FRONTCONNECTED:
+    case ET_FRONTDISCONNECTED:
+    case ET_HEARTBEATWARNING:
+      return false;
+    default:
+      return true;
+  }
+}
+
 TraderSpi::TraderSpi() {}
 
-TraderSpi::~TraderSpi() {}
+TraderSpi::~TraderSpi() {
+  Message msg;
+
+  while (QUEUE_SUCCESS == poll(&msg, 0)) {
+    if (!isFreeable(msg.event))
+      continue;
+
+    void *data = (void *)msg.data;
+    free(data);
+  }
+}
 
 int TraderSpi::poll(Message *message, unsigned int millisec) {
   return _msgq.pop(message, millisec);
