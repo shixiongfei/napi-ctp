@@ -16,6 +16,7 @@
 #include "napi_ctp.h"
 
 #define EM_BASE                       0x1000
+#define EM_QUIT                       (EM_BASE + 0)
 #define EM_FRONTCONNECTED             (EM_BASE + 1)
 #define EM_FRONTDISCONNECTED          (EM_BASE + 2)
 #define EM_HEARTBEATWARNING           (EM_BASE + 3)
@@ -36,6 +37,7 @@ public:
   virtual ~MdSpi();
 
   int poll(Message *message, unsigned int millisec = UINT_MAX);
+  void quit(int nCode = 0);
 
 public:
   virtual void OnFrontConnected();

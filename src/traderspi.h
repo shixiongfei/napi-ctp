@@ -16,6 +16,7 @@
 #include "napi_ctp.h"
 
 #define ET_BASE                                     0x2000
+#define ET_QUIT                                     (ET_BASE + 0)
 #define ET_FRONTCONNECTED                           (ET_BASE + 1)
 #define ET_FRONTDISCONNECTED                        (ET_BASE + 2)
 #define ET_HEARTBEATWARNING                         (ET_BASE + 3)
@@ -153,6 +154,7 @@ public:
   virtual ~TraderSpi();
 
   int poll(Message *message, unsigned int millisec = UINT_MAX);
+  void quit(int nCode = 0);
 
 public:
   virtual void OnFrontConnected();

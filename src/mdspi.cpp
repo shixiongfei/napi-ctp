@@ -13,6 +13,7 @@
 
 static bool isFreeable(int event) {
   switch(event) {
+    case EM_QUIT:
     case EM_FRONTCONNECTED:
     case EM_FRONTDISCONNECTED:
     case EM_HEARTBEATWARNING:
@@ -38,6 +39,11 @@ MdSpi::~MdSpi() {
 
 int MdSpi::poll(Message *message, unsigned int millisec) {
   return _msgq.pop(message, millisec);
+}
+
+void MdSpi::quit(int nCode) {
+  Message msg = {EM_QUIT, (uintptr_t)nCode};
+  _msgq.push(msg);
 }
 
 void MdSpi::OnFrontConnected() {

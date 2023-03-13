@@ -13,6 +13,7 @@
 
 static bool isFreeable(int event) {
   switch(event) {
+    case ET_QUIT:
     case ET_FRONTCONNECTED:
     case ET_FRONTDISCONNECTED:
     case ET_HEARTBEATWARNING:
@@ -38,6 +39,11 @@ TraderSpi::~TraderSpi() {
 
 int TraderSpi::poll(Message *message, unsigned int millisec) {
   return _msgq.pop(message, millisec);
+}
+
+void TraderSpi::quit(int nCode) {
+  Message msg = {ET_QUIT, (uintptr_t)nCode};
+  _msgq.push(msg);
 }
 
 void TraderSpi::OnFrontConnected() {
