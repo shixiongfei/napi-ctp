@@ -28,17 +28,19 @@ TraderSpi::TraderSpi() {}
 TraderSpi::~TraderSpi() {
   Message msg;
 
-  while (QUEUE_SUCCESS == poll(&msg, 0)) {
-    if (!isFreeable(msg.event))
-      continue;
-
-    void *data = (void *)msg.data;
-    free(data);
-  }
+  while (QUEUE_SUCCESS == poll(&msg, 0))
+    done(msg);
 }
 
 int TraderSpi::poll(Message *message, unsigned int millisec) {
   return _msgq.pop(message, millisec);
+}
+
+void TraderSpi::done(Message &message) {
+  if (isFreeable(message.event))
+    free((void *)message.data);
+
+  message.data = 0;
 }
 
 void TraderSpi::quit(int nCode) {

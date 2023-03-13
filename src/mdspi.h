@@ -37,6 +37,7 @@ public:
   virtual ~MdSpi();
 
   int poll(Message *message, unsigned int millisec = UINT_MAX);
+  void done(Message &message);
   void quit(int nCode = 0);
 
 public:
