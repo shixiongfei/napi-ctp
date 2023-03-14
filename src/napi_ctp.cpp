@@ -58,12 +58,12 @@ napi_value createInstance(napi_env env, napi_callback_info info,
   assert(status == napi_ok);
 
   if (argc > 0) {
-    dynarray(napi_value, args, argc);
+    dynarray(napi_value, argv, argc);
 
-    status = napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
+    status = napi_get_cb_info(env, info, &argc, argv, nullptr, nullptr);
     assert(status == napi_ok);
 
-    status = napi_new_instance(env, cons, argc, args, &instance);
+    status = napi_new_instance(env, cons, argc, argv, &instance);
     assert(status == napi_ok);
   } else {
     status = napi_new_instance(env, cons, 0, nullptr, &instance);

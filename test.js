@@ -17,4 +17,6 @@ if (!fs.existsSync('./flowMd/')) {
 }
 const md = ctp.createMarketData('./flowMd/', 'tcp://180.168.146.187:10212')
 
+md.on('test', message => console.log(message))
+
 console.log(md.getApiVersion())
