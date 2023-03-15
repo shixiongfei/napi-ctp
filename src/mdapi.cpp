@@ -66,17 +66,32 @@ static napi_value userLogout(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
-static void processThread(void *data) {
-  MarketData *marketData = (MarketData *)data;
+static bool processMessage(MarketData *marketData, const Message &message) {
   napi_status status;
   napi_threadsafe_function tsfn;
+
+  if (EM_QUIT == message.event)
+    return false;
+
+  // tsfn = marketData->tsfns["test"];
+  // status = napi_call_threadsafe_function(tsfn, nullptr, napi_tsfn_blocking);
+  // assert(status == napi_ok);
+
+  return true;
+}
+
+static void processThread(void *data) {
+  MarketData *marketData = (MarketData *)data;
   Message message;
+  bool isRunning = true;
 
-  Sleep(3000);
+  while (isRunning) {
+    if (QUEUE_SUCCESS != marketData->spi->poll(&message))
+      continue;
 
-  tsfn = marketData->tsfns["test"];
-  status = napi_call_threadsafe_function(tsfn, nullptr, napi_tsfn_blocking);
-  assert(status == napi_ok);
+    isRunning = processMessage(marketData, message);
+    marketData->spi->done(message);
+  }
 }
 
 static void callJs(napi_env env, napi_value js_cb, void *context, void *data) {
