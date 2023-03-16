@@ -10,6 +10,25 @@
  */
 
 #include "mdspi.h"
+#include <map>
+#include <string>
+
+static const std::map<int, std::string> eventNames = {
+  {EM_QUIT,                       "quit"},
+  {EM_FRONTCONNECTED,             "front-connected"},
+  {EM_FRONTDISCONNECTED,          "front-disconnected"},
+  {EM_HEARTBEATWARNING,           "heart-beat-warning"},
+  {EM_RSPUSERLOGIN,               "user-login"},
+  {EM_RSPUSERLOGOUT,              "user-logout"},
+  {EM_RSPQRYMULTICASTINSTRUMENT,  "qry-multicast-instrument"},
+  {EM_RSPERROR,                   "error"},
+  {EM_RSPSUBMARKETDATA,           "sub-market-data"},
+  {EM_RSPUNSUBMARKETDATA,         "unsub-market-data"},
+  {EM_RSPSUBFORQUOTERSP,          "sub-for-quote"},
+  {EM_RSPUNSUBFORQUOTERSP,        "unsub-for-quote"},
+  {EM_RTNDEPTHMARKETDATA,         "depth-market-data"},
+  {EM_RTNFORQUOTERSP,             "for-quote"},
+};
 
 static bool isFreeable(int event) {
   switch(event) {
@@ -46,6 +65,15 @@ void MdSpi::done(Message &message) {
 void MdSpi::quit(int nCode) {
   Message msg = {EM_QUIT, (uintptr_t)nCode};
   _msgq.push(msg);
+}
+
+const char *MdSpi::eventName(int event) {
+  auto iter = eventNames.find(event);
+
+  if (iter == eventNames.end())
+    return nullptr;
+
+  return iter->second.c_str();
 }
 
 void MdSpi::OnFrontConnected() {

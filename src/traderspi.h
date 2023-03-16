@@ -158,6 +158,9 @@ public:
   void quit(int nCode = 0);
 
 public:
+  static const char *eventName(int event);
+
+public:
   virtual void OnFrontConnected();
   virtual void OnFrontDisconnected(int nReason);
 
