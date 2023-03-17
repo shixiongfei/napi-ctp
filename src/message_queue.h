@@ -12,15 +12,11 @@
 #ifndef __MESSAGE_QUEUE_H__
 #define __MESSAGE_QUEUE_H__
 
+#include "napi_ctp.h"
 #include <queue>
 #include <uv.h>
 
 enum { QUEUE_FAILED = -1, QUEUE_TIMEOUT, QUEUE_SUCCESS };
-
-typedef struct Message {
-  int event;
-  uintptr_t data;
-} Message;
 
 class MessageQueue {
 public:

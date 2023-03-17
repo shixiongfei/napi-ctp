@@ -10,6 +10,7 @@
  */
 
 #include "mdapi.h"
+#include "mdmsg.h"
 #include "mdspi.h"
 #include <map>
 #include <string>
@@ -67,17 +68,18 @@ static napi_value userLogout(napi_env env, napi_callback_info info) {
 }
 
 static bool processMessage(MarketData *marketData, const Message &message) {
-  napi_status status;
-  napi_threadsafe_function tsfn;
+  auto iter = marketData->tsfns.find(MdSpi::eventName(message.event));
 
-  if (EM_QUIT == message.event)
-    return false;
+  if (iter != marketData->tsfns.end()) {
+    napi_threadsafe_function tsfn = iter->second;
+    napi_status status;
 
-  // tsfn = marketData->tsfns["test"];
-  // status = napi_call_threadsafe_function(tsfn, nullptr, napi_tsfn_blocking);
-  // assert(status == napi_ok);
+    status = napi_call_threadsafe_function(tsfn, (void *)&message,
+                                           napi_tsfn_blocking);
+    assert(status == napi_ok);
+  }
 
-  return true;
+  return EM_QUIT != message.event;
 }
 
 static void processThread(void *data) {
@@ -96,13 +98,14 @@ static void processThread(void *data) {
 
 static void callJs(napi_env env, napi_value js_cb, void *context, void *data) {
   MarketData *marketData = (MarketData *)context;
+  Message *message = (Message *)data;
   napi_status status;
   napi_value undefined, argv;
 
   status = napi_get_undefined(env, &undefined);
   assert(status == napi_ok);
 
-  status = napi_create_string_utf8(env, "Message", NAPI_AUTO_LENGTH, &argv);
+  status = getMarketDataMessageValue(env, message, &argv);
   assert(status == napi_ok);
 
   status = napi_call_function(env, undefined, js_cb, 1, &argv, nullptr);

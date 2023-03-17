@@ -6,6 +6,7 @@
         "./src/binding.cpp",
         "./src/mdapi.cpp",
         "./src/mdspi.cpp",
+        "./src/mdmsg.cpp",
         "./src/message_queue.cpp",
         "./src/napi_ctp.cpp",
         "./src/traderapi.cpp",
