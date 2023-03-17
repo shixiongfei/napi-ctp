@@ -68,7 +68,14 @@ static napi_value userLogout(napi_env env, napi_callback_info info) {
 }
 
 static bool processMessage(MarketData *marketData, const Message &message) {
-  auto iter = marketData->tsfns.find(MdSpi::eventName(message.event));
+  const char *eventName = MdSpi::eventName(message.event);
+
+  if (!eventName) {
+    fprintf(stderr, "<Market Data> Unknown message event %d\n", message.event);
+    return true;
+  }
+
+  auto iter = marketData->tsfns.find(eventName);
 
   if (iter != marketData->tsfns.end()) {
     napi_threadsafe_function tsfn = iter->second;
