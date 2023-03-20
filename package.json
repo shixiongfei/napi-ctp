@@ -4,6 +4,7 @@
   "description": "Node API for CTP",
   "main": "index.js",
   "types": "index.d.ts",
+  "private": true,
   "scripts": {
     "install": "node-gyp-build",
     "prebuild": "prebuildify --napi",
