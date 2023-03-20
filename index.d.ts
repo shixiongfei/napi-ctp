@@ -9,12 +9,32 @@
  * https://github.com/shixiongfei/napi-ctp
  */
 
+export type MarketDataEvent = 'quit'
+
+export type MarketDataMessage = number
+
+export interface MarketDataFunction {
+  (message?: MarketDataMessage)
+}
+
 export declare class MarketData {
+  constructor(flowMdPath: string, frontMdAddr: string)
   getApiVersion(): string
+  on(event: MarketDataEvent, func: MarketDataFunction)
+}
+
+export type TraderEvent = 'quit'
+
+export type TraderMessage = number
+
+export interface TraderFunction {
+  (message?: TraderMessage)
 }
 
 export declare class Trader {
+  constructor(flowPath: string, frontAddr: string)
   getApiVersion(): string
+  on(event: TraderEvent, func: TraderFunction)
 }
 
 export declare function createMarketData(
