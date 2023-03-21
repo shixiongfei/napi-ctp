@@ -76,6 +76,41 @@ napi_value createInstance(napi_env env, napi_callback_info info,
   return instance;
 }
 
+napi_status checkIsStringArray(napi_env env, napi_value value, bool *result) {
+  napi_status status;
+  napi_value element;
+  napi_valuetype valuetype;
+  uint32_t length;
+  bool isArray;
+
+  status = napi_is_array(env, value, &isArray);
+  assert(status == napi_ok);
+
+  if (!isArray) {
+    *result = false;
+    return napi_ok;
+  }
+
+  status = napi_get_array_length(env, value, &length);
+  assert(status == napi_ok);
+
+  for (uint32_t i = 0; i < length; ++i) {
+    status = napi_get_element(env, value, i, &element);
+    assert(status == napi_ok);
+
+    status = napi_typeof(env, element, &valuetype);
+    assert(status == napi_ok);
+
+    if (valuetype != napi_string) {
+      *result = false;
+      return napi_ok;
+    }
+  }
+
+  *result = true;
+  return napi_ok;
+}
+
 static char *toUTF8(const char *codepage, const char *mbstr, int len,
                     char *utf8str) {
 #ifndef _WIN32

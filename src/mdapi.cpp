@@ -49,9 +49,8 @@ static napi_value subscribeMarketData(napi_env env, napi_callback_info info) {
   uint32_t length;
   int result;
   napi_value argv, jsthis, retval, element;
-  napi_valuetype valuetype;
   MarketData *marketData;
-  bool isArray;
+  bool isStringArray;
 
   status = napi_get_cb_info(env, info, &argc, &argv, &jsthis, nullptr);
   assert(status == napi_ok);
@@ -59,12 +58,11 @@ static napi_value subscribeMarketData(napi_env env, napi_callback_info info) {
   status = napi_unwrap(env, jsthis, (void **)&marketData);
   assert(status == napi_ok);
 
-  status = napi_is_array(env, argv, &isArray);
+  status = checkIsStringArray(env, argv, &isStringArray);
   assert(status == napi_ok);
 
-  if (!isArray) {
-    napi_throw_error(env, "TypeError",
-                     "The parameter should be a string array");
+  if (!isStringArray) {
+    napi_throw_error(env, "TypeError", "The parameter should be string array");
     return nullptr;
   }
 
@@ -79,20 +77,6 @@ static napi_value subscribeMarketData(napi_env env, napi_callback_info info) {
   }
 
   dynarray(char *, instrumentIds, length);
-
-  for (uint32_t i = 0; i < length; ++i) {
-    status = napi_get_element(env, argv, i, &element);
-    assert(status == napi_ok);
-
-    status = napi_typeof(env, element, &valuetype);
-    assert(status == napi_ok);
-
-    if (valuetype != napi_string) {
-      napi_throw_error(env, "TypeError",
-                       "The parameter should be a string array");
-      return nullptr;
-    }
-  }
 
   for (uint32_t i = 0; i < length; ++i) {
     status = napi_get_element(env, argv, i, &element);
