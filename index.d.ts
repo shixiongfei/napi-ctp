@@ -14,12 +14,13 @@ export type MarketDataEvent = 'quit'
 export type MarketDataMessage = number
 
 export interface MarketDataFunction {
-  (message?: MarketDataMessage)
+  (message?: MarketDataMessage): void
 }
 
 export declare class MarketData {
   constructor(flowMdPath: string, frontMdAddr: string)
   getApiVersion(): string
+  subscribeMarketData(instrumentIds: string[]): number
   on(event: MarketDataEvent, func: MarketDataFunction)
 }
 
@@ -28,7 +29,7 @@ export type TraderEvent = 'quit'
 export type TraderMessage = number
 
 export interface TraderFunction {
-  (message?: TraderMessage)
+  (message?: TraderMessage): void
 }
 
 export declare class Trader {

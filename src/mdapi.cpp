@@ -13,6 +13,7 @@
 #include "mdmsg.h"
 #include "mdspi.h"
 #include <map>
+#include <stdlib.h>
 #include <string>
 
 typedef struct MarketData {
@@ -43,7 +44,84 @@ static napi_value getApiVersion(napi_env env, napi_callback_info info) {
 }
 
 static napi_value subscribeMarketData(napi_env env, napi_callback_info info) {
-  return nullptr;
+  napi_status status;
+  size_t argc = 1, size;
+  uint32_t length;
+  int result;
+  napi_value argv, jsthis, retval, element;
+  napi_valuetype valuetype, elementType;
+  MarketData *marketData;
+  bool isArray;
+
+  status = napi_get_cb_info(env, info, &argc, &argv, &jsthis, nullptr);
+  assert(status == napi_ok);
+
+  status = napi_unwrap(env, jsthis, (void **)&marketData);
+  assert(status == napi_ok);
+
+  status = napi_typeof(env, argv, &valuetype);
+  assert(status == napi_ok);
+
+  if (valuetype != napi_object) {
+    napi_throw_error(env, "TypeError",
+                     "The parameter should be a string array");
+    return nullptr;
+  }
+
+  status = napi_is_array(env, argv, &isArray);
+  assert(status == napi_ok);
+
+  if (!isArray) {
+    napi_throw_error(env, "TypeError",
+                     "The parameter should be a string array");
+    return nullptr;
+  }
+
+  status = napi_get_array_length(env, argv, &length);
+  assert(status == napi_ok);
+
+  if (length == 0) {
+    status = napi_create_int32(env, 0, &retval);
+    assert(status == napi_ok);
+
+    return retval;
+  }
+
+  dynarray(char *, instrumentIds, length);
+
+  for (uint32_t i = 0; i < length; ++i) {
+    status = napi_get_element(env, argv, i, &element);
+    assert(status == napi_ok);
+
+    status = napi_typeof(env, element, &elementType);
+    assert(status == napi_ok);
+
+    if (elementType != napi_string) {
+      napi_throw_error(env, "TypeError",
+                       "The parameter should be a string array");
+      return nullptr;
+    }
+
+    status = napi_get_value_string_utf8(env, element, nullptr, 0, &size);
+    assert(status == napi_ok);
+
+    instrumentIds[i] = (char *)malloc(size + 1);
+    memset(instrumentIds[i], 0, size + 1);
+
+    status = napi_get_value_string_utf8(env, element, instrumentIds[i],
+                                        size + 1, &size);
+    assert(status == napi_ok);
+  }
+
+  result = marketData->api->SubscribeMarketData(instrumentIds, length);
+
+  for (uint32_t i = 0; i < length; ++i)
+    free(instrumentIds[i]);
+
+  status = napi_create_int32(env, result, &retval);
+  assert(status == napi_ok);
+
+  return retval;
 }
 
 static napi_value unsubscribeMarketData(napi_env env, napi_callback_info info) {
