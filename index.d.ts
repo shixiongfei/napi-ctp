@@ -21,7 +21,12 @@ export declare class MarketData {
   constructor(flowMdPath: string, frontMdAddr: string)
   getApiVersion(): string
   subscribeMarketData(instrumentIds: string[]): number
-  on(event: MarketDataEvent, func: MarketDataFunction)
+  unsubscribeMarketData(instrumentIds: string[]): number
+  subscribeForQuoteRsp(instrumentIds: string[]): number
+  unsubscribeForQuoteRsp(instrumentIds: string[]): number
+  userLogin(brokerId: string, userId: string, password: string): number
+  userLogout(brokerId: string, userId: string): number
+  on(event: MarketDataEvent, func: MarketDataFunction): MarketData
 }
 
 export type TraderEvent = 'quit'
@@ -35,7 +40,7 @@ export interface TraderFunction {
 export declare class Trader {
   constructor(flowPath: string, frontAddr: string)
   getApiVersion(): string
-  on(event: TraderEvent, func: TraderFunction)
+  on(event: TraderEvent, func: TraderFunction): Trader
 }
 
 export declare function createMarketData(

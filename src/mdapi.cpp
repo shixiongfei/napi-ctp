@@ -136,11 +136,109 @@ static napi_value unsubscribeForQuoteRsp(napi_env env,
 }
 
 static napi_value userLogin(napi_env env, napi_callback_info info) {
-  return nullptr;
+  napi_status status;
+  size_t argc = 3, len;
+  int result;
+  napi_value argv[3], jsthis, retval;
+  napi_valuetype valuetype;
+  MarketData *marketData;
+  CThostFtdcReqUserLoginField req = {0};
+
+  status = napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr);
+  assert(status == napi_ok);
+
+  status = napi_unwrap(env, jsthis, (void **)&marketData);
+  assert(status == napi_ok);
+
+  status = napi_typeof(env, argv[0], &valuetype);
+  assert(status == napi_ok);
+
+  if (valuetype != napi_string) {
+    napi_throw_error(env, "TypeError", "The parameter 1 should be a string");
+    return nullptr;
+  }
+
+  status = napi_typeof(env, argv[1], &valuetype);
+  assert(status == napi_ok);
+
+  if (valuetype != napi_string) {
+    napi_throw_error(env, "TypeError", "The parameter 2 should be a string");
+    return nullptr;
+  }
+
+  status = napi_typeof(env, argv[2], &valuetype);
+  assert(status == napi_ok);
+
+  if (valuetype != napi_string) {
+    napi_throw_error(env, "TypeError", "The parameter 3 should be a string");
+    return nullptr;
+  }
+
+  status = napi_get_value_string_utf8(env, argv[0], req.BrokerID,
+                                      sizeof(req.BrokerID), &len);
+  assert(status == napi_ok);
+
+  status = napi_get_value_string_utf8(env, argv[1], req.UserID,
+                                      sizeof(req.UserID), &len);
+  assert(status == napi_ok);
+
+  status = napi_get_value_string_utf8(env, argv[2], req.Password,
+                                      sizeof(req.Password), &len);
+  assert(status == napi_ok);
+
+  result = marketData->api->ReqUserLogin(&req, sequenceId());
+
+  status = napi_create_int32(env, result, &retval);
+  assert(status == napi_ok);
+
+  return retval;
 }
 
 static napi_value userLogout(napi_env env, napi_callback_info info) {
-  return nullptr;
+  napi_status status;
+  size_t argc = 2, len;
+  int result;
+  napi_value argv[2], jsthis, retval;
+  napi_valuetype valuetype;
+  MarketData *marketData;
+  CThostFtdcUserLogoutField req = {0};
+
+  status = napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr);
+  assert(status == napi_ok);
+
+  status = napi_unwrap(env, jsthis, (void **)&marketData);
+  assert(status == napi_ok);
+
+  status = napi_typeof(env, argv[0], &valuetype);
+  assert(status == napi_ok);
+
+  if (valuetype != napi_string) {
+    napi_throw_error(env, "TypeError", "The parameter 1 should be a string");
+    return nullptr;
+  }
+
+  status = napi_typeof(env, argv[1], &valuetype);
+  assert(status == napi_ok);
+
+  if (valuetype != napi_string) {
+    napi_throw_error(env, "TypeError", "The parameter 2 should be a string");
+    return nullptr;
+  }
+
+  status = napi_get_value_string_utf8(env, argv[0], req.BrokerID,
+                                      sizeof(req.BrokerID), &len);
+  assert(status == napi_ok);
+
+  status = napi_get_value_string_utf8(env, argv[1], req.UserID,
+                                      sizeof(req.UserID), &len);
+  assert(status == napi_ok);
+
+  result = marketData->api->ReqUserLogout(&req, sequenceId());
+
+  status = napi_create_int32(env, result, &retval);
+  assert(status == napi_ok);
+
+  return retval;
 }
 
 static bool processMessage(MarketData *marketData, const Message &message) {
