@@ -142,7 +142,7 @@ static napi_value userLogin(napi_env env, napi_callback_info info) {
   napi_value argv[3], jsthis, retval;
   napi_valuetype valuetype;
   MarketData *marketData;
-  CThostFtdcReqUserLoginField req = {0};
+  CThostFtdcReqUserLoginField req;
 
   status = napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr);
   assert(status == napi_ok);
@@ -174,6 +174,8 @@ static napi_value userLogin(napi_env env, napi_callback_info info) {
     return nullptr;
   }
 
+  memset(&req, 0, sizeof(req));
+
   status = napi_get_value_string_utf8(env, argv[0], req.BrokerID,
                                       sizeof(req.BrokerID), &len);
   assert(status == napi_ok);
@@ -201,7 +203,7 @@ static napi_value userLogout(napi_env env, napi_callback_info info) {
   napi_value argv[2], jsthis, retval;
   napi_valuetype valuetype;
   MarketData *marketData;
-  CThostFtdcUserLogoutField req = {0};
+  CThostFtdcUserLogoutField req;
 
   status = napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr);
   assert(status == napi_ok);
@@ -224,6 +226,8 @@ static napi_value userLogout(napi_env env, napi_callback_info info) {
     napi_throw_error(env, "TypeError", "The parameter 2 should be a string");
     return nullptr;
   }
+
+  memset(&req, 0, sizeof(req));
 
   status = napi_get_value_string_utf8(env, argv[0], req.BrokerID,
                                       sizeof(req.BrokerID), &len);
@@ -278,7 +282,7 @@ static void processThread(void *data) {
 }
 
 static void callJs(napi_env env, napi_value js_cb, void *context, void *data) {
-  MarketData *marketData = (MarketData *)context;
+  // MarketData *marketData = (MarketData *)context;
   Message *message = (Message *)data;
   napi_status status;
   napi_value undefined, argv;

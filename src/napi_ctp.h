@@ -74,19 +74,19 @@ napi_status objectSetDouble(napi_env env, napi_value object, const char *name,
                             double number);
 
 #define ObjectString(env, object, record, name)                                \
-  objectSetString(env, object, #name, (const char *)record->##name)
+  objectSetString(env, object, #name, (const char *)record->name)
 
 #define ObjectInt32(env, object, record, name)                                 \
-  objectSetInt32(env, object, #name, record->##name)
+  objectSetInt32(env, object, #name, record->name)
 
 #define ObjectUint32(env, object, record, name)                                \
-  objectSetUint32(env, object, #name, record->##name)
+  objectSetUint32(env, object, #name, record->name)
 
 #define ObjectInt64(env, object, record, name)                                 \
-  objectSetInt64(env, object, #name, record->##name)
+  objectSetInt64(env, object, #name, record->name)
 
 #define ObjectDouble(env, object, record, name)                                \
-  objectSetDouble(env, object, #name, record->##name)
+  objectSetDouble(env, object, #name, record->name)
 
 template <typename T> static inline uintptr_t copyData(T *data) {
   T *p = (T *)malloc(sizeof(T));
