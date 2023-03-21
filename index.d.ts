@@ -9,7 +9,26 @@
  * https://github.com/shixiongfei/napi-ctp
  */
 
-export type MarketDataEvent = 'quit'
+export enum MarketDataEvent {
+  // message = code: number
+  Quit = 'quit',
+  // message = undefined
+  FrontConnected = 'front-connected',
+  // message = reason: number
+  FrontDisconnected = 'front-disconnected',
+  // message = timeLapse: number
+  HeartBeatWarning = 'heart-beat-warning',
+  UserLogin = 'user-login',
+  UserLogout = 'user-logout',
+  QryMulticastInstrument = 'qry-multicast-instrument',
+  Error = 'error',
+  SubMarketData = 'sub-market-data',
+  UnSubMarketData = 'unsub-market-data',
+  SubForQuote = 'sub-for-quote',
+  UnSubForQuote = 'unsub-for-quote',
+  DepthMarketData = 'depth-market-data',
+  ForQuote = 'for-quote'
+}
 
 export type MarketDataMessage = number
 
@@ -29,7 +48,16 @@ export declare class MarketData {
   on(event: MarketDataEvent, func: MarketDataFunction): MarketData
 }
 
-export type TraderEvent = 'quit'
+export enum TraderEvent {
+  // message = code: number
+  Quit = 'quit',
+  // message = undefined
+  FrontConnected = 'front-connected',
+  // message = reason: number
+  FrontDisconnected = 'front-disconnected',
+  // message = timeLapse: number
+  HeartBeatWarning = 'heart-beat-warning'
+}
 
 export type TraderMessage = number
 
