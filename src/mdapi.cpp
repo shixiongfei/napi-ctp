@@ -49,7 +49,7 @@ static napi_value subscribeMarketData(napi_env env, napi_callback_info info) {
   uint32_t length;
   int result;
   napi_value argv, jsthis, retval, element;
-  napi_valuetype valuetype, elementType;
+  napi_valuetype valuetype;
   MarketData *marketData;
   bool isArray;
 
@@ -58,15 +58,6 @@ static napi_value subscribeMarketData(napi_env env, napi_callback_info info) {
 
   status = napi_unwrap(env, jsthis, (void **)&marketData);
   assert(status == napi_ok);
-
-  status = napi_typeof(env, argv, &valuetype);
-  assert(status == napi_ok);
-
-  if (valuetype != napi_object) {
-    napi_throw_error(env, "TypeError",
-                     "The parameter should be a string array");
-    return nullptr;
-  }
 
   status = napi_is_array(env, argv, &isArray);
   assert(status == napi_ok);
@@ -93,10 +84,10 @@ static napi_value subscribeMarketData(napi_env env, napi_callback_info info) {
     status = napi_get_element(env, argv, i, &element);
     assert(status == napi_ok);
 
-    status = napi_typeof(env, element, &elementType);
+    status = napi_typeof(env, element, &valuetype);
     assert(status == napi_ok);
 
-    if (elementType != napi_string) {
+    if (valuetype != napi_string) {
       napi_throw_error(env, "TypeError",
                        "The parameter should be a string array");
       return nullptr;
