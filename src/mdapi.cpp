@@ -101,6 +101,11 @@ static napi_value subscribeMarketData(napi_env env, napi_callback_info info) {
                        "The parameter should be a string array");
       return nullptr;
     }
+  }
+
+  for (uint32_t i = 0; i < length; ++i) {
+    status = napi_get_element(env, argv, i, &element);
+    assert(status == napi_ok);
 
     status = napi_get_value_string_utf8(env, element, nullptr, 0, &size);
     assert(status == napi_ok);
