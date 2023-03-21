@@ -43,7 +43,9 @@ static napi_value getApiVersion(napi_env env, napi_callback_info info) {
   return version;
 }
 
-static napi_value subscribeMarketData(napi_env env, napi_callback_info info) {
+static napi_value callInstrumentIdsFunc(napi_env env, napi_callback_info info,
+                                        int (*func)(MarketData *marketData,
+                                                    char **ids, int count)) {
   napi_status status;
   size_t argc = 1, size;
   uint32_t length;
@@ -93,7 +95,7 @@ static napi_value subscribeMarketData(napi_env env, napi_callback_info info) {
     assert(status == napi_ok);
   }
 
-  result = marketData->api->SubscribeMarketData(instrumentIds, length);
+  result = func(marketData, instrumentIds, length);
 
   for (uint32_t i = 0; i < length; ++i)
     free(instrumentIds[i]);
@@ -104,17 +106,33 @@ static napi_value subscribeMarketData(napi_env env, napi_callback_info info) {
   return retval;
 }
 
+static napi_value subscribeMarketData(napi_env env, napi_callback_info info) {
+  return callInstrumentIdsFunc(
+      env, info, [](MarketData *marketData, char **instrumentIds, int count) {
+        return marketData->api->SubscribeMarketData(instrumentIds, count);
+      });
+}
+
 static napi_value unsubscribeMarketData(napi_env env, napi_callback_info info) {
-  return nullptr;
+  return callInstrumentIdsFunc(
+      env, info, [](MarketData *marketData, char **instrumentIds, int count) {
+        return marketData->api->UnSubscribeMarketData(instrumentIds, count);
+      });
 }
 
 static napi_value subscribeForQuoteRsp(napi_env env, napi_callback_info info) {
-  return nullptr;
+  return callInstrumentIdsFunc(
+      env, info, [](MarketData *marketData, char **instrumentIds, int count) {
+        return marketData->api->SubscribeForQuoteRsp(instrumentIds, count);
+      });
 }
 
 static napi_value unsubscribeForQuoteRsp(napi_env env,
                                          napi_callback_info info) {
-  return nullptr;
+  return callInstrumentIdsFunc(
+      env, info, [](MarketData *marketData, char **instrumentIds, int count) {
+        return marketData->api->UnSubscribeForQuoteRsp(instrumentIds, count);
+      });
 }
 
 static napi_value userLogin(napi_env env, napi_callback_info info) {
