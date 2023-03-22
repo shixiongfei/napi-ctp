@@ -10,15 +10,386 @@
  */
 
 #include "traderapi.h"
+#include "traderspi.h"
+#include <map>
+#include <stdlib.h>
+#include <string>
 
 typedef struct Trader {
   napi_env env;
   napi_ref wrapper;
+  uv_thread_t thread;
+  TraderSpi *spi;
+  CThostFtdcTraderApi *api;
+  std::map<std::string, napi_threadsafe_function> tsfns;
 } Trader;
 
 static napi_value getApiVersion(napi_env env, napi_callback_info info) {
   return nullptr;
 }
+
+static napi_value authenticate(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value tradingAccountPasswordUpdate(napi_env env,
+                                               napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value userAuthMethod(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value genUserCaptcha(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value genUserText(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value userLoginWithCaptcha(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value userLoginWithText(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value userLoginWithOTP(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value orderInsert(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value parkedOrderInsert(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value parkedOrderAction(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value orderAction(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryMaxOrderVolume(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value settlementInfoConfirm(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value removeParkedOrder(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value removeParkedOrderAction(napi_env env,
+                                          napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value execOrderInsert(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value execOrderAction(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value forQuoteInsert(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value quoteInsert(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value quoteAction(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value batchOrderAction(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value optionSelfCloseInsert(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value optionSelfCloseAction(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value combActionInsert(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryOrder(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryTrade(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryInvestorPosition(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryTradingAccount(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryInvestor(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryTradingCode(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryInstrumentMarginRate(napi_env env,
+                                          napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryInstrumentCommissionRate(napi_env env,
+                                              napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryExchange(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryProduct(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryInstrument(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryDepthMarketData(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryTraderOffer(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qrySettlementInfo(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryTransferBank(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryInvestorPositionDetail(napi_env env,
+                                            napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryNotice(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qrySettlementInfoConfirm(napi_env env,
+                                           napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryInvestorPositionCombineDetail(napi_env env,
+                                                   napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryCFMMCTradingAccountKey(napi_env env,
+                                            napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryEWarrantOffset(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryInvestorProductGroupMargin(napi_env env,
+                                                napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryExchangeMarginRate(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryExchangeMarginRateAdjust(napi_env env,
+                                              napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryExchangeRate(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qrySecAgentACIDMap(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryProductExchRate(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryProductGroup(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryMMInstrumentCommissionRate(napi_env env,
+                                                napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryMMOptionInstrCommRate(napi_env env,
+                                           napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryInstrumentOrderCommRate(napi_env env,
+                                             napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qrySecAgentTradingAccount(napi_env env,
+                                            napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qrySecAgentCheckMode(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qrySecAgentTradeInfo(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryOptionInstrTradeCost(napi_env env,
+                                          napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryOptionInstrCommRate(napi_env env,
+                                         napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryExecOrder(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryForQuote(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryQuote(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryOptionSelfClose(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryInvestUnit(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryCombInstrumentGuard(napi_env env,
+                                         napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryCombAction(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryTransferSerial(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryAccountregister(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryContractBank(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryParkedOrder(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryParkedOrderAction(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryTradingNotice(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryBrokerTradingParams(napi_env env,
+                                         napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryBrokerTradingAlgos(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value queryCFMMCTradingAccountToken(napi_env env,
+                                                napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value fromBankToFutureByFuture(napi_env env,
+                                           napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value fromFutureToBankByFuture(napi_env env,
+                                           napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value queryBankAccountMoneyByFuture(napi_env env,
+                                                napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryClassifiedInstrument(napi_env env,
+                                          napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryCombPromotionParam(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryRiskSettleInvstPosition(napi_env env,
+                                             napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value qryRiskSettleProductStatus(napi_env env,
+                                             napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value on(napi_env env, napi_callback_info info) { return nullptr; }
 
 static void traderDestructor(napi_env env, void *data, void *hint) {}
 
@@ -29,6 +400,91 @@ static napi_value traderNew(napi_env env, napi_callback_info info) {
 napi_status defineTrader(napi_env env, napi_ref *constructor) {
   napi_property_descriptor props[] = {
       DECLARE_NAPI_METHOD(getApiVersion),
+      DECLARE_NAPI_METHOD(authenticate),
+      DECLARE_NAPI_METHOD(tradingAccountPasswordUpdate),
+      DECLARE_NAPI_METHOD(userAuthMethod),
+      DECLARE_NAPI_METHOD(genUserCaptcha),
+      DECLARE_NAPI_METHOD(genUserText),
+      DECLARE_NAPI_METHOD(userLoginWithCaptcha),
+      DECLARE_NAPI_METHOD(userLoginWithText),
+      DECLARE_NAPI_METHOD(userLoginWithOTP),
+      DECLARE_NAPI_METHOD(orderInsert),
+      DECLARE_NAPI_METHOD(parkedOrderInsert),
+      DECLARE_NAPI_METHOD(parkedOrderAction),
+      DECLARE_NAPI_METHOD(orderAction),
+      DECLARE_NAPI_METHOD(qryMaxOrderVolume),
+      DECLARE_NAPI_METHOD(settlementInfoConfirm),
+      DECLARE_NAPI_METHOD(removeParkedOrder),
+      DECLARE_NAPI_METHOD(removeParkedOrderAction),
+      DECLARE_NAPI_METHOD(execOrderInsert),
+      DECLARE_NAPI_METHOD(execOrderAction),
+      DECLARE_NAPI_METHOD(forQuoteInsert),
+      DECLARE_NAPI_METHOD(quoteInsert),
+      DECLARE_NAPI_METHOD(quoteAction),
+      DECLARE_NAPI_METHOD(batchOrderAction),
+      DECLARE_NAPI_METHOD(optionSelfCloseInsert),
+      DECLARE_NAPI_METHOD(optionSelfCloseAction),
+      DECLARE_NAPI_METHOD(combActionInsert),
+      DECLARE_NAPI_METHOD(qryOrder),
+      DECLARE_NAPI_METHOD(qryTrade),
+      DECLARE_NAPI_METHOD(qryInvestorPosition),
+      DECLARE_NAPI_METHOD(qryTradingAccount),
+      DECLARE_NAPI_METHOD(qryInvestor),
+      DECLARE_NAPI_METHOD(qryTradingCode),
+      DECLARE_NAPI_METHOD(qryInstrumentMarginRate),
+      DECLARE_NAPI_METHOD(qryInstrumentCommissionRate),
+      DECLARE_NAPI_METHOD(qryExchange),
+      DECLARE_NAPI_METHOD(qryProduct),
+      DECLARE_NAPI_METHOD(qryInstrument),
+      DECLARE_NAPI_METHOD(qryDepthMarketData),
+      DECLARE_NAPI_METHOD(qryTraderOffer),
+      DECLARE_NAPI_METHOD(qrySettlementInfo),
+      DECLARE_NAPI_METHOD(qryTransferBank),
+      DECLARE_NAPI_METHOD(qryInvestorPositionDetail),
+      DECLARE_NAPI_METHOD(qryNotice),
+      DECLARE_NAPI_METHOD(qrySettlementInfoConfirm),
+      DECLARE_NAPI_METHOD(qryInvestorPositionCombineDetail),
+      DECLARE_NAPI_METHOD(qryCFMMCTradingAccountKey),
+      DECLARE_NAPI_METHOD(qryEWarrantOffset),
+      DECLARE_NAPI_METHOD(qryInvestorProductGroupMargin),
+      DECLARE_NAPI_METHOD(qryExchangeMarginRate),
+      DECLARE_NAPI_METHOD(qryExchangeMarginRateAdjust),
+      DECLARE_NAPI_METHOD(qryExchangeRate),
+      DECLARE_NAPI_METHOD(qrySecAgentACIDMap),
+      DECLARE_NAPI_METHOD(qryProductExchRate),
+      DECLARE_NAPI_METHOD(qryProductGroup),
+      DECLARE_NAPI_METHOD(qryMMInstrumentCommissionRate),
+      DECLARE_NAPI_METHOD(qryMMOptionInstrCommRate),
+      DECLARE_NAPI_METHOD(qryInstrumentOrderCommRate),
+      DECLARE_NAPI_METHOD(qrySecAgentTradingAccount),
+      DECLARE_NAPI_METHOD(qrySecAgentCheckMode),
+      DECLARE_NAPI_METHOD(qrySecAgentTradeInfo),
+      DECLARE_NAPI_METHOD(qryOptionInstrTradeCost),
+      DECLARE_NAPI_METHOD(qryOptionInstrCommRate),
+      DECLARE_NAPI_METHOD(qryExecOrder),
+      DECLARE_NAPI_METHOD(qryForQuote),
+      DECLARE_NAPI_METHOD(qryQuote),
+      DECLARE_NAPI_METHOD(qryOptionSelfClose),
+      DECLARE_NAPI_METHOD(qryInvestUnit),
+      DECLARE_NAPI_METHOD(qryCombInstrumentGuard),
+      DECLARE_NAPI_METHOD(qryCombAction),
+      DECLARE_NAPI_METHOD(qryTransferSerial),
+      DECLARE_NAPI_METHOD(qryAccountregister),
+      DECLARE_NAPI_METHOD(qryContractBank),
+      DECLARE_NAPI_METHOD(qryParkedOrder),
+      DECLARE_NAPI_METHOD(qryParkedOrderAction),
+      DECLARE_NAPI_METHOD(qryTradingNotice),
+      DECLARE_NAPI_METHOD(qryBrokerTradingParams),
+      DECLARE_NAPI_METHOD(qryBrokerTradingAlgos),
+      DECLARE_NAPI_METHOD(queryCFMMCTradingAccountToken),
+      DECLARE_NAPI_METHOD(fromBankToFutureByFuture),
+      DECLARE_NAPI_METHOD(fromFutureToBankByFuture),
+      DECLARE_NAPI_METHOD(queryBankAccountMoneyByFuture),
+      DECLARE_NAPI_METHOD(qryClassifiedInstrument),
+      DECLARE_NAPI_METHOD(qryCombPromotionParam),
+      DECLARE_NAPI_METHOD(qryRiskSettleInvstPosition),
+      DECLARE_NAPI_METHOD(qryRiskSettleProductStatus),
+      DECLARE_NAPI_METHOD(on),
   };
   return defineClass(env, "Trader", traderNew, arraysize(props), props,
                      constructor);
