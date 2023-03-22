@@ -9,6 +9,109 @@
  * https://github.com/shixiongfei/napi-ctp
  */
 
+export interface UserLoginMessage {
+  TradingDay: string
+  LoginTime: string
+  BrokerID: string
+  UserID: string
+  SystemName: string
+  FrontID: number
+  SessionID: number
+  MaxOrderRef: string
+  SHFETime: string
+  DCETime: string
+  CZCETime: string
+  FFEXTime: string
+  INETime: string
+  SysVersion: string
+}
+
+export interface UserLogoutMessage {
+  BrokerID: string
+  UserID: string
+}
+
+export interface MulticastInstrumentMessage {
+  TopicID: number
+  reserve1: string
+  InstrumentNo: number
+  CodePrice: number
+  VolumeMultiple: number
+  PriceTick: number
+  InstrumentID: string
+}
+
+export interface ErrorMessage {
+  ErrorID: number
+  ErrorMsg: string
+}
+
+export interface SpecificInstrumentMessage {
+  reserve1: string
+  InstrumentID: string
+}
+
+export interface DepthMarketDataMessage {
+  TradingDay: string
+  reserve1: string
+  ExchangeID: string
+  reserve2: string
+  LastPrice: number
+  PreSettlementPrice: number
+  PreClosePrice: number
+  PreOpenInterest: number
+  OpenPrice: number
+  HighestPrice: number
+  LowestPrice: number
+  Volume: number
+  Turnover: number
+  OpenInterest: number
+  ClosePrice: number
+  SettlementPrice: number
+  UpperLimitPrice: number
+  LowerLimitPrice: number
+  PreDelta: number
+  CurrDelta: number
+  UpdateTime: string
+  UpdateMillisec: number
+  BidPrice1: number
+  BidVolume1: number
+  AskPrice1: number
+  AskVolume1: number
+  BidPrice2: number
+  BidVolume2: number
+  AskPrice2: number
+  AskVolume2: number
+  BidPrice3: number
+  BidVolume3: number
+  AskPrice3: number
+  AskVolume3: number
+  BidPrice4: number
+  BidVolume4: number
+  AskPrice4: number
+  AskVolume4: number
+  BidPrice5: number
+  BidVolume5: number
+  AskPrice5: number
+  AskVolume5: number
+  AveragePrice: number
+  ActionDay: string
+  InstrumentID: string
+  ExchangeInstID: string
+  BandingUpperPrice: number
+  BandingLowerPrice: number
+}
+
+export interface ForQuoteMessage {
+  TradingDay: string
+  reserve1: string
+  ForQuoteSysID: string
+  ForQuoteTime: string
+  ActionDay: string
+  ExchangeID: string
+  InstrumentID: string
+}
+
 export enum MarketDataEvent {
   // message = code: number
   Quit = 'quit',
@@ -18,19 +121,37 @@ export enum MarketDataEvent {
   FrontDisconnected = 'front-disconnected',
   // message = timeLapse: number
   HeartBeatWarning = 'heart-beat-warning',
+  // message = userLogin: UserLoginMessage
   UserLogin = 'user-login',
+  // message = userLogout: UserLogoutMessage
   UserLogout = 'user-logout',
+  // message = multicastInstrument: MulticastInstrumentMessage
   QryMulticastInstrument = 'qry-multicast-instrument',
+  // message = error: ErrorMessage
   Error = 'error',
+  // message = specificInstrument: SpecificInstrumentMessage
   SubMarketData = 'sub-market-data',
+  // message = specificInstrument: SpecificInstrumentMessage
   UnSubMarketData = 'unsub-market-data',
+  // message = specificInstrument: SpecificInstrumentMessage
   SubForQuote = 'sub-for-quote',
+  // message = specificInstrument: SpecificInstrumentMessage
   UnSubForQuote = 'unsub-for-quote',
+  // message = depthMarketData: DepthMarketDataMessage
   DepthMarketData = 'depth-market-data',
+  // message = forQuote: ForQuoteMessage
   ForQuote = 'for-quote'
 }
 
-export type MarketDataMessage = number
+export type MarketDataMessage =
+  | number
+  | UserLoginMessage
+  | UserLogoutMessage
+  | MulticastInstrumentMessage
+  | ErrorMessage
+  | SpecificInstrumentMessage
+  | DepthMarketDataMessage
+  | ForQuoteMessage
 
 export interface MarketDataFunction {
   (message?: MarketDataMessage): void
