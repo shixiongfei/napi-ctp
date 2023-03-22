@@ -32,6 +32,18 @@ static napi_value authenticate(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
+static napi_value userLogin(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value userLogout(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
+static napi_value userPasswordUpdate(napi_env env, napi_callback_info info) {
+  return nullptr;
+}
+
 static napi_value tradingAccountPasswordUpdate(napi_env env,
                                                napi_callback_info info) {
   return nullptr;
@@ -401,6 +413,9 @@ napi_status defineTrader(napi_env env, napi_ref *constructor) {
   napi_property_descriptor props[] = {
       DECLARE_NAPI_METHOD(getApiVersion),
       DECLARE_NAPI_METHOD(authenticate),
+      DECLARE_NAPI_METHOD(userLogin),
+      DECLARE_NAPI_METHOD(userLogout),
+      DECLARE_NAPI_METHOD(userPasswordUpdate),
       DECLARE_NAPI_METHOD(tradingAccountPasswordUpdate),
       DECLARE_NAPI_METHOD(userAuthMethod),
       DECLARE_NAPI_METHOD(genUserCaptcha),
