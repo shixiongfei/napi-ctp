@@ -401,12 +401,154 @@ static napi_value qryRiskSettleProductStatus(napi_env env,
   return nullptr;
 }
 
+static bool processMessage(Trader *trader, const Message &message) {
+  const char *eventName = TraderSpi::eventName(message.event);
+
+  if (!eventName) {
+    fprintf(stderr, "<Trader> Unknown message event %d\n", message.event);
+    return true;
+  }
+
+  auto iter = trader->tsfns.find(eventName);
+
+  if (iter != trader->tsfns.end()) {
+    napi_threadsafe_function tsfn = iter->second;
+    napi_status status;
+
+    status = napi_call_threadsafe_function(tsfn, (void *)&message,
+                                           napi_tsfn_blocking);
+    assert(status == napi_ok);
+  }
+
+  return ET_QUIT != message.event;
+}
+
+static void processThread(void *data) {
+  Trader *trader = (Trader *)data;
+  Message message;
+  bool isRunning = true;
+
+  while (isRunning) {
+    if (QUEUE_SUCCESS != trader->spi->poll(&message))
+      continue;
+
+    isRunning = processMessage(trader, message);
+    trader->spi->done(message);
+  }
+}
+
 static napi_value on(napi_env env, napi_callback_info info) { return nullptr; }
 
-static void traderDestructor(napi_env env, void *data, void *hint) {}
+static void traderDestructor(napi_env env, void *data, void *hint) {
+  Trader *trader = (Trader *)data;
+
+  if (!trader)
+    return;
+
+  for (auto it = trader->tsfns.begin(); it != trader->tsfns.end(); ++it)
+    napi_unref_threadsafe_function(env, it->second);
+
+  trader->tsfns.clear();
+
+  if (trader->spi) {
+    trader->spi->quit();
+    uv_thread_join(&trader->thread);
+    delete trader->spi;
+  }
+
+  if (trader->api)
+    trader->api->Release();
+
+  napi_delete_reference(trader->env, trader->wrapper);
+  delete trader;
+}
 
 static napi_value traderNew(napi_env env, napi_callback_info info) {
-  return nullptr;
+  napi_status status;
+  napi_value target, argv[2], jsthis;
+  napi_valuetype valuetype;
+  size_t argc = 2, bytes;
+  Trader *trader;
+  char flowPath[260], frontAddr[64];
+
+  status = napi_get_new_target(env, info, &target);
+  assert(status == napi_ok);
+
+  if (!target)
+    return nullptr;
+
+  status = napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr);
+  assert(status == napi_ok);
+
+  status = napi_typeof(env, argv[0], &valuetype);
+  assert(status == napi_ok);
+
+  if (valuetype != napi_string) {
+    napi_throw_error(env, "TypeError", "The parameter 1 should be a string");
+    return nullptr;
+  }
+
+  status = napi_typeof(env, argv[1], &valuetype);
+  assert(status == napi_ok);
+
+  if (valuetype != napi_string) {
+    napi_throw_error(env, "TypeError", "The parameter 2 should be a string");
+    return nullptr;
+  }
+
+  status = napi_get_value_string_utf8(env, argv[0], flowPath, sizeof(flowPath),
+                                      &bytes);
+  assert(status == napi_ok);
+
+  status = napi_get_value_string_utf8(env, argv[1], frontAddr,
+                                      sizeof(frontAddr), &bytes);
+  assert(status == napi_ok);
+
+  trader = new Trader();
+
+  if (!trader) {
+    napi_throw_error(env, "OutOfMemory", "Trader is out of memory");
+    return nullptr;
+  }
+
+  trader->spi = new TraderSpi();
+
+  if (!trader->spi) {
+    delete trader;
+    napi_throw_error(env, "OutOfMemory", "Trader is out of memory");
+    return nullptr;
+  }
+
+  if (0 != uv_thread_create(&trader->thread, processThread, trader)) {
+    delete trader->spi;
+    delete trader;
+    napi_throw_error(env, "ThreadError", "Trader can not create thread");
+    return nullptr;
+  }
+
+  trader->api = CThostFtdcTraderApi::CreateFtdcTraderApi(flowPath);
+
+  if (!trader->api) {
+    trader->spi->quit();
+    uv_thread_join(&trader->thread);
+    delete trader->spi;
+    delete trader;
+    napi_throw_error(env, "OutOfMemory", "Trader is out of memory");
+    return nullptr;
+  }
+
+  trader->api->RegisterSpi(trader->spi);
+  trader->api->SubscribePublicTopic(THOST_TERT_QUICK);
+  trader->api->SubscribePrivateTopic(THOST_TERT_QUICK);
+  trader->api->RegisterFront(frontAddr);
+  trader->api->Init();
+
+  trader->env = env;
+  status = napi_wrap(env, jsthis, (void *)trader, traderDestructor, nullptr,
+                     &trader->wrapper);
+  assert(status == napi_ok);
+
+  return jsthis;
 }
 
 napi_status defineTrader(napi_env env, napi_ref *constructor) {
