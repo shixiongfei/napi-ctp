@@ -4,6 +4,7 @@
       "target_name": "napi_ctp",
       "sources": [
         "./src/binding.cpp",
+        "./src/ctpmsg.cpp",
         "./src/mdapi.cpp",
         "./src/mdspi.cpp",
         "./src/mdmsg.cpp",

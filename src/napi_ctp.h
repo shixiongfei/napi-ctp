@@ -37,9 +37,6 @@ typedef struct Message {
 
 #define arraysize(a) ((int)(sizeof(a) / sizeof(*a)))
 
-typedef napi_status (*MessageValueFunc)(napi_env env, const Message *message,
-                                        napi_value *result);
-
 #define DECLARE_NAPI_METHOD_(name, method)                                     \
   { name, 0, method, 0, 0, 0, napi_default, 0 }
 #define DECLARE_NAPI_METHOD(method) DECLARE_NAPI_METHOD_(#method, method)
@@ -47,31 +44,16 @@ typedef napi_status (*MessageValueFunc)(napi_env env, const Message *message,
 int sequenceId();
 
 Constructors *getConstructors(napi_env env);
-
-napi_status defineClass(napi_env env, const char *name,
-                        napi_callback constructor, size_t propertyCount,
-                        const napi_property_descriptor *properties,
-                        napi_ref *result);
-
-napi_value createInstance(napi_env env, napi_callback_info info,
-                          napi_ref constructor, size_t argc);
+napi_status defineClass(napi_env env, const char *name, napi_callback constructor, size_t propertyCount, const napi_property_descriptor *properties, napi_ref *result);
+napi_value createInstance(napi_env env, napi_callback_info info, napi_ref constructor, size_t argc);
 
 napi_status checkIsStringArray(napi_env env, napi_value value, bool *result);
 
-napi_status objectSetString(napi_env env, napi_value object, const char *name,
-                            const char *string);
-
-napi_status objectSetInt32(napi_env env, napi_value object, const char *name,
-                           int32_t number);
-
-napi_status objectSetUint32(napi_env env, napi_value object, const char *name,
-                            uint32_t number);
-
-napi_status objectSetInt64(napi_env env, napi_value object, const char *name,
-                           int64_t number);
-
-napi_status objectSetDouble(napi_env env, napi_value object, const char *name,
-                            double number);
+napi_status objectSetString(napi_env env, napi_value object, const char *name, const char *string);
+napi_status objectSetInt32(napi_env env, napi_value object, const char *name, int32_t number);
+napi_status objectSetUint32(napi_env env, napi_value object, const char *name, uint32_t number);
+napi_status objectSetInt64(napi_env env, napi_value object, const char *name, int64_t number);
+napi_status objectSetDouble(napi_env env, napi_value object, const char *name, double number);
 
 #define ObjectString(env, object, record, name)                                \
   objectSetString(env, object, #name, (const char *)record->name)

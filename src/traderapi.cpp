@@ -45,8 +45,7 @@ static napi_value userPasswordUpdate(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
-static napi_value tradingAccountPasswordUpdate(napi_env env,
-                                               napi_callback_info info) {
+static napi_value tradingAccountPasswordUpdate(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
@@ -102,8 +101,7 @@ static napi_value removeParkedOrder(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
-static napi_value removeParkedOrderAction(napi_env env,
-                                          napi_callback_info info) {
+static napi_value removeParkedOrderAction(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
@@ -167,13 +165,11 @@ static napi_value qryTradingCode(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
-static napi_value qryInstrumentMarginRate(napi_env env,
-                                          napi_callback_info info) {
+static napi_value qryInstrumentMarginRate(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
-static napi_value qryInstrumentCommissionRate(napi_env env,
-                                              napi_callback_info info) {
+static napi_value qryInstrumentCommissionRate(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
@@ -205,8 +201,7 @@ static napi_value qryTransferBank(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
-static napi_value qryInvestorPositionDetail(napi_env env,
-                                            napi_callback_info info) {
+static napi_value qryInvestorPositionDetail(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
@@ -214,18 +209,15 @@ static napi_value qryNotice(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
-static napi_value qrySettlementInfoConfirm(napi_env env,
-                                           napi_callback_info info) {
+static napi_value qrySettlementInfoConfirm(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
-static napi_value qryInvestorPositionCombineDetail(napi_env env,
-                                                   napi_callback_info info) {
+static napi_value qryInvestorPositionCombineDetail(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
-static napi_value qryCFMMCTradingAccountKey(napi_env env,
-                                            napi_callback_info info) {
+static napi_value qryCFMMCTradingAccountKey(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
@@ -233,8 +225,7 @@ static napi_value qryEWarrantOffset(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
-static napi_value qryInvestorProductGroupMargin(napi_env env,
-                                                napi_callback_info info) {
+static napi_value qryInvestorProductGroupMargin(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
@@ -242,8 +233,7 @@ static napi_value qryExchangeMarginRate(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
-static napi_value qryExchangeMarginRateAdjust(napi_env env,
-                                              napi_callback_info info) {
+static napi_value qryExchangeMarginRateAdjust(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
@@ -263,23 +253,19 @@ static napi_value qryProductGroup(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
-static napi_value qryMMInstrumentCommissionRate(napi_env env,
-                                                napi_callback_info info) {
+static napi_value qryMMInstrumentCommissionRate(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
-static napi_value qryMMOptionInstrCommRate(napi_env env,
-                                           napi_callback_info info) {
+static napi_value qryMMOptionInstrCommRate(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
-static napi_value qryInstrumentOrderCommRate(napi_env env,
-                                             napi_callback_info info) {
+static napi_value qryInstrumentOrderCommRate(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
-static napi_value qrySecAgentTradingAccount(napi_env env,
-                                            napi_callback_info info) {
+static napi_value qrySecAgentTradingAccount(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
@@ -291,13 +277,11 @@ static napi_value qrySecAgentTradeInfo(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
-static napi_value qryOptionInstrTradeCost(napi_env env,
-                                          napi_callback_info info) {
+static napi_value qryOptionInstrTradeCost(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
-static napi_value qryOptionInstrCommRate(napi_env env,
-                                         napi_callback_info info) {
+static napi_value qryOptionInstrCommRate(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
@@ -321,8 +305,7 @@ static napi_value qryInvestUnit(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
-static napi_value qryCombInstrumentGuard(napi_env env,
-                                         napi_callback_info info) {
+static napi_value qryCombInstrumentGuard(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
@@ -354,8 +337,7 @@ static napi_value qryTradingNotice(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
-static napi_value qryBrokerTradingParams(napi_env env,
-                                         napi_callback_info info) {
+static napi_value qryBrokerTradingParams(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
@@ -363,28 +345,23 @@ static napi_value qryBrokerTradingAlgos(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
-static napi_value queryCFMMCTradingAccountToken(napi_env env,
-                                                napi_callback_info info) {
+static napi_value queryCFMMCTradingAccountToken(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
-static napi_value fromBankToFutureByFuture(napi_env env,
-                                           napi_callback_info info) {
+static napi_value fromBankToFutureByFuture(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
-static napi_value fromFutureToBankByFuture(napi_env env,
-                                           napi_callback_info info) {
+static napi_value fromFutureToBankByFuture(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
-static napi_value queryBankAccountMoneyByFuture(napi_env env,
-                                                napi_callback_info info) {
+static napi_value queryBankAccountMoneyByFuture(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
-static napi_value qryClassifiedInstrument(napi_env env,
-                                          napi_callback_info info) {
+static napi_value qryClassifiedInstrument(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
@@ -392,13 +369,11 @@ static napi_value qryCombPromotionParam(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
-static napi_value qryRiskSettleInvstPosition(napi_env env,
-                                             napi_callback_info info) {
+static napi_value qryRiskSettleInvstPosition(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
-static napi_value qryRiskSettleProductStatus(napi_env env,
-                                             napi_callback_info info) {
+static napi_value qryRiskSettleProductStatus(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
@@ -416,8 +391,7 @@ static bool processMessage(Trader *trader, const Message &message) {
     napi_threadsafe_function tsfn = iter->second;
     napi_status status;
 
-    status = napi_call_threadsafe_function(tsfn, (void *)&message,
-                                           napi_tsfn_blocking);
+    status = napi_call_threadsafe_function(tsfn, (void *)&message, napi_tsfn_blocking);
     assert(status == napi_ok);
   }
 
@@ -485,9 +459,7 @@ static napi_value on(napi_env env, napi_callback_info info) {
     return nullptr;
   }
 
-  status =
-      napi_create_threadsafe_function(env, argv[1], nullptr, argv[0], 0, 1,
-                                      nullptr, nullptr, trader, callJs, &tsfn);
+  status = napi_create_threadsafe_function(env, argv[1], nullptr, argv[0], 0, 1, nullptr, nullptr, trader, callJs, &tsfn);
   assert(status == napi_ok);
 
   status = napi_ref_threadsafe_function(env, tsfn);
@@ -563,12 +535,10 @@ static napi_value traderNew(napi_env env, napi_callback_info info) {
     return nullptr;
   }
 
-  status = napi_get_value_string_utf8(env, argv[0], flowPath, sizeof(flowPath),
-                                      &bytes);
+  status = napi_get_value_string_utf8(env, argv[0], flowPath, sizeof(flowPath), &bytes);
   assert(status == napi_ok);
 
-  status = napi_get_value_string_utf8(env, argv[1], frontAddr,
-                                      sizeof(frontAddr), &bytes);
+  status = napi_get_value_string_utf8(env, argv[1], frontAddr, sizeof(frontAddr), &bytes);
   assert(status == napi_ok);
 
   trader = new Trader();
@@ -578,6 +548,7 @@ static napi_value traderNew(napi_env env, napi_callback_info info) {
     return nullptr;
   }
 
+  trader->env = env;
   trader->spi = new TraderSpi();
 
   if (!trader->spi) {
@@ -610,9 +581,7 @@ static napi_value traderNew(napi_env env, napi_callback_info info) {
   trader->api->RegisterFront(frontAddr);
   trader->api->Init();
 
-  trader->env = env;
-  status = napi_wrap(env, jsthis, (void *)trader, traderDestructor, nullptr,
-                     &trader->wrapper);
+  status = napi_wrap(env, jsthis, (void *)trader, traderDestructor, nullptr, &trader->wrapper);
   assert(status == napi_ok);
 
   return jsthis;
@@ -710,12 +679,10 @@ napi_status defineTrader(napi_env env, napi_ref *constructor) {
       DECLARE_NAPI_METHOD(qryRiskSettleProductStatus),
       DECLARE_NAPI_METHOD(on),
   };
-  return defineClass(env, "Trader", traderNew, arraysize(props), props,
-                     constructor);
+  return defineClass(env, "Trader", traderNew, arraysize(props), props, constructor);
 }
 
 napi_value createTrader(napi_env env, napi_callback_info info) {
   Constructors *constructors = getConstructors(env);
-  return constructors ? createInstance(env, info, constructors->trader, 2)
-                      : nullptr;
+  return constructors ? createInstance(env, info, constructors->trader, 2) : nullptr;
 }

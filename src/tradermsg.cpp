@@ -10,8 +10,10 @@
  */
 
 #include "tradermsg.h"
+#include "ctpmsg.h"
 
-napi_status getTraderMessageValue(napi_env env, const Message *message,
-                                  napi_value *result) {
-  return napi_ok;
+static const std::map<int, MessageFunc> messageFuncs = {};
+
+napi_status getTraderMessageValue(napi_env env, const Message *message, napi_value *result) {
+  return getMessageValue(env, messageFuncs, message, result);
 }

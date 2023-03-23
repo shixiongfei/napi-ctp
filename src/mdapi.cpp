@@ -36,16 +36,13 @@ static napi_value getApiVersion(napi_env env, napi_callback_info info) {
   status = napi_unwrap(env, jsthis, (void **)&marketData);
   assert(status == napi_ok);
 
-  status = napi_create_string_utf8(env, marketData->api->GetApiVersion(),
-                                   NAPI_AUTO_LENGTH, &version);
+  status = napi_create_string_utf8(env, marketData->api->GetApiVersion(), NAPI_AUTO_LENGTH, &version);
   assert(status == napi_ok);
 
   return version;
 }
 
-static napi_value callInstrumentIdsFunc(napi_env env, napi_callback_info info,
-                                        int (*func)(MarketData *marketData,
-                                                    char **ids, int count)) {
+static napi_value callInstrumentIdsFunc(napi_env env, napi_callback_info info, int (*func)(MarketData *marketData, char **ids, int count)) {
   napi_status status;
   size_t argc = 1, size;
   uint32_t length;
@@ -90,8 +87,7 @@ static napi_value callInstrumentIdsFunc(napi_env env, napi_callback_info info,
     instrumentIds[i] = (char *)malloc(size + 1);
     memset(instrumentIds[i], 0, size + 1);
 
-    status = napi_get_value_string_utf8(env, element, instrumentIds[i],
-                                        size + 1, &size);
+    status = napi_get_value_string_utf8(env, element, instrumentIds[i], size + 1, &size);
     assert(status == napi_ok);
   }
 
@@ -107,32 +103,27 @@ static napi_value callInstrumentIdsFunc(napi_env env, napi_callback_info info,
 }
 
 static napi_value subscribeMarketData(napi_env env, napi_callback_info info) {
-  return callInstrumentIdsFunc(
-      env, info, [](MarketData *marketData, char **instrumentIds, int count) {
-        return marketData->api->SubscribeMarketData(instrumentIds, count);
-      });
+  return callInstrumentIdsFunc(env, info, [](MarketData *marketData, char **instrumentIds, int count) {
+    return marketData->api->SubscribeMarketData(instrumentIds, count);
+  });
 }
 
 static napi_value unsubscribeMarketData(napi_env env, napi_callback_info info) {
-  return callInstrumentIdsFunc(
-      env, info, [](MarketData *marketData, char **instrumentIds, int count) {
-        return marketData->api->UnSubscribeMarketData(instrumentIds, count);
-      });
+  return callInstrumentIdsFunc(env, info, [](MarketData *marketData, char **instrumentIds, int count) {
+    return marketData->api->UnSubscribeMarketData(instrumentIds, count);
+  });
 }
 
 static napi_value subscribeForQuoteRsp(napi_env env, napi_callback_info info) {
-  return callInstrumentIdsFunc(
-      env, info, [](MarketData *marketData, char **instrumentIds, int count) {
-        return marketData->api->SubscribeForQuoteRsp(instrumentIds, count);
-      });
+  return callInstrumentIdsFunc(env, info, [](MarketData *marketData, char **instrumentIds, int count) {
+    return marketData->api->SubscribeForQuoteRsp(instrumentIds, count);
+  });
 }
 
-static napi_value unsubscribeForQuoteRsp(napi_env env,
-                                         napi_callback_info info) {
-  return callInstrumentIdsFunc(
-      env, info, [](MarketData *marketData, char **instrumentIds, int count) {
-        return marketData->api->UnSubscribeForQuoteRsp(instrumentIds, count);
-      });
+static napi_value unsubscribeForQuoteRsp(napi_env env, napi_callback_info info) {
+  return callInstrumentIdsFunc(env, info, [](MarketData *marketData, char **instrumentIds, int count) {
+    return marketData->api->UnSubscribeForQuoteRsp(instrumentIds, count);
+  });
 }
 
 static napi_value userLogin(napi_env env, napi_callback_info info) {
@@ -176,16 +167,13 @@ static napi_value userLogin(napi_env env, napi_callback_info info) {
 
   memset(&req, 0, sizeof(req));
 
-  status = napi_get_value_string_utf8(env, argv[0], req.BrokerID,
-                                      sizeof(req.BrokerID), &len);
+  status = napi_get_value_string_utf8(env, argv[0], req.BrokerID, sizeof(req.BrokerID), &len);
   assert(status == napi_ok);
 
-  status = napi_get_value_string_utf8(env, argv[1], req.UserID,
-                                      sizeof(req.UserID), &len);
+  status = napi_get_value_string_utf8(env, argv[1], req.UserID, sizeof(req.UserID), &len);
   assert(status == napi_ok);
 
-  status = napi_get_value_string_utf8(env, argv[2], req.Password,
-                                      sizeof(req.Password), &len);
+  status = napi_get_value_string_utf8(env, argv[2], req.Password, sizeof(req.Password), &len);
   assert(status == napi_ok);
 
   result = marketData->api->ReqUserLogin(&req, sequenceId());
@@ -229,12 +217,10 @@ static napi_value userLogout(napi_env env, napi_callback_info info) {
 
   memset(&req, 0, sizeof(req));
 
-  status = napi_get_value_string_utf8(env, argv[0], req.BrokerID,
-                                      sizeof(req.BrokerID), &len);
+  status = napi_get_value_string_utf8(env, argv[0], req.BrokerID, sizeof(req.BrokerID), &len);
   assert(status == napi_ok);
 
-  status = napi_get_value_string_utf8(env, argv[1], req.UserID,
-                                      sizeof(req.UserID), &len);
+  status = napi_get_value_string_utf8(env, argv[1], req.UserID, sizeof(req.UserID), &len);
   assert(status == napi_ok);
 
   result = marketData->api->ReqUserLogout(&req, sequenceId());
@@ -259,8 +245,7 @@ static bool processMessage(MarketData *marketData, const Message &message) {
     napi_threadsafe_function tsfn = iter->second;
     napi_status status;
 
-    status = napi_call_threadsafe_function(tsfn, (void *)&message,
-                                           napi_tsfn_blocking);
+    status = napi_call_threadsafe_function(tsfn, (void *)&message, napi_tsfn_blocking);
     assert(status == napi_ok);
   }
 
@@ -328,9 +313,7 @@ static napi_value on(napi_env env, napi_callback_info info) {
     return nullptr;
   }
 
-  status = napi_create_threadsafe_function(env, argv[1], nullptr, argv[0], 0, 1,
-                                           nullptr, nullptr, marketData, callJs,
-                                           &tsfn);
+  status = napi_create_threadsafe_function(env, argv[1], nullptr, argv[0], 0, 1, nullptr, nullptr, marketData, callJs, &tsfn);
   assert(status == napi_ok);
 
   status = napi_ref_threadsafe_function(env, tsfn);
@@ -406,12 +389,10 @@ static napi_value marketDataNew(napi_env env, napi_callback_info info) {
     return nullptr;
   }
 
-  status = napi_get_value_string_utf8(env, argv[0], flowMdPath,
-                                      sizeof(flowMdPath), &bytes);
+  status = napi_get_value_string_utf8(env, argv[0], flowMdPath, sizeof(flowMdPath), &bytes);
   assert(status == napi_ok);
 
-  status = napi_get_value_string_utf8(env, argv[1], frontMdAddr,
-                                      sizeof(frontMdAddr), &bytes);
+  status = napi_get_value_string_utf8(env, argv[1], frontMdAddr, sizeof(frontMdAddr), &bytes);
   assert(status == napi_ok);
 
   marketData = new MarketData();
@@ -421,6 +402,7 @@ static napi_value marketDataNew(napi_env env, napi_callback_info info) {
     return nullptr;
   }
 
+  marketData->env = env;
   marketData->spi = new MdSpi();
 
   if (!marketData->spi) {
@@ -451,9 +433,7 @@ static napi_value marketDataNew(napi_env env, napi_callback_info info) {
   marketData->api->RegisterFront(frontMdAddr);
   marketData->api->Init();
 
-  marketData->env = env;
-  status = napi_wrap(env, jsthis, (void *)marketData, marketDataDestructor,
-                     nullptr, &marketData->wrapper);
+  status = napi_wrap(env, jsthis, (void *)marketData, marketDataDestructor, nullptr, &marketData->wrapper);
   assert(status == napi_ok);
 
   return jsthis;
@@ -470,12 +450,10 @@ napi_status defineMarketData(napi_env env, napi_ref *constructor) {
       DECLARE_NAPI_METHOD(userLogout),
       DECLARE_NAPI_METHOD(on),
   };
-  return defineClass(env, "MarketData", marketDataNew, arraysize(props), props,
-                     constructor);
+  return defineClass(env, "MarketData", marketDataNew, arraysize(props), props, constructor);
 }
 
 napi_value createMarketData(napi_env env, napi_callback_info info) {
   Constructors *constructors = getConstructors(env);
-  return constructors ? createInstance(env, info, constructors->marketData, 2)
-                      : nullptr;
+  return constructors ? createInstance(env, info, constructors->marketData, 2) : nullptr;
 }
