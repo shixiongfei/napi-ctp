@@ -10,6 +10,7 @@
  */
 
 #include "traderapi.h"
+#include "tradermsg.h"
 #include "traderspi.h"
 #include <map>
 #include <stdlib.h>
@@ -437,7 +438,73 @@ static void processThread(void *data) {
   }
 }
 
-static napi_value on(napi_env env, napi_callback_info info) { return nullptr; }
+static void callJs(napi_env env, napi_value js_cb, void *context, void *data) {
+  // Trader *trader = (Trader *)context;
+  Message *message = (Message *)data;
+  napi_status status;
+  napi_value undefined, argv;
+
+  status = napi_get_undefined(env, &undefined);
+  assert(status == napi_ok);
+
+  status = getTraderMessageValue(env, message, &argv);
+  assert(status == napi_ok);
+
+  status = napi_call_function(env, undefined, js_cb, 1, &argv, nullptr);
+  assert(status == napi_ok);
+}
+
+static napi_value on(napi_env env, napi_callback_info info) {
+  napi_status status;
+  size_t argc = 2, len;
+  napi_value argv[2], jsthis;
+  napi_valuetype valuetype;
+  napi_threadsafe_function tsfn;
+  Trader *trader;
+  char fname[64];
+
+  status = napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr);
+  assert(status == napi_ok);
+
+  status = napi_unwrap(env, jsthis, (void **)&trader);
+  assert(status == napi_ok);
+
+  status = napi_typeof(env, argv[0], &valuetype);
+  assert(status == napi_ok);
+
+  if (valuetype != napi_string) {
+    napi_throw_error(env, "TypeError", "The parameter 1 should be a string");
+    return nullptr;
+  }
+
+  status = napi_typeof(env, argv[1], &valuetype);
+  assert(status == napi_ok);
+
+  if (valuetype != napi_function) {
+    napi_throw_error(env, "TypeError", "The parameter 2 should be a function");
+    return nullptr;
+  }
+
+  status =
+      napi_create_threadsafe_function(env, argv[1], nullptr, argv[0], 0, 1,
+                                      nullptr, nullptr, trader, callJs, &tsfn);
+  assert(status == napi_ok);
+
+  status = napi_ref_threadsafe_function(env, tsfn);
+  assert(status == napi_ok);
+
+  status = napi_get_value_string_utf8(env, argv[0], fname, sizeof(fname), &len);
+  assert(status == napi_ok);
+
+  if (trader->tsfns.find(fname) != trader->tsfns.end()) {
+    status = napi_unref_threadsafe_function(env, trader->tsfns[fname]);
+    assert(status == napi_ok);
+  }
+
+  trader->tsfns[fname] = tsfn;
+
+  return jsthis;
+}
 
 static void traderDestructor(napi_env env, void *data, void *hint) {
   Trader *trader = (Trader *)data;

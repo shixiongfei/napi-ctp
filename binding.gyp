@@ -10,7 +10,8 @@
         "./src/message_queue.cpp",
         "./src/napi_ctp.cpp",
         "./src/traderapi.cpp",
-        "./src/traderspi.cpp"
+        "./src/traderspi.cpp",
+        "./src/tradermsg.cpp"
       ],
       "include_dirs": [
         "./tradeapi"
