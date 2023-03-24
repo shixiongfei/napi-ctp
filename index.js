@@ -9,5 +9,5 @@
  * https://github.com/shixiongfei/napi-ctp
  */
 
-const binding = require('node-gyp-build')(__dirname)
-module.exports = binding
+const binding = require("node-gyp-build")(__dirname);
+module.exports = binding;

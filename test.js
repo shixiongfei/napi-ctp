@@ -9,14 +9,14 @@
  * https://github.com/shixiongfei/napi-ctp
  */
 
-const ctp = require('.')
-const fs = require('node:fs')
+const ctp = require(".");
+const fs = require("node:fs");
 
-if (!fs.existsSync('./flowMd/')) {
-  fs.mkdirSync('./flowMd/', { recursive: true })
+if (!fs.existsSync("./flowMd/")) {
+  fs.mkdirSync("./flowMd/", { recursive: true });
 }
-const md = ctp.createMarketData('./flowMd/', 'tcp://180.168.146.187:10212')
+const md = ctp.createMarketData("./flowMd/", "tcp://180.168.146.187:10212");
 
-md.on('test', message => console.log(message))
+md.on("test", (message) => console.log(message));
 
-console.log(md.getApiVersion())
+console.log(md.getApiVersion());

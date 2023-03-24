@@ -37,7 +37,7 @@ napi_status msgHeartBeatWarning(napi_env env, const Message *message, napi_value
   return napi_create_int32(env, (int32_t)message->data, result);
 }
 
-napi_status msgUserLogin(napi_env env, const Message *message, napi_value *result) {
+napi_status rspUserLogin(napi_env env, const Message *message, napi_value *result) {
   napi_status status;
   auto pRspUserLogin = MessageData<CThostFtdcRspUserLoginField>(message);
 
@@ -89,7 +89,7 @@ napi_status msgUserLogin(napi_env env, const Message *message, napi_value *resul
   return napi_ok;
 }
 
-napi_status msgUserLogout(napi_env env, const Message *message, napi_value *result) {
+napi_status rspUserLogout(napi_env env, const Message *message, napi_value *result) {
   napi_status status;
   auto pUserLogout = MessageData<CThostFtdcUserLogoutField>(message);
 
@@ -105,7 +105,7 @@ napi_status msgUserLogout(napi_env env, const Message *message, napi_value *resu
   return napi_ok;
 }
 
-napi_status msgQryMulticastInstrument(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryMulticastInstrument(napi_env env, const Message *message, napi_value *result) {
   napi_status status;
   auto pMulticastInstrument = MessageData<CThostFtdcMulticastInstrumentField>(message);
 
@@ -136,7 +136,7 @@ napi_status msgQryMulticastInstrument(napi_env env, const Message *message, napi
   return napi_ok;
 }
 
-napi_status msgError(napi_env env, const Message *message, napi_value *result) {
+napi_status rspError(napi_env env, const Message *message, napi_value *result) {
   napi_status status;
   auto pRspInfo = MessageData<CThostFtdcRspInfoField>(message);
 
@@ -152,7 +152,7 @@ napi_status msgError(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgSubMarketData(napi_env env, const Message *message, napi_value *result) {
+napi_status rspSubMarketData(napi_env env, const Message *message, napi_value *result) {
   napi_status status;
   auto pSpecificInstrument = MessageData<CThostFtdcSpecificInstrumentField>(message);
 
@@ -168,7 +168,7 @@ napi_status msgSubMarketData(napi_env env, const Message *message, napi_value *r
   return napi_ok;
 }
 
-napi_status msgUnSubMarketData(napi_env env, const Message *message, napi_value *result) {
+napi_status rspUnSubMarketData(napi_env env, const Message *message, napi_value *result) {
   napi_status status;
   auto pSpecificInstrument = MessageData<CThostFtdcSpecificInstrumentField>(message);
 
@@ -184,7 +184,7 @@ napi_status msgUnSubMarketData(napi_env env, const Message *message, napi_value 
   return napi_ok;
 }
 
-napi_status msgSubForQuote(napi_env env, const Message *message, napi_value *result) {
+napi_status rspSubForQuote(napi_env env, const Message *message, napi_value *result) {
   napi_status status;
   auto pSpecificInstrument = MessageData<CThostFtdcSpecificInstrumentField>(message);
 
@@ -200,7 +200,7 @@ napi_status msgSubForQuote(napi_env env, const Message *message, napi_value *res
   return napi_ok;
 }
 
-napi_status msgUnSubForQuote(napi_env env, const Message *message, napi_value *result) {
+napi_status rspUnSubForQuote(napi_env env, const Message *message, napi_value *result) {
   napi_status status;
   auto pSpecificInstrument = MessageData<CThostFtdcSpecificInstrumentField>(message);
 
@@ -216,7 +216,7 @@ napi_status msgUnSubForQuote(napi_env env, const Message *message, napi_value *r
   return napi_ok;
 }
 
-napi_status msgDepthMarketData(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnDepthMarketData(napi_env env, const Message *message, napi_value *result) {
   napi_status status;
   auto pDepthMarketData = MessageData<CThostFtdcDepthMarketDataField>(message);
 
@@ -370,7 +370,7 @@ napi_status msgDepthMarketData(napi_env env, const Message *message, napi_value 
   return napi_ok;
 }
 
-napi_status msgForQuote(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnForQuote(napi_env env, const Message *message, napi_value *result) {
   napi_status status;
   auto pForQuoteRsp = MessageData<CThostFtdcForQuoteRspField>(message);
 
@@ -401,494 +401,494 @@ napi_status msgForQuote(napi_env env, const Message *message, napi_value *result
   return napi_ok;
 }
 
-napi_status msgAuthenticate(napi_env env, const Message *message, napi_value *result) {
+napi_status rspAuthenticate(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgUserPasswordUpdate(napi_env env, const Message *message, napi_value *result) {
+napi_status rspUserPasswordUpdate(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgTradingAccountPasswordUpdate(napi_env env, const Message *message, napi_value *result) {
+napi_status rspTradingAccountPasswordUpdate(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgUserAuthMethod(napi_env env, const Message *message, napi_value *result) {
+napi_status rspUserAuthMethod(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgGenUserCaptcha(napi_env env, const Message *message, napi_value *result) {
+napi_status rspGenUserCaptcha(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgGenUserText(napi_env env, const Message *message, napi_value *result) {
+napi_status rspGenUserText(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgOrderInsert(napi_env env, const Message *message, napi_value *result) {
+napi_status rspOrderInsert(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgParkedOrderInsert(napi_env env, const Message *message, napi_value *result) {
+napi_status rspParkedOrderInsert(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgParkedOrderAction(napi_env env, const Message *message, napi_value *result) {
+napi_status rspParkedOrderAction(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgOrderAction(napi_env env, const Message *message, napi_value *result) {
+napi_status rspOrderAction(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryMaxOrderVolume(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryMaxOrderVolume(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgSettlementInfoConfirm(napi_env env, const Message *message, napi_value *result) {
+napi_status rspSettlementInfoConfirm(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgRemoveParkedOrder(napi_env env, const Message *message, napi_value *result) {
+napi_status rspRemoveParkedOrder(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgRemoveParkedOrderAction(napi_env env, const Message *message, napi_value *result) {
+napi_status rspRemoveParkedOrderAction(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgExecOrderInsert(napi_env env, const Message *message, napi_value *result) {
+napi_status rspExecOrderInsert(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgExecOrderAction(napi_env env, const Message *message, napi_value *result) {
+napi_status rspExecOrderAction(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgForQuoteInsert(napi_env env, const Message *message, napi_value *result) {
+napi_status rspForQuoteInsert(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQuoteInsert(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQuoteInsert(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQuoteAction(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQuoteAction(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgBatchOrderAction(napi_env env, const Message *message, napi_value *result) {
+napi_status rspBatchOrderAction(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgOptionSelfCloseInsert(napi_env env, const Message *message, napi_value *result) {
+napi_status rspOptionSelfCloseInsert(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgOptionSelfCloseAction(napi_env env, const Message *message, napi_value *result) {
+napi_status rspOptionSelfCloseAction(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgCombActionInsert(napi_env env, const Message *message, napi_value *result) {
+napi_status rspCombActionInsert(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryOrder(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryOrder(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryTrade(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryTrade(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryInvestorPosition(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryInvestorPosition(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryTradingAccount(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryTradingAccount(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryInvestor(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryInvestor(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryTradingCode(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryTradingCode(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryInstrumentMarginRate(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryInstrumentMarginRate(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryInstrumentCommissionRate(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryInstrumentCommissionRate(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryExchange(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryExchange(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryProduct(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryProduct(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryInstrument(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryInstrument(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryDepthMarketData(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryDepthMarketData(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryTraderOffer(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryTraderOffer(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQrySettlementInfo(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQrySettlementInfo(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryTransferBank(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryTransferBank(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryInvestorPositionDetail(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryInvestorPositionDetail(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryNotice(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryNotice(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQrySettlementInfoConfirm(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQrySettlementInfoConfirm(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryInvestorPositionCombineDetail(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryInvestorPositionCombineDetail(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryCFMMCTradingAccountKey(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryCFMMCTradingAccountKey(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryEWarrantOffset(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryEWarrantOffset(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryInvestorProductGroupMargin(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryInvestorProductGroupMargin(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryExchangeMarginRate(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryExchangeMarginRate(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryExchangeMarginRateAdjust(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryExchangeMarginRateAdjust(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryExchangeRate(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryExchangeRate(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQrySecAgentACIDMap(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQrySecAgentACIDMap(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryProductExchRate(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryProductExchRate(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryProductGroup(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryProductGroup(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryMMInstrumentCommissionRate(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryMMInstrumentCommissionRate(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryMMOptionInstrCommRate(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryMMOptionInstrCommRate(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryInstrumentOrderCommRate(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryInstrumentOrderCommRate(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQrySecAgentTradingAccount(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQrySecAgentTradingAccount(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQrySecAgentCheckMode(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQrySecAgentCheckMode(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQrySecAgentTradeInfo(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQrySecAgentTradeInfo(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryOptionInstrTradeCost(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryOptionInstrTradeCost(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryOptionInstrCommRate(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryOptionInstrCommRate(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryExecOrder(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryExecOrder(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryForQuote(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryForQuote(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryQuote(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryQuote(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryOptionSelfClose(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryOptionSelfClose(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryInvestUnit(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryInvestUnit(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryCombInstrumentGuard(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryCombInstrumentGuard(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryCombAction(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryCombAction(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryTransferSerial(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryTransferSerial(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryAccountRegister(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryAccountRegister(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgOrder(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnOrder(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgTrade(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnTrade(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgErrOrderInsert(napi_env env, const Message *message, napi_value *result) {
+napi_status errRtnOrderInsert(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgErrOrderAction(napi_env env, const Message *message, napi_value *result) {
+napi_status errRtnOrderAction(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgInstrumentStatus(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnInstrumentStatus(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgBulletin(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnBulletin(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgTradingNotice(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnTradingNotice(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgErrorConditionalOrder(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnErrorConditionalOrder(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgExecOrder(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnExecOrder(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgErrExecOrderInsert(napi_env env, const Message *message, napi_value *result) {
+napi_status errRtnExecOrderInsert(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgErrExecOrderAction(napi_env env, const Message *message, napi_value *result) {
+napi_status errRtnExecOrderAction(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgErrForQuoteInsert(napi_env env, const Message *message, napi_value *result) {
+napi_status errRtnForQuoteInsert(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQuote(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnQuote(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgErrQuoteInsert(napi_env env, const Message *message, napi_value *result) {
+napi_status errRtnQuoteInsert(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgErrQuoteAction(napi_env env, const Message *message, napi_value *result) {
+napi_status errRtnQuoteAction(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgCFMMCTradingAccountToken(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnCFMMCTradingAccountToken(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgErrBatchOrderAction(napi_env env, const Message *message, napi_value *result) {
+napi_status errRtnBatchOrderAction(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgOptionSelfClose(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnOptionSelfClose(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgErrOptionSelfCloseInsert(napi_env env, const Message *message, napi_value *result) {
+napi_status errRtnOptionSelfCloseInsert(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgErrOptionSelfCloseAction(napi_env env, const Message *message, napi_value *result) {
+napi_status errRtnOptionSelfCloseAction(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgCombAction(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnCombAction(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgErrCombActionInsert(napi_env env, const Message *message, napi_value *result) {
+napi_status errRtnCombActionInsert(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryContractBank(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryContractBank(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryParkedOrder(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryParkedOrder(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryParkedOrderAction(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryParkedOrderAction(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryTradingNotice(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryTradingNotice(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryBrokerTradingParams(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryBrokerTradingParams(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryBrokerTradingAlgos(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryBrokerTradingAlgos(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQueryCFMMCTradingAccountToken(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQueryCFMMCTradingAccountToken(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgFromBankToFutureByBank(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnFromBankToFutureByBank(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgFromFutureToBankByBank(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnFromFutureToBankByBank(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgRepealFromBankToFutureByBank(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnRepealFromBankToFutureByBank(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgRepealFromFutureToBankByBank(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnRepealFromFutureToBankByBank(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgFromBankToFutureByFuture(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnFromBankToFutureByFuture(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgFromFutureToBankByFuture(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnFromFutureToBankByFuture(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgRepealFromBankToFutureByFutureManual(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnRepealFromBankToFutureByFutureManual(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgRepealFromFutureToBankByFutureManual(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnRepealFromFutureToBankByFutureManual(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQueryBankBalanceByFuture(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnQueryBankBalanceByFuture(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgErrBankToFutureByFuture(napi_env env, const Message *message, napi_value *result) {
+napi_status errRtnBankToFutureByFuture(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgErrFutureToBankByFuture(napi_env env, const Message *message, napi_value *result) {
+napi_status errRtnFutureToBankByFuture(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgErrRepealBankToFutureByFutureManual(napi_env env, const Message *message, napi_value *result) {
+napi_status errRtnRepealBankToFutureByFutureManual(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgErrRepealFutureToBankByFutureManual(napi_env env, const Message *message, napi_value *result) {
+napi_status errRtnRepealFutureToBankByFutureManual(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgErrQueryBankBalanceByFuture(napi_env env, const Message *message, napi_value *result) {
+napi_status errRtnQueryBankBalanceByFuture(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgRepealFromBankToFutureByFuture(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnRepealFromBankToFutureByFuture(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgRepealFromFutureToBankByFuture(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnRepealFromFutureToBankByFuture(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgRspFromBankToFutureByFuture(napi_env env, const Message *message, napi_value *result) {
+napi_status rspFromBankToFutureByFuture(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgRspFromFutureToBankByFuture(napi_env env, const Message *message, napi_value *result) {
+napi_status rspFromFutureToBankByFuture(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQueryBankAccountMoneyByFuture(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQueryBankAccountMoneyByFuture(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgOpenAccountByBank(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnOpenAccountByBank(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgCancelAccountByBank(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnCancelAccountByBank(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgChangeAccountByBank(napi_env env, const Message *message, napi_value *result) {
+napi_status rtnChangeAccountByBank(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryClassifiedInstrument(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryClassifiedInstrument(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryCombPromotionParam(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryCombPromotionParam(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryRiskSettleInvstPosition(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryRiskSettleInvstPosition(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
 
-napi_status msgQryRiskSettleProductStatus(napi_env env, const Message *message, napi_value *result) {
+napi_status rspQryRiskSettleProductStatus(napi_env env, const Message *message, napi_value *result) {
   return napi_ok;
 }
