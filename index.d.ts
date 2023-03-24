@@ -122,25 +122,25 @@ export enum MarketDataEvent {
   // message = timeLapse: number
   HeartBeatWarning = 'heart-beat-warning',
   // message = userLogin: UserLoginMessage
-  UserLogin = 'user-login',
+  RspUserLogin = 'rsp-user-login',
   // message = userLogout: UserLogoutMessage
-  UserLogout = 'user-logout',
+  RspUserLogout = 'rsp-user-logout',
   // message = multicastInstrument: MulticastInstrumentMessage
-  QryMulticastInstrument = 'qry-multicast-instrument',
+  RspQryMulticastInstrument = 'rsp-qry-multicast-instrument',
   // message = error: ErrorMessage
-  Error = 'error',
+  RspError = 'rsp-error',
   // message = specificInstrument: SpecificInstrumentMessage
-  SubMarketData = 'sub-market-data',
+  RspSubMarketData = 'rsp-sub-market-data',
   // message = specificInstrument: SpecificInstrumentMessage
-  UnSubMarketData = 'unsub-market-data',
+  RspUnSubMarketData = 'rsp-unsub-market-data',
   // message = specificInstrument: SpecificInstrumentMessage
-  SubForQuote = 'sub-for-quote',
+  RspSubForQuote = 'rsp-sub-for-quote',
   // message = specificInstrument: SpecificInstrumentMessage
-  UnSubForQuote = 'unsub-for-quote',
+  RspUnSubForQuote = 'rsp-unsub-for-quote',
   // message = depthMarketData: DepthMarketDataMessage
-  DepthMarketData = 'depth-market-data',
+  RtnDepthMarketData = 'rtn-depth-market-data',
   // message = forQuote: ForQuoteMessage
-  ForQuote = 'for-quote'
+  RtnForQuote = 'rtn-for-quote'
 }
 
 export type MarketDataMessage =

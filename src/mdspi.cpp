@@ -18,16 +18,17 @@ static const std::map<int, std::string> eventNames = {
   {EM_FRONTCONNECTED,             "front-connected"},
   {EM_FRONTDISCONNECTED,          "front-disconnected"},
   {EM_HEARTBEATWARNING,           "heart-beat-warning"},
-  {EM_RSPUSERLOGIN,               "user-login"},
-  {EM_RSPUSERLOGOUT,              "user-logout"},
-  {EM_RSPQRYMULTICASTINSTRUMENT,  "qry-multicast-instrument"},
-  {EM_RSPERROR,                   "error"},
-  {EM_RSPSUBMARKETDATA,           "sub-market-data"},
-  {EM_RSPUNSUBMARKETDATA,         "unsub-market-data"},
-  {EM_RSPSUBFORQUOTERSP,          "sub-for-quote"},
-  {EM_RSPUNSUBFORQUOTERSP,        "unsub-for-quote"},
-  {EM_RTNDEPTHMARKETDATA,         "depth-market-data"},
-  {EM_RTNFORQUOTERSP,             "for-quote"},
+  {EM_RSPUSERLOGIN,               "rsp-user-login"},
+  {EM_RSPUSERLOGOUT,              "rsp-user-logout"},
+  {EM_RSPQRYMULTICASTINSTRUMENT,  "rsp-qry-multicast-instrument"},
+  {EM_RSPERROR,                   "rsp-error"},
+  {EM_RSPSUBMARKETDATA,           "rsp-sub-market-data"},
+  {EM_RSPUNSUBMARKETDATA,         "rsp-unsub-market-data"},
+  {EM_RSPSUBFORQUOTERSP,          "rsp-sub-for-quote"},
+  {EM_RSPUNSUBFORQUOTERSP,        "rsp-unsub-for-quote"},
+  {EM_RTNDEPTHMARKETDATA,         "rtn-depth-market-data"},
+  {EM_RTNFORQUOTERSP,             "rtn-for-quote"},
+
 };
 
 static bool isFreeable(int event) {
