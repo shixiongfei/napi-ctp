@@ -10,10 +10,10 @@
  */
 
 #include "mdmsg.h"
-#include "ctpmsg.h"
 #include "mdspi.h"
+#include "ctpmsg.h"
 
-static const std::map<int, MessageFunc> messageFuncs = {
+static const MessageFuncs messageFuncs = {
     {EM_QUIT,                       msgQuit},
     {EM_FRONTCONNECTED,             msgFrontConnected},
     {EM_FRONTDISCONNECTED,          msgFrontDisconnected},
