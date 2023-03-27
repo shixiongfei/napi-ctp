@@ -26,7 +26,20 @@ typedef struct Trader {
 } Trader;
 
 static napi_value getApiVersion(napi_env env, napi_callback_info info) {
-  return nullptr;
+  napi_status status;
+  napi_value jsthis, version;
+  Trader *trader;
+
+  status = napi_get_cb_info(env, info, nullptr, nullptr, &jsthis, nullptr);
+  assert(status == napi_ok);
+
+  status = napi_unwrap(env, jsthis, (void **)&trader);
+  assert(status == napi_ok);
+
+  status = napi_create_string_utf8(env, trader->api->GetApiVersion(), NAPI_AUTO_LENGTH, &version);
+  assert(status == napi_ok);
+
+  return version;
 }
 
 static napi_value authenticate(napi_env env, napi_callback_info info) {
