@@ -37,6 +37,9 @@ typedef struct Message {
 
 #define arraysize(a) ((int)(sizeof(a) / sizeof(*a)))
 
+#define CHECK_RESULT(__expression__, __result__) assert(__expression__ == __result__)
+#define CHECK(__expression__) CHECK_RESULT(__expression__, napi_ok)
+
 #define DECLARE_NAPI_METHOD_(name, method)                                     \
   { name, 0, method, 0, 0, 0, napi_default, 0 }
 #define DECLARE_NAPI_METHOD(method) DECLARE_NAPI_METHOD_(#method, method)

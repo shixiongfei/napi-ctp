@@ -29,72 +29,57 @@ int sequenceId() {
 }
 
 Constructors *getConstructors(napi_env env) {
-  napi_status status;
   Constructors *constructors;
 
-  status = napi_get_instance_data(env, (void **)&constructors);
-  assert(status == napi_ok);
+  CHECK(napi_get_instance_data(env, (void **)&constructors));
 
   return constructors;
 }
 
 napi_status defineClass(napi_env env, const char *name, napi_callback constructor, size_t propertyCount, const napi_property_descriptor *properties, napi_ref *result) {
-  napi_status status;
   napi_value cons;
 
-  status = napi_define_class(env, name, NAPI_AUTO_LENGTH, constructor, nullptr, propertyCount, properties, &cons);
-  assert(status == napi_ok);
+  CHECK(napi_define_class(env, name, NAPI_AUTO_LENGTH, constructor, nullptr, propertyCount, properties, &cons));
 
   return napi_create_reference(env, cons, 1, result);
 }
 
 napi_value createInstance(napi_env env, napi_callback_info info, napi_ref constructor, size_t argc) {
-  napi_status status;
   napi_value cons, instance;
 
-  status = napi_get_reference_value(env, constructor, &cons);
-  assert(status == napi_ok);
+  CHECK(napi_get_reference_value(env, constructor, &cons));
 
-  if (argc > 0) {
-    dynarray(napi_value, argv, argc);
-
-    status = napi_get_cb_info(env, info, &argc, argv, nullptr, nullptr);
-    assert(status == napi_ok);
-
-    status = napi_new_instance(env, cons, argc, argv, &instance);
-    assert(status == napi_ok);
-  } else {
-    status = napi_new_instance(env, cons, 0, nullptr, &instance);
-    assert(status == napi_ok);
+  if (argc == 0) {
+    CHECK(napi_new_instance(env, cons, 0, nullptr, &instance));
+    return instance;
   }
+
+  dynarray(napi_value, argv, argc);
+
+  CHECK(napi_get_cb_info(env, info, &argc, argv, nullptr, nullptr));
+  CHECK(napi_new_instance(env, cons, argc, argv, &instance));
 
   return instance;
 }
 
 napi_status checkIsStringArray(napi_env env, napi_value value, bool *result) {
-  napi_status status;
   napi_value element;
   napi_valuetype valuetype;
   uint32_t length;
   bool isArray;
 
-  status = napi_is_array(env, value, &isArray);
-  assert(status == napi_ok);
+  CHECK(napi_is_array(env, value, &isArray));
 
   if (!isArray) {
     *result = false;
     return napi_ok;
   }
 
-  status = napi_get_array_length(env, value, &length);
-  assert(status == napi_ok);
+  CHECK(napi_get_array_length(env, value, &length));
 
   for (uint32_t i = 0; i < length; ++i) {
-    status = napi_get_element(env, value, i, &element);
-    assert(status == napi_ok);
-
-    status = napi_typeof(env, element, &valuetype);
-    assert(status == napi_ok);
+    CHECK(napi_get_element(env, value, i, &element));
+    CHECK(napi_typeof(env, element, &valuetype));
 
     if (valuetype != napi_string) {
       *result = false;
@@ -134,53 +119,43 @@ static char *toUTF8(const char *codepage, const char *mbstr, int len, char *utf8
 }
 
 napi_status objectSetString(napi_env env, napi_value object, const char *name, const char *string) {
-  napi_status status;
   napi_value value;
   int len = (int)strlen(string);
   dynarray(char, utf8str, len * 6 + 1);
 
-  status = napi_create_string_utf8(env, toUTF8("GBK", string, len, utf8str), NAPI_AUTO_LENGTH, &value);
-  assert(status == napi_ok);
+  CHECK(napi_create_string_utf8(env, toUTF8("GBK", string, len, utf8str), NAPI_AUTO_LENGTH, &value));
 
   return napi_set_named_property(env, object, name, value);
 }
 
 napi_status objectSetInt32(napi_env env, napi_value object, const char *name, int32_t number) {
-  napi_status status;
   napi_value value;
 
-  status = napi_create_int32(env, number, &value);
-  assert(status == napi_ok);
+  CHECK(napi_create_int32(env, number, &value));
 
   return napi_set_named_property(env, object, name, value);
 }
 
 napi_status objectSetUint32(napi_env env, napi_value object, const char *name, uint32_t number) {
-  napi_status status;
   napi_value value;
 
-  status = napi_create_uint32(env, number, &value);
-  assert(status == napi_ok);
+  CHECK(napi_create_uint32(env, number, &value));
 
   return napi_set_named_property(env, object, name, value);
 }
 
 napi_status objectSetInt64(napi_env env, napi_value object, const char *name, int64_t number) {
-  napi_status status;
   napi_value value;
 
-  status = napi_create_int64(env, number, &value);
-  assert(status == napi_ok);
+  CHECK(napi_create_int64(env, number, &value));
 
   return napi_set_named_property(env, object, name, value);
 }
 
 napi_status objectSetDouble(napi_env env, napi_value object, const char *name, double number) {
-  napi_status status;
   napi_value value;
 
-  status = napi_create_double(env, number, &value);
-  assert(status == napi_ok);
+  CHECK(napi_create_double(env, number, &value));
 
   return napi_set_named_property(env, object, name, value);
 }

@@ -38,365 +38,169 @@ napi_status msgHeartBeatWarning(napi_env env, const Message *message, napi_value
 }
 
 napi_status rspUserLogin(napi_env env, const Message *message, napi_value *result) {
-  napi_status status;
   auto pRspUserLogin = MessageData<CThostFtdcRspUserLoginField>(message);
 
-  status = napi_create_object(env, result);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pRspUserLogin, TradingDay);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pRspUserLogin, LoginTime);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pRspUserLogin, BrokerID);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pRspUserLogin, UserID);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pRspUserLogin, SystemName);
-  assert(status == napi_ok);
-
-  status = ObjectInt32(env, *result, pRspUserLogin, FrontID);
-  assert(status == napi_ok);
-
-  status = ObjectInt32(env, *result, pRspUserLogin, SessionID);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pRspUserLogin, MaxOrderRef);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pRspUserLogin, SHFETime);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pRspUserLogin, DCETime);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pRspUserLogin, CZCETime);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pRspUserLogin, FFEXTime);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pRspUserLogin, INETime);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pRspUserLogin, SysVersion);
-  assert(status == napi_ok);
+  CHECK(napi_create_object(env, result));
+  CHECK(ObjectString(env, *result, pRspUserLogin, TradingDay));
+  CHECK(ObjectString(env, *result, pRspUserLogin, LoginTime));
+  CHECK(ObjectString(env, *result, pRspUserLogin, BrokerID));
+  CHECK(ObjectString(env, *result, pRspUserLogin, UserID));
+  CHECK(ObjectString(env, *result, pRspUserLogin, SystemName));
+  CHECK(ObjectInt32(env, *result, pRspUserLogin, FrontID));
+  CHECK(ObjectInt32(env, *result, pRspUserLogin, SessionID));
+  CHECK(ObjectString(env, *result, pRspUserLogin, MaxOrderRef));
+  CHECK(ObjectString(env, *result, pRspUserLogin, SHFETime));
+  CHECK(ObjectString(env, *result, pRspUserLogin, DCETime));
+  CHECK(ObjectString(env, *result, pRspUserLogin, CZCETime));
+  CHECK(ObjectString(env, *result, pRspUserLogin, FFEXTime));
+  CHECK(ObjectString(env, *result, pRspUserLogin, INETime));
+  CHECK(ObjectString(env, *result, pRspUserLogin, SysVersion));
 
   return napi_ok;
 }
 
 napi_status rspUserLogout(napi_env env, const Message *message, napi_value *result) {
-  napi_status status;
   auto pUserLogout = MessageData<CThostFtdcUserLogoutField>(message);
 
-  status = napi_create_object(env, result);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pUserLogout, BrokerID);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pUserLogout, UserID);
-  assert(status == napi_ok);
+  CHECK(napi_create_object(env, result));
+  CHECK(ObjectString(env, *result, pUserLogout, BrokerID));
+  CHECK(ObjectString(env, *result, pUserLogout, UserID));
 
   return napi_ok;
 }
 
 napi_status rspQryMulticastInstrument(napi_env env, const Message *message, napi_value *result) {
-  napi_status status;
   auto pMulticastInstrument = MessageData<CThostFtdcMulticastInstrumentField>(message);
 
-  status = napi_create_object(env, result);
-  assert(status == napi_ok);
-
-  status = ObjectInt32(env, *result, pMulticastInstrument, TopicID);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pMulticastInstrument, reserve1);
-  assert(status == napi_ok);
-
-  status = ObjectInt32(env, *result, pMulticastInstrument, InstrumentNo);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pMulticastInstrument, CodePrice);
-  assert(status == napi_ok);
-
-  status = ObjectInt32(env, *result, pMulticastInstrument, VolumeMultiple);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pMulticastInstrument, PriceTick);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pMulticastInstrument, InstrumentID);
-  assert(status == napi_ok);
+  CHECK(napi_create_object(env, result));
+  CHECK(ObjectInt32(env, *result, pMulticastInstrument, TopicID));
+  CHECK(ObjectString(env, *result, pMulticastInstrument, reserve1));
+  CHECK(ObjectInt32(env, *result, pMulticastInstrument, InstrumentNo));
+  CHECK(ObjectDouble(env, *result, pMulticastInstrument, CodePrice));
+  CHECK(ObjectInt32(env, *result, pMulticastInstrument, VolumeMultiple));
+  CHECK(ObjectDouble(env, *result, pMulticastInstrument, PriceTick));
+  CHECK(ObjectString(env, *result, pMulticastInstrument, InstrumentID));
 
   return napi_ok;
 }
 
 napi_status rspError(napi_env env, const Message *message, napi_value *result) {
-  napi_status status;
   auto pRspInfo = MessageData<CThostFtdcRspInfoField>(message);
 
-  status = napi_create_object(env, result);
-  assert(status == napi_ok);
-
-  status = ObjectInt32(env, *result, pRspInfo, ErrorID);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pRspInfo, ErrorMsg);
-  assert(status == napi_ok);
+  CHECK(napi_create_object(env, result));
+  CHECK(ObjectInt32(env, *result, pRspInfo, ErrorID));
+  CHECK(ObjectString(env, *result, pRspInfo, ErrorMsg));
 
   return napi_ok;
 }
 
 napi_status rspSubMarketData(napi_env env, const Message *message, napi_value *result) {
-  napi_status status;
   auto pSpecificInstrument = MessageData<CThostFtdcSpecificInstrumentField>(message);
 
-  status = napi_create_object(env, result);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pSpecificInstrument, reserve1);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pSpecificInstrument, InstrumentID);
-  assert(status == napi_ok);
+  CHECK(napi_create_object(env, result));
+  CHECK(ObjectString(env, *result, pSpecificInstrument, reserve1));
+  CHECK(ObjectString(env, *result, pSpecificInstrument, InstrumentID));
 
   return napi_ok;
 }
 
 napi_status rspUnSubMarketData(napi_env env, const Message *message, napi_value *result) {
-  napi_status status;
   auto pSpecificInstrument = MessageData<CThostFtdcSpecificInstrumentField>(message);
 
-  status = napi_create_object(env, result);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pSpecificInstrument, reserve1);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pSpecificInstrument, InstrumentID);
-  assert(status == napi_ok);
+  CHECK(napi_create_object(env, result));
+  CHECK(ObjectString(env, *result, pSpecificInstrument, reserve1));
+  CHECK(ObjectString(env, *result, pSpecificInstrument, InstrumentID));
 
   return napi_ok;
 }
 
 napi_status rspSubForQuote(napi_env env, const Message *message, napi_value *result) {
-  napi_status status;
   auto pSpecificInstrument = MessageData<CThostFtdcSpecificInstrumentField>(message);
 
-  status = napi_create_object(env, result);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pSpecificInstrument, reserve1);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pSpecificInstrument, InstrumentID);
-  assert(status == napi_ok);
+  CHECK(napi_create_object(env, result));
+  CHECK(ObjectString(env, *result, pSpecificInstrument, reserve1));
+  CHECK(ObjectString(env, *result, pSpecificInstrument, InstrumentID));
 
   return napi_ok;
 }
 
 napi_status rspUnSubForQuote(napi_env env, const Message *message, napi_value *result) {
-  napi_status status;
   auto pSpecificInstrument = MessageData<CThostFtdcSpecificInstrumentField>(message);
 
-  status = napi_create_object(env, result);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pSpecificInstrument, reserve1);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pSpecificInstrument, InstrumentID);
-  assert(status == napi_ok);
+  CHECK(napi_create_object(env, result));
+  CHECK(ObjectString(env, *result, pSpecificInstrument, reserve1));
+  CHECK(ObjectString(env, *result, pSpecificInstrument, InstrumentID));
 
   return napi_ok;
 }
 
 napi_status rtnDepthMarketData(napi_env env, const Message *message, napi_value *result) {
-  napi_status status;
   auto pDepthMarketData = MessageData<CThostFtdcDepthMarketDataField>(message);
 
-  status = napi_create_object(env, result);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pDepthMarketData, TradingDay);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pDepthMarketData, reserve1);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pDepthMarketData, ExchangeID);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pDepthMarketData, reserve2);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, LastPrice);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, PreSettlementPrice);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, PreClosePrice);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, PreOpenInterest);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, OpenPrice);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, HighestPrice);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, LowestPrice);
-  assert(status == napi_ok);
-
-  status = ObjectInt32(env, *result, pDepthMarketData, Volume);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, Turnover);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, OpenInterest);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, ClosePrice);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, SettlementPrice);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, UpperLimitPrice);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, LowerLimitPrice);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, PreDelta);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, CurrDelta);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pDepthMarketData, UpdateTime);
-  assert(status == napi_ok);
-
-  status = ObjectInt32(env, *result, pDepthMarketData, UpdateMillisec);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, BidPrice1);
-  assert(status == napi_ok);
-
-  status = ObjectInt32(env, *result, pDepthMarketData, BidVolume1);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, AskPrice1);
-  assert(status == napi_ok);
-
-  status = ObjectInt32(env, *result, pDepthMarketData, AskVolume1);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, BidPrice2);
-  assert(status == napi_ok);
-
-  status = ObjectInt32(env, *result, pDepthMarketData, BidVolume2);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, AskPrice2);
-  assert(status == napi_ok);
-
-  status = ObjectInt32(env, *result, pDepthMarketData, AskVolume2);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, BidPrice3);
-  assert(status == napi_ok);
-
-  status = ObjectInt32(env, *result, pDepthMarketData, BidVolume3);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, AskPrice3);
-  assert(status == napi_ok);
-
-  status = ObjectInt32(env, *result, pDepthMarketData, AskVolume3);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, BidPrice4);
-  assert(status == napi_ok);
-
-  status = ObjectInt32(env, *result, pDepthMarketData, BidVolume4);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, AskPrice4);
-  assert(status == napi_ok);
-
-  status = ObjectInt32(env, *result, pDepthMarketData, AskVolume4);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, BidPrice5);
-  assert(status == napi_ok);
-
-  status = ObjectInt32(env, *result, pDepthMarketData, BidVolume5);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, AskPrice5);
-  assert(status == napi_ok);
-
-  status = ObjectInt32(env, *result, pDepthMarketData, AskVolume5);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, AveragePrice);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pDepthMarketData, ActionDay);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pDepthMarketData, InstrumentID);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pDepthMarketData, ExchangeInstID);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, BandingUpperPrice);
-  assert(status == napi_ok);
-
-  status = ObjectDouble(env, *result, pDepthMarketData, BandingLowerPrice);
-  assert(status == napi_ok);
+  CHECK(napi_create_object(env, result));
+  CHECK(ObjectString(env, *result, pDepthMarketData, TradingDay));
+  CHECK(ObjectString(env, *result, pDepthMarketData, reserve1));
+  CHECK(ObjectString(env, *result, pDepthMarketData, ExchangeID));
+  CHECK(ObjectString(env, *result, pDepthMarketData, reserve2));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, LastPrice));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, PreSettlementPrice));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, PreClosePrice));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, PreOpenInterest));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, OpenPrice));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, HighestPrice));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, LowestPrice));
+  CHECK(ObjectInt32(env, *result, pDepthMarketData, Volume));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, Turnover));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, OpenInterest));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, ClosePrice));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, SettlementPrice));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, UpperLimitPrice));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, LowerLimitPrice));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, PreDelta));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, CurrDelta));
+  CHECK(ObjectString(env, *result, pDepthMarketData, UpdateTime));
+  CHECK(ObjectInt32(env, *result, pDepthMarketData, UpdateMillisec));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, BidPrice1));
+  CHECK(ObjectInt32(env, *result, pDepthMarketData, BidVolume1));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, AskPrice1));
+  CHECK(ObjectInt32(env, *result, pDepthMarketData, AskVolume1));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, BidPrice2));
+  CHECK(ObjectInt32(env, *result, pDepthMarketData, BidVolume2));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, AskPrice2));
+  CHECK(ObjectInt32(env, *result, pDepthMarketData, AskVolume2));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, BidPrice3));
+  CHECK(ObjectInt32(env, *result, pDepthMarketData, BidVolume3));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, AskPrice3));
+  CHECK(ObjectInt32(env, *result, pDepthMarketData, AskVolume3));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, BidPrice4));
+  CHECK(ObjectInt32(env, *result, pDepthMarketData, BidVolume4));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, AskPrice4));
+  CHECK(ObjectInt32(env, *result, pDepthMarketData, AskVolume4));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, BidPrice5));
+  CHECK(ObjectInt32(env, *result, pDepthMarketData, BidVolume5));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, AskPrice5));
+  CHECK(ObjectInt32(env, *result, pDepthMarketData, AskVolume5));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, AveragePrice));
+  CHECK(ObjectString(env, *result, pDepthMarketData, ActionDay));
+  CHECK(ObjectString(env, *result, pDepthMarketData, InstrumentID));
+  CHECK(ObjectString(env, *result, pDepthMarketData, ExchangeInstID));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, BandingUpperPrice));
+  CHECK(ObjectDouble(env, *result, pDepthMarketData, BandingLowerPrice));
 
   return napi_ok;
 }
 
 napi_status rtnForQuote(napi_env env, const Message *message, napi_value *result) {
-  napi_status status;
   auto pForQuoteRsp = MessageData<CThostFtdcForQuoteRspField>(message);
 
-  status = napi_create_object(env, result);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pForQuoteRsp, TradingDay);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pForQuoteRsp, reserve1);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pForQuoteRsp, ForQuoteSysID);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pForQuoteRsp, ForQuoteTime);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pForQuoteRsp, ActionDay);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pForQuoteRsp, ExchangeID);
-  assert(status == napi_ok);
-
-  status = ObjectString(env, *result, pForQuoteRsp, InstrumentID);
-  assert(status == napi_ok);
+  CHECK(napi_create_object(env, result));
+  CHECK(ObjectString(env, *result, pForQuoteRsp, TradingDay));
+  CHECK(ObjectString(env, *result, pForQuoteRsp, reserve1));
+  CHECK(ObjectString(env, *result, pForQuoteRsp, ForQuoteSysID));
+  CHECK(ObjectString(env, *result, pForQuoteRsp, ForQuoteTime));
+  CHECK(ObjectString(env, *result, pForQuoteRsp, ActionDay));
+  CHECK(ObjectString(env, *result, pForQuoteRsp, ExchangeID));
+  CHECK(ObjectString(env, *result, pForQuoteRsp, InstrumentID));
 
   return napi_ok;
 }

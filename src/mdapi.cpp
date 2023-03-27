@@ -26,24 +26,17 @@ typedef struct MarketData {
 } MarketData;
 
 static napi_value getApiVersion(napi_env env, napi_callback_info info) {
-  napi_status status;
   napi_value jsthis, version;
   MarketData *marketData;
 
-  status = napi_get_cb_info(env, info, nullptr, nullptr, &jsthis, nullptr);
-  assert(status == napi_ok);
-
-  status = napi_unwrap(env, jsthis, (void **)&marketData);
-  assert(status == napi_ok);
-
-  status = napi_create_string_utf8(env, marketData->api->GetApiVersion(), NAPI_AUTO_LENGTH, &version);
-  assert(status == napi_ok);
+  CHECK(napi_get_cb_info(env, info, nullptr, nullptr, &jsthis, nullptr));
+  CHECK(napi_unwrap(env, jsthis, (void **)&marketData));
+  CHECK(napi_create_string_utf8(env, marketData->api->GetApiVersion(), NAPI_AUTO_LENGTH, &version));
 
   return version;
 }
 
 static napi_value callInstrumentIdsFunc(napi_env env, napi_callback_info info, int (*func)(MarketData *marketData, char **ids, int count)) {
-  napi_status status;
   size_t argc = 1, size;
   uint32_t length;
   int result;
@@ -51,44 +44,33 @@ static napi_value callInstrumentIdsFunc(napi_env env, napi_callback_info info, i
   MarketData *marketData;
   bool isStringArray;
 
-  status = napi_get_cb_info(env, info, &argc, &argv, &jsthis, nullptr);
-  assert(status == napi_ok);
+  CHECK(napi_get_cb_info(env, info, &argc, &argv, &jsthis, nullptr));
+  CHECK(napi_unwrap(env, jsthis, (void **)&marketData));
 
-  status = napi_unwrap(env, jsthis, (void **)&marketData);
-  assert(status == napi_ok);
-
-  status = checkIsStringArray(env, argv, &isStringArray);
-  assert(status == napi_ok);
+  CHECK(checkIsStringArray(env, argv, &isStringArray));
 
   if (!isStringArray) {
     napi_throw_error(env, "TypeError", "The parameter should be string array");
     return nullptr;
   }
 
-  status = napi_get_array_length(env, argv, &length);
-  assert(status == napi_ok);
+  CHECK(napi_get_array_length(env, argv, &length));
 
   if (length == 0) {
-    status = napi_create_int32(env, 0, &retval);
-    assert(status == napi_ok);
-
+    CHECK(napi_create_int32(env, 0, &retval));
     return retval;
   }
 
   dynarray(char *, instrumentIds, length);
 
   for (uint32_t i = 0; i < length; ++i) {
-    status = napi_get_element(env, argv, i, &element);
-    assert(status == napi_ok);
-
-    status = napi_get_value_string_utf8(env, element, nullptr, 0, &size);
-    assert(status == napi_ok);
+    CHECK(napi_get_element(env, argv, i, &element));
+    CHECK(napi_get_value_string_utf8(env, element, nullptr, 0, &size));
 
     instrumentIds[i] = (char *)malloc(size + 1);
     memset(instrumentIds[i], 0, size + 1);
 
-    status = napi_get_value_string_utf8(env, element, instrumentIds[i], size + 1, &size);
-    assert(status == napi_ok);
+    CHECK(napi_get_value_string_utf8(env, element, instrumentIds[i], size + 1, &size));
   }
 
   result = func(marketData, instrumentIds, length);
@@ -96,8 +78,7 @@ static napi_value callInstrumentIdsFunc(napi_env env, napi_callback_info info, i
   for (uint32_t i = 0; i < length; ++i)
     free(instrumentIds[i]);
 
-  status = napi_create_int32(env, result, &retval);
-  assert(status == napi_ok);
+  CHECK(napi_create_int32(env, result, &retval));
 
   return retval;
 }
@@ -127,7 +108,6 @@ static napi_value unsubscribeForQuoteRsp(napi_env env, napi_callback_info info) 
 }
 
 static napi_value userLogin(napi_env env, napi_callback_info info) {
-  napi_status status;
   size_t argc = 3, len;
   int result;
   napi_value argv[3], jsthis, retval;
@@ -135,30 +115,24 @@ static napi_value userLogin(napi_env env, napi_callback_info info) {
   MarketData *marketData;
   CThostFtdcReqUserLoginField req;
 
-  status = napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr);
-  assert(status == napi_ok);
+  CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
+  CHECK(napi_unwrap(env, jsthis, (void **)&marketData));
 
-  status = napi_unwrap(env, jsthis, (void **)&marketData);
-  assert(status == napi_ok);
-
-  status = napi_typeof(env, argv[0], &valuetype);
-  assert(status == napi_ok);
+  CHECK(napi_typeof(env, argv[0], &valuetype));
 
   if (valuetype != napi_string) {
     napi_throw_error(env, "TypeError", "The parameter 1 should be a string");
     return nullptr;
   }
 
-  status = napi_typeof(env, argv[1], &valuetype);
-  assert(status == napi_ok);
+  CHECK(napi_typeof(env, argv[1], &valuetype));
 
   if (valuetype != napi_string) {
     napi_throw_error(env, "TypeError", "The parameter 2 should be a string");
     return nullptr;
   }
 
-  status = napi_typeof(env, argv[2], &valuetype);
-  assert(status == napi_ok);
+  CHECK(napi_typeof(env, argv[2], &valuetype));
 
   if (valuetype != napi_string) {
     napi_throw_error(env, "TypeError", "The parameter 3 should be a string");
@@ -167,25 +141,17 @@ static napi_value userLogin(napi_env env, napi_callback_info info) {
 
   memset(&req, 0, sizeof(req));
 
-  status = napi_get_value_string_utf8(env, argv[0], req.BrokerID, sizeof(req.BrokerID), &len);
-  assert(status == napi_ok);
-
-  status = napi_get_value_string_utf8(env, argv[1], req.UserID, sizeof(req.UserID), &len);
-  assert(status == napi_ok);
-
-  status = napi_get_value_string_utf8(env, argv[2], req.Password, sizeof(req.Password), &len);
-  assert(status == napi_ok);
+  CHECK(napi_get_value_string_utf8(env, argv[0], req.BrokerID, sizeof(req.BrokerID), &len));
+  CHECK(napi_get_value_string_utf8(env, argv[1], req.UserID, sizeof(req.UserID), &len));
+  CHECK(napi_get_value_string_utf8(env, argv[2], req.Password, sizeof(req.Password), &len));
 
   result = marketData->api->ReqUserLogin(&req, sequenceId());
-
-  status = napi_create_int32(env, result, &retval);
-  assert(status == napi_ok);
+  CHECK(napi_create_int32(env, result, &retval));
 
   return retval;
 }
 
 static napi_value userLogout(napi_env env, napi_callback_info info) {
-  napi_status status;
   size_t argc = 2, len;
   int result;
   napi_value argv[2], jsthis, retval;
@@ -193,22 +159,17 @@ static napi_value userLogout(napi_env env, napi_callback_info info) {
   MarketData *marketData;
   CThostFtdcUserLogoutField req;
 
-  status = napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr);
-  assert(status == napi_ok);
+  CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
+  CHECK(napi_unwrap(env, jsthis, (void **)&marketData));
 
-  status = napi_unwrap(env, jsthis, (void **)&marketData);
-  assert(status == napi_ok);
-
-  status = napi_typeof(env, argv[0], &valuetype);
-  assert(status == napi_ok);
+  CHECK(napi_typeof(env, argv[0], &valuetype));
 
   if (valuetype != napi_string) {
     napi_throw_error(env, "TypeError", "The parameter 1 should be a string");
     return nullptr;
   }
 
-  status = napi_typeof(env, argv[1], &valuetype);
-  assert(status == napi_ok);
+  CHECK(napi_typeof(env, argv[1], &valuetype));
 
   if (valuetype != napi_string) {
     napi_throw_error(env, "TypeError", "The parameter 2 should be a string");
@@ -217,16 +178,11 @@ static napi_value userLogout(napi_env env, napi_callback_info info) {
 
   memset(&req, 0, sizeof(req));
 
-  status = napi_get_value_string_utf8(env, argv[0], req.BrokerID, sizeof(req.BrokerID), &len);
-  assert(status == napi_ok);
-
-  status = napi_get_value_string_utf8(env, argv[1], req.UserID, sizeof(req.UserID), &len);
-  assert(status == napi_ok);
+  CHECK(napi_get_value_string_utf8(env, argv[0], req.BrokerID, sizeof(req.BrokerID), &len));
+  CHECK(napi_get_value_string_utf8(env, argv[1], req.UserID, sizeof(req.UserID), &len));
 
   result = marketData->api->ReqUserLogout(&req, sequenceId());
-
-  status = napi_create_int32(env, result, &retval);
-  assert(status == napi_ok);
+  CHECK(napi_create_int32(env, result, &retval));
 
   return retval;
 }
@@ -243,10 +199,7 @@ static bool processMessage(MarketData *marketData, const Message &message) {
 
   if (iter != marketData->tsfns.end()) {
     napi_threadsafe_function tsfn = iter->second;
-    napi_status status;
-
-    status = napi_call_threadsafe_function(tsfn, (void *)&message, napi_tsfn_blocking);
-    assert(status == napi_ok);
+    CHECK(napi_call_threadsafe_function(tsfn, (void *)&message, napi_tsfn_blocking));
   }
 
   return EM_QUIT != message.event;
@@ -269,21 +222,14 @@ static void processThread(void *data) {
 static void callJs(napi_env env, napi_value js_cb, void *context, void *data) {
   // MarketData *marketData = (MarketData *)context;
   Message *message = (Message *)data;
-  napi_status status;
   napi_value undefined, argv;
 
-  status = napi_get_undefined(env, &undefined);
-  assert(status == napi_ok);
-
-  status = getMarketDataMessageValue(env, message, &argv);
-  assert(status == napi_ok);
-
-  status = napi_call_function(env, undefined, js_cb, 1, &argv, nullptr);
-  assert(status == napi_ok);
+  CHECK(napi_get_undefined(env, &undefined));
+  CHECK(getMarketDataMessageValue(env, message, &argv));
+  CHECK(napi_call_function(env, undefined, js_cb, 1, &argv, nullptr));
 }
 
 static napi_value on(napi_env env, napi_callback_info info) {
-  napi_status status;
   size_t argc = 2, len;
   napi_value argv[2], jsthis;
   napi_valuetype valuetype;
@@ -291,41 +237,30 @@ static napi_value on(napi_env env, napi_callback_info info) {
   MarketData *marketData;
   char fname[64];
 
-  status = napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr);
-  assert(status == napi_ok);
+  CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
+  CHECK(napi_unwrap(env, jsthis, (void **)&marketData));
 
-  status = napi_unwrap(env, jsthis, (void **)&marketData);
-  assert(status == napi_ok);
-
-  status = napi_typeof(env, argv[0], &valuetype);
-  assert(status == napi_ok);
+  CHECK(napi_typeof(env, argv[0], &valuetype));
 
   if (valuetype != napi_string) {
     napi_throw_error(env, "TypeError", "The parameter 1 should be a string");
     return nullptr;
   }
 
-  status = napi_typeof(env, argv[1], &valuetype);
-  assert(status == napi_ok);
+  CHECK(napi_typeof(env, argv[1], &valuetype));
 
   if (valuetype != napi_function) {
     napi_throw_error(env, "TypeError", "The parameter 2 should be a function");
     return nullptr;
   }
 
-  status = napi_create_threadsafe_function(env, argv[1], nullptr, argv[0], 0, 1, nullptr, nullptr, marketData, callJs, &tsfn);
-  assert(status == napi_ok);
+  CHECK(napi_create_threadsafe_function(env, argv[1], nullptr, argv[0], 0, 1, nullptr, nullptr, marketData, callJs, &tsfn));
+  CHECK(napi_ref_threadsafe_function(env, tsfn));
 
-  status = napi_ref_threadsafe_function(env, tsfn);
-  assert(status == napi_ok);
+  CHECK(napi_get_value_string_utf8(env, argv[0], fname, sizeof(fname), &len));
 
-  status = napi_get_value_string_utf8(env, argv[0], fname, sizeof(fname), &len);
-  assert(status == napi_ok);
-
-  if (marketData->tsfns.find(fname) != marketData->tsfns.end()) {
-    status = napi_unref_threadsafe_function(env, marketData->tsfns[fname]);
-    assert(status == napi_ok);
-  }
+  if (marketData->tsfns.find(fname) != marketData->tsfns.end())
+    CHECK(napi_unref_threadsafe_function(env, marketData->tsfns[fname]));
 
   marketData->tsfns[fname] = tsfn;
 
@@ -357,43 +292,35 @@ static void marketDataDestructor(napi_env env, void *data, void *hint) {
 }
 
 static napi_value marketDataNew(napi_env env, napi_callback_info info) {
-  napi_status status;
   napi_value target, argv[2], jsthis;
   napi_valuetype valuetype;
   size_t argc = 2, bytes;
   MarketData *marketData;
   char flowMdPath[260], frontMdAddr[64];
 
-  status = napi_get_new_target(env, info, &target);
-  assert(status == napi_ok);
+  CHECK(napi_get_new_target(env, info, &target));
 
   if (!target)
     return nullptr;
 
-  status = napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr);
-  assert(status == napi_ok);
+  CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
 
-  status = napi_typeof(env, argv[0], &valuetype);
-  assert(status == napi_ok);
+  CHECK(napi_typeof(env, argv[0], &valuetype));
 
   if (valuetype != napi_string) {
     napi_throw_error(env, "TypeError", "The parameter 1 should be a string");
     return nullptr;
   }
 
-  status = napi_typeof(env, argv[1], &valuetype);
-  assert(status == napi_ok);
+  CHECK(napi_typeof(env, argv[1], &valuetype));
 
   if (valuetype != napi_string) {
     napi_throw_error(env, "TypeError", "The parameter 2 should be a string");
     return nullptr;
   }
 
-  status = napi_get_value_string_utf8(env, argv[0], flowMdPath, sizeof(flowMdPath), &bytes);
-  assert(status == napi_ok);
-
-  status = napi_get_value_string_utf8(env, argv[1], frontMdAddr, sizeof(frontMdAddr), &bytes);
-  assert(status == napi_ok);
+  CHECK(napi_get_value_string_utf8(env, argv[0], flowMdPath, sizeof(flowMdPath), &bytes));
+  CHECK(napi_get_value_string_utf8(env, argv[1], frontMdAddr, sizeof(frontMdAddr), &bytes));
 
   marketData = new MarketData();
 
@@ -433,8 +360,7 @@ static napi_value marketDataNew(napi_env env, napi_callback_info info) {
   marketData->api->RegisterFront(frontMdAddr);
   marketData->api->Init();
 
-  status = napi_wrap(env, jsthis, (void *)marketData, marketDataDestructor, nullptr, &marketData->wrapper);
-  assert(status == napi_ok);
+  CHECK(napi_wrap(env, jsthis, (void *)marketData, marketDataDestructor, nullptr, &marketData->wrapper));
 
   return jsthis;
 }

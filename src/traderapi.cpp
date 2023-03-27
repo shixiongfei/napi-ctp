@@ -26,18 +26,12 @@ typedef struct Trader {
 } Trader;
 
 static napi_value getApiVersion(napi_env env, napi_callback_info info) {
-  napi_status status;
   napi_value jsthis, version;
   Trader *trader;
 
-  status = napi_get_cb_info(env, info, nullptr, nullptr, &jsthis, nullptr);
-  assert(status == napi_ok);
-
-  status = napi_unwrap(env, jsthis, (void **)&trader);
-  assert(status == napi_ok);
-
-  status = napi_create_string_utf8(env, trader->api->GetApiVersion(), NAPI_AUTO_LENGTH, &version);
-  assert(status == napi_ok);
+  CHECK(napi_get_cb_info(env, info, nullptr, nullptr, &jsthis, nullptr));
+  CHECK(napi_unwrap(env, jsthis, (void **)&trader));
+  CHECK(napi_create_string_utf8(env, trader->api->GetApiVersion(), NAPI_AUTO_LENGTH, &version));
 
   return version;
 }
@@ -402,10 +396,7 @@ static bool processMessage(Trader *trader, const Message &message) {
 
   if (iter != trader->tsfns.end()) {
     napi_threadsafe_function tsfn = iter->second;
-    napi_status status;
-
-    status = napi_call_threadsafe_function(tsfn, (void *)&message, napi_tsfn_blocking);
-    assert(status == napi_ok);
+    CHECK(napi_call_threadsafe_function(tsfn, (void *)&message, napi_tsfn_blocking));
   }
 
   return ET_QUIT != message.event;
@@ -428,21 +419,14 @@ static void processThread(void *data) {
 static void callJs(napi_env env, napi_value js_cb, void *context, void *data) {
   // Trader *trader = (Trader *)context;
   Message *message = (Message *)data;
-  napi_status status;
   napi_value undefined, argv;
 
-  status = napi_get_undefined(env, &undefined);
-  assert(status == napi_ok);
-
-  status = getTraderMessageValue(env, message, &argv);
-  assert(status == napi_ok);
-
-  status = napi_call_function(env, undefined, js_cb, 1, &argv, nullptr);
-  assert(status == napi_ok);
+  CHECK(napi_get_undefined(env, &undefined));
+  CHECK(getTraderMessageValue(env, message, &argv));
+  CHECK(napi_call_function(env, undefined, js_cb, 1, &argv, nullptr));
 }
 
 static napi_value on(napi_env env, napi_callback_info info) {
-  napi_status status;
   size_t argc = 2, len;
   napi_value argv[2], jsthis;
   napi_valuetype valuetype;
@@ -450,41 +434,30 @@ static napi_value on(napi_env env, napi_callback_info info) {
   Trader *trader;
   char fname[64];
 
-  status = napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr);
-  assert(status == napi_ok);
+  CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
+  CHECK(napi_unwrap(env, jsthis, (void **)&trader));
 
-  status = napi_unwrap(env, jsthis, (void **)&trader);
-  assert(status == napi_ok);
-
-  status = napi_typeof(env, argv[0], &valuetype);
-  assert(status == napi_ok);
+  CHECK(napi_typeof(env, argv[0], &valuetype));
 
   if (valuetype != napi_string) {
     napi_throw_error(env, "TypeError", "The parameter 1 should be a string");
     return nullptr;
   }
 
-  status = napi_typeof(env, argv[1], &valuetype);
-  assert(status == napi_ok);
+  CHECK(napi_typeof(env, argv[1], &valuetype));
 
   if (valuetype != napi_function) {
     napi_throw_error(env, "TypeError", "The parameter 2 should be a function");
     return nullptr;
   }
 
-  status = napi_create_threadsafe_function(env, argv[1], nullptr, argv[0], 0, 1, nullptr, nullptr, trader, callJs, &tsfn);
-  assert(status == napi_ok);
+  CHECK(napi_create_threadsafe_function(env, argv[1], nullptr, argv[0], 0, 1, nullptr, nullptr, trader, callJs, &tsfn));
+  CHECK(napi_ref_threadsafe_function(env, tsfn));
 
-  status = napi_ref_threadsafe_function(env, tsfn);
-  assert(status == napi_ok);
+  CHECK(napi_get_value_string_utf8(env, argv[0], fname, sizeof(fname), &len));
 
-  status = napi_get_value_string_utf8(env, argv[0], fname, sizeof(fname), &len);
-  assert(status == napi_ok);
-
-  if (trader->tsfns.find(fname) != trader->tsfns.end()) {
-    status = napi_unref_threadsafe_function(env, trader->tsfns[fname]);
-    assert(status == napi_ok);
-  }
+  if (trader->tsfns.find(fname) != trader->tsfns.end())
+    CHECK(napi_unref_threadsafe_function(env, trader->tsfns[fname]));
 
   trader->tsfns[fname] = tsfn;
 
@@ -516,43 +489,35 @@ static void traderDestructor(napi_env env, void *data, void *hint) {
 }
 
 static napi_value traderNew(napi_env env, napi_callback_info info) {
-  napi_status status;
   napi_value target, argv[2], jsthis;
   napi_valuetype valuetype;
   size_t argc = 2, bytes;
   Trader *trader;
   char flowPath[260], frontAddr[64];
 
-  status = napi_get_new_target(env, info, &target);
-  assert(status == napi_ok);
+  CHECK(napi_get_new_target(env, info, &target));
 
   if (!target)
     return nullptr;
 
-  status = napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr);
-  assert(status == napi_ok);
+  CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
 
-  status = napi_typeof(env, argv[0], &valuetype);
-  assert(status == napi_ok);
+  CHECK(napi_typeof(env, argv[0], &valuetype));
 
   if (valuetype != napi_string) {
     napi_throw_error(env, "TypeError", "The parameter 1 should be a string");
     return nullptr;
   }
 
-  status = napi_typeof(env, argv[1], &valuetype);
-  assert(status == napi_ok);
+  CHECK(napi_typeof(env, argv[1], &valuetype));
 
   if (valuetype != napi_string) {
     napi_throw_error(env, "TypeError", "The parameter 2 should be a string");
     return nullptr;
   }
 
-  status = napi_get_value_string_utf8(env, argv[0], flowPath, sizeof(flowPath), &bytes);
-  assert(status == napi_ok);
-
-  status = napi_get_value_string_utf8(env, argv[1], frontAddr, sizeof(frontAddr), &bytes);
-  assert(status == napi_ok);
+  CHECK(napi_get_value_string_utf8(env, argv[0], flowPath, sizeof(flowPath), &bytes));
+  CHECK(napi_get_value_string_utf8(env, argv[1], frontAddr, sizeof(frontAddr), &bytes));
 
   trader = new Trader();
 
@@ -594,8 +559,7 @@ static napi_value traderNew(napi_env env, napi_callback_info info) {
   trader->api->RegisterFront(frontAddr);
   trader->api->Init();
 
-  status = napi_wrap(env, jsthis, (void *)trader, traderDestructor, nullptr, &trader->wrapper);
-  assert(status == napi_ok);
+  CHECK(napi_wrap(env, jsthis, (void *)trader, traderDestructor, nullptr, &trader->wrapper));
 
   return jsthis;
 }

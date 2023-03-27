@@ -16,27 +16,21 @@
 #include <string.h>
 
 static void destructor(napi_env env, void *data, void *hint) {
-  napi_status status;
   Constructors *constructors = (Constructors *)data;
 
   if (!constructors)
     return;
 
-  if (constructors->marketData) {
-    status = napi_delete_reference(env, constructors->marketData);
-    assert(status == napi_ok);
-  }
+  if (constructors->marketData)
+    CHECK(napi_delete_reference(env, constructors->marketData));
 
-  if (constructors->trader) {
-    status = napi_delete_reference(env, constructors->trader);
-    assert(status == napi_ok);
-  }
+  if (constructors->trader)
+    CHECK(napi_delete_reference(env, constructors->trader));
 
   free(constructors);
 }
 
 static napi_status defineConstructors(napi_env env) {
-  napi_status status;
   Constructors *constructors = (Constructors *)malloc(sizeof(Constructors));
 
   if (!constructors) {
@@ -46,11 +40,8 @@ static napi_status defineConstructors(napi_env env) {
 
   memset(constructors, 0, sizeof(Constructors));
 
-  status = defineMarketData(env, &constructors->marketData);
-  assert(status == napi_ok);
-
-  status = defineTrader(env, &constructors->trader);
-  assert(status == napi_ok);
+  CHECK(defineMarketData(env, &constructors->marketData));
+  CHECK(defineTrader(env, &constructors->trader));
 
   return napi_set_instance_data(env, constructors, destructor, nullptr);
 }
@@ -64,13 +55,8 @@ static napi_status defineMethods(napi_env env, napi_value exports) {
 }
 
 static napi_value init(napi_env env, napi_value exports) {
-  napi_status status;
-
-  status = defineConstructors(env);
-  assert(status == napi_ok);
-
-  status = defineMethods(env, exports);
-  assert(status == napi_ok);
+  CHECK(defineConstructors(env));
+  CHECK(defineMethods(env, exports));
 
   return exports;
 }
