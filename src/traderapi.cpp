@@ -125,7 +125,33 @@ static napi_value userLogout(napi_env env, napi_callback_info info) {
 }
 
 static napi_value userPasswordUpdate(napi_env env, napi_callback_info info) {
-  return nullptr;
+  static const napi_valuetype types[4] = {napi_string, napi_string, napi_string, napi_string};
+  size_t argc = 4, len;
+  int result;
+  napi_value argv[4], jsthis, retval;
+  Trader *trader;
+  CThostFtdcUserPasswordUpdateField req;
+  bool isTypesOk;
+
+  CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
+  CHECK(napi_unwrap(env, jsthis, (void **)&trader));
+
+  CHECK(checkValueTypes(env, argc, argv, types, &isTypesOk));
+
+  if (!isTypesOk)
+    return nullptr;
+
+  memset(&req, 0, sizeof(req));
+
+  CHECK(napi_get_value_string_utf8(env, argv[0], req.BrokerID, sizeof(req.BrokerID), &len));
+  CHECK(napi_get_value_string_utf8(env, argv[1], req.UserID, sizeof(req.UserID), &len));
+  CHECK(napi_get_value_string_utf8(env, argv[2], req.OldPassword, sizeof(req.OldPassword), &len));
+  CHECK(napi_get_value_string_utf8(env, argv[3], req.NewPassword, sizeof(req.NewPassword), &len));
+
+  result = trader->api->ReqUserPasswordUpdate(&req, sequenceId());
+  CHECK(napi_create_int32(env, result, &retval));
+
+  return retval;
 }
 
 static napi_value tradingAccountPasswordUpdate(napi_env env, napi_callback_info info) {
