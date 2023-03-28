@@ -538,21 +538,23 @@ static void traderDestructor(napi_env env, void *data, void *hint) {
   if (!trader)
     return;
 
+  if (trader->spi) {
+    trader->spi->quit();
+    uv_thread_join(&trader->thread);
+  }
+
   for (auto it = trader->tsfns.begin(); it != trader->tsfns.end(); ++it)
     napi_unref_threadsafe_function(env, it->second);
 
   trader->tsfns.clear();
+  napi_delete_reference(trader->env, trader->wrapper);
 
-  if (trader->spi) {
-    trader->spi->quit();
-    uv_thread_join(&trader->thread);
+  if (trader->spi)
     delete trader->spi;
-  }
 
   if (trader->api)
     trader->api->Release();
 
-  napi_delete_reference(trader->env, trader->wrapper);
   delete trader;
 }
 

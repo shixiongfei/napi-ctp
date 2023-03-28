@@ -240,21 +240,23 @@ static void marketDataDestructor(napi_env env, void *data, void *hint) {
   if (!marketData)
     return;
 
+  if (marketData->spi) {
+    marketData->spi->quit();
+    uv_thread_join(&marketData->thread);
+  }
+
   for (auto it = marketData->tsfns.begin(); it != marketData->tsfns.end(); ++it)
     napi_unref_threadsafe_function(env, it->second);
 
   marketData->tsfns.clear();
+  napi_delete_reference(marketData->env, marketData->wrapper);
 
-  if (marketData->spi) {
-    marketData->spi->quit();
-    uv_thread_join(&marketData->thread);
+  if (marketData->spi)
     delete marketData->spi;
-  }
 
   if (marketData->api)
     marketData->api->Release();
 
-  napi_delete_reference(marketData->env, marketData->wrapper);
   delete marketData;
 }
 
