@@ -203,7 +203,31 @@ static napi_value qryMaxOrderVolume(napi_env env, napi_callback_info info) {
 }
 
 static napi_value settlementInfoConfirm(napi_env env, napi_callback_info info) {
-  return nullptr;
+  static const napi_valuetype types[2] = {napi_string, napi_string};
+  size_t argc = 2, len;
+  int result;
+  napi_value argv[2], jsthis, retval;
+  Trader *trader;
+  CThostFtdcSettlementInfoConfirmField req;
+  bool isTypesOk;
+
+  CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
+  CHECK(napi_unwrap(env, jsthis, (void **)&trader));
+
+  CHECK(checkValueTypes(env, argc, argv, types, &isTypesOk));
+
+  if (!isTypesOk)
+    return nullptr;
+
+  memset(&req, 0, sizeof(req));
+
+  CHECK(napi_get_value_string_utf8(env, argv[0], req.BrokerID, sizeof(req.BrokerID), &len));
+  CHECK(napi_get_value_string_utf8(env, argv[1], req.InvestorID, sizeof(req.InvestorID), &len));
+
+  result = trader->api->ReqSettlementInfoConfirm(&req, sequenceId());
+  CHECK(napi_create_int32(env, result, &retval));
+
+  return retval;
 }
 
 static napi_value removeParkedOrder(napi_env env, napi_callback_info info) {
@@ -251,19 +275,115 @@ static napi_value combActionInsert(napi_env env, napi_callback_info info) {
 }
 
 static napi_value qryOrder(napi_env env, napi_callback_info info) {
-  return nullptr;
+  static const napi_valuetype types[2] = {napi_string, napi_string};
+  size_t argc = 2, len;
+  int result;
+  napi_value argv[2], jsthis, retval;
+  Trader *trader;
+  CThostFtdcQryOrderField req;
+  bool isTypesOk;
+
+  CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
+  CHECK(napi_unwrap(env, jsthis, (void **)&trader));
+
+  CHECK(checkValueTypes(env, argc, argv, types, &isTypesOk));
+
+  if (!isTypesOk)
+    return nullptr;
+
+  memset(&req, 0, sizeof(req));
+
+  CHECK(napi_get_value_string_utf8(env, argv[0], req.BrokerID, sizeof(req.BrokerID), &len));
+  CHECK(napi_get_value_string_utf8(env, argv[1], req.InvestorID, sizeof(req.InvestorID), &len));
+
+  result = trader->api->ReqQryOrder(&req, sequenceId());
+  CHECK(napi_create_int32(env, result, &retval));
+
+  return retval;
 }
 
 static napi_value qryTrade(napi_env env, napi_callback_info info) {
-  return nullptr;
+  static const napi_valuetype types[2] = {napi_string, napi_string};
+  size_t argc = 2, len;
+  int result;
+  napi_value argv[2], jsthis, retval;
+  Trader *trader;
+  CThostFtdcQryTradeField req;
+  bool isTypesOk;
+
+  CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
+  CHECK(napi_unwrap(env, jsthis, (void **)&trader));
+
+  CHECK(checkValueTypes(env, argc, argv, types, &isTypesOk));
+
+  if (!isTypesOk)
+    return nullptr;
+
+  memset(&req, 0, sizeof(req));
+
+  CHECK(napi_get_value_string_utf8(env, argv[0], req.BrokerID, sizeof(req.BrokerID), &len));
+  CHECK(napi_get_value_string_utf8(env, argv[1], req.InvestorID, sizeof(req.InvestorID), &len));
+
+  result = trader->api->ReqQryTrade(&req, sequenceId());
+  CHECK(napi_create_int32(env, result, &retval));
+
+  return retval;
 }
 
 static napi_value qryInvestorPosition(napi_env env, napi_callback_info info) {
-  return nullptr;
+  static const napi_valuetype types[2] = {napi_string, napi_string};
+  size_t argc = 2, len;
+  int result;
+  napi_value argv[2], jsthis, retval;
+  Trader *trader;
+  CThostFtdcQryInvestorPositionField req;
+  bool isTypesOk;
+
+  CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
+  CHECK(napi_unwrap(env, jsthis, (void **)&trader));
+
+  CHECK(checkValueTypes(env, argc, argv, types, &isTypesOk));
+
+  if (!isTypesOk)
+    return nullptr;
+
+  memset(&req, 0, sizeof(req));
+
+  CHECK(napi_get_value_string_utf8(env, argv[0], req.BrokerID, sizeof(req.BrokerID), &len));
+  CHECK(napi_get_value_string_utf8(env, argv[1], req.InvestorID, sizeof(req.InvestorID), &len));
+
+  result = trader->api->ReqQryInvestorPosition(&req, sequenceId());
+  CHECK(napi_create_int32(env, result, &retval));
+
+  return retval;
 }
 
 static napi_value qryTradingAccount(napi_env env, napi_callback_info info) {
-  return nullptr;
+  static const napi_valuetype types[2] = {napi_string, napi_string};
+  size_t argc = 2, len;
+  int result;
+  napi_value argv[2], jsthis, retval;
+  Trader *trader;
+  CThostFtdcQryTradingAccountField req;
+  bool isTypesOk;
+
+  CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
+  CHECK(napi_unwrap(env, jsthis, (void **)&trader));
+
+  CHECK(checkValueTypes(env, argc, argv, types, &isTypesOk));
+
+  if (!isTypesOk)
+    return nullptr;
+
+  memset(&req, 0, sizeof(req));
+
+  CHECK(napi_get_value_string_utf8(env, argv[0], req.BrokerID, sizeof(req.BrokerID), &len));
+  CHECK(napi_get_value_string_utf8(env, argv[1], req.InvestorID, sizeof(req.InvestorID), &len));
+
+  result = trader->api->ReqQryTradingAccount(&req, sequenceId());
+  CHECK(napi_create_int32(env, result, &retval));
+
+  return retval;
 }
 
 static napi_value qryInvestor(napi_env env, napi_callback_info info) {
@@ -291,7 +411,20 @@ static napi_value qryProduct(napi_env env, napi_callback_info info) {
 }
 
 static napi_value qryInstrument(napi_env env, napi_callback_info info) {
-  return nullptr;
+  int result;
+  napi_value jsthis, retval;
+  Trader *trader;
+  CThostFtdcQryInstrumentField req;
+
+  CHECK(napi_get_cb_info(env, info, nullptr, nullptr, &jsthis, nullptr));
+  CHECK(napi_unwrap(env, jsthis, (void **)&trader));
+
+  memset(&req, 0, sizeof(req));
+
+  result = trader->api->ReqQryInstrument(&req, sequenceId());
+  CHECK(napi_create_int32(env, result, &retval));
+
+  return retval;
 }
 
 static napi_value qryDepthMarketData(napi_env env, napi_callback_info info) {
