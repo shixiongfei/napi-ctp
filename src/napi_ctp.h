@@ -51,6 +51,7 @@ napi_status defineClass(napi_env env, const char *name, napi_callback constructo
 napi_value createInstance(napi_env env, napi_callback_info info, napi_ref constructor, size_t argc);
 
 napi_status checkIsStringArray(napi_env env, napi_value value, bool *result);
+napi_status checkValueTypes(napi_env env, size_t argc, const napi_value *argv, const napi_valuetype *types, bool *result);
 
 napi_status objectSetString(napi_env env, napi_value object, const char *name, const char *string);
 napi_status objectSetInt32(napi_env env, napi_value object, const char *name, int32_t number);

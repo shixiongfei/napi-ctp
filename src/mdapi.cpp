@@ -49,10 +49,8 @@ static napi_value callInstrumentIdsFunc(napi_env env, napi_callback_info info, i
 
   CHECK(checkIsStringArray(env, argv, &isStringArray));
 
-  if (!isStringArray) {
-    napi_throw_error(env, "TypeError", "The parameter should be string array");
+  if (!isStringArray)
     return nullptr;
-  }
 
   CHECK(napi_get_array_length(env, argv, &length));
 
@@ -111,33 +109,18 @@ static napi_value userLogin(napi_env env, napi_callback_info info) {
   size_t argc = 3, len;
   int result;
   napi_value argv[3], jsthis, retval;
-  napi_valuetype valuetype;
+  napi_valuetype types[3] = {napi_string, napi_string, napi_string};
   MarketData *marketData;
   CThostFtdcReqUserLoginField req;
+  bool isTypesOk;
 
   CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&marketData));
 
-  CHECK(napi_typeof(env, argv[0], &valuetype));
+  CHECK(checkValueTypes(env, argc, argv, types, &isTypesOk));
 
-  if (valuetype != napi_string) {
-    napi_throw_error(env, "TypeError", "The parameter 1 should be a string");
+  if (!isTypesOk)
     return nullptr;
-  }
-
-  CHECK(napi_typeof(env, argv[1], &valuetype));
-
-  if (valuetype != napi_string) {
-    napi_throw_error(env, "TypeError", "The parameter 2 should be a string");
-    return nullptr;
-  }
-
-  CHECK(napi_typeof(env, argv[2], &valuetype));
-
-  if (valuetype != napi_string) {
-    napi_throw_error(env, "TypeError", "The parameter 3 should be a string");
-    return nullptr;
-  }
 
   memset(&req, 0, sizeof(req));
 
@@ -155,26 +138,18 @@ static napi_value userLogout(napi_env env, napi_callback_info info) {
   size_t argc = 2, len;
   int result;
   napi_value argv[2], jsthis, retval;
-  napi_valuetype valuetype;
+  napi_valuetype types[2] = {napi_string, napi_string};
   MarketData *marketData;
   CThostFtdcUserLogoutField req;
+  bool isTypesOk;
 
   CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&marketData));
 
-  CHECK(napi_typeof(env, argv[0], &valuetype));
+  CHECK(checkValueTypes(env, argc, argv, types, &isTypesOk));
 
-  if (valuetype != napi_string) {
-    napi_throw_error(env, "TypeError", "The parameter 1 should be a string");
+  if (!isTypesOk)
     return nullptr;
-  }
-
-  CHECK(napi_typeof(env, argv[1], &valuetype));
-
-  if (valuetype != napi_string) {
-    napi_throw_error(env, "TypeError", "The parameter 2 should be a string");
-    return nullptr;
-  }
 
   memset(&req, 0, sizeof(req));
 
@@ -232,27 +207,19 @@ static void callJs(napi_env env, napi_value js_cb, void *context, void *data) {
 static napi_value on(napi_env env, napi_callback_info info) {
   size_t argc = 2, len;
   napi_value argv[2], jsthis;
-  napi_valuetype valuetype;
+  napi_valuetype types[2] = {napi_string, napi_function};
   napi_threadsafe_function tsfn;
   MarketData *marketData;
   char fname[64];
+  bool isTypesOk;
 
   CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&marketData));
 
-  CHECK(napi_typeof(env, argv[0], &valuetype));
+  CHECK(checkValueTypes(env, argc, argv, types, &isTypesOk));
 
-  if (valuetype != napi_string) {
-    napi_throw_error(env, "TypeError", "The parameter 1 should be a string");
+  if (!isTypesOk)
     return nullptr;
-  }
-
-  CHECK(napi_typeof(env, argv[1], &valuetype));
-
-  if (valuetype != napi_function) {
-    napi_throw_error(env, "TypeError", "The parameter 2 should be a function");
-    return nullptr;
-  }
 
   CHECK(napi_create_threadsafe_function(env, argv[1], nullptr, argv[0], 0, 1, nullptr, nullptr, marketData, callJs, &tsfn));
   CHECK(napi_ref_threadsafe_function(env, tsfn));
@@ -293,10 +260,11 @@ static void marketDataDestructor(napi_env env, void *data, void *hint) {
 
 static napi_value marketDataNew(napi_env env, napi_callback_info info) {
   napi_value target, argv[2], jsthis;
-  napi_valuetype valuetype;
+  napi_valuetype types[2] = {napi_string, napi_string};
   size_t argc = 2, bytes;
   MarketData *marketData;
   char flowMdPath[260], frontMdAddr[64];
+  bool isTypesOk;
 
   CHECK(napi_get_new_target(env, info, &target));
 
@@ -305,19 +273,10 @@ static napi_value marketDataNew(napi_env env, napi_callback_info info) {
 
   CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
 
-  CHECK(napi_typeof(env, argv[0], &valuetype));
+  CHECK(checkValueTypes(env, argc, argv, types, &isTypesOk));
 
-  if (valuetype != napi_string) {
-    napi_throw_error(env, "TypeError", "The parameter 1 should be a string");
+  if (!isTypesOk)
     return nullptr;
-  }
-
-  CHECK(napi_typeof(env, argv[1], &valuetype));
-
-  if (valuetype != napi_string) {
-    napi_throw_error(env, "TypeError", "The parameter 2 should be a string");
-    return nullptr;
-  }
 
   CHECK(napi_get_value_string_utf8(env, argv[0], flowMdPath, sizeof(flowMdPath), &bytes));
   CHECK(napi_get_value_string_utf8(env, argv[1], frontMdAddr, sizeof(frontMdAddr), &bytes));

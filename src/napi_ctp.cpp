@@ -11,6 +11,7 @@
 
 #include "napi_ctp.h"
 #include <string.h>
+#include <stdio.h>
 
 #ifdef _WIN32
 #include <Windows.h>
@@ -71,6 +72,7 @@ napi_status checkIsStringArray(napi_env env, napi_value value, bool *result) {
   CHECK(napi_is_array(env, value, &isArray));
 
   if (!isArray) {
+    napi_throw_error(env, "TypeError", "The parameter should be string an array");
     *result = false;
     return napi_ok;
   }
@@ -82,6 +84,56 @@ napi_status checkIsStringArray(napi_env env, napi_value value, bool *result) {
     CHECK(napi_typeof(env, element, &valuetype));
 
     if (valuetype != napi_string) {
+      napi_throw_error(env, "TypeError", "The parameter should be string an array");
+      *result = false;
+      return napi_ok;
+    }
+  }
+
+  *result = true;
+  return napi_ok;
+}
+
+static const char *getTypeString(napi_valuetype type) {
+  switch(type) {
+    case napi_undefined:
+      return "undefined";
+    case napi_null:
+      return "null";
+    case napi_boolean:
+      return "boolean";
+    case napi_number:
+      return "number";
+    case napi_string:
+      return "string";
+    case napi_symbol:
+      return "symbol";
+    case napi_object:
+      return "object";
+    case napi_function:
+      return "function";
+    case napi_external:
+      return "external";
+    case napi_bigint:
+      return "bigint";
+    default:
+      return nullptr;
+  }
+  return nullptr;
+}
+
+napi_status checkValueTypes(napi_env env, size_t argc, const napi_value *argv, const napi_valuetype *types, bool *result) {
+  napi_valuetype valuetype;
+
+  for (size_t i = 0; i < argc; ++i) {
+    CHECK(napi_typeof(env, argv[i], &valuetype));
+
+    if (valuetype != types[i]) {
+      char errors[64] = {0};
+
+      sprintf(errors, "The parameter %d should be a %s", (int)i, getTypeString(types[i]));
+      napi_throw_error(env, "TypeError", errors);
+
       *result = false;
       return napi_ok;
     }
