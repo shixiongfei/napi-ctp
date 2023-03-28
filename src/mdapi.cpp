@@ -106,10 +106,10 @@ static napi_value unsubscribeForQuoteRsp(napi_env env, napi_callback_info info) 
 }
 
 static napi_value userLogin(napi_env env, napi_callback_info info) {
+  static const napi_valuetype types[3] = {napi_string, napi_string, napi_string};
   size_t argc = 3, len;
   int result;
   napi_value argv[3], jsthis, retval;
-  napi_valuetype types[3] = {napi_string, napi_string, napi_string};
   MarketData *marketData;
   CThostFtdcReqUserLoginField req;
   bool isTypesOk;
@@ -135,10 +135,10 @@ static napi_value userLogin(napi_env env, napi_callback_info info) {
 }
 
 static napi_value userLogout(napi_env env, napi_callback_info info) {
+  static const napi_valuetype types[2] = {napi_string, napi_string};
   size_t argc = 2, len;
   int result;
   napi_value argv[2], jsthis, retval;
-  napi_valuetype types[2] = {napi_string, napi_string};
   MarketData *marketData;
   CThostFtdcUserLogoutField req;
   bool isTypesOk;
@@ -205,9 +205,9 @@ static void callJs(napi_env env, napi_value js_cb, void *context, void *data) {
 }
 
 static napi_value on(napi_env env, napi_callback_info info) {
+  static const napi_valuetype types[2] = {napi_string, napi_function};
   size_t argc = 2, len;
   napi_value argv[2], jsthis;
-  napi_valuetype types[2] = {napi_string, napi_function};
   napi_threadsafe_function tsfn;
   MarketData *marketData;
   char fname[64];
@@ -259,9 +259,9 @@ static void marketDataDestructor(napi_env env, void *data, void *hint) {
 }
 
 static napi_value marketDataNew(napi_env env, napi_callback_info info) {
-  napi_value target, argv[2], jsthis;
-  napi_valuetype types[2] = {napi_string, napi_string};
+  static const napi_valuetype types[2] = {napi_string, napi_string};
   size_t argc = 2, bytes;
+  napi_value target, argv[2], jsthis;
   MarketData *marketData;
   char flowMdPath[260], frontMdAddr[64];
   bool isTypesOk;

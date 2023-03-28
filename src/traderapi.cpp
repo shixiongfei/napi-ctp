@@ -37,10 +37,10 @@ static napi_value getApiVersion(napi_env env, napi_callback_info info) {
 }
 
 static napi_value authenticate(napi_env env, napi_callback_info info) {
+  static const napi_valuetype types[5] = {napi_string, napi_string, napi_string, napi_string, napi_string};
   size_t argc = 5, len;
   int result;
   napi_value argv[5], jsthis, retval;
-  napi_valuetype types[5] = {napi_string, napi_string, napi_string, napi_string, napi_string};
   Trader *trader;
   CThostFtdcReqAuthenticateField req;
   bool isTypesOk;
@@ -68,10 +68,10 @@ static napi_value authenticate(napi_env env, napi_callback_info info) {
 }
 
 static napi_value userLogin(napi_env env, napi_callback_info info) {
+  static const napi_valuetype types[3] = {napi_string, napi_string, napi_string};
   size_t argc = 3, len;
   int result;
   napi_value argv[3], jsthis, retval;
-  napi_valuetype types[3] = {napi_string, napi_string, napi_string};
   Trader *trader;
   CThostFtdcReqUserLoginField req;
   bool isTypesOk;
@@ -97,10 +97,10 @@ static napi_value userLogin(napi_env env, napi_callback_info info) {
 }
 
 static napi_value userLogout(napi_env env, napi_callback_info info) {
+  static const napi_valuetype types[2] = {napi_string, napi_string};
   size_t argc = 2, len;
   int result;
   napi_value argv[2], jsthis, retval;
-  napi_valuetype types[2] = {napi_string, napi_string};
   Trader *trader;
   CThostFtdcUserLogoutField req;
   bool isTypesOk;
@@ -503,9 +503,9 @@ static void callJs(napi_env env, napi_value js_cb, void *context, void *data) {
 }
 
 static napi_value on(napi_env env, napi_callback_info info) {
+  static const napi_valuetype types[2] = {napi_string, napi_function};
   size_t argc = 2, len;
   napi_value argv[2], jsthis;
-  napi_valuetype types[2] = {napi_string, napi_function};
   napi_threadsafe_function tsfn;
   Trader *trader;
   char fname[64];
@@ -557,9 +557,9 @@ static void traderDestructor(napi_env env, void *data, void *hint) {
 }
 
 static napi_value traderNew(napi_env env, napi_callback_info info) {
-  napi_value target, argv[2], jsthis;
-  napi_valuetype types[2] = {napi_string, napi_string};
+  static const napi_valuetype types[2] = {napi_string, napi_string};
   size_t argc = 2, bytes;
+  napi_value target, argv[2], jsthis;
   Trader *trader;
   char flowPath[260], frontAddr[64];
   bool isTypesOk;
