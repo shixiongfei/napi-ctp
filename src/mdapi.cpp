@@ -68,7 +68,7 @@ static napi_value callInstrumentIdsFunc(napi_env env, napi_callback_info info, i
     instrumentIds[i] = (char *)malloc(size + 1);
     memset(instrumentIds[i], 0, size + 1);
 
-    CHECK(napi_get_value_string_utf8(env, element, instrumentIds[i], size + 1, &size));
+    CHECK(napi_get_value_string_utf8(env, element, instrumentIds[i], size + 1, nullptr));
   }
 
   result = func(marketData, instrumentIds, length);
@@ -106,27 +106,26 @@ static napi_value unsubscribeForQuoteRsp(napi_env env, napi_callback_info info) 
 }
 
 static napi_value userLogin(napi_env env, napi_callback_info info) {
-  static const napi_valuetype types[3] = {napi_string, napi_string, napi_string};
-  size_t argc = 3, len;
+  size_t argc = 1;
   int result;
-  napi_value argv[3], jsthis, retval;
+  napi_value object, jsthis, retval;
   MarketData *marketData;
+  bool isObject;
   CThostFtdcReqUserLoginField req;
-  bool isTypesOk;
 
-  CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
+  CHECK(napi_get_cb_info(env, info, &argc, &object, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&marketData));
 
-  CHECK(checkValueTypes(env, argc, argv, types, &isTypesOk));
+  CHECK(checkIsObject(env, object, &isObject));
 
-  if (!isTypesOk)
+  if (!isObject)
     return nullptr;
 
   memset(&req, 0, sizeof(req));
 
-  CHECK(napi_get_value_string_utf8(env, argv[0], req.BrokerID, sizeof(req.BrokerID), &len));
-  CHECK(napi_get_value_string_utf8(env, argv[1], req.UserID, sizeof(req.UserID), &len));
-  CHECK(napi_get_value_string_utf8(env, argv[2], req.Password, sizeof(req.Password), &len));
+  CHECK(GetObjectString(env, object, req, BrokerID));
+  CHECK(GetObjectString(env, object, req, UserID));
+  CHECK(GetObjectString(env, object, req, Password));
 
   result = marketData->api->ReqUserLogin(&req, sequenceId());
   CHECK(napi_create_int32(env, result, &retval));
@@ -135,26 +134,25 @@ static napi_value userLogin(napi_env env, napi_callback_info info) {
 }
 
 static napi_value userLogout(napi_env env, napi_callback_info info) {
-  static const napi_valuetype types[2] = {napi_string, napi_string};
-  size_t argc = 2, len;
+  size_t argc = 1;
   int result;
-  napi_value argv[2], jsthis, retval;
+  napi_value object, jsthis, retval;
   MarketData *marketData;
+  bool isObject;
   CThostFtdcUserLogoutField req;
-  bool isTypesOk;
 
-  CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
+  CHECK(napi_get_cb_info(env, info, &argc, &object, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&marketData));
 
-  CHECK(checkValueTypes(env, argc, argv, types, &isTypesOk));
+  CHECK(checkIsObject(env, object, &isObject));
 
-  if (!isTypesOk)
+  if (!isObject)
     return nullptr;
 
   memset(&req, 0, sizeof(req));
 
-  CHECK(napi_get_value_string_utf8(env, argv[0], req.BrokerID, sizeof(req.BrokerID), &len));
-  CHECK(napi_get_value_string_utf8(env, argv[1], req.UserID, sizeof(req.UserID), &len));
+  CHECK(GetObjectString(env, object, req, BrokerID));
+  CHECK(GetObjectString(env, object, req, UserID));
 
   result = marketData->api->ReqUserLogout(&req, sequenceId());
   CHECK(napi_create_int32(env, result, &retval));
@@ -206,7 +204,7 @@ static void callJs(napi_env env, napi_value js_cb, void *context, void *data) {
 
 static napi_value on(napi_env env, napi_callback_info info) {
   static const napi_valuetype types[2] = {napi_string, napi_function};
-  size_t argc = 2, len;
+  size_t argc = 2;
   napi_value argv[2], jsthis;
   napi_threadsafe_function tsfn;
   MarketData *marketData;
@@ -224,7 +222,7 @@ static napi_value on(napi_env env, napi_callback_info info) {
   CHECK(napi_create_threadsafe_function(env, argv[1], nullptr, argv[0], 0, 1, nullptr, nullptr, marketData, callJs, &tsfn));
   CHECK(napi_ref_threadsafe_function(env, tsfn));
 
-  CHECK(napi_get_value_string_utf8(env, argv[0], fname, sizeof(fname), &len));
+  CHECK(napi_get_value_string_utf8(env, argv[0], fname, sizeof(fname), nullptr));
 
   if (marketData->tsfns.find(fname) != marketData->tsfns.end())
     CHECK(napi_unref_threadsafe_function(env, marketData->tsfns[fname]));
@@ -262,7 +260,7 @@ static void marketDataDestructor(napi_env env, void *data, void *hint) {
 
 static napi_value marketDataNew(napi_env env, napi_callback_info info) {
   static const napi_valuetype types[2] = {napi_string, napi_string};
-  size_t argc = 2, bytes;
+  size_t argc = 2;
   napi_value target, argv[2], jsthis;
   MarketData *marketData;
   char flowMdPath[260], frontMdAddr[64];
@@ -280,8 +278,8 @@ static napi_value marketDataNew(napi_env env, napi_callback_info info) {
   if (!isTypesOk)
     return nullptr;
 
-  CHECK(napi_get_value_string_utf8(env, argv[0], flowMdPath, sizeof(flowMdPath), &bytes));
-  CHECK(napi_get_value_string_utf8(env, argv[1], frontMdAddr, sizeof(frontMdAddr), &bytes));
+  CHECK(napi_get_value_string_utf8(env, argv[0], flowMdPath, sizeof(flowMdPath), nullptr));
+  CHECK(napi_get_value_string_utf8(env, argv[1], frontMdAddr, sizeof(frontMdAddr), nullptr));
 
   marketData = new MarketData();
 

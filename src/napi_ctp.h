@@ -51,6 +51,7 @@ napi_status defineClass(napi_env env, const char *name, napi_callback constructo
 napi_value createInstance(napi_env env, napi_callback_info info, napi_ref constructor, size_t argc);
 
 napi_status checkIsStringArray(napi_env env, napi_value value, bool *result);
+napi_status checkIsObject(napi_env env, napi_value value, bool *result);
 napi_status checkValueTypes(napi_env env, size_t argc, const napi_value *argv, const napi_valuetype *types, bool *result);
 
 napi_status objectSetString(napi_env env, napi_value object, const char *name, const char *string);
@@ -59,20 +60,41 @@ napi_status objectSetUint32(napi_env env, napi_value object, const char *name, u
 napi_status objectSetInt64(napi_env env, napi_value object, const char *name, int64_t number);
 napi_status objectSetDouble(napi_env env, napi_value object, const char *name, double number);
 
-#define ObjectString(env, object, record, name)                                \
+napi_status objectGetString(napi_env env, napi_value object, const char *name, char *buf, size_t bufsize, size_t *length);
+napi_status objectGetInt32(napi_env env, napi_value object, const char *name, int32_t *number);
+napi_status objectGetUint32(napi_env env, napi_value object, const char *name, uint32_t *number);
+napi_status objectGetInt64(napi_env env, napi_value object, const char *name, int64_t *number);
+napi_status objectGetDouble(napi_env env, napi_value object, const char *name, double *number);
+
+#define SetObjectString(env, object, record, name)                             \
   objectSetString(env, object, #name, (const char *)record->name)
 
-#define ObjectInt32(env, object, record, name)                                 \
+#define SetObjectInt32(env, object, record, name)                              \
   objectSetInt32(env, object, #name, record->name)
 
-#define ObjectUint32(env, object, record, name)                                \
+#define SetObjectUint32(env, object, record, name)                             \
   objectSetUint32(env, object, #name, record->name)
 
-#define ObjectInt64(env, object, record, name)                                 \
+#define SetObjectInt64(env, object, record, name)                              \
   objectSetInt64(env, object, #name, record->name)
 
-#define ObjectDouble(env, object, record, name)                                \
+#define SetObjectDouble(env, object, record, name)                             \
   objectSetDouble(env, object, #name, record->name)
+
+#define GetObjectString(env, object, record, name)                             \
+  objectGetString(env, object, #name, record.name, sizeof(record.name), nullptr)
+
+#define GetObjectInt32(env, object, record, name)                              \
+  objectGetInt32(env, object, #name, &record.name)
+
+#define GetObjectUint32(env, object, record, name)                             \
+  objectGetUint32(env, object, #name, &record.name)
+
+#define GetObjectInt64(env, object, record, name)                              \
+  objectGetInt64(env, object, #name, &record.name)
+
+#define GetObjectDouble(env, object, record, name)                             \
+  objectGetDouble(env, object, #name, &record.name)
 
 template <typename T> static inline uintptr_t copyData(T *data) {
   T *p = (T *)malloc(sizeof(T));

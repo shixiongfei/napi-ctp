@@ -37,29 +37,28 @@ static napi_value getApiVersion(napi_env env, napi_callback_info info) {
 }
 
 static napi_value authenticate(napi_env env, napi_callback_info info) {
-  static const napi_valuetype types[5] = {napi_string, napi_string, napi_string, napi_string, napi_string};
-  size_t argc = 5, len;
+  size_t argc = 1;
   int result;
-  napi_value argv[5], jsthis, retval;
+  napi_value object, jsthis, retval;
   Trader *trader;
+  bool isObject;
   CThostFtdcReqAuthenticateField req;
-  bool isTypesOk;
 
-  CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
+  CHECK(napi_get_cb_info(env, info, &argc, &object, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&trader));
 
-  CHECK(checkValueTypes(env, argc, argv, types, &isTypesOk));
+  CHECK(checkIsObject(env, object, &isObject));
 
-  if (!isTypesOk)
+  if (!isObject)
     return nullptr;
 
   memset(&req, 0, sizeof(req));
 
-  CHECK(napi_get_value_string_utf8(env, argv[0], req.BrokerID, sizeof(req.BrokerID), &len));
-  CHECK(napi_get_value_string_utf8(env, argv[1], req.UserID, sizeof(req.UserID), &len));
-  CHECK(napi_get_value_string_utf8(env, argv[2], req.UserProductInfo, sizeof(req.UserProductInfo), &len));
-  CHECK(napi_get_value_string_utf8(env, argv[3], req.AuthCode, sizeof(req.AuthCode), &len));
-  CHECK(napi_get_value_string_utf8(env, argv[4], req.AppID, sizeof(req.AppID), &len));
+  CHECK(GetObjectString(env, object, req, BrokerID));
+  CHECK(GetObjectString(env, object, req, UserID));
+  CHECK(GetObjectString(env, object, req, UserProductInfo));
+  CHECK(GetObjectString(env, object, req, AuthCode));
+  CHECK(GetObjectString(env, object, req, AppID));
 
   result = trader->api->ReqAuthenticate(&req, sequenceId());
   CHECK(napi_create_int32(env, result, &retval));
@@ -68,27 +67,26 @@ static napi_value authenticate(napi_env env, napi_callback_info info) {
 }
 
 static napi_value userLogin(napi_env env, napi_callback_info info) {
-  static const napi_valuetype types[3] = {napi_string, napi_string, napi_string};
-  size_t argc = 3, len;
+  size_t argc = 1;
   int result;
-  napi_value argv[3], jsthis, retval;
+  napi_value object, jsthis, retval;
   Trader *trader;
+  bool isObject;
   CThostFtdcReqUserLoginField req;
-  bool isTypesOk;
 
-  CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
+  CHECK(napi_get_cb_info(env, info, &argc, &object, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&trader));
 
-  CHECK(checkValueTypes(env, argc, argv, types, &isTypesOk));
+  CHECK(checkIsObject(env, object, &isObject));
 
-  if (!isTypesOk)
+  if (!isObject)
     return nullptr;
 
   memset(&req, 0, sizeof(req));
 
-  CHECK(napi_get_value_string_utf8(env, argv[0], req.BrokerID, sizeof(req.BrokerID), &len));
-  CHECK(napi_get_value_string_utf8(env, argv[1], req.UserID, sizeof(req.UserID), &len));
-  CHECK(napi_get_value_string_utf8(env, argv[2], req.Password, sizeof(req.Password), &len));
+  CHECK(GetObjectString(env, object, req, BrokerID));
+  CHECK(GetObjectString(env, object, req, UserID));
+  CHECK(GetObjectString(env, object, req, Password));
 
   result = trader->api->ReqUserLogin(&req, sequenceId());
   CHECK(napi_create_int32(env, result, &retval));
@@ -97,26 +95,25 @@ static napi_value userLogin(napi_env env, napi_callback_info info) {
 }
 
 static napi_value userLogout(napi_env env, napi_callback_info info) {
-  static const napi_valuetype types[2] = {napi_string, napi_string};
-  size_t argc = 2, len;
+  size_t argc = 1;
   int result;
-  napi_value argv[2], jsthis, retval;
+  napi_value object, jsthis, retval;
   Trader *trader;
+  bool isObject;
   CThostFtdcUserLogoutField req;
-  bool isTypesOk;
 
-  CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
+  CHECK(napi_get_cb_info(env, info, &argc, &object, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&trader));
 
-  CHECK(checkValueTypes(env, argc, argv, types, &isTypesOk));
+  CHECK(checkIsObject(env, object, &isObject));
 
-  if (!isTypesOk)
+  if (!isObject)
     return nullptr;
 
   memset(&req, 0, sizeof(req));
 
-  CHECK(napi_get_value_string_utf8(env, argv[0], req.BrokerID, sizeof(req.BrokerID), &len));
-  CHECK(napi_get_value_string_utf8(env, argv[1], req.UserID, sizeof(req.UserID), &len));
+  CHECK(GetObjectString(env, object, req, BrokerID));
+  CHECK(GetObjectString(env, object, req, UserID));
 
   result = trader->api->ReqUserLogout(&req, sequenceId());
   CHECK(napi_create_int32(env, result, &retval));
@@ -125,28 +122,27 @@ static napi_value userLogout(napi_env env, napi_callback_info info) {
 }
 
 static napi_value userPasswordUpdate(napi_env env, napi_callback_info info) {
-  static const napi_valuetype types[4] = {napi_string, napi_string, napi_string, napi_string};
-  size_t argc = 4, len;
+  size_t argc = 1;
   int result;
-  napi_value argv[4], jsthis, retval;
+  napi_value object, jsthis, retval;
   Trader *trader;
+  bool isObject;
   CThostFtdcUserPasswordUpdateField req;
-  bool isTypesOk;
 
-  CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
+  CHECK(napi_get_cb_info(env, info, &argc, &object, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&trader));
 
-  CHECK(checkValueTypes(env, argc, argv, types, &isTypesOk));
+  CHECK(checkIsObject(env, object, &isObject));
 
-  if (!isTypesOk)
+  if (!isObject)
     return nullptr;
 
   memset(&req, 0, sizeof(req));
 
-  CHECK(napi_get_value_string_utf8(env, argv[0], req.BrokerID, sizeof(req.BrokerID), &len));
-  CHECK(napi_get_value_string_utf8(env, argv[1], req.UserID, sizeof(req.UserID), &len));
-  CHECK(napi_get_value_string_utf8(env, argv[2], req.OldPassword, sizeof(req.OldPassword), &len));
-  CHECK(napi_get_value_string_utf8(env, argv[3], req.NewPassword, sizeof(req.NewPassword), &len));
+  CHECK(GetObjectString(env, object, req, BrokerID));
+  CHECK(GetObjectString(env, object, req, UserID));
+  CHECK(GetObjectString(env, object, req, OldPassword));
+  CHECK(GetObjectString(env, object, req, NewPassword));
 
   result = trader->api->ReqUserPasswordUpdate(&req, sequenceId());
   CHECK(napi_create_int32(env, result, &retval));
@@ -155,28 +151,27 @@ static napi_value userPasswordUpdate(napi_env env, napi_callback_info info) {
 }
 
 static napi_value tradingAccountPasswordUpdate(napi_env env, napi_callback_info info) {
-  static const napi_valuetype types[4] = {napi_string, napi_string, napi_string, napi_string};
-  size_t argc = 4, len;
+  size_t argc = 1;
   int result;
-  napi_value argv[4], jsthis, retval;
+  napi_value object, jsthis, retval;
   Trader *trader;
+  bool isObject;
   CThostFtdcTradingAccountPasswordUpdateField req;
-  bool isTypesOk;
 
-  CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
+  CHECK(napi_get_cb_info(env, info, &argc, &object, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&trader));
 
-  CHECK(checkValueTypes(env, argc, argv, types, &isTypesOk));
+  CHECK(checkIsObject(env, object, &isObject));
 
-  if (!isTypesOk)
+  if (!isObject)
     return nullptr;
 
   memset(&req, 0, sizeof(req));
 
-  CHECK(napi_get_value_string_utf8(env, argv[0], req.BrokerID, sizeof(req.BrokerID), &len));
-  CHECK(napi_get_value_string_utf8(env, argv[1], req.AccountID, sizeof(req.AccountID), &len));
-  CHECK(napi_get_value_string_utf8(env, argv[2], req.OldPassword, sizeof(req.OldPassword), &len));
-  CHECK(napi_get_value_string_utf8(env, argv[3], req.NewPassword, sizeof(req.NewPassword), &len));
+  CHECK(GetObjectString(env, object, req, BrokerID));
+  CHECK(GetObjectString(env, object, req, AccountID));
+  CHECK(GetObjectString(env, object, req, OldPassword));
+  CHECK(GetObjectString(env, object, req, NewPassword));
 
   result = trader->api->ReqTradingAccountPasswordUpdate(&req, sequenceId());
   CHECK(napi_create_int32(env, result, &retval));
@@ -229,26 +224,25 @@ static napi_value qryMaxOrderVolume(napi_env env, napi_callback_info info) {
 }
 
 static napi_value settlementInfoConfirm(napi_env env, napi_callback_info info) {
-  static const napi_valuetype types[2] = {napi_string, napi_string};
-  size_t argc = 2, len;
+  size_t argc = 1;
   int result;
-  napi_value argv[2], jsthis, retval;
+  napi_value object, jsthis, retval;
   Trader *trader;
+  bool isObject;
   CThostFtdcSettlementInfoConfirmField req;
-  bool isTypesOk;
 
-  CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
+  CHECK(napi_get_cb_info(env, info, &argc, &object, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&trader));
 
-  CHECK(checkValueTypes(env, argc, argv, types, &isTypesOk));
+  CHECK(checkIsObject(env, object, &isObject));
 
-  if (!isTypesOk)
+  if (!isObject)
     return nullptr;
 
   memset(&req, 0, sizeof(req));
 
-  CHECK(napi_get_value_string_utf8(env, argv[0], req.BrokerID, sizeof(req.BrokerID), &len));
-  CHECK(napi_get_value_string_utf8(env, argv[1], req.InvestorID, sizeof(req.InvestorID), &len));
+  CHECK(GetObjectString(env, object, req, BrokerID));
+  CHECK(GetObjectString(env, object, req, InvestorID));
 
   result = trader->api->ReqSettlementInfoConfirm(&req, sequenceId());
   CHECK(napi_create_int32(env, result, &retval));
@@ -301,26 +295,25 @@ static napi_value combActionInsert(napi_env env, napi_callback_info info) {
 }
 
 static napi_value qryOrder(napi_env env, napi_callback_info info) {
-  static const napi_valuetype types[2] = {napi_string, napi_string};
-  size_t argc = 2, len;
+  size_t argc = 1;
   int result;
-  napi_value argv[2], jsthis, retval;
+  napi_value object, jsthis, retval;
   Trader *trader;
+  bool isObject;
   CThostFtdcQryOrderField req;
-  bool isTypesOk;
 
-  CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
+  CHECK(napi_get_cb_info(env, info, &argc, &object, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&trader));
 
-  CHECK(checkValueTypes(env, argc, argv, types, &isTypesOk));
+  CHECK(checkIsObject(env, object, &isObject));
 
-  if (!isTypesOk)
+  if (!isObject)
     return nullptr;
 
   memset(&req, 0, sizeof(req));
 
-  CHECK(napi_get_value_string_utf8(env, argv[0], req.BrokerID, sizeof(req.BrokerID), &len));
-  CHECK(napi_get_value_string_utf8(env, argv[1], req.InvestorID, sizeof(req.InvestorID), &len));
+  CHECK(GetObjectString(env, object, req, BrokerID));
+  CHECK(GetObjectString(env, object, req, InvestorID));
 
   result = trader->api->ReqQryOrder(&req, sequenceId());
   CHECK(napi_create_int32(env, result, &retval));
@@ -329,26 +322,25 @@ static napi_value qryOrder(napi_env env, napi_callback_info info) {
 }
 
 static napi_value qryTrade(napi_env env, napi_callback_info info) {
-  static const napi_valuetype types[2] = {napi_string, napi_string};
-  size_t argc = 2, len;
+  size_t argc = 1;
   int result;
-  napi_value argv[2], jsthis, retval;
+  napi_value object, jsthis, retval;
   Trader *trader;
+  bool isObject;
   CThostFtdcQryTradeField req;
-  bool isTypesOk;
 
-  CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
+  CHECK(napi_get_cb_info(env, info, &argc, &object, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&trader));
 
-  CHECK(checkValueTypes(env, argc, argv, types, &isTypesOk));
+  CHECK(checkIsObject(env, object, &isObject));
 
-  if (!isTypesOk)
+  if (!isObject)
     return nullptr;
 
   memset(&req, 0, sizeof(req));
 
-  CHECK(napi_get_value_string_utf8(env, argv[0], req.BrokerID, sizeof(req.BrokerID), &len));
-  CHECK(napi_get_value_string_utf8(env, argv[1], req.InvestorID, sizeof(req.InvestorID), &len));
+  CHECK(GetObjectString(env, object, req, BrokerID));
+  CHECK(GetObjectString(env, object, req, InvestorID));
 
   result = trader->api->ReqQryTrade(&req, sequenceId());
   CHECK(napi_create_int32(env, result, &retval));
@@ -357,26 +349,25 @@ static napi_value qryTrade(napi_env env, napi_callback_info info) {
 }
 
 static napi_value qryInvestorPosition(napi_env env, napi_callback_info info) {
-  static const napi_valuetype types[2] = {napi_string, napi_string};
-  size_t argc = 2, len;
+  size_t argc = 1;
   int result;
-  napi_value argv[2], jsthis, retval;
+  napi_value object, jsthis, retval;
   Trader *trader;
+  bool isObject;
   CThostFtdcQryInvestorPositionField req;
-  bool isTypesOk;
 
-  CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
+  CHECK(napi_get_cb_info(env, info, &argc, &object, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&trader));
 
-  CHECK(checkValueTypes(env, argc, argv, types, &isTypesOk));
+  CHECK(checkIsObject(env, object, &isObject));
 
-  if (!isTypesOk)
+  if (!isObject)
     return nullptr;
 
   memset(&req, 0, sizeof(req));
 
-  CHECK(napi_get_value_string_utf8(env, argv[0], req.BrokerID, sizeof(req.BrokerID), &len));
-  CHECK(napi_get_value_string_utf8(env, argv[1], req.InvestorID, sizeof(req.InvestorID), &len));
+  CHECK(GetObjectString(env, object, req, BrokerID));
+  CHECK(GetObjectString(env, object, req, InvestorID));
 
   result = trader->api->ReqQryInvestorPosition(&req, sequenceId());
   CHECK(napi_create_int32(env, result, &retval));
@@ -385,26 +376,25 @@ static napi_value qryInvestorPosition(napi_env env, napi_callback_info info) {
 }
 
 static napi_value qryTradingAccount(napi_env env, napi_callback_info info) {
-  static const napi_valuetype types[2] = {napi_string, napi_string};
-  size_t argc = 2, len;
+  size_t argc = 1;
   int result;
-  napi_value argv[2], jsthis, retval;
+  napi_value object, jsthis, retval;
   Trader *trader;
+  bool isObject;
   CThostFtdcQryTradingAccountField req;
-  bool isTypesOk;
 
-  CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
+  CHECK(napi_get_cb_info(env, info, &argc, &object, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&trader));
 
-  CHECK(checkValueTypes(env, argc, argv, types, &isTypesOk));
+  CHECK(checkIsObject(env, object, &isObject));
 
-  if (!isTypesOk)
+  if (!isObject)
     return nullptr;
 
   memset(&req, 0, sizeof(req));
 
-  CHECK(napi_get_value_string_utf8(env, argv[0], req.BrokerID, sizeof(req.BrokerID), &len));
-  CHECK(napi_get_value_string_utf8(env, argv[1], req.InvestorID, sizeof(req.InvestorID), &len));
+  CHECK(GetObjectString(env, object, req, BrokerID));
+  CHECK(GetObjectString(env, object, req, InvestorID));
 
   result = trader->api->ReqQryTradingAccount(&req, sequenceId());
   CHECK(napi_create_int32(env, result, &retval));

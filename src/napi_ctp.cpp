@@ -94,6 +94,21 @@ napi_status checkIsStringArray(napi_env env, napi_value value, bool *result) {
   return napi_ok;
 }
 
+napi_status checkIsObject(napi_env env, napi_value value, bool *result) {
+  napi_valuetype valuetype;
+
+  CHECK(napi_typeof(env, value, &valuetype));
+
+  if (valuetype != napi_object) {
+    napi_throw_error(env, "TypeError", "The parameter should be an object");
+    *result = false;
+    return napi_ok;
+  }
+
+  *result = true;
+  return napi_ok;
+}
+
 static const char *getTypeString(napi_valuetype type) {
   switch(type) {
     case napi_undefined:
@@ -210,4 +225,74 @@ napi_status objectSetDouble(napi_env env, napi_value object, const char *name, d
   CHECK(napi_create_double(env, number, &value));
 
   return napi_set_named_property(env, object, name, value);
+}
+
+napi_status objectGetString(napi_env env, napi_value object, const char *name, char *buf, size_t bufsize, size_t *length) {
+  napi_value value;
+  bool hasProperty;
+
+  CHECK(napi_has_named_property(env, object, name, &hasProperty));
+
+  if (!hasProperty)
+    return napi_ok;
+
+  CHECK(napi_get_named_property(env, object, name, &value));
+
+  return napi_get_value_string_utf8(env, value, buf, bufsize, length);
+}
+
+napi_status objectGetInt32(napi_env env, napi_value object, const char *name, int32_t *number) {
+  napi_value value;
+  bool hasProperty;
+
+  CHECK(napi_has_named_property(env, object, name, &hasProperty));
+
+  if (!hasProperty)
+    return napi_ok;
+
+  CHECK(napi_get_named_property(env, object, name, &value));
+
+  return napi_get_value_int32(env, value, number);
+}
+
+napi_status objectGetUint32(napi_env env, napi_value object, const char *name, uint32_t *number) {
+  napi_value value;
+  bool hasProperty;
+
+  CHECK(napi_has_named_property(env, object, name, &hasProperty));
+
+  if (!hasProperty)
+    return napi_ok;
+
+  CHECK(napi_get_named_property(env, object, name, &value));
+
+  return napi_get_value_uint32(env, value, number);
+}
+
+napi_status objectGetInt64(napi_env env, napi_value object, const char *name, int64_t *number) {
+  napi_value value;
+  bool hasProperty;
+
+  CHECK(napi_has_named_property(env, object, name, &hasProperty));
+
+  if (!hasProperty)
+    return napi_ok;
+
+  CHECK(napi_get_named_property(env, object, name, &value));
+
+  return napi_get_value_int64(env, value, number);
+}
+
+napi_status objectGetDouble(napi_env env, napi_value object, const char *name, double *number) {
+  napi_value value;
+  bool hasProperty;
+
+  CHECK(napi_has_named_property(env, object, name, &hasProperty));
+
+  if (!hasProperty)
+    return napi_ok;
+
+  CHECK(napi_get_named_property(env, object, name, &value));
+
+  return napi_get_value_double(env, value, number);
 }

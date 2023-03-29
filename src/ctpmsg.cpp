@@ -41,20 +41,20 @@ napi_status rspUserLogin(napi_env env, const Message *message, napi_value *resul
   auto pRspUserLogin = MessageData<CThostFtdcRspUserLoginField>(message);
 
   CHECK(napi_create_object(env, result));
-  CHECK(ObjectString(env, *result, pRspUserLogin, TradingDay));
-  CHECK(ObjectString(env, *result, pRspUserLogin, LoginTime));
-  CHECK(ObjectString(env, *result, pRspUserLogin, BrokerID));
-  CHECK(ObjectString(env, *result, pRspUserLogin, UserID));
-  CHECK(ObjectString(env, *result, pRspUserLogin, SystemName));
-  CHECK(ObjectInt32(env, *result, pRspUserLogin, FrontID));
-  CHECK(ObjectInt32(env, *result, pRspUserLogin, SessionID));
-  CHECK(ObjectString(env, *result, pRspUserLogin, MaxOrderRef));
-  CHECK(ObjectString(env, *result, pRspUserLogin, SHFETime));
-  CHECK(ObjectString(env, *result, pRspUserLogin, DCETime));
-  CHECK(ObjectString(env, *result, pRspUserLogin, CZCETime));
-  CHECK(ObjectString(env, *result, pRspUserLogin, FFEXTime));
-  CHECK(ObjectString(env, *result, pRspUserLogin, INETime));
-  CHECK(ObjectString(env, *result, pRspUserLogin, SysVersion));
+  CHECK(SetObjectString(env, *result, pRspUserLogin, TradingDay));
+  CHECK(SetObjectString(env, *result, pRspUserLogin, LoginTime));
+  CHECK(SetObjectString(env, *result, pRspUserLogin, BrokerID));
+  CHECK(SetObjectString(env, *result, pRspUserLogin, UserID));
+  CHECK(SetObjectString(env, *result, pRspUserLogin, SystemName));
+  CHECK(SetObjectInt32(env, *result, pRspUserLogin, FrontID));
+  CHECK(SetObjectInt32(env, *result, pRspUserLogin, SessionID));
+  CHECK(SetObjectString(env, *result, pRspUserLogin, MaxOrderRef));
+  CHECK(SetObjectString(env, *result, pRspUserLogin, SHFETime));
+  CHECK(SetObjectString(env, *result, pRspUserLogin, DCETime));
+  CHECK(SetObjectString(env, *result, pRspUserLogin, CZCETime));
+  CHECK(SetObjectString(env, *result, pRspUserLogin, FFEXTime));
+  CHECK(SetObjectString(env, *result, pRspUserLogin, INETime));
+  CHECK(SetObjectString(env, *result, pRspUserLogin, SysVersion));
 
   return napi_ok;
 }
@@ -63,8 +63,8 @@ napi_status rspUserLogout(napi_env env, const Message *message, napi_value *resu
   auto pUserLogout = MessageData<CThostFtdcUserLogoutField>(message);
 
   CHECK(napi_create_object(env, result));
-  CHECK(ObjectString(env, *result, pUserLogout, BrokerID));
-  CHECK(ObjectString(env, *result, pUserLogout, UserID));
+  CHECK(SetObjectString(env, *result, pUserLogout, BrokerID));
+  CHECK(SetObjectString(env, *result, pUserLogout, UserID));
 
   return napi_ok;
 }
@@ -73,13 +73,13 @@ napi_status rspQryMulticastInstrument(napi_env env, const Message *message, napi
   auto pMulticastInstrument = MessageData<CThostFtdcMulticastInstrumentField>(message);
 
   CHECK(napi_create_object(env, result));
-  CHECK(ObjectInt32(env, *result, pMulticastInstrument, TopicID));
-  CHECK(ObjectString(env, *result, pMulticastInstrument, reserve1));
-  CHECK(ObjectInt32(env, *result, pMulticastInstrument, InstrumentNo));
-  CHECK(ObjectDouble(env, *result, pMulticastInstrument, CodePrice));
-  CHECK(ObjectInt32(env, *result, pMulticastInstrument, VolumeMultiple));
-  CHECK(ObjectDouble(env, *result, pMulticastInstrument, PriceTick));
-  CHECK(ObjectString(env, *result, pMulticastInstrument, InstrumentID));
+  CHECK(SetObjectInt32(env, *result, pMulticastInstrument, TopicID));
+  CHECK(SetObjectString(env, *result, pMulticastInstrument, reserve1));
+  CHECK(SetObjectInt32(env, *result, pMulticastInstrument, InstrumentNo));
+  CHECK(SetObjectDouble(env, *result, pMulticastInstrument, CodePrice));
+  CHECK(SetObjectInt32(env, *result, pMulticastInstrument, VolumeMultiple));
+  CHECK(SetObjectDouble(env, *result, pMulticastInstrument, PriceTick));
+  CHECK(SetObjectString(env, *result, pMulticastInstrument, InstrumentID));
 
   return napi_ok;
 }
@@ -88,8 +88,8 @@ napi_status rspError(napi_env env, const Message *message, napi_value *result) {
   auto pRspInfo = MessageData<CThostFtdcRspInfoField>(message);
 
   CHECK(napi_create_object(env, result));
-  CHECK(ObjectInt32(env, *result, pRspInfo, ErrorID));
-  CHECK(ObjectString(env, *result, pRspInfo, ErrorMsg));
+  CHECK(SetObjectInt32(env, *result, pRspInfo, ErrorID));
+  CHECK(SetObjectString(env, *result, pRspInfo, ErrorMsg));
 
   return napi_ok;
 }
@@ -98,8 +98,8 @@ napi_status rspSubMarketData(napi_env env, const Message *message, napi_value *r
   auto pSpecificInstrument = MessageData<CThostFtdcSpecificInstrumentField>(message);
 
   CHECK(napi_create_object(env, result));
-  CHECK(ObjectString(env, *result, pSpecificInstrument, reserve1));
-  CHECK(ObjectString(env, *result, pSpecificInstrument, InstrumentID));
+  CHECK(SetObjectString(env, *result, pSpecificInstrument, reserve1));
+  CHECK(SetObjectString(env, *result, pSpecificInstrument, InstrumentID));
 
   return napi_ok;
 }
@@ -108,8 +108,8 @@ napi_status rspUnSubMarketData(napi_env env, const Message *message, napi_value 
   auto pSpecificInstrument = MessageData<CThostFtdcSpecificInstrumentField>(message);
 
   CHECK(napi_create_object(env, result));
-  CHECK(ObjectString(env, *result, pSpecificInstrument, reserve1));
-  CHECK(ObjectString(env, *result, pSpecificInstrument, InstrumentID));
+  CHECK(SetObjectString(env, *result, pSpecificInstrument, reserve1));
+  CHECK(SetObjectString(env, *result, pSpecificInstrument, InstrumentID));
 
   return napi_ok;
 }
@@ -118,8 +118,8 @@ napi_status rspSubForQuote(napi_env env, const Message *message, napi_value *res
   auto pSpecificInstrument = MessageData<CThostFtdcSpecificInstrumentField>(message);
 
   CHECK(napi_create_object(env, result));
-  CHECK(ObjectString(env, *result, pSpecificInstrument, reserve1));
-  CHECK(ObjectString(env, *result, pSpecificInstrument, InstrumentID));
+  CHECK(SetObjectString(env, *result, pSpecificInstrument, reserve1));
+  CHECK(SetObjectString(env, *result, pSpecificInstrument, InstrumentID));
 
   return napi_ok;
 }
@@ -128,8 +128,8 @@ napi_status rspUnSubForQuote(napi_env env, const Message *message, napi_value *r
   auto pSpecificInstrument = MessageData<CThostFtdcSpecificInstrumentField>(message);
 
   CHECK(napi_create_object(env, result));
-  CHECK(ObjectString(env, *result, pSpecificInstrument, reserve1));
-  CHECK(ObjectString(env, *result, pSpecificInstrument, InstrumentID));
+  CHECK(SetObjectString(env, *result, pSpecificInstrument, reserve1));
+  CHECK(SetObjectString(env, *result, pSpecificInstrument, InstrumentID));
 
   return napi_ok;
 }
@@ -138,54 +138,54 @@ napi_status rtnDepthMarketData(napi_env env, const Message *message, napi_value 
   auto pDepthMarketData = MessageData<CThostFtdcDepthMarketDataField>(message);
 
   CHECK(napi_create_object(env, result));
-  CHECK(ObjectString(env, *result, pDepthMarketData, TradingDay));
-  CHECK(ObjectString(env, *result, pDepthMarketData, reserve1));
-  CHECK(ObjectString(env, *result, pDepthMarketData, ExchangeID));
-  CHECK(ObjectString(env, *result, pDepthMarketData, reserve2));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, LastPrice));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, PreSettlementPrice));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, PreClosePrice));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, PreOpenInterest));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, OpenPrice));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, HighestPrice));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, LowestPrice));
-  CHECK(ObjectInt32(env, *result, pDepthMarketData, Volume));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, Turnover));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, OpenInterest));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, ClosePrice));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, SettlementPrice));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, UpperLimitPrice));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, LowerLimitPrice));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, PreDelta));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, CurrDelta));
-  CHECK(ObjectString(env, *result, pDepthMarketData, UpdateTime));
-  CHECK(ObjectInt32(env, *result, pDepthMarketData, UpdateMillisec));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, BidPrice1));
-  CHECK(ObjectInt32(env, *result, pDepthMarketData, BidVolume1));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, AskPrice1));
-  CHECK(ObjectInt32(env, *result, pDepthMarketData, AskVolume1));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, BidPrice2));
-  CHECK(ObjectInt32(env, *result, pDepthMarketData, BidVolume2));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, AskPrice2));
-  CHECK(ObjectInt32(env, *result, pDepthMarketData, AskVolume2));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, BidPrice3));
-  CHECK(ObjectInt32(env, *result, pDepthMarketData, BidVolume3));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, AskPrice3));
-  CHECK(ObjectInt32(env, *result, pDepthMarketData, AskVolume3));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, BidPrice4));
-  CHECK(ObjectInt32(env, *result, pDepthMarketData, BidVolume4));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, AskPrice4));
-  CHECK(ObjectInt32(env, *result, pDepthMarketData, AskVolume4));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, BidPrice5));
-  CHECK(ObjectInt32(env, *result, pDepthMarketData, BidVolume5));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, AskPrice5));
-  CHECK(ObjectInt32(env, *result, pDepthMarketData, AskVolume5));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, AveragePrice));
-  CHECK(ObjectString(env, *result, pDepthMarketData, ActionDay));
-  CHECK(ObjectString(env, *result, pDepthMarketData, InstrumentID));
-  CHECK(ObjectString(env, *result, pDepthMarketData, ExchangeInstID));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, BandingUpperPrice));
-  CHECK(ObjectDouble(env, *result, pDepthMarketData, BandingLowerPrice));
+  CHECK(SetObjectString(env, *result, pDepthMarketData, TradingDay));
+  CHECK(SetObjectString(env, *result, pDepthMarketData, reserve1));
+  CHECK(SetObjectString(env, *result, pDepthMarketData, ExchangeID));
+  CHECK(SetObjectString(env, *result, pDepthMarketData, reserve2));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, LastPrice));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, PreSettlementPrice));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, PreClosePrice));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, PreOpenInterest));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, OpenPrice));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, HighestPrice));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, LowestPrice));
+  CHECK(SetObjectInt32(env, *result, pDepthMarketData, Volume));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, Turnover));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, OpenInterest));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, ClosePrice));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, SettlementPrice));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, UpperLimitPrice));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, LowerLimitPrice));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, PreDelta));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, CurrDelta));
+  CHECK(SetObjectString(env, *result, pDepthMarketData, UpdateTime));
+  CHECK(SetObjectInt32(env, *result, pDepthMarketData, UpdateMillisec));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, BidPrice1));
+  CHECK(SetObjectInt32(env, *result, pDepthMarketData, BidVolume1));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, AskPrice1));
+  CHECK(SetObjectInt32(env, *result, pDepthMarketData, AskVolume1));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, BidPrice2));
+  CHECK(SetObjectInt32(env, *result, pDepthMarketData, BidVolume2));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, AskPrice2));
+  CHECK(SetObjectInt32(env, *result, pDepthMarketData, AskVolume2));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, BidPrice3));
+  CHECK(SetObjectInt32(env, *result, pDepthMarketData, BidVolume3));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, AskPrice3));
+  CHECK(SetObjectInt32(env, *result, pDepthMarketData, AskVolume3));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, BidPrice4));
+  CHECK(SetObjectInt32(env, *result, pDepthMarketData, BidVolume4));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, AskPrice4));
+  CHECK(SetObjectInt32(env, *result, pDepthMarketData, AskVolume4));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, BidPrice5));
+  CHECK(SetObjectInt32(env, *result, pDepthMarketData, BidVolume5));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, AskPrice5));
+  CHECK(SetObjectInt32(env, *result, pDepthMarketData, AskVolume5));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, AveragePrice));
+  CHECK(SetObjectString(env, *result, pDepthMarketData, ActionDay));
+  CHECK(SetObjectString(env, *result, pDepthMarketData, InstrumentID));
+  CHECK(SetObjectString(env, *result, pDepthMarketData, ExchangeInstID));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, BandingUpperPrice));
+  CHECK(SetObjectDouble(env, *result, pDepthMarketData, BandingLowerPrice));
 
   return napi_ok;
 }
@@ -194,13 +194,13 @@ napi_status rtnForQuote(napi_env env, const Message *message, napi_value *result
   auto pForQuoteRsp = MessageData<CThostFtdcForQuoteRspField>(message);
 
   CHECK(napi_create_object(env, result));
-  CHECK(ObjectString(env, *result, pForQuoteRsp, TradingDay));
-  CHECK(ObjectString(env, *result, pForQuoteRsp, reserve1));
-  CHECK(ObjectString(env, *result, pForQuoteRsp, ForQuoteSysID));
-  CHECK(ObjectString(env, *result, pForQuoteRsp, ForQuoteTime));
-  CHECK(ObjectString(env, *result, pForQuoteRsp, ActionDay));
-  CHECK(ObjectString(env, *result, pForQuoteRsp, ExchangeID));
-  CHECK(ObjectString(env, *result, pForQuoteRsp, InstrumentID));
+  CHECK(SetObjectString(env, *result, pForQuoteRsp, TradingDay));
+  CHECK(SetObjectString(env, *result, pForQuoteRsp, reserve1));
+  CHECK(SetObjectString(env, *result, pForQuoteRsp, ForQuoteSysID));
+  CHECK(SetObjectString(env, *result, pForQuoteRsp, ForQuoteTime));
+  CHECK(SetObjectString(env, *result, pForQuoteRsp, ActionDay));
+  CHECK(SetObjectString(env, *result, pForQuoteRsp, ExchangeID));
+  CHECK(SetObjectString(env, *result, pForQuoteRsp, InstrumentID));
 
   return napi_ok;
 }
