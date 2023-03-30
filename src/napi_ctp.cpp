@@ -146,7 +146,7 @@ napi_status checkValueTypes(napi_env env, size_t argc, const napi_value *argv, c
     if (valuetype != types[i]) {
       char errors[64] = {0};
 
-      sprintf(errors, "The parameter %d should be a %s", (int)i, getTypeString(types[i]));
+      snprintf(errors, sizeof(errors), "The parameter %d should be a %s", (int)i, getTypeString(types[i]));
       napi_throw_error(env, "TypeError", errors);
 
       *result = false;
