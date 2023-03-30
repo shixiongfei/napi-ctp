@@ -12,6 +12,7 @@
 #include "mdapi.h"
 #include "mdmsg.h"
 #include "mdspi.h"
+#include <functional>
 #include <map>
 #include <stdlib.h>
 #include <string>
@@ -36,7 +37,7 @@ static napi_value getApiVersion(napi_env env, napi_callback_info info) {
   return version;
 }
 
-static napi_value callInstrumentIdsFunc(napi_env env, napi_callback_info info, int (*func)(MarketData *marketData, char **ids, int count)) {
+static napi_value callInstrumentIdsFunc(napi_env env, napi_callback_info info, std::function<int(MarketData*, char**, int)> func) {
   size_t argc = 1, size;
   uint32_t length;
   int result;
@@ -105,13 +106,12 @@ static napi_value unsubscribeForQuoteRsp(napi_env env, napi_callback_info info) 
   });
 }
 
-static napi_value userLogin(napi_env env, napi_callback_info info) {
+static napi_value callRequestFunc(napi_env env, napi_callback_info info, std::function<int(MarketData*, napi_value)> func) {
   size_t argc = 1;
   int result;
   napi_value object, jsthis, retval;
   MarketData *marketData;
   bool isObject;
-  CThostFtdcReqUserLoginField req;
 
   CHECK(napi_get_cb_info(env, info, &argc, &object, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&marketData));
@@ -121,43 +121,37 @@ static napi_value userLogin(napi_env env, napi_callback_info info) {
   if (!isObject)
     return nullptr;
 
-  memset(&req, 0, sizeof(req));
-
-  CHECK(GetObjectString(env, object, req, BrokerID));
-  CHECK(GetObjectString(env, object, req, UserID));
-  CHECK(GetObjectString(env, object, req, Password));
-
-  result = marketData->api->ReqUserLogin(&req, sequenceId());
+  result = func(marketData, object);
   CHECK(napi_create_int32(env, result, &retval));
 
   return retval;
 }
 
+static napi_value userLogin(napi_env env, napi_callback_info info) {
+  return callRequestFunc(env, info, [&env](MarketData *marketData, napi_value object) {
+    CThostFtdcReqUserLoginField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, UserID));
+    CHECK(GetObjectString(env, object, req, Password));
+
+    return marketData->api->ReqUserLogin(&req, sequenceId());
+  });
+}
+
 static napi_value userLogout(napi_env env, napi_callback_info info) {
-  size_t argc = 1;
-  int result;
-  napi_value object, jsthis, retval;
-  MarketData *marketData;
-  bool isObject;
-  CThostFtdcUserLogoutField req;
+  return callRequestFunc(env, info, [&env](MarketData *marketData, napi_value object) {
+    CThostFtdcUserLogoutField req;
 
-  CHECK(napi_get_cb_info(env, info, &argc, &object, &jsthis, nullptr));
-  CHECK(napi_unwrap(env, jsthis, (void **)&marketData));
+    memset(&req, 0, sizeof(req));
 
-  CHECK(checkIsObject(env, object, &isObject));
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, UserID));
 
-  if (!isObject)
-    return nullptr;
-
-  memset(&req, 0, sizeof(req));
-
-  CHECK(GetObjectString(env, object, req, BrokerID));
-  CHECK(GetObjectString(env, object, req, UserID));
-
-  result = marketData->api->ReqUserLogout(&req, sequenceId());
-  CHECK(napi_create_int32(env, result, &retval));
-
-  return retval;
+    return marketData->api->ReqUserLogout(&req, sequenceId());
+  });
 }
 
 static bool processMessage(MarketData *marketData, const Message &message) {
