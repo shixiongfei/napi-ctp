@@ -227,6 +227,11 @@ napi_status objectSetDouble(napi_env env, napi_value object, const char *name, d
   return napi_set_named_property(env, object, name, value);
 }
 
+napi_status objectSetChar(napi_env env, napi_value object, const char *name, char ch) {
+  const char str[2] = {ch, 0};
+  return objectSetString(env, object, name, str);
+}
+
 napi_status objectGetString(napi_env env, napi_value object, const char *name, char *buf, size_t bufsize, size_t *length) {
   napi_value value;
   bool hasProperty;

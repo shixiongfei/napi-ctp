@@ -59,6 +59,7 @@ napi_status objectSetInt32(napi_env env, napi_value object, const char *name, in
 napi_status objectSetUint32(napi_env env, napi_value object, const char *name, uint32_t number);
 napi_status objectSetInt64(napi_env env, napi_value object, const char *name, int64_t number);
 napi_status objectSetDouble(napi_env env, napi_value object, const char *name, double number);
+napi_status objectSetChar(napi_env env, napi_value object, const char *name, char ch);
 
 napi_status objectGetString(napi_env env, napi_value object, const char *name, char *buf, size_t bufsize, size_t *length);
 napi_status objectGetInt32(napi_env env, napi_value object, const char *name, int32_t *number);
@@ -80,6 +81,9 @@ napi_status objectGetDouble(napi_env env, napi_value object, const char *name, d
 
 #define SetObjectDouble(env, object, record, name)                             \
   objectSetDouble(env, object, #name, record->name)
+
+#define SetObjectChar(env, object, record, name)                               \
+  objectSetChar(env, object, #name, record->name)
 
 #define GetObjectString(env, object, record, name)                             \
   objectGetString(env, object, #name, record.name, sizeof(record.name), nullptr)

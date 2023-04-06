@@ -209,6 +209,11 @@ napi_status rspAuthenticate(napi_env env, const Message *message, napi_value *re
   auto pAuthenticate = MessageData<CThostFtdcRspAuthenticateField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectString(env, *result, pAuthenticate, BrokerID));
+  CHECK(SetObjectString(env, *result, pAuthenticate, UserID));
+  CHECK(SetObjectString(env, *result, pAuthenticate, UserProductInfo));
+  CHECK(SetObjectString(env, *result, pAuthenticate, AppID));
+  CHECK(SetObjectChar(env, *result, pAuthenticate, AppType));
 
   return napi_ok;
 }
@@ -217,6 +222,10 @@ napi_status rspUserPasswordUpdate(napi_env env, const Message *message, napi_val
   auto pUserPasswordUpdate = MessageData<CThostFtdcUserPasswordUpdateField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectString(env, *result, pUserPasswordUpdate, BrokerID));
+  CHECK(SetObjectString(env, *result, pUserPasswordUpdate, UserID));
+  CHECK(SetObjectString(env, *result, pUserPasswordUpdate, OldPassword));
+  CHECK(SetObjectString(env, *result, pUserPasswordUpdate, NewPassword));
 
   return napi_ok;
 }
@@ -225,6 +234,11 @@ napi_status rspTradingAccountPasswordUpdate(napi_env env, const Message *message
   auto pTradingAccountPasswordUpdate = MessageData<CThostFtdcTradingAccountPasswordUpdateField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectString(env, *result, pTradingAccountPasswordUpdate, BrokerID));
+  CHECK(SetObjectString(env, *result, pTradingAccountPasswordUpdate, AccountID));
+  CHECK(SetObjectString(env, *result, pTradingAccountPasswordUpdate, OldPassword));
+  CHECK(SetObjectString(env, *result, pTradingAccountPasswordUpdate, NewPassword));
+  CHECK(SetObjectString(env, *result, pTradingAccountPasswordUpdate, CurrencyID));
 
   return napi_ok;
 }
@@ -233,6 +247,7 @@ napi_status rspUserAuthMethod(napi_env env, const Message *message, napi_value *
   auto pRspUserAuthMethod = MessageData<CThostFtdcRspUserAuthMethodField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectInt32(env, *result, pRspUserAuthMethod, UsableAuthMethod));
 
   return napi_ok;
 }
@@ -241,6 +256,10 @@ napi_status rspGenUserCaptcha(napi_env env, const Message *message, napi_value *
   auto pRspGenUserCaptcha = MessageData<CThostFtdcRspGenUserCaptchaField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectString(env, *result, pRspGenUserCaptcha, BrokerID));
+  CHECK(SetObjectString(env, *result, pRspGenUserCaptcha, UserID));
+  CHECK(SetObjectInt32(env, *result, pRspGenUserCaptcha, CaptchaInfoLen));
+  CHECK(SetObjectString(env, *result, pRspGenUserCaptcha, CaptchaInfo));
 
   return napi_ok;
 }
@@ -249,6 +268,7 @@ napi_status rspGenUserText(napi_env env, const Message *message, napi_value *res
   auto pRspGenUserText = MessageData<CThostFtdcRspGenUserTextField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectInt32(env, *result, pRspGenUserText, UserTextSeq));
 
   return napi_ok;
 }
