@@ -6,7 +6,7 @@
  * Author: Xiongfei Shi <xiongfei.shi(a)icloud.com>
  * License: Apache-2.0
  *
- * https://github.com/shixiongfei/napi-ctp
+ * https:
  */
 
 #include "ctpmsg.h"
@@ -277,6 +277,38 @@ napi_status rspOrderInsert(napi_env env, const Message *message, napi_value *res
   auto pInputOrder = MessageData<CThostFtdcInputOrderField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectString(env, *result, pInputOrder, BrokerID));
+  CHECK(SetObjectString(env, *result, pInputOrder, InvestorID));
+  CHECK(SetObjectString(env, *result, pInputOrder, reserve1));
+  CHECK(SetObjectString(env, *result, pInputOrder, OrderRef));
+  CHECK(SetObjectString(env, *result, pInputOrder, UserID));
+  CHECK(SetObjectChar(env, *result, pInputOrder, OrderPriceType));
+  CHECK(SetObjectChar(env, *result, pInputOrder, Direction));
+  CHECK(SetObjectString(env, *result, pInputOrder, CombOffsetFlag));
+  CHECK(SetObjectString(env, *result, pInputOrder, CombHedgeFlag));
+  CHECK(SetObjectDouble(env, *result, pInputOrder, LimitPrice));
+  CHECK(SetObjectInt32(env, *result, pInputOrder, VolumeTotalOriginal));
+  CHECK(SetObjectChar(env, *result, pInputOrder, TimeCondition));
+  CHECK(SetObjectString(env, *result, pInputOrder, GTDDate));
+  CHECK(SetObjectChar(env, *result, pInputOrder, VolumeCondition));
+  CHECK(SetObjectInt32(env, *result, pInputOrder, MinVolume));
+  CHECK(SetObjectChar(env, *result, pInputOrder, ContingentCondition));
+  CHECK(SetObjectDouble(env, *result, pInputOrder, StopPrice));
+  CHECK(SetObjectChar(env, *result, pInputOrder, ForceCloseReason));
+  CHECK(SetObjectInt32(env, *result, pInputOrder, IsAutoSuspend));
+  CHECK(SetObjectString(env, *result, pInputOrder, BusinessUnit));
+  CHECK(SetObjectInt32(env, *result, pInputOrder, RequestID));
+  CHECK(SetObjectInt32(env, *result, pInputOrder, UserForceClose));
+  CHECK(SetObjectInt32(env, *result, pInputOrder, IsSwapOrder));
+  CHECK(SetObjectString(env, *result, pInputOrder, ExchangeID));
+  CHECK(SetObjectString(env, *result, pInputOrder, InvestUnitID));
+  CHECK(SetObjectString(env, *result, pInputOrder, AccountID));
+  CHECK(SetObjectString(env, *result, pInputOrder, CurrencyID));
+  CHECK(SetObjectString(env, *result, pInputOrder, ClientID));
+  CHECK(SetObjectString(env, *result, pInputOrder, reserve2));
+  CHECK(SetObjectString(env, *result, pInputOrder, MacAddress));
+  CHECK(SetObjectString(env, *result, pInputOrder, InstrumentID));
+  CHECK(SetObjectString(env, *result, pInputOrder, IPAddress));
 
   return napi_ok;
 }
@@ -285,6 +317,43 @@ napi_status rspParkedOrderInsert(napi_env env, const Message *message, napi_valu
   auto pParkedOrder = MessageData<CThostFtdcParkedOrderField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectString(env, *result, pParkedOrder, BrokerID));
+  CHECK(SetObjectString(env, *result, pParkedOrder, InvestorID));
+  CHECK(SetObjectString(env, *result, pParkedOrder, reserve1));
+  CHECK(SetObjectString(env, *result, pParkedOrder, OrderRef));
+  CHECK(SetObjectString(env, *result, pParkedOrder, UserID));
+  CHECK(SetObjectChar(env, *result, pParkedOrder, OrderPriceType));
+  CHECK(SetObjectChar(env, *result, pParkedOrder, Direction));
+  CHECK(SetObjectString(env, *result, pParkedOrder, CombOffsetFlag));
+  CHECK(SetObjectString(env, *result, pParkedOrder, CombHedgeFlag));
+  CHECK(SetObjectDouble(env, *result, pParkedOrder, LimitPrice));
+  CHECK(SetObjectInt32(env, *result, pParkedOrder, VolumeTotalOriginal));
+  CHECK(SetObjectChar(env, *result, pParkedOrder, TimeCondition));
+  CHECK(SetObjectString(env, *result, pParkedOrder, GTDDate));
+  CHECK(SetObjectChar(env, *result, pParkedOrder, VolumeCondition));
+  CHECK(SetObjectInt32(env, *result, pParkedOrder, MinVolume));
+  CHECK(SetObjectChar(env, *result, pParkedOrder, ContingentCondition));
+  CHECK(SetObjectDouble(env, *result, pParkedOrder, StopPrice));
+  CHECK(SetObjectChar(env, *result, pParkedOrder, ForceCloseReason));
+  CHECK(SetObjectInt32(env, *result, pParkedOrder, IsAutoSuspend));
+  CHECK(SetObjectString(env, *result, pParkedOrder, BusinessUnit));
+  CHECK(SetObjectInt32(env, *result, pParkedOrder, RequestID));
+  CHECK(SetObjectInt32(env, *result, pParkedOrder, UserForceClose));
+  CHECK(SetObjectString(env, *result, pParkedOrder, ExchangeID));
+  CHECK(SetObjectString(env, *result, pParkedOrder, ParkedOrderID));
+  CHECK(SetObjectChar(env, *result, pParkedOrder, UserType));
+  CHECK(SetObjectChar(env, *result, pParkedOrder, Status));
+  CHECK(SetObjectInt32(env, *result, pParkedOrder, ErrorID));
+  CHECK(SetObjectString(env, *result, pParkedOrder, ErrorMsg));
+  CHECK(SetObjectInt32(env, *result, pParkedOrder, IsSwapOrder));
+  CHECK(SetObjectString(env, *result, pParkedOrder, AccountID));
+  CHECK(SetObjectString(env, *result, pParkedOrder, CurrencyID));
+  CHECK(SetObjectString(env, *result, pParkedOrder, ClientID));
+  CHECK(SetObjectString(env, *result, pParkedOrder, InvestUnitID));
+  CHECK(SetObjectString(env, *result, pParkedOrder, reserve2));
+  CHECK(SetObjectString(env, *result, pParkedOrder, MacAddress));
+  CHECK(SetObjectString(env, *result, pParkedOrder, InstrumentID));
+  CHECK(SetObjectString(env, *result, pParkedOrder, IPAddress));
 
   return napi_ok;
 }
@@ -293,6 +362,30 @@ napi_status rspParkedOrderAction(napi_env env, const Message *message, napi_valu
   auto pParkedOrderAction = MessageData<CThostFtdcParkedOrderActionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectString(env, *result, pParkedOrderAction, BrokerID));
+  CHECK(SetObjectString(env, *result, pParkedOrderAction, InvestorID));
+  CHECK(SetObjectInt32(env, *result, pParkedOrderAction, OrderActionRef));
+  CHECK(SetObjectString(env, *result, pParkedOrderAction, OrderRef));
+  CHECK(SetObjectInt32(env, *result, pParkedOrderAction, RequestID));
+  CHECK(SetObjectInt32(env, *result, pParkedOrderAction, FrontID));
+  CHECK(SetObjectInt32(env, *result, pParkedOrderAction, SessionID));
+  CHECK(SetObjectString(env, *result, pParkedOrderAction, ExchangeID));
+  CHECK(SetObjectString(env, *result, pParkedOrderAction, OrderSysID));
+  CHECK(SetObjectChar(env, *result, pParkedOrderAction, ActionFlag));
+  CHECK(SetObjectDouble(env, *result, pParkedOrderAction, LimitPrice));
+  CHECK(SetObjectInt32(env, *result, pParkedOrderAction, VolumeChange));
+  CHECK(SetObjectString(env, *result, pParkedOrderAction, UserID));
+  CHECK(SetObjectString(env, *result, pParkedOrderAction, reserve1));
+  CHECK(SetObjectString(env, *result, pParkedOrderAction, ParkedOrderActionID));
+  CHECK(SetObjectChar(env, *result, pParkedOrderAction, UserType));
+  CHECK(SetObjectChar(env, *result, pParkedOrderAction, Status));
+  CHECK(SetObjectInt32(env, *result, pParkedOrderAction, ErrorID));
+  CHECK(SetObjectString(env, *result, pParkedOrderAction, ErrorMsg));
+  CHECK(SetObjectString(env, *result, pParkedOrderAction, InvestUnitID));
+  CHECK(SetObjectString(env, *result, pParkedOrderAction, reserve2));
+  CHECK(SetObjectString(env, *result, pParkedOrderAction, MacAddress));
+  CHECK(SetObjectString(env, *result, pParkedOrderAction, InstrumentID));
+  CHECK(SetObjectString(env, *result, pParkedOrderAction, IPAddress));
 
   return napi_ok;
 }
@@ -301,6 +394,25 @@ napi_status rspOrderAction(napi_env env, const Message *message, napi_value *res
   auto pInputOrderAction = MessageData<CThostFtdcInputOrderActionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectString(env, *result, pInputOrderAction, BrokerID));
+  CHECK(SetObjectString(env, *result, pInputOrderAction, InvestorID));
+  CHECK(SetObjectInt32(env, *result, pInputOrderAction, OrderActionRef));
+  CHECK(SetObjectString(env, *result, pInputOrderAction, OrderRef));
+  CHECK(SetObjectInt32(env, *result, pInputOrderAction, RequestID));
+  CHECK(SetObjectInt32(env, *result, pInputOrderAction, FrontID));
+  CHECK(SetObjectInt32(env, *result, pInputOrderAction, SessionID));
+  CHECK(SetObjectString(env, *result, pInputOrderAction, ExchangeID));
+  CHECK(SetObjectString(env, *result, pInputOrderAction, OrderSysID));
+  CHECK(SetObjectChar(env, *result, pInputOrderAction, ActionFlag));
+  CHECK(SetObjectDouble(env, *result, pInputOrderAction, LimitPrice));
+  CHECK(SetObjectInt32(env, *result, pInputOrderAction, VolumeChange));
+  CHECK(SetObjectString(env, *result, pInputOrderAction, UserID));
+  CHECK(SetObjectString(env, *result, pInputOrderAction, reserve1));
+  CHECK(SetObjectString(env, *result, pInputOrderAction, InvestUnitID));
+  CHECK(SetObjectString(env, *result, pInputOrderAction, reserve2));
+  CHECK(SetObjectString(env, *result, pInputOrderAction, MacAddress));
+  CHECK(SetObjectString(env, *result, pInputOrderAction, InstrumentID));
+  CHECK(SetObjectString(env, *result, pInputOrderAction, IPAddress));
 
   return napi_ok;
 }
@@ -309,6 +421,16 @@ napi_status rspQryMaxOrderVolume(napi_env env, const Message *message, napi_valu
   auto pQryMaxOrderVolume = MessageData<CThostFtdcQryMaxOrderVolumeField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectString(env, *result, pQryMaxOrderVolume, BrokerID));
+  CHECK(SetObjectString(env, *result, pQryMaxOrderVolume, InvestorID));
+  CHECK(SetObjectString(env, *result, pQryMaxOrderVolume, reserve1));
+  CHECK(SetObjectChar(env, *result, pQryMaxOrderVolume, Direction));
+  CHECK(SetObjectChar(env, *result, pQryMaxOrderVolume, OffsetFlag));
+  CHECK(SetObjectChar(env, *result, pQryMaxOrderVolume, HedgeFlag));
+  CHECK(SetObjectInt32(env, *result, pQryMaxOrderVolume, MaxVolume));
+  CHECK(SetObjectString(env, *result, pQryMaxOrderVolume, ExchangeID));
+  CHECK(SetObjectString(env, *result, pQryMaxOrderVolume, InvestUnitID));
+  CHECK(SetObjectString(env, *result, pQryMaxOrderVolume, InstrumentID));
 
   return napi_ok;
 }
@@ -317,6 +439,13 @@ napi_status rspSettlementInfoConfirm(napi_env env, const Message *message, napi_
   auto pSettlementInfoConfirm = MessageData<CThostFtdcSettlementInfoConfirmField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectString(env, *result, pSettlementInfoConfirm, BrokerID));
+	CHECK(SetObjectString(env, *result, pSettlementInfoConfirm, InvestorID));
+	CHECK(SetObjectString(env, *result, pSettlementInfoConfirm, ConfirmDate));
+	CHECK(SetObjectString(env, *result, pSettlementInfoConfirm, ConfirmTime));
+	CHECK(SetObjectInt32(env, *result, pSettlementInfoConfirm, SettlementID));
+	CHECK(SetObjectString(env, *result, pSettlementInfoConfirm, AccountID));
+	CHECK(SetObjectString(env, *result, pSettlementInfoConfirm, CurrencyID));
 
   return napi_ok;
 }
@@ -325,6 +454,10 @@ napi_status rspRemoveParkedOrder(napi_env env, const Message *message, napi_valu
   auto pRemoveParkedOrder = MessageData<CThostFtdcRemoveParkedOrderField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectString(env, *result, pRemoveParkedOrder, BrokerID));
+	CHECK(SetObjectString(env, *result, pRemoveParkedOrder, InvestorID));
+	CHECK(SetObjectString(env, *result, pRemoveParkedOrder, ParkedOrderID));
+	CHECK(SetObjectString(env, *result, pRemoveParkedOrder, InvestUnitID));
 
   return napi_ok;
 }
@@ -333,6 +466,10 @@ napi_status rspRemoveParkedOrderAction(napi_env env, const Message *message, nap
   auto pRemoveParkedOrderAction = MessageData<CThostFtdcRemoveParkedOrderActionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectString(env, *result, pRemoveParkedOrderAction, BrokerID));
+	CHECK(SetObjectString(env, *result, pRemoveParkedOrderAction, InvestorID));
+	CHECK(SetObjectString(env, *result, pRemoveParkedOrderAction, ParkedOrderActionID));
+	CHECK(SetObjectString(env, *result, pRemoveParkedOrderAction, InvestUnitID));
 
   return napi_ok;
 }
@@ -341,6 +478,29 @@ napi_status rspExecOrderInsert(napi_env env, const Message *message, napi_value 
   auto pInputExecOrder = MessageData<CThostFtdcInputExecOrderField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectString(env, *result, pInputExecOrder, BrokerID));
+	CHECK(SetObjectString(env, *result, pInputExecOrder, InvestorID));
+	CHECK(SetObjectString(env, *result, pInputExecOrder, reserve1));
+	CHECK(SetObjectString(env, *result, pInputExecOrder, ExecOrderRef));
+	CHECK(SetObjectString(env, *result, pInputExecOrder, UserID));
+	CHECK(SetObjectInt32(env, *result, pInputExecOrder, Volume));
+	CHECK(SetObjectInt32(env, *result, pInputExecOrder, RequestID));
+	CHECK(SetObjectString(env, *result, pInputExecOrder, BusinessUnit));
+	CHECK(SetObjectChar(env, *result, pInputExecOrder, OffsetFlag));
+	CHECK(SetObjectChar(env, *result, pInputExecOrder, HedgeFlag));
+	CHECK(SetObjectChar(env, *result, pInputExecOrder, ActionType));
+	CHECK(SetObjectChar(env, *result, pInputExecOrder, PosiDirection));
+	CHECK(SetObjectChar(env, *result, pInputExecOrder, ReservePositionFlag));
+	CHECK(SetObjectChar(env, *result, pInputExecOrder, CloseFlag));
+	CHECK(SetObjectString(env, *result, pInputExecOrder, ExchangeID));
+	CHECK(SetObjectString(env, *result, pInputExecOrder, InvestUnitID));
+	CHECK(SetObjectString(env, *result, pInputExecOrder, AccountID));
+	CHECK(SetObjectString(env, *result, pInputExecOrder, CurrencyID));
+	CHECK(SetObjectString(env, *result, pInputExecOrder, ClientID));
+	CHECK(SetObjectString(env, *result, pInputExecOrder, reserve2));
+	CHECK(SetObjectString(env, *result, pInputExecOrder, MacAddress));
+	CHECK(SetObjectString(env, *result, pInputExecOrder, InstrumentID));
+	CHECK(SetObjectString(env, *result, pInputExecOrder, IPAddress));
 
   return napi_ok;
 }
@@ -349,6 +509,23 @@ napi_status rspExecOrderAction(napi_env env, const Message *message, napi_value 
   auto pInputExecOrderAction = MessageData<CThostFtdcInputExecOrderActionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectString(env, *result, pInputExecOrderAction, BrokerID));
+	CHECK(SetObjectString(env, *result, pInputExecOrderAction, InvestorID));
+	CHECK(SetObjectInt32(env, *result, pInputExecOrderAction, ExecOrderActionRef));
+	CHECK(SetObjectString(env, *result, pInputExecOrderAction, ExecOrderRef));
+	CHECK(SetObjectInt32(env, *result, pInputExecOrderAction, RequestID));
+	CHECK(SetObjectInt32(env, *result, pInputExecOrderAction, FrontID));
+	CHECK(SetObjectInt32(env, *result, pInputExecOrderAction, SessionID));
+	CHECK(SetObjectString(env, *result, pInputExecOrderAction, ExchangeID));
+	CHECK(SetObjectString(env, *result, pInputExecOrderAction, ExecOrderSysID));
+	CHECK(SetObjectChar(env, *result, pInputExecOrderAction, ActionFlag));
+	CHECK(SetObjectString(env, *result, pInputExecOrderAction, UserID));
+	CHECK(SetObjectString(env, *result, pInputExecOrderAction, reserve1));
+	CHECK(SetObjectString(env, *result, pInputExecOrderAction, InvestUnitID));
+	CHECK(SetObjectString(env, *result, pInputExecOrderAction, reserve2));
+	CHECK(SetObjectString(env, *result, pInputExecOrderAction, MacAddress));
+	CHECK(SetObjectString(env, *result, pInputExecOrderAction, InstrumentID));
+	CHECK(SetObjectString(env, *result, pInputExecOrderAction, IPAddress));
 
   return napi_ok;
 }
@@ -357,6 +534,17 @@ napi_status rspForQuoteInsert(napi_env env, const Message *message, napi_value *
   auto pInputForQuote = MessageData<CThostFtdcInputForQuoteField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectString(env, *result, pInputForQuote, BrokerID));
+	CHECK(SetObjectString(env, *result, pInputForQuote, InvestorID));
+	CHECK(SetObjectString(env, *result, pInputForQuote, reserve1));
+	CHECK(SetObjectString(env, *result, pInputForQuote, ForQuoteRef));
+	CHECK(SetObjectString(env, *result, pInputForQuote, UserID));
+	CHECK(SetObjectString(env, *result, pInputForQuote, ExchangeID));
+	CHECK(SetObjectString(env, *result, pInputForQuote, InvestUnitID));
+	CHECK(SetObjectString(env, *result, pInputForQuote, reserve2));
+	CHECK(SetObjectString(env, *result, pInputForQuote, MacAddress));
+	CHECK(SetObjectString(env, *result, pInputForQuote, InstrumentID));
+	CHECK(SetObjectString(env, *result, pInputForQuote, IPAddress));
 
   return napi_ok;
 }
@@ -365,6 +553,32 @@ napi_status rspQuoteInsert(napi_env env, const Message *message, napi_value *res
   auto pInputQuote = MessageData<CThostFtdcInputQuoteField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectString(env, *result, pInputQuote, BrokerID));
+	CHECK(SetObjectString(env, *result, pInputQuote, InvestorID));
+	CHECK(SetObjectString(env, *result, pInputQuote, reserve1));
+	CHECK(SetObjectString(env, *result, pInputQuote, QuoteRef));
+	CHECK(SetObjectString(env, *result, pInputQuote, UserID));
+	CHECK(SetObjectDouble(env, *result, pInputQuote, AskPrice));
+	CHECK(SetObjectDouble(env, *result, pInputQuote, BidPrice));
+	CHECK(SetObjectInt32(env, *result, pInputQuote, AskVolume));
+	CHECK(SetObjectInt32(env, *result, pInputQuote, BidVolume));
+	CHECK(SetObjectInt32(env, *result, pInputQuote, RequestID));
+	CHECK(SetObjectString(env, *result, pInputQuote, BusinessUnit));
+	CHECK(SetObjectChar(env, *result, pInputQuote, AskOffsetFlag));
+	CHECK(SetObjectChar(env, *result, pInputQuote, BidOffsetFlag));
+	CHECK(SetObjectChar(env, *result, pInputQuote, AskHedgeFlag));
+	CHECK(SetObjectChar(env, *result, pInputQuote, BidHedgeFlag));
+	CHECK(SetObjectString(env, *result, pInputQuote, AskOrderRef));
+	CHECK(SetObjectString(env, *result, pInputQuote, BidOrderRef));
+	CHECK(SetObjectString(env, *result, pInputQuote, ForQuoteSysID));
+	CHECK(SetObjectString(env, *result, pInputQuote, ExchangeID));
+	CHECK(SetObjectString(env, *result, pInputQuote, InvestUnitID));
+	CHECK(SetObjectString(env, *result, pInputQuote, ClientID));
+	CHECK(SetObjectString(env, *result, pInputQuote, reserve2));
+	CHECK(SetObjectString(env, *result, pInputQuote, MacAddress));
+	CHECK(SetObjectString(env, *result, pInputQuote, InstrumentID));
+	CHECK(SetObjectString(env, *result, pInputQuote, IPAddress));
+	CHECK(SetObjectString(env, *result, pInputQuote, ReplaceSysID));
 
   return napi_ok;
 }
@@ -373,6 +587,24 @@ napi_status rspQuoteAction(napi_env env, const Message *message, napi_value *res
   auto pInputQuoteAction = MessageData<CThostFtdcInputQuoteActionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectString(env, *result, pInputQuoteAction, BrokerID));
+	CHECK(SetObjectString(env, *result, pInputQuoteAction, InvestorID));
+	CHECK(SetObjectInt32(env, *result, pInputQuoteAction, QuoteActionRef));
+	CHECK(SetObjectString(env, *result, pInputQuoteAction, QuoteRef));
+	CHECK(SetObjectInt32(env, *result, pInputQuoteAction, RequestID));
+	CHECK(SetObjectInt32(env, *result, pInputQuoteAction, FrontID));
+	CHECK(SetObjectInt32(env, *result, pInputQuoteAction, SessionID));
+	CHECK(SetObjectString(env, *result, pInputQuoteAction, ExchangeID));
+	CHECK(SetObjectString(env, *result, pInputQuoteAction, QuoteSysID));
+	CHECK(SetObjectChar(env, *result, pInputQuoteAction, ActionFlag));
+	CHECK(SetObjectString(env, *result, pInputQuoteAction, UserID));
+	CHECK(SetObjectString(env, *result, pInputQuoteAction, reserve1));
+	CHECK(SetObjectString(env, *result, pInputQuoteAction, InvestUnitID));
+	CHECK(SetObjectString(env, *result, pInputQuoteAction, ClientID));
+	CHECK(SetObjectString(env, *result, pInputQuoteAction, reserve2));
+	CHECK(SetObjectString(env, *result, pInputQuoteAction, MacAddress));
+	CHECK(SetObjectString(env, *result, pInputQuoteAction, InstrumentID));
+	CHECK(SetObjectString(env, *result, pInputQuoteAction, IPAddress));
 
   return napi_ok;
 }
@@ -381,6 +613,18 @@ napi_status rspBatchOrderAction(napi_env env, const Message *message, napi_value
   auto pInputBatchOrderAction = MessageData<CThostFtdcInputBatchOrderActionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectString(env, *result, pInputBatchOrderAction, BrokerID));
+	CHECK(SetObjectString(env, *result, pInputBatchOrderAction, InvestorID));
+	CHECK(SetObjectInt32(env, *result, pInputBatchOrderAction, OrderActionRef));
+	CHECK(SetObjectInt32(env, *result, pInputBatchOrderAction, RequestID));
+	CHECK(SetObjectInt32(env, *result, pInputBatchOrderAction, FrontID));
+	CHECK(SetObjectInt32(env, *result, pInputBatchOrderAction, SessionID));
+	CHECK(SetObjectString(env, *result, pInputBatchOrderAction, ExchangeID));
+	CHECK(SetObjectString(env, *result, pInputBatchOrderAction, UserID));
+	CHECK(SetObjectString(env, *result, pInputBatchOrderAction, InvestUnitID));
+	CHECK(SetObjectString(env, *result, pInputBatchOrderAction, reserve1));
+	CHECK(SetObjectString(env, *result, pInputBatchOrderAction, MacAddress));
+	CHECK(SetObjectString(env, *result, pInputBatchOrderAction, IPAddress));
 
   return napi_ok;
 }
@@ -389,6 +633,25 @@ napi_status rspOptionSelfCloseInsert(napi_env env, const Message *message, napi_
   auto pInputOptionSelfClose = MessageData<CThostFtdcInputOptionSelfCloseField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectString(env, *result, pInputOptionSelfClose, BrokerID));
+	CHECK(SetObjectString(env, *result, pInputOptionSelfClose, InvestorID));
+	CHECK(SetObjectString(env, *result, pInputOptionSelfClose, reserve1));
+	CHECK(SetObjectString(env, *result, pInputOptionSelfClose, OptionSelfCloseRef));
+	CHECK(SetObjectString(env, *result, pInputOptionSelfClose, UserID));
+	CHECK(SetObjectInt32(env, *result, pInputOptionSelfClose, Volume));
+	CHECK(SetObjectInt32(env, *result, pInputOptionSelfClose, RequestID));
+	CHECK(SetObjectString(env, *result, pInputOptionSelfClose, BusinessUnit));
+	CHECK(SetObjectChar(env, *result, pInputOptionSelfClose, HedgeFlag));
+	CHECK(SetObjectChar(env, *result, pInputOptionSelfClose, OptSelfCloseFlag));
+	CHECK(SetObjectString(env, *result, pInputOptionSelfClose, ExchangeID));
+	CHECK(SetObjectString(env, *result, pInputOptionSelfClose, InvestUnitID));
+	CHECK(SetObjectString(env, *result, pInputOptionSelfClose, AccountID));
+	CHECK(SetObjectString(env, *result, pInputOptionSelfClose, CurrencyID));
+	CHECK(SetObjectString(env, *result, pInputOptionSelfClose, ClientID));
+	CHECK(SetObjectString(env, *result, pInputOptionSelfClose, reserve2));
+	CHECK(SetObjectString(env, *result, pInputOptionSelfClose, MacAddress));
+	CHECK(SetObjectString(env, *result, pInputOptionSelfClose, InstrumentID));
+	CHECK(SetObjectString(env, *result, pInputOptionSelfClose, IPAddress));
 
   return napi_ok;
 }
@@ -397,6 +660,23 @@ napi_status rspOptionSelfCloseAction(napi_env env, const Message *message, napi_
   auto pInputOptionSelfCloseAction = MessageData<CThostFtdcInputOptionSelfCloseActionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectString(env, *result, pInputOptionSelfCloseAction, BrokerID));
+	CHECK(SetObjectString(env, *result, pInputOptionSelfCloseAction, InvestorID));
+	CHECK(SetObjectInt32(env, *result, pInputOptionSelfCloseAction, OptionSelfCloseActionRef));
+	CHECK(SetObjectString(env, *result, pInputOptionSelfCloseAction, OptionSelfCloseRef));
+	CHECK(SetObjectInt32(env, *result, pInputOptionSelfCloseAction, RequestID));
+	CHECK(SetObjectInt32(env, *result, pInputOptionSelfCloseAction, FrontID));
+	CHECK(SetObjectInt32(env, *result, pInputOptionSelfCloseAction, SessionID));
+	CHECK(SetObjectString(env, *result, pInputOptionSelfCloseAction, ExchangeID));
+	CHECK(SetObjectString(env, *result, pInputOptionSelfCloseAction, OptionSelfCloseSysID));
+	CHECK(SetObjectChar(env, *result, pInputOptionSelfCloseAction, ActionFlag));
+	CHECK(SetObjectString(env, *result, pInputOptionSelfCloseAction, UserID));
+	CHECK(SetObjectString(env, *result, pInputOptionSelfCloseAction, reserve1));
+	CHECK(SetObjectString(env, *result, pInputOptionSelfCloseAction, InvestUnitID));
+	CHECK(SetObjectString(env, *result, pInputOptionSelfCloseAction, reserve2));
+	CHECK(SetObjectString(env, *result, pInputOptionSelfCloseAction, MacAddress));
+	CHECK(SetObjectString(env, *result, pInputOptionSelfCloseAction, InstrumentID));
+	CHECK(SetObjectString(env, *result, pInputOptionSelfCloseAction, IPAddress));
 
   return napi_ok;
 }
@@ -405,6 +685,23 @@ napi_status rspCombActionInsert(napi_env env, const Message *message, napi_value
   auto pInputCombAction = MessageData<CThostFtdcInputCombActionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectString(env, *result, pInputCombAction, BrokerID));
+	CHECK(SetObjectString(env, *result, pInputCombAction, InvestorID));
+	CHECK(SetObjectString(env, *result, pInputCombAction, reserve1));
+	CHECK(SetObjectString(env, *result, pInputCombAction, CombActionRef));
+	CHECK(SetObjectString(env, *result, pInputCombAction, UserID));
+	CHECK(SetObjectChar(env, *result, pInputCombAction, Direction));
+	CHECK(SetObjectInt32(env, *result, pInputCombAction, Volume));
+	CHECK(SetObjectChar(env, *result, pInputCombAction, CombDirection));
+	CHECK(SetObjectChar(env, *result, pInputCombAction, HedgeFlag));
+	CHECK(SetObjectString(env, *result, pInputCombAction, ExchangeID));
+	CHECK(SetObjectString(env, *result, pInputCombAction, reserve2));
+	CHECK(SetObjectString(env, *result, pInputCombAction, MacAddress));
+	CHECK(SetObjectString(env, *result, pInputCombAction, InvestUnitID));
+	CHECK(SetObjectInt32(env, *result, pInputCombAction, FrontID));
+	CHECK(SetObjectInt32(env, *result, pInputCombAction, SessionID));
+	CHECK(SetObjectString(env, *result, pInputCombAction, InstrumentID));
+	CHECK(SetObjectString(env, *result, pInputCombAction, IPAddress));
 
   return napi_ok;
 }
@@ -413,6 +710,72 @@ napi_status rspQryOrder(napi_env env, const Message *message, napi_value *result
   auto pOrder = MessageData<CThostFtdcOrderField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectString(env, *result, pOrder, BrokerID));
+	CHECK(SetObjectString(env, *result, pOrder, InvestorID));
+	CHECK(SetObjectString(env, *result, pOrder, reserve1));
+	CHECK(SetObjectString(env, *result, pOrder, OrderRef));
+	CHECK(SetObjectString(env, *result, pOrder, UserID));
+	CHECK(SetObjectChar(env, *result, pOrder, OrderPriceType));
+	CHECK(SetObjectChar(env, *result, pOrder, Direction));
+	CHECK(SetObjectString(env, *result, pOrder, CombOffsetFlag));
+	CHECK(SetObjectString(env, *result, pOrder, CombHedgeFlag));
+	CHECK(SetObjectDouble(env, *result, pOrder, LimitPrice));
+	CHECK(SetObjectInt32(env, *result, pOrder, VolumeTotalOriginal));
+	CHECK(SetObjectChar(env, *result, pOrder, TimeCondition));
+	CHECK(SetObjectString(env, *result, pOrder, GTDDate));
+	CHECK(SetObjectChar(env, *result, pOrder, VolumeCondition));
+	CHECK(SetObjectInt32(env, *result, pOrder, MinVolume));
+	CHECK(SetObjectChar(env, *result, pOrder, ContingentCondition));
+	CHECK(SetObjectInt32(env, *result, pOrder, StopPrice));
+	CHECK(SetObjectChar(env, *result, pOrder, ForceCloseReason));
+	CHECK(SetObjectInt32(env, *result, pOrder, IsAutoSuspend));
+	CHECK(SetObjectString(env, *result, pOrder, BusinessUnit));
+	CHECK(SetObjectInt32(env, *result, pOrder, RequestID));
+	CHECK(SetObjectString(env, *result, pOrder, OrderLocalID));
+	CHECK(SetObjectString(env, *result, pOrder, ExchangeID));
+	CHECK(SetObjectString(env, *result, pOrder, ParticipantID));
+	CHECK(SetObjectString(env, *result, pOrder, ClientID));
+	CHECK(SetObjectString(env, *result, pOrder, reserve2));
+	CHECK(SetObjectString(env, *result, pOrder, TraderID));
+	CHECK(SetObjectInt32(env, *result, pOrder, InstallID));
+	CHECK(SetObjectChar(env, *result, pOrder, OrderSubmitStatus));
+	CHECK(SetObjectInt32(env, *result, pOrder, NotifySequence));
+	CHECK(SetObjectString(env, *result, pOrder, TradingDay));
+	CHECK(SetObjectInt32(env, *result, pOrder, SettlementID));
+	CHECK(SetObjectString(env, *result, pOrder, OrderSysID));
+	CHECK(SetObjectChar(env, *result, pOrder, OrderSource));
+	CHECK(SetObjectChar(env, *result, pOrder, OrderStatus));
+	CHECK(SetObjectChar(env, *result, pOrder, OrderType));
+	CHECK(SetObjectInt32(env, *result, pOrder, VolumeTraded));
+	CHECK(SetObjectInt32(env, *result, pOrder, VolumeTotal));
+	CHECK(SetObjectString(env, *result, pOrder, InsertDate));
+	CHECK(SetObjectString(env, *result, pOrder, InsertTime));
+	CHECK(SetObjectString(env, *result, pOrder, ActiveTime));
+	CHECK(SetObjectString(env, *result, pOrder, SuspendTime));
+	CHECK(SetObjectString(env, *result, pOrder, UpdateTime));
+	CHECK(SetObjectString(env, *result, pOrder, CancelTime));
+	CHECK(SetObjectString(env, *result, pOrder, ActiveTraderID));
+	CHECK(SetObjectString(env, *result, pOrder, ClearingPartID));
+	CHECK(SetObjectInt32(env, *result, pOrder, SequenceNo));
+	CHECK(SetObjectInt32(env, *result, pOrder, FrontID));
+	CHECK(SetObjectInt32(env, *result, pOrder, SessionID));
+	CHECK(SetObjectString(env, *result, pOrder, UserProductInfo));
+	CHECK(SetObjectString(env, *result, pOrder, StatusMsg));
+	CHECK(SetObjectInt32(env, *result, pOrder, UserForceClose));
+	CHECK(SetObjectString(env, *result, pOrder, ActiveUserID));
+	CHECK(SetObjectInt32(env, *result, pOrder, BrokerOrderSeq));
+	CHECK(SetObjectString(env, *result, pOrder, RelativeOrderSysID));
+	CHECK(SetObjectInt32(env, *result, pOrder, ZCETotalTradedVolume));
+	CHECK(SetObjectInt32(env, *result, pOrder, IsSwapOrder));
+	CHECK(SetObjectString(env, *result, pOrder, BranchID));
+	CHECK(SetObjectString(env, *result, pOrder, InvestUnitID));
+	CHECK(SetObjectString(env, *result, pOrder, AccountID));
+	CHECK(SetObjectString(env, *result, pOrder, CurrencyID));
+	CHECK(SetObjectString(env, *result, pOrder, reserve3));
+	CHECK(SetObjectString(env, *result, pOrder, MacAddress));
+	CHECK(SetObjectString(env, *result, pOrder, InstrumentID));
+	CHECK(SetObjectString(env, *result, pOrder, ExchangeInstID));
+	CHECK(SetObjectString(env, *result, pOrder, IPAddress));
 
   return napi_ok;
 }
@@ -421,6 +784,39 @@ napi_status rspQryTrade(napi_env env, const Message *message, napi_value *result
   auto pTrade = MessageData<CThostFtdcTradeField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectString(env, *result, pTrade, BrokerID));
+	CHECK(SetObjectString(env, *result, pTrade, InvestorID));
+	CHECK(SetObjectString(env, *result, pTrade, reserve1));
+	CHECK(SetObjectString(env, *result, pTrade, OrderRef));
+	CHECK(SetObjectString(env, *result, pTrade, UserID));
+	CHECK(SetObjectString(env, *result, pTrade, ExchangeID));
+	CHECK(SetObjectString(env, *result, pTrade, TradeID));
+	CHECK(SetObjectChar(env, *result, pTrade, Direction));
+	CHECK(SetObjectString(env, *result, pTrade, OrderSysID));
+	CHECK(SetObjectString(env, *result, pTrade, ParticipantID));
+	CHECK(SetObjectString(env, *result, pTrade, ClientID));
+	CHECK(SetObjectChar(env, *result, pTrade, TradingRole));
+	CHECK(SetObjectString(env, *result, pTrade, reserve2));
+	CHECK(SetObjectChar(env, *result, pTrade, OffsetFlag));
+	CHECK(SetObjectChar(env, *result, pTrade, HedgeFlag));
+	CHECK(SetObjectDouble(env, *result, pTrade, Price));
+	CHECK(SetObjectInt32(env, *result, pTrade, Volume));
+	CHECK(SetObjectString(env, *result, pTrade, TradeDate));
+	CHECK(SetObjectString(env, *result, pTrade, TradeTime));
+	CHECK(SetObjectChar(env, *result, pTrade, TradeType));
+	CHECK(SetObjectChar(env, *result, pTrade, PriceSource));
+	CHECK(SetObjectString(env, *result, pTrade, TraderID));
+	CHECK(SetObjectString(env, *result, pTrade, OrderLocalID));
+	CHECK(SetObjectString(env, *result, pTrade, ClearingPartID));
+	CHECK(SetObjectString(env, *result, pTrade, BusinessUnit));
+	CHECK(SetObjectInt32(env, *result, pTrade, SequenceNo));
+	CHECK(SetObjectString(env, *result, pTrade, TradingDay));
+	CHECK(SetObjectInt32(env, *result, pTrade, SettlementID));
+	CHECK(SetObjectInt32(env, *result, pTrade, BrokerOrderSeq));
+	CHECK(SetObjectChar(env, *result, pTrade, TradeSource));
+	CHECK(SetObjectString(env, *result, pTrade, InvestUnitID));
+	CHECK(SetObjectString(env, *result, pTrade, InstrumentID));
+	CHECK(SetObjectString(env, *result, pTrade, ExchangeInstID));
 
   return napi_ok;
 }
@@ -429,6 +825,56 @@ napi_status rspQryInvestorPosition(napi_env env, const Message *message, napi_va
   auto pInvestorPosition = MessageData<CThostFtdcInvestorPositionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectString(env, *result, pInvestorPosition, reserve1));
+	CHECK(SetObjectString(env, *result, pInvestorPosition, BrokerID));
+	CHECK(SetObjectString(env, *result, pInvestorPosition, InvestorID));
+	CHECK(SetObjectChar(env, *result, pInvestorPosition, PosiDirection));
+	CHECK(SetObjectChar(env, *result, pInvestorPosition, HedgeFlag));
+	CHECK(SetObjectChar(env, *result, pInvestorPosition, PositionDate));
+	CHECK(SetObjectInt32(env, *result, pInvestorPosition, YdPosition));
+	CHECK(SetObjectInt32(env, *result, pInvestorPosition, Position));
+	CHECK(SetObjectInt32(env, *result, pInvestorPosition, LongFrozen));
+	CHECK(SetObjectInt32(env, *result, pInvestorPosition, ShortFrozen));
+	CHECK(SetObjectDouble(env, *result, pInvestorPosition, LongFrozenAmount));
+	CHECK(SetObjectDouble(env, *result, pInvestorPosition, ShortFrozenAmount));
+	CHECK(SetObjectInt32(env, *result, pInvestorPosition, OpenVolume));
+	CHECK(SetObjectInt32(env, *result, pInvestorPosition, CloseVolume));
+	CHECK(SetObjectDouble(env, *result, pInvestorPosition, OpenAmount));
+	CHECK(SetObjectDouble(env, *result, pInvestorPosition, CloseAmount));
+	CHECK(SetObjectDouble(env, *result, pInvestorPosition, PositionCost));
+	CHECK(SetObjectDouble(env, *result, pInvestorPosition, PreMargin));
+	CHECK(SetObjectDouble(env, *result, pInvestorPosition, UseMargin));
+	CHECK(SetObjectDouble(env, *result, pInvestorPosition, FrozenMargin));
+	CHECK(SetObjectDouble(env, *result, pInvestorPosition, FrozenCash));
+	CHECK(SetObjectDouble(env, *result, pInvestorPosition, FrozenCommission));
+	CHECK(SetObjectDouble(env, *result, pInvestorPosition, CashIn));
+	CHECK(SetObjectDouble(env, *result, pInvestorPosition, Commission));
+	CHECK(SetObjectDouble(env, *result, pInvestorPosition, CloseProfit));
+	CHECK(SetObjectDouble(env, *result, pInvestorPosition, PositionProfit));
+	CHECK(SetObjectDouble(env, *result, pInvestorPosition, PreSettlementPrice));
+	CHECK(SetObjectDouble(env, *result, pInvestorPosition, SettlementPrice));
+	CHECK(SetObjectString(env, *result, pInvestorPosition, TradingDay));
+	CHECK(SetObjectInt32(env, *result, pInvestorPosition, SettlementID));
+	CHECK(SetObjectDouble(env, *result, pInvestorPosition, OpenCost));
+	CHECK(SetObjectDouble(env, *result, pInvestorPosition, ExchangeMargin));
+	CHECK(SetObjectInt32(env, *result, pInvestorPosition, CombPosition));
+	CHECK(SetObjectInt32(env, *result, pInvestorPosition, CombLongFrozen));
+	CHECK(SetObjectInt32(env, *result, pInvestorPosition, CombShortFrozen));
+	CHECK(SetObjectDouble(env, *result, pInvestorPosition, CloseProfitByDate));
+	CHECK(SetObjectDouble(env, *result, pInvestorPosition, CloseProfitByTrade));
+	CHECK(SetObjectInt32(env, *result, pInvestorPosition, TodayPosition));
+	CHECK(SetObjectDouble(env, *result, pInvestorPosition, MarginRateByMoney));
+	CHECK(SetObjectDouble(env, *result, pInvestorPosition, MarginRateByVolume));
+	CHECK(SetObjectInt32(env, *result, pInvestorPosition, StrikeFrozen));
+	CHECK(SetObjectDouble(env, *result, pInvestorPosition, StrikeFrozenAmount));
+	CHECK(SetObjectInt32(env, *result, pInvestorPosition, AbandonFrozen));
+	CHECK(SetObjectString(env, *result, pInvestorPosition, ExchangeID));
+	CHECK(SetObjectInt32(env, *result, pInvestorPosition, YdStrikeFrozen));
+	CHECK(SetObjectString(env, *result, pInvestorPosition, InvestUnitID));
+	CHECK(SetObjectDouble(env, *result, pInvestorPosition, PositionCostOffset));
+	CHECK(SetObjectInt32(env, *result, pInvestorPosition, TasPosition));
+	CHECK(SetObjectDouble(env, *result, pInvestorPosition, TasPositionCost));
+	CHECK(SetObjectString(env, *result, pInvestorPosition, InstrumentID));
 
   return napi_ok;
 }
@@ -437,6 +883,55 @@ napi_status rspQryTradingAccount(napi_env env, const Message *message, napi_valu
   auto pTradingAccount = MessageData<CThostFtdcTradingAccountField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(SetObjectString(env, *result, pTradingAccount, BrokerID));
+	CHECK(SetObjectString(env, *result, pTradingAccount, AccountID));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, PreMortgage));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, PreCredit));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, PreDeposit));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, PreBalance));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, PreMargin));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, InterestBase));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, Interest));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, Deposit));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, Withdraw));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, FrozenMargin));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, FrozenCash));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, FrozenCommission));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, CurrMargin));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, CashIn));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, Commission));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, CloseProfit));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, PositionProfit));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, Balance));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, Available));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, WithdrawQuota));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, Reserve));
+	CHECK(SetObjectString(env, *result, pTradingAccount, TradingDay));
+	CHECK(SetObjectInt32(env, *result, pTradingAccount, SettlementID));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, Credit));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, Mortgage));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, ExchangeMargin));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, DeliveryMargin));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, ExchangeDeliveryMargin));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, ReserveBalance));
+	CHECK(SetObjectString(env, *result, pTradingAccount, CurrencyID));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, PreFundMortgageIn));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, PreFundMortgageOut));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, FundMortgageIn));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, FundMortgageOut));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, FundMortgageAvailable));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, MortgageableFund));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, SpecProductMargin));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, SpecProductFrozenMargin));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, SpecProductCommission));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, SpecProductFrozenCommission));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, SpecProductPositionProfit));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, SpecProductCloseProfit));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, SpecProductPositionProfitByAlg));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, SpecProductExchangeMargin));
+	CHECK(SetObjectChar(env, *result, pTradingAccount, BizType));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, FrozenSwap));
+	CHECK(SetObjectDouble(env, *result, pTradingAccount, RemainSwap));
 
   return napi_ok;
 }
