@@ -34,7 +34,6 @@ napi_status rspSubForQuote(napi_env env, const Message *message, napi_value *res
 napi_status rspUnSubForQuote(napi_env env, const Message *message, napi_value *result);
 napi_status rtnDepthMarketData(napi_env env, const Message *message, napi_value *result);
 napi_status rtnForQuote(napi_env env, const Message *message, napi_value *result);
-
 napi_status rspAuthenticate(napi_env env, const Message *message, napi_value *result);
 napi_status rspUserPasswordUpdate(napi_env env, const Message *message, napi_value *result);
 napi_status rspTradingAccountPasswordUpdate(napi_env env, const Message *message, napi_value *result);

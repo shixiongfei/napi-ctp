@@ -9,6 +9,13 @@
  * https://github.com/shixiongfei/napi-ctp
  */
 
+export type DisconnectReasonMessage =
+  | 0x1001 // 网络读失败
+  | 0x1002 // 网络写失败
+  | 0x2001 // 接收心跳超时
+  | 0x2002 // 发送心跳失败
+  | 0x2003; // 收到错误报文
+
 export interface UserLoginMessage {
   TradingDay: string;
   LoginTime: string;
@@ -112,12 +119,27 @@ export interface ForQuoteMessage {
   InstrumentID: string;
 }
 
+export type Message =
+  | number
+  | DisconnectReasonMessage
+  | UserLoginMessage
+  | UserLogoutMessage
+  | MulticastInstrumentMessage
+  | ErrorMessage
+  | SpecificInstrumentMessage
+  | DepthMarketDataMessage
+  | ForQuoteMessage;
+
+export interface CallbackFunction {
+  (message?: Message): void;
+}
+
 export enum MarketDataEvent {
   // message = code: number
   Quit = "quit",
   // message = undefined
   FrontConnected = "front-connected",
-  // message = reason: number
+  // message = reason: DisconnectReasonMessage
   FrontDisconnected = "front-disconnected",
   // message = timeLapse: number
   HeartBeatWarning = "heart-beat-warning",
@@ -143,38 +165,12 @@ export enum MarketDataEvent {
   RtnForQuote = "rtn-for-quote",
 }
 
-export type MarketDataMessage =
-  | number
-  | UserLoginMessage
-  | UserLogoutMessage
-  | MulticastInstrumentMessage
-  | ErrorMessage
-  | SpecificInstrumentMessage
-  | DepthMarketDataMessage
-  | ForQuoteMessage;
-
-export interface MarketDataFunction {
-  (message?: MarketDataMessage): void;
-}
-
-export declare class MarketData {
-  constructor(flowMdPath: string, frontMdAddr: string);
-  getApiVersion(): string;
-  subscribeMarketData(instrumentIds: string[]): number;
-  unsubscribeMarketData(instrumentIds: string[]): number;
-  subscribeForQuoteRsp(instrumentIds: string[]): number;
-  unsubscribeForQuoteRsp(instrumentIds: string[]): number;
-  userLogin(brokerId: string, userId: string, password: string): number;
-  userLogout(brokerId: string, userId: string): number;
-  on(event: MarketDataEvent, func: MarketDataFunction): MarketData;
-}
-
 export enum TraderEvent {
   // message = code: number
   Quit = "quit",
   // message = undefined
   FrontConnected = "front-connected",
-  // message = reason: number
+  // message = reason: DisconnectReasonMessage
   FrontDisconnected = "front-disconnected",
   // message = timeLapse: number
   HeartBeatWarning = "heart-beat-warning",
@@ -434,16 +430,91 @@ export enum TraderEvent {
   RspQryRiskSettleProductStatus = "rsp-qry-risk-settle-product-status",
 }
 
-export type TraderMessage = number;
+export type RequestReturn =
+  | 0 // 成功
+  | -1 // 网络连接失败
+  | -2 // 未处理请求超过许可数
+  | -3; // 每秒发送请求数超过许可数
 
-export interface TraderFunction {
-  (message?: TraderMessage): void;
+export interface UserLoginRequest {
+  BrokerID: string;
+  UserID: string;
+  Password: string;
+}
+
+export interface UserLogoutRequest {
+  BrokerID: string;
+  UserID: string;
+}
+
+export declare class MarketData {
+  constructor(flowMdPath: string, frontMdAddr: string);
+
+  /**
+   * 获取API的版本信息
+   * @returns 获取到的版本号
+   */
+  getApiVersion(): string;
+
+  /**
+   * 订阅行情
+   * @param instrumentIds 合约ID列表
+   */
+  subscribeMarketData(instrumentIds: string[]): RequestReturn;
+
+  /**
+   * 退订行情
+   * @param instrumentIds 合约ID列表
+   */
+  unsubscribeMarketData(instrumentIds: string[]): RequestReturn;
+
+  /**
+   * 订阅询价
+   * @param instrumentIds 合约ID列表
+   */
+  subscribeForQuoteRsp(instrumentIds: string[]): RequestReturn;
+
+  /**
+   * 退订询价
+   * @param instrumentIds 合约ID列表
+   */
+  unsubscribeForQuoteRsp(instrumentIds: string[]): RequestReturn;
+
+  /**
+   * 用户登录请求
+   * @param reqUserLogin 用户登陆信息
+   */
+  userLogin(reqUserLogin: UserLoginRequest): RequestReturn;
+
+  /**
+   * 用户登出请求
+   * @param reqUserLogout 用户登出信息
+   */
+  userLogout(reqUserLogout: UserLogoutRequest): RequestReturn;
+
+  /**
+   * 注册行情消息回调函数
+   * @param event 行情消息事件
+   * @param func 回调函数
+   */
+  on(event: MarketDataEvent, func: CallbackFunction): MarketData;
 }
 
 export declare class Trader {
   constructor(flowPath: string, frontAddr: string);
+
+  /**
+   * 获取API的版本信息
+   * @returns 获取到的版本号
+   */
   getApiVersion(): string;
-  on(event: TraderEvent, func: TraderFunction): Trader;
+
+  /**
+   * 注册交易消息回调函数
+   * @param event 交易消息事件
+   * @param func 回调函数
+   */
+  on(event: TraderEvent, func: CallbackFunction): Trader;
 }
 
 export declare function createMarketData(
