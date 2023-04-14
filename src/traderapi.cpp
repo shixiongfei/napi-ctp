@@ -823,7 +823,7 @@ static void callJs(napi_env env, napi_value js_cb, void *context, void *data) {
 
 static napi_value on(napi_env env, napi_callback_info info) {
   static const napi_valuetype types[2] = {napi_string, napi_function};
-  size_t argc = 2, len;
+  size_t argc = 2;
   napi_value argv[2], jsthis;
   napi_threadsafe_function tsfn;
   Trader *trader;
@@ -841,7 +841,7 @@ static napi_value on(napi_env env, napi_callback_info info) {
   CHECK(napi_create_threadsafe_function(env, argv[1], nullptr, argv[0], 0, 1, nullptr, nullptr, trader, callJs, &tsfn));
   CHECK(napi_ref_threadsafe_function(env, tsfn));
 
-  CHECK(napi_get_value_string_utf8(env, argv[0], fname, sizeof(fname), &len));
+  CHECK(napi_get_value_string_utf8(env, argv[0], fname, sizeof(fname), nullptr));
 
   if (trader->tsfns.find(fname) != trader->tsfns.end())
     CHECK(napi_unref_threadsafe_function(env, trader->tsfns[fname]));
@@ -879,7 +879,7 @@ static void traderDestructor(napi_env env, void *data, void *hint) {
 
 static napi_value traderNew(napi_env env, napi_callback_info info) {
   static const napi_valuetype types[2] = {napi_string, napi_string};
-  size_t argc = 2, bytes;
+  size_t argc = 2;
   napi_value target, argv[2], jsthis;
   Trader *trader;
   char flowPath[260], frontAddr[64];
@@ -897,8 +897,8 @@ static napi_value traderNew(napi_env env, napi_callback_info info) {
   if (!isTypesOk)
     return nullptr;
 
-  CHECK(napi_get_value_string_utf8(env, argv[0], flowPath, sizeof(flowPath), &bytes));
-  CHECK(napi_get_value_string_utf8(env, argv[1], frontAddr, sizeof(frontAddr), &bytes));
+  CHECK(napi_get_value_string_utf8(env, argv[0], flowPath, sizeof(flowPath), nullptr));
+  CHECK(napi_get_value_string_utf8(env, argv[1], frontAddr, sizeof(frontAddr), nullptr));
 
   trader = new Trader();
 
