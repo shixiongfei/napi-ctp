@@ -66,6 +66,7 @@ napi_status objectGetInt32(napi_env env, napi_value object, const char *name, in
 napi_status objectGetUint32(napi_env env, napi_value object, const char *name, uint32_t *number);
 napi_status objectGetInt64(napi_env env, napi_value object, const char *name, int64_t *number);
 napi_status objectGetDouble(napi_env env, napi_value object, const char *name, double *number);
+napi_status objectGetChar(napi_env env, napi_value object, const char *name, char *ch);
 
 #define SetObjectString(env, object, record, name)                             \
   objectSetString(env, object, #name, (const char *)record->name)
@@ -99,6 +100,9 @@ napi_status objectGetDouble(napi_env env, napi_value object, const char *name, d
 
 #define GetObjectDouble(env, object, record, name)                             \
   objectGetDouble(env, object, #name, &record.name)
+
+#define GetObjectChar(env, object, record, name)                               \
+  objectGetChar(env, object, #name, &record.name)
 
 template <typename T> static inline uintptr_t copyData(T *data) {
   T *p = (T *)malloc(sizeof(T));

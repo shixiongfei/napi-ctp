@@ -33,7 +33,6 @@ Constructors *getConstructors(napi_env env) {
   Constructors *constructors;
 
   CHECK(napi_get_instance_data(env, (void **)&constructors));
-
   return constructors;
 }
 
@@ -41,7 +40,6 @@ napi_status defineClass(napi_env env, const char *name, napi_callback constructo
   napi_value cons;
 
   CHECK(napi_define_class(env, name, NAPI_AUTO_LENGTH, constructor, nullptr, propertyCount, properties, &cons));
-
   return napi_create_reference(env, cons, 1, result);
 }
 
@@ -191,7 +189,6 @@ napi_status objectSetString(napi_env env, napi_value object, const char *name, c
   dynarray(char, utf8str, len * 6 + 1);
 
   CHECK(napi_create_string_utf8(env, toUTF8("GBK", string, len, utf8str), NAPI_AUTO_LENGTH, &value));
-
   return napi_set_named_property(env, object, name, value);
 }
 
@@ -199,7 +196,6 @@ napi_status objectSetInt32(napi_env env, napi_value object, const char *name, in
   napi_value value;
 
   CHECK(napi_create_int32(env, number, &value));
-
   return napi_set_named_property(env, object, name, value);
 }
 
@@ -207,7 +203,6 @@ napi_status objectSetUint32(napi_env env, napi_value object, const char *name, u
   napi_value value;
 
   CHECK(napi_create_uint32(env, number, &value));
-
   return napi_set_named_property(env, object, name, value);
 }
 
@@ -215,7 +210,6 @@ napi_status objectSetInt64(napi_env env, napi_value object, const char *name, in
   napi_value value;
 
   CHECK(napi_create_int64(env, number, &value));
-
   return napi_set_named_property(env, object, name, value);
 }
 
@@ -223,7 +217,6 @@ napi_status objectSetDouble(napi_env env, napi_value object, const char *name, d
   napi_value value;
 
   CHECK(napi_create_double(env, number, &value));
-
   return napi_set_named_property(env, object, name, value);
 }
 
@@ -242,7 +235,6 @@ napi_status objectGetString(napi_env env, napi_value object, const char *name, c
     return napi_ok;
 
   CHECK(napi_get_named_property(env, object, name, &value));
-
   return napi_get_value_string_utf8(env, value, buf, bufsize, length);
 }
 
@@ -256,7 +248,6 @@ napi_status objectGetInt32(napi_env env, napi_value object, const char *name, in
     return napi_ok;
 
   CHECK(napi_get_named_property(env, object, name, &value));
-
   return napi_get_value_int32(env, value, number);
 }
 
@@ -270,7 +261,6 @@ napi_status objectGetUint32(napi_env env, napi_value object, const char *name, u
     return napi_ok;
 
   CHECK(napi_get_named_property(env, object, name, &value));
-
   return napi_get_value_uint32(env, value, number);
 }
 
@@ -284,7 +274,6 @@ napi_status objectGetInt64(napi_env env, napi_value object, const char *name, in
     return napi_ok;
 
   CHECK(napi_get_named_property(env, object, name, &value));
-
   return napi_get_value_int64(env, value, number);
 }
 
@@ -298,6 +287,17 @@ napi_status objectGetDouble(napi_env env, napi_value object, const char *name, d
     return napi_ok;
 
   CHECK(napi_get_named_property(env, object, name, &value));
-
   return napi_get_value_double(env, value, number);
+}
+
+napi_status objectGetChar(napi_env env, napi_value object, const char *name, char *ch) {
+  char strbuf[8] = {0};
+  size_t length = 0;
+
+  CHECK(objectGetString(env, object, name, strbuf, arraysize(strbuf), &length));
+
+  if (ch && length > 0)
+    *ch = strbuf[0];
+
+  return napi_ok;
 }

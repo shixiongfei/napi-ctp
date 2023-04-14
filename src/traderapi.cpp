@@ -80,9 +80,18 @@ static napi_value userLogin(napi_env env, napi_callback_info info) {
 
     memset(&req, 0, sizeof(req));
 
+    CHECK(GetObjectString(env, object, req, TradingDay));
     CHECK(GetObjectString(env, object, req, BrokerID));
     CHECK(GetObjectString(env, object, req, UserID));
     CHECK(GetObjectString(env, object, req, Password));
+    CHECK(GetObjectString(env, object, req, UserProductInfo));
+    CHECK(GetObjectString(env, object, req, InterfaceProductInfo));
+    CHECK(GetObjectString(env, object, req, ProtocolInfo));
+    CHECK(GetObjectString(env, object, req, MacAddress));
+    CHECK(GetObjectString(env, object, req, OneTimePassword));
+    CHECK(GetObjectString(env, object, req, LoginRemark));
+    CHECK(GetObjectInt32(env, object, req, ClientIPPort));
+    CHECK(GetObjectString(env, object, req, ClientIPAddress));
 
     return trader->api->ReqUserLogin(&req, sequenceId());
   });
@@ -126,6 +135,7 @@ static napi_value tradingAccountPasswordUpdate(napi_env env, napi_callback_info 
     CHECK(GetObjectString(env, object, req, AccountID));
     CHECK(GetObjectString(env, object, req, OldPassword));
     CHECK(GetObjectString(env, object, req, NewPassword));
+    CHECK(GetObjectString(env, object, req, CurrencyID));
 
     return trader->api->ReqTradingAccountPasswordUpdate(&req, sequenceId());
   });
@@ -137,6 +147,7 @@ static napi_value userAuthMethod(napi_env env, napi_callback_info info) {
 
     memset(&req, 0, sizeof(req));
 
+    CHECK(GetObjectString(env, object, req, TradingDay));
     CHECK(GetObjectString(env, object, req, BrokerID));
     CHECK(GetObjectString(env, object, req, UserID));
 
@@ -150,6 +161,7 @@ static napi_value genUserCaptcha(napi_env env, napi_callback_info info) {
 
     memset(&req, 0, sizeof(req));
 
+    CHECK(GetObjectString(env, object, req, TradingDay));
     CHECK(GetObjectString(env, object, req, BrokerID));
     CHECK(GetObjectString(env, object, req, UserID));
 
@@ -163,6 +175,7 @@ static napi_value genUserText(napi_env env, napi_callback_info info) {
 
     memset(&req, 0, sizeof(req));
 
+    CHECK(GetObjectString(env, object, req, TradingDay));
     CHECK(GetObjectString(env, object, req, BrokerID));
     CHECK(GetObjectString(env, object, req, UserID));
 
@@ -176,11 +189,18 @@ static napi_value userLoginWithCaptcha(napi_env env, napi_callback_info info) {
 
     memset(&req, 0, sizeof(req));
 
+    CHECK(GetObjectString(env, object, req, TradingDay));
     CHECK(GetObjectString(env, object, req, BrokerID));
     CHECK(GetObjectString(env, object, req, UserID));
     CHECK(GetObjectString(env, object, req, Password));
     CHECK(GetObjectString(env, object, req, UserProductInfo));
+    CHECK(GetObjectString(env, object, req, InterfaceProductInfo));
+    CHECK(GetObjectString(env, object, req, ProtocolInfo));
+    CHECK(GetObjectString(env, object, req, MacAddress));
+    CHECK(GetObjectString(env, object, req, LoginRemark));
     CHECK(GetObjectString(env, object, req, Captcha));
+    CHECK(GetObjectInt32(env, object, req, ClientIPPort));
+    CHECK(GetObjectString(env, object, req, ClientIPAddress));
 
     return trader->api->ReqUserLoginWithCaptcha(&req, sequenceId());
   });
@@ -192,11 +212,18 @@ static napi_value userLoginWithText(napi_env env, napi_callback_info info) {
 
     memset(&req, 0, sizeof(req));
 
+    CHECK(GetObjectString(env, object, req, TradingDay));
     CHECK(GetObjectString(env, object, req, BrokerID));
     CHECK(GetObjectString(env, object, req, UserID));
     CHECK(GetObjectString(env, object, req, Password));
     CHECK(GetObjectString(env, object, req, UserProductInfo));
+    CHECK(GetObjectString(env, object, req, InterfaceProductInfo));
+    CHECK(GetObjectString(env, object, req, ProtocolInfo));
+    CHECK(GetObjectString(env, object, req, MacAddress));
+    CHECK(GetObjectString(env, object, req, LoginRemark));
     CHECK(GetObjectString(env, object, req, Text));
+    CHECK(GetObjectInt32(env, object, req, ClientIPPort));
+    CHECK(GetObjectString(env, object, req, ClientIPAddress));
 
     return trader->api->ReqUserLoginWithText(&req, sequenceId());
   });
@@ -208,11 +235,18 @@ static napi_value userLoginWithOTP(napi_env env, napi_callback_info info) {
 
     memset(&req, 0, sizeof(req));
 
+    CHECK(GetObjectString(env, object, req, TradingDay));
     CHECK(GetObjectString(env, object, req, BrokerID));
     CHECK(GetObjectString(env, object, req, UserID));
     CHECK(GetObjectString(env, object, req, Password));
     CHECK(GetObjectString(env, object, req, UserProductInfo));
+    CHECK(GetObjectString(env, object, req, InterfaceProductInfo));
+    CHECK(GetObjectString(env, object, req, ProtocolInfo));
+    CHECK(GetObjectString(env, object, req, MacAddress));
+    CHECK(GetObjectString(env, object, req, LoginRemark));
     CHECK(GetObjectString(env, object, req, OTPPassword));
+    CHECK(GetObjectInt32(env, object, req, ClientIPPort));
+    CHECK(GetObjectString(env, object, req, ClientIPAddress));
 
     return trader->api->ReqUserLoginWithOTP(&req, sequenceId());
   });
@@ -226,9 +260,34 @@ static napi_value orderInsert(napi_env env, napi_callback_info info) {
 
     CHECK(GetObjectString(env, object, req, BrokerID));
     CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, OrderRef));
+    CHECK(GetObjectString(env, object, req, UserID));
+    CHECK(GetObjectChar(env, object, req, OrderPriceType));
+    CHECK(GetObjectChar(env, object, req, Direction));
+    CHECK(GetObjectString(env, object, req, CombOffsetFlag));
+    CHECK(GetObjectString(env, object, req, CombHedgeFlag));
+    CHECK(GetObjectDouble(env, object, req, LimitPrice));
+    CHECK(GetObjectInt32(env, object, req, VolumeTotalOriginal));
+    CHECK(GetObjectChar(env, object, req, TimeCondition));
+    CHECK(GetObjectString(env, object, req, GTDDate));
+    CHECK(GetObjectChar(env, object, req, VolumeCondition));
+    CHECK(GetObjectInt32(env, object, req, MinVolume));
+    CHECK(GetObjectChar(env, object, req, ContingentCondition));
+    CHECK(GetObjectDouble(env, object, req, StopPrice));
+    CHECK(GetObjectChar(env, object, req, ForceCloseReason));
+    CHECK(GetObjectInt32(env, object, req, IsAutoSuspend));
+    CHECK(GetObjectString(env, object, req, BusinessUnit));
+    CHECK(GetObjectInt32(env, object, req, RequestID));
+    CHECK(GetObjectInt32(env, object, req, UserForceClose));
+    CHECK(GetObjectInt32(env, object, req, IsSwapOrder));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, AccountID));
+    CHECK(GetObjectString(env, object, req, CurrencyID));
+    CHECK(GetObjectString(env, object, req, ClientID));
+    CHECK(GetObjectString(env, object, req, MacAddress));
     CHECK(GetObjectString(env, object, req, InstrumentID));
-
-    // TODO
+    CHECK(GetObjectString(env, object, req, IPAddress));
 
     return trader->api->ReqOrderInsert(&req, sequenceId());
   });
@@ -242,9 +301,39 @@ static napi_value parkedOrderInsert(napi_env env, napi_callback_info info) {
 
     CHECK(GetObjectString(env, object, req, BrokerID));
     CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, OrderRef));
+    CHECK(GetObjectString(env, object, req, UserID));
+    CHECK(GetObjectChar(env, object, req, OrderPriceType));
+    CHECK(GetObjectChar(env, object, req, Direction));
+    CHECK(GetObjectString(env, object, req, CombOffsetFlag));
+    CHECK(GetObjectString(env, object, req, CombHedgeFlag));
+    CHECK(GetObjectDouble(env, object, req, LimitPrice));
+    CHECK(GetObjectInt32(env, object, req, VolumeTotalOriginal));
+    CHECK(GetObjectChar(env, object, req, TimeCondition));
+    CHECK(GetObjectString(env, object, req, GTDDate));
+    CHECK(GetObjectChar(env, object, req, VolumeCondition));
+    CHECK(GetObjectInt32(env, object, req, MinVolume));
+    CHECK(GetObjectChar(env, object, req, ContingentCondition));
+    CHECK(GetObjectDouble(env, object, req, StopPrice));
+    CHECK(GetObjectChar(env, object, req, ForceCloseReason));
+    CHECK(GetObjectInt32(env, object, req, IsAutoSuspend));
+    CHECK(GetObjectString(env, object, req, BusinessUnit));
+    CHECK(GetObjectInt32(env, object, req, RequestID));
+    CHECK(GetObjectInt32(env, object, req, UserForceClose));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, ParkedOrderID));
+    CHECK(GetObjectChar(env, object, req, UserType));
+    CHECK(GetObjectChar(env, object, req, Status));
+    CHECK(GetObjectInt32(env, object, req, ErrorID));
+    CHECK(GetObjectString(env, object, req, ErrorMsg));
+    CHECK(GetObjectInt32(env, object, req, IsSwapOrder));
+    CHECK(GetObjectString(env, object, req, AccountID));
+    CHECK(GetObjectString(env, object, req, CurrencyID));
+    CHECK(GetObjectString(env, object, req, ClientID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, MacAddress));
     CHECK(GetObjectString(env, object, req, InstrumentID));
-
-    // TODO
+    CHECK(GetObjectString(env, object, req, IPAddress));
 
     return trader->api->ReqParkedOrderInsert(&req, sequenceId());
   });
@@ -258,9 +347,26 @@ static napi_value parkedOrderAction(napi_env env, napi_callback_info info) {
 
     CHECK(GetObjectString(env, object, req, BrokerID));
     CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectInt32(env, object, req, OrderActionRef));
+    CHECK(GetObjectString(env, object, req, OrderRef));
+    CHECK(GetObjectInt32(env, object, req, RequestID));
+    CHECK(GetObjectInt32(env, object, req, FrontID));
+    CHECK(GetObjectInt32(env, object, req, SessionID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, OrderSysID));
+    CHECK(GetObjectChar(env, object, req, ActionFlag));
+    CHECK(GetObjectDouble(env, object, req, LimitPrice));
+    CHECK(GetObjectInt32(env, object, req, VolumeChange));
+    CHECK(GetObjectString(env, object, req, UserID));
+    CHECK(GetObjectString(env, object, req, ParkedOrderActionID));
+    CHECK(GetObjectChar(env, object, req, UserType));
+    CHECK(GetObjectChar(env, object, req, Status));
+    CHECK(GetObjectInt32(env, object, req, ErrorID));
+    CHECK(GetObjectString(env, object, req, ErrorMsg));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, MacAddress));
     CHECK(GetObjectString(env, object, req, InstrumentID));
-
-    // TODO
+    CHECK(GetObjectString(env, object, req, IPAddress));
 
     return trader->api->ReqParkedOrderAction(&req, sequenceId());
   });
@@ -274,9 +380,21 @@ static napi_value orderAction(napi_env env, napi_callback_info info) {
 
     CHECK(GetObjectString(env, object, req, BrokerID));
     CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectInt32(env, object, req, OrderActionRef));
+    CHECK(GetObjectString(env, object, req, OrderRef));
+    CHECK(GetObjectInt32(env, object, req, RequestID));
+    CHECK(GetObjectInt32(env, object, req, FrontID));
+    CHECK(GetObjectInt32(env, object, req, SessionID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, OrderSysID));
+    CHECK(GetObjectChar(env, object, req, ActionFlag));
+    CHECK(GetObjectDouble(env, object, req, LimitPrice));
+    CHECK(GetObjectInt32(env, object, req, VolumeChange));
+    CHECK(GetObjectString(env, object, req, UserID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, MacAddress));
     CHECK(GetObjectString(env, object, req, InstrumentID));
-
-    // TODO
+    CHECK(GetObjectString(env, object, req, IPAddress));
 
     return trader->api->ReqOrderAction(&req, sequenceId());
   });
@@ -290,9 +408,13 @@ static napi_value qryMaxOrderVolume(napi_env env, napi_callback_info info) {
 
     CHECK(GetObjectString(env, object, req, BrokerID));
     CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectChar(env, object, req, Direction));
+    CHECK(GetObjectChar(env, object, req, OffsetFlag));
+    CHECK(GetObjectChar(env, object, req, HedgeFlag));
+    CHECK(GetObjectInt32(env, object, req, MaxVolume));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
     CHECK(GetObjectString(env, object, req, InstrumentID));
-
-    // TODO
 
     return trader->api->ReqQryMaxOrderVolume(&req, sequenceId());
   });
@@ -306,6 +428,11 @@ static napi_value settlementInfoConfirm(napi_env env, napi_callback_info info) {
 
     CHECK(GetObjectString(env, object, req, BrokerID));
     CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, ConfirmDate));
+    CHECK(GetObjectString(env, object, req, ConfirmTime));
+    CHECK(GetObjectInt32(env, object, req, SettlementID));
+    CHECK(GetObjectString(env, object, req, AccountID));
+    CHECK(GetObjectString(env, object, req, CurrencyID));
 
     return trader->api->ReqSettlementInfoConfirm(&req, sequenceId());
   });
@@ -320,6 +447,7 @@ static napi_value removeParkedOrder(napi_env env, napi_callback_info info) {
     CHECK(GetObjectString(env, object, req, BrokerID));
     CHECK(GetObjectString(env, object, req, InvestorID));
     CHECK(GetObjectString(env, object, req, ParkedOrderID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
 
     return trader->api->ReqRemoveParkedOrder(&req, sequenceId());
   });
@@ -334,6 +462,7 @@ static napi_value removeParkedOrderAction(napi_env env, napi_callback_info info)
     CHECK(GetObjectString(env, object, req, BrokerID));
     CHECK(GetObjectString(env, object, req, InvestorID));
     CHECK(GetObjectString(env, object, req, ParkedOrderActionID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
 
     return trader->api->ReqRemoveParkedOrderAction(&req, sequenceId());
   });
@@ -341,55 +470,243 @@ static napi_value removeParkedOrderAction(napi_env env, napi_callback_info info)
 
 static napi_value execOrderInsert(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcInputExecOrderField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, ExecOrderRef));
+    CHECK(GetObjectString(env, object, req, UserID));
+    CHECK(GetObjectInt32(env, object, req, Volume));
+    CHECK(GetObjectInt32(env, object, req, RequestID));
+    CHECK(GetObjectString(env, object, req, BusinessUnit));
+    CHECK(GetObjectChar(env, object, req, OffsetFlag));
+    CHECK(GetObjectChar(env, object, req, HedgeFlag));
+    CHECK(GetObjectChar(env, object, req, ActionType));
+    CHECK(GetObjectChar(env, object, req, PosiDirection));
+    CHECK(GetObjectChar(env, object, req, ReservePositionFlag));
+    CHECK(GetObjectChar(env, object, req, CloseFlag));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, AccountID));
+    CHECK(GetObjectString(env, object, req, CurrencyID));
+    CHECK(GetObjectString(env, object, req, ClientID));
+    CHECK(GetObjectString(env, object, req, MacAddress));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+    CHECK(GetObjectString(env, object, req, IPAddress));
+
+    return trader->api->ReqExecOrderInsert(&req, sequenceId());
   });
 }
 
 static napi_value execOrderAction(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcInputExecOrderActionField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectInt32(env, object, req, ExecOrderActionRef));
+    CHECK(GetObjectString(env, object, req, ExecOrderRef));
+    CHECK(GetObjectInt32(env, object, req, RequestID));
+    CHECK(GetObjectInt32(env, object, req, FrontID));
+    CHECK(GetObjectInt32(env, object, req, SessionID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, ExecOrderSysID));
+    CHECK(GetObjectChar(env, object, req, ActionFlag));
+    CHECK(GetObjectString(env, object, req, UserID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, MacAddress));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+    CHECK(GetObjectString(env, object, req, IPAddress));
+
+    return trader->api->ReqExecOrderAction(&req, sequenceId());
   });
 }
 
 static napi_value forQuoteInsert(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcInputForQuoteField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, ForQuoteRef));
+    CHECK(GetObjectString(env, object, req, UserID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, MacAddress));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+    CHECK(GetObjectString(env, object, req, IPAddress));
+
+    return trader->api->ReqForQuoteInsert(&req, sequenceId());
   });
 }
 
 static napi_value quoteInsert(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcInputQuoteField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, QuoteRef));
+    CHECK(GetObjectString(env, object, req, UserID));
+    CHECK(GetObjectDouble(env, object, req, AskPrice));
+    CHECK(GetObjectDouble(env, object, req, BidPrice));
+    CHECK(GetObjectInt32(env, object, req, AskVolume));
+    CHECK(GetObjectInt32(env, object, req, BidVolume));
+    CHECK(GetObjectInt32(env, object, req, RequestID));
+    CHECK(GetObjectString(env, object, req, BusinessUnit));
+    CHECK(GetObjectChar(env, object, req, AskOffsetFlag));
+    CHECK(GetObjectChar(env, object, req, BidOffsetFlag));
+    CHECK(GetObjectChar(env, object, req, AskHedgeFlag));
+    CHECK(GetObjectChar(env, object, req, BidHedgeFlag));
+    CHECK(GetObjectString(env, object, req, AskOrderRef));
+    CHECK(GetObjectString(env, object, req, BidOrderRef));
+    CHECK(GetObjectString(env, object, req, ForQuoteSysID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, ClientID));
+    CHECK(GetObjectString(env, object, req, MacAddress));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+    CHECK(GetObjectString(env, object, req, IPAddress));
+    CHECK(GetObjectString(env, object, req, ReplaceSysID));
+
+    return trader->api->ReqQuoteInsert(&req, sequenceId());
   });
 }
 
 static napi_value quoteAction(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcInputQuoteActionField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectInt32(env, object, req, QuoteActionRef));
+    CHECK(GetObjectString(env, object, req, QuoteRef));
+    CHECK(GetObjectInt32(env, object, req, RequestID));
+    CHECK(GetObjectInt32(env, object, req, FrontID));
+    CHECK(GetObjectInt32(env, object, req, SessionID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, QuoteSysID));
+    CHECK(GetObjectChar(env, object, req, ActionFlag));
+    CHECK(GetObjectString(env, object, req, UserID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, ClientID));
+    CHECK(GetObjectString(env, object, req, MacAddress));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+    CHECK(GetObjectString(env, object, req, IPAddress));
+
+    return trader->api->ReqQuoteAction(&req, sequenceId());
   });
 }
 
 static napi_value batchOrderAction(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcInputBatchOrderActionField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectInt32(env, object, req, OrderActionRef));
+    CHECK(GetObjectInt32(env, object, req, RequestID));
+    CHECK(GetObjectInt32(env, object, req, FrontID));
+    CHECK(GetObjectInt32(env, object, req, SessionID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, UserID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, MacAddress));
+    CHECK(GetObjectString(env, object, req, IPAddress));
+
+    return trader->api->ReqBatchOrderAction(&req, sequenceId());
   });
 }
 
 static napi_value optionSelfCloseInsert(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcInputOptionSelfCloseField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, OptionSelfCloseRef));
+    CHECK(GetObjectString(env, object, req, UserID));
+    CHECK(GetObjectInt32(env, object, req, Volume));
+    CHECK(GetObjectInt32(env, object, req, RequestID));
+    CHECK(GetObjectString(env, object, req, BusinessUnit));
+    CHECK(GetObjectChar(env, object, req, HedgeFlag));
+    CHECK(GetObjectChar(env, object, req, OptSelfCloseFlag));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, AccountID));
+    CHECK(GetObjectString(env, object, req, CurrencyID));
+    CHECK(GetObjectString(env, object, req, ClientID));
+    CHECK(GetObjectString(env, object, req, MacAddress));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+    CHECK(GetObjectString(env, object, req, IPAddress));
+
+    return trader->api->ReqOptionSelfCloseInsert(&req, sequenceId());
   });
 }
 
 static napi_value optionSelfCloseAction(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcInputOptionSelfCloseActionField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectInt32(env, object, req, OptionSelfCloseActionRef));
+    CHECK(GetObjectString(env, object, req, OptionSelfCloseRef));
+    CHECK(GetObjectInt32(env, object, req, RequestID));
+    CHECK(GetObjectInt32(env, object, req, FrontID));
+    CHECK(GetObjectInt32(env, object, req, SessionID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, OptionSelfCloseSysID));
+    CHECK(GetObjectChar(env, object, req, ActionFlag));
+    CHECK(GetObjectString(env, object, req, UserID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, MacAddress));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+    CHECK(GetObjectString(env, object, req, IPAddress));
+
+    return trader->api->ReqOptionSelfCloseAction(&req, sequenceId());
   });
 }
 
 static napi_value combActionInsert(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcInputCombActionField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, CombActionRef));
+    CHECK(GetObjectString(env, object, req, UserID));
+    CHECK(GetObjectChar(env, object, req, Direction));
+    CHECK(GetObjectInt32(env, object, req, Volume));
+    CHECK(GetObjectChar(env, object, req, CombDirection));
+    CHECK(GetObjectChar(env, object, req, HedgeFlag));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, MacAddress));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectInt32(env, object, req, FrontID));
+    CHECK(GetObjectInt32(env, object, req, SessionID));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+    CHECK(GetObjectString(env, object, req, IPAddress));
+
+    return trader->api->ReqCombActionInsert(&req, sequenceId());
   });
 }
 
@@ -401,6 +718,12 @@ static napi_value qryOrder(napi_env env, napi_callback_info info) {
 
     CHECK(GetObjectString(env, object, req, BrokerID));
     CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, OrderSysID));
+    CHECK(GetObjectString(env, object, req, InsertTimeStart));
+    CHECK(GetObjectString(env, object, req, InsertTimeEnd));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
 
     return trader->api->ReqQryOrder(&req, sequenceId());
   });
@@ -414,6 +737,12 @@ static napi_value qryTrade(napi_env env, napi_callback_info info) {
 
     CHECK(GetObjectString(env, object, req, BrokerID));
     CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, TradeID));
+    CHECK(GetObjectString(env, object, req, TradeTimeStart));
+    CHECK(GetObjectString(env, object, req, TradeTimeEnd));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
 
     return trader->api->ReqQryTrade(&req, sequenceId());
   });
@@ -427,6 +756,9 @@ static napi_value qryInvestorPosition(napi_env env, napi_callback_info info) {
 
     CHECK(GetObjectString(env, object, req, BrokerID));
     CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
 
     return trader->api->ReqQryInvestorPosition(&req, sequenceId());
   });
@@ -440,6 +772,9 @@ static napi_value qryTradingAccount(napi_env env, napi_callback_info info) {
 
     CHECK(GetObjectString(env, object, req, BrokerID));
     CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, CurrencyID));
+    CHECK(GetObjectChar(env, object, req, BizType));
+    CHECK(GetObjectString(env, object, req, AccountID));
 
     return trader->api->ReqQryTradingAccount(&req, sequenceId());
   });
@@ -447,37 +782,90 @@ static napi_value qryTradingAccount(napi_env env, napi_callback_info info) {
 
 static napi_value qryInvestor(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryInvestorField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+
+    return trader->api->ReqQryInvestor(&req, sequenceId());
   });
 }
 
 static napi_value qryTradingCode(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryTradingCodeField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, ClientID));
+    CHECK(GetObjectChar(env, object, req, ClientIDType));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+
+    return trader->api->ReqQryTradingCode(&req, sequenceId());
   });
 }
 
 static napi_value qryInstrumentMarginRate(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryInstrumentMarginRateField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectChar(env, object, req, HedgeFlag));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+
+    return trader->api->ReqQryInstrumentMarginRate(&req, sequenceId());
   });
 }
 
 static napi_value qryInstrumentCommissionRate(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryInstrumentCommissionRateField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+
+    return trader->api->ReqQryInstrumentCommissionRate(&req, sequenceId());
   });
 }
 
 static napi_value qryExchange(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryExchangeField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+
+    return trader->api->ReqQryExchange(&req, sequenceId());
   });
 }
 
 static napi_value qryProduct(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryProductField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectChar(env, object, req, ProductClass));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, ProductID));
+
+    return trader->api->ReqQryProduct(&req, sequenceId());
   });
 }
 
@@ -487,295 +875,841 @@ static napi_value qryInstrument(napi_env env, napi_callback_info info) {
 
     memset(&req, 0, sizeof(req));
 
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+    CHECK(GetObjectString(env, object, req, ExchangeInstID));
+    CHECK(GetObjectString(env, object, req, ProductID));
+
     return trader->api->ReqQryInstrument(&req, sequenceId());
   });
 }
 
 static napi_value qryDepthMarketData(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryDepthMarketDataField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+
+    return trader->api->ReqQryDepthMarketData(&req, sequenceId());
   });
 }
 
 static napi_value qryTraderOffer(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryTraderOfferField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, ParticipantID));
+    CHECK(GetObjectString(env, object, req, TraderID));
+
+    return trader->api->ReqQryTraderOffer(&req, sequenceId());
   });
 }
 
 static napi_value qrySettlementInfo(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQrySettlementInfoField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, TradingDay));
+    CHECK(GetObjectString(env, object, req, AccountID));
+    CHECK(GetObjectString(env, object, req, CurrencyID));
+
+    return trader->api->ReqQrySettlementInfo(&req, sequenceId());
   });
 }
 
 static napi_value qryTransferBank(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryTransferBankField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BankID));
+    CHECK(GetObjectString(env, object, req, BankBrchID));
+
+    return trader->api->ReqQryTransferBank(&req, sequenceId());
   });
 }
 
 static napi_value qryInvestorPositionDetail(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryInvestorPositionDetailField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+
+    return trader->api->ReqQryInvestorPositionDetail(&req, sequenceId());
   });
 }
 
 static napi_value qryNotice(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryNoticeField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+
+    return trader->api->ReqQryNotice(&req, sequenceId());
   });
 }
 
 static napi_value qrySettlementInfoConfirm(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQrySettlementInfoConfirmField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, AccountID));
+    CHECK(GetObjectString(env, object, req, CurrencyID));
+
+    return trader->api->ReqQrySettlementInfoConfirm(&req, sequenceId());
   });
 }
 
 static napi_value qryInvestorPositionCombineDetail(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryInvestorPositionCombineDetailField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, CombInstrumentID));
+
+    return trader->api->ReqQryInvestorPositionCombineDetail(&req, sequenceId());
   });
 }
 
 static napi_value qryCFMMCTradingAccountKey(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryCFMMCTradingAccountKeyField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+
+    return trader->api->ReqQryCFMMCTradingAccountKey(&req, sequenceId());
   });
 }
 
 static napi_value qryEWarrantOffset(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryEWarrantOffsetField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+
+    return trader->api->ReqQryEWarrantOffset(&req, sequenceId());
   });
 }
 
 static napi_value qryInvestorProductGroupMargin(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryInvestorProductGroupMarginField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectChar(env, object, req, HedgeFlag));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, ProductGroupID));
+
+    return trader->api->ReqQryInvestorProductGroupMargin(&req, sequenceId());
   });
 }
 
 static napi_value qryExchangeMarginRate(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryExchangeMarginRateField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectChar(env, object, req, HedgeFlag));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+
+    return trader->api->ReqQryExchangeMarginRate(&req, sequenceId());
   });
 }
 
 static napi_value qryExchangeMarginRateAdjust(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryExchangeMarginRateAdjustField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectChar(env, object, req, HedgeFlag));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+
+    return trader->api->ReqQryExchangeMarginRateAdjust(&req, sequenceId());
   });
 }
 
 static napi_value qryExchangeRate(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryExchangeRateField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, FromCurrencyID));
+    CHECK(GetObjectString(env, object, req, ToCurrencyID));
+
+    return trader->api->ReqQryExchangeRate(&req, sequenceId());
   });
 }
 
 static napi_value qrySecAgentACIDMap(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQrySecAgentACIDMapField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, UserID));
+    CHECK(GetObjectString(env, object, req, AccountID));
+    CHECK(GetObjectString(env, object, req, CurrencyID));
+
+    return trader->api->ReqQrySecAgentACIDMap(&req, sequenceId());
   });
 }
 
 static napi_value qryProductExchRate(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryProductExchRateField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, ProductID));
+
+    return trader->api->ReqQryProductExchRate(&req, sequenceId());
   });
 }
 
 static napi_value qryProductGroup(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryProductGroupField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, ProductID));
+
+    return trader->api->ReqQryProductGroup(&req, sequenceId());
   });
 }
 
 static napi_value qryMMInstrumentCommissionRate(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryMMInstrumentCommissionRateField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+
+    return trader->api->ReqQryMMInstrumentCommissionRate(&req, sequenceId());
   });
 }
 
 static napi_value qryMMOptionInstrCommRate(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryMMOptionInstrCommRateField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+
+    return trader->api->ReqQryMMOptionInstrCommRate(&req, sequenceId());
   });
 }
 
 static napi_value qryInstrumentOrderCommRate(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryInstrumentOrderCommRateField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+
+    return trader->api->ReqQryInstrumentOrderCommRate(&req, sequenceId());
   });
 }
 
 static napi_value qrySecAgentTradingAccount(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryTradingAccountField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, CurrencyID));
+    CHECK(GetObjectChar(env, object, req, BizType));
+    CHECK(GetObjectString(env, object, req, AccountID));
+
+    return trader->api->ReqQrySecAgentTradingAccount(&req, sequenceId());
   });
 }
 
 static napi_value qrySecAgentCheckMode(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQrySecAgentCheckModeField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+
+    return trader->api->ReqQrySecAgentCheckMode(&req, sequenceId());
   });
 }
 
 static napi_value qrySecAgentTradeInfo(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQrySecAgentTradeInfoField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, BrokerSecAgentID));
+
+    return trader->api->ReqQrySecAgentTradeInfo(&req, sequenceId());
   });
 }
 
 static napi_value qryOptionInstrTradeCost(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryOptionInstrTradeCostField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectChar(env, object, req, HedgeFlag));
+    CHECK(GetObjectDouble(env, object, req, InputPrice));
+    CHECK(GetObjectDouble(env, object, req, UnderlyingPrice));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+
+    return trader->api->ReqQryOptionInstrTradeCost(&req, sequenceId());
   });
 }
 
 static napi_value qryOptionInstrCommRate(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryOptionInstrCommRateField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+
+    return trader->api->ReqQryOptionInstrCommRate(&req, sequenceId());
   });
 }
 
 static napi_value qryExecOrder(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryExecOrderField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, ExecOrderSysID));
+    CHECK(GetObjectString(env, object, req, InsertTimeStart));
+    CHECK(GetObjectString(env, object, req, InsertTimeEnd));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+
+    return trader->api->ReqQryExecOrder(&req, sequenceId());
   });
 }
 
 static napi_value qryForQuote(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryForQuoteField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, InsertTimeStart));
+    CHECK(GetObjectString(env, object, req, InsertTimeEnd));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+
+    return trader->api->ReqQryForQuote(&req, sequenceId());
   });
 }
 
 static napi_value qryQuote(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryQuoteField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, QuoteSysID));
+    CHECK(GetObjectString(env, object, req, InsertTimeStart));
+    CHECK(GetObjectString(env, object, req, InsertTimeEnd));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+
+    return trader->api->ReqQryQuote(&req, sequenceId());
   });
 }
 
 static napi_value qryOptionSelfClose(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryOptionSelfCloseField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, OptionSelfCloseSysID));
+    CHECK(GetObjectString(env, object, req, InsertTimeStart));
+    CHECK(GetObjectString(env, object, req, InsertTimeEnd));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+
+    return trader->api->ReqQryOptionSelfClose(&req, sequenceId());
   });
 }
 
 static napi_value qryInvestUnit(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryInvestUnitField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+
+    return trader->api->ReqQryInvestUnit(&req, sequenceId());
   });
 }
 
 static napi_value qryCombInstrumentGuard(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryCombInstrumentGuardField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+
+    return trader->api->ReqQryCombInstrumentGuard(&req, sequenceId());
   });
 }
 
 static napi_value qryCombAction(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryCombActionField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+
+    return trader->api->ReqQryCombAction(&req, sequenceId());
   });
 }
 
 static napi_value qryTransferSerial(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryTransferSerialField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, AccountID));
+    CHECK(GetObjectString(env, object, req, BankID));
+    CHECK(GetObjectString(env, object, req, CurrencyID));
+
+    return trader->api->ReqQryTransferSerial(&req, sequenceId());
   });
 }
 
 static napi_value qryAccountregister(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryAccountregisterField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, AccountID));
+    CHECK(GetObjectString(env, object, req, BankID));
+    CHECK(GetObjectString(env, object, req, BankBranchID));
+    CHECK(GetObjectString(env, object, req, CurrencyID));
+
+    return trader->api->ReqQryAccountregister(&req, sequenceId());
   });
 }
 
 static napi_value qryContractBank(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryContractBankField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, BankID));
+    CHECK(GetObjectString(env, object, req, BankBrchID));
+
+    return trader->api->ReqQryContractBank(&req, sequenceId());
   });
 }
 
 static napi_value qryParkedOrder(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryParkedOrderField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+
+    return trader->api->ReqQryParkedOrder(&req, sequenceId());
   });
 }
 
 static napi_value qryParkedOrderAction(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryParkedOrderActionField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+
+    return trader->api->ReqQryParkedOrderAction(&req, sequenceId());
   });
 }
 
 static napi_value qryTradingNotice(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryTradingNoticeField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+
+    return trader->api->ReqQryTradingNotice(&req, sequenceId());
   });
 }
 
 static napi_value qryBrokerTradingParams(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryBrokerTradingParamsField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, CurrencyID));
+    CHECK(GetObjectString(env, object, req, AccountID));
+
+    return trader->api->ReqQryBrokerTradingParams(&req, sequenceId());
   });
 }
 
 static napi_value qryBrokerTradingAlgos(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryBrokerTradingAlgosField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+
+    return trader->api->ReqQryBrokerTradingAlgos(&req, sequenceId());
   });
 }
 
 static napi_value queryCFMMCTradingAccountToken(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQueryCFMMCTradingAccountTokenField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, InvestUnitID));
+
+    return trader->api->ReqQueryCFMMCTradingAccountToken(&req, sequenceId());
   });
 }
 
 static napi_value fromBankToFutureByFuture(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcReqTransferField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, TradeCode));
+    CHECK(GetObjectString(env, object, req, BankID));
+    CHECK(GetObjectString(env, object, req, BankBranchID));
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, BrokerBranchID));
+    CHECK(GetObjectString(env, object, req, TradeDate));
+    CHECK(GetObjectString(env, object, req, TradeTime));
+    CHECK(GetObjectString(env, object, req, BankSerial));
+    CHECK(GetObjectString(env, object, req, TradingDay));
+    CHECK(GetObjectInt32(env, object, req, PlateSerial));
+    CHECK(GetObjectChar(env, object, req, LastFragment));
+    CHECK(GetObjectInt32(env, object, req, SessionID));
+    CHECK(GetObjectString(env, object, req, CustomerName));
+    CHECK(GetObjectChar(env, object, req, IdCardType));
+    CHECK(GetObjectString(env, object, req, IdentifiedCardNo));
+    CHECK(GetObjectChar(env, object, req, CustType));
+    CHECK(GetObjectString(env, object, req, BankAccount));
+    CHECK(GetObjectString(env, object, req, BankPassWord));
+    CHECK(GetObjectString(env, object, req, AccountID));
+    CHECK(GetObjectString(env, object, req, Password));
+    CHECK(GetObjectInt32(env, object, req, InstallID));
+    CHECK(GetObjectInt32(env, object, req, FutureSerial));
+    CHECK(GetObjectString(env, object, req, UserID));
+    CHECK(GetObjectChar(env, object, req, VerifyCertNoFlag));
+    CHECK(GetObjectString(env, object, req, CurrencyID));
+    CHECK(GetObjectDouble(env, object, req, TradeAmount));
+    CHECK(GetObjectDouble(env, object, req, FutureFetchAmount));
+    CHECK(GetObjectChar(env, object, req, FeePayFlag));
+    CHECK(GetObjectDouble(env, object, req, CustFee));
+    CHECK(GetObjectDouble(env, object, req, BrokerFee));
+    CHECK(GetObjectString(env, object, req, Message));
+    CHECK(GetObjectString(env, object, req, Digest));
+    CHECK(GetObjectChar(env, object, req, BankAccType));
+    CHECK(GetObjectString(env, object, req, DeviceID));
+    CHECK(GetObjectChar(env, object, req, BankSecuAccType));
+    CHECK(GetObjectString(env, object, req, BrokerIDByBank));
+    CHECK(GetObjectString(env, object, req, BankSecuAcc));
+    CHECK(GetObjectChar(env, object, req, BankPwdFlag));
+    CHECK(GetObjectChar(env, object, req, SecuPwdFlag));
+    CHECK(GetObjectString(env, object, req, OperNo));
+    CHECK(GetObjectInt32(env, object, req, RequestID));
+    CHECK(GetObjectInt32(env, object, req, TID));
+    CHECK(GetObjectChar(env, object, req, TransferStatus));
+    CHECK(GetObjectString(env, object, req, LongCustomerName));
+
+    return trader->api->ReqFromBankToFutureByFuture(&req, sequenceId());
   });
 }
 
 static napi_value fromFutureToBankByFuture(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcReqTransferField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, TradeCode));
+    CHECK(GetObjectString(env, object, req, BankID));
+    CHECK(GetObjectString(env, object, req, BankBranchID));
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, BrokerBranchID));
+    CHECK(GetObjectString(env, object, req, TradeDate));
+    CHECK(GetObjectString(env, object, req, TradeTime));
+    CHECK(GetObjectString(env, object, req, BankSerial));
+    CHECK(GetObjectString(env, object, req, TradingDay));
+    CHECK(GetObjectInt32(env, object, req, PlateSerial));
+    CHECK(GetObjectChar(env, object, req, LastFragment));
+    CHECK(GetObjectInt32(env, object, req, SessionID));
+    CHECK(GetObjectString(env, object, req, CustomerName));
+    CHECK(GetObjectChar(env, object, req, IdCardType));
+    CHECK(GetObjectString(env, object, req, IdentifiedCardNo));
+    CHECK(GetObjectChar(env, object, req, CustType));
+    CHECK(GetObjectString(env, object, req, BankAccount));
+    CHECK(GetObjectString(env, object, req, BankPassWord));
+    CHECK(GetObjectString(env, object, req, AccountID));
+    CHECK(GetObjectString(env, object, req, Password));
+    CHECK(GetObjectInt32(env, object, req, InstallID));
+    CHECK(GetObjectInt32(env, object, req, FutureSerial));
+    CHECK(GetObjectString(env, object, req, UserID));
+    CHECK(GetObjectChar(env, object, req, VerifyCertNoFlag));
+    CHECK(GetObjectString(env, object, req, CurrencyID));
+    CHECK(GetObjectDouble(env, object, req, TradeAmount));
+    CHECK(GetObjectDouble(env, object, req, FutureFetchAmount));
+    CHECK(GetObjectChar(env, object, req, FeePayFlag));
+    CHECK(GetObjectDouble(env, object, req, CustFee));
+    CHECK(GetObjectDouble(env, object, req, BrokerFee));
+    CHECK(GetObjectString(env, object, req, Message));
+    CHECK(GetObjectString(env, object, req, Digest));
+    CHECK(GetObjectChar(env, object, req, BankAccType));
+    CHECK(GetObjectString(env, object, req, DeviceID));
+    CHECK(GetObjectChar(env, object, req, BankSecuAccType));
+    CHECK(GetObjectString(env, object, req, BrokerIDByBank));
+    CHECK(GetObjectString(env, object, req, BankSecuAcc));
+    CHECK(GetObjectChar(env, object, req, BankPwdFlag));
+    CHECK(GetObjectChar(env, object, req, SecuPwdFlag));
+    CHECK(GetObjectString(env, object, req, OperNo));
+    CHECK(GetObjectInt32(env, object, req, RequestID));
+    CHECK(GetObjectInt32(env, object, req, TID));
+    CHECK(GetObjectChar(env, object, req, TransferStatus));
+    CHECK(GetObjectString(env, object, req, LongCustomerName));
+
+    return trader->api->ReqFromFutureToBankByFuture(&req, sequenceId());
   });
 }
 
 static napi_value queryBankAccountMoneyByFuture(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcReqQueryAccountField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, TradeCode));
+    CHECK(GetObjectString(env, object, req, BankID));
+    CHECK(GetObjectString(env, object, req, BankBranchID));
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, BrokerBranchID));
+    CHECK(GetObjectString(env, object, req, TradeDate));
+    CHECK(GetObjectString(env, object, req, TradeTime));
+    CHECK(GetObjectString(env, object, req, BankSerial));
+    CHECK(GetObjectString(env, object, req, TradingDay));
+    CHECK(GetObjectInt32(env, object, req, PlateSerial));
+    CHECK(GetObjectChar(env, object, req, LastFragment));
+    CHECK(GetObjectInt32(env, object, req, SessionID));
+    CHECK(GetObjectString(env, object, req, CustomerName));
+    CHECK(GetObjectChar(env, object, req, IdCardType));
+    CHECK(GetObjectString(env, object, req, IdentifiedCardNo));
+    CHECK(GetObjectChar(env, object, req, CustType));
+    CHECK(GetObjectString(env, object, req, BankAccount));
+    CHECK(GetObjectString(env, object, req, BankPassWord));
+    CHECK(GetObjectString(env, object, req, AccountID));
+    CHECK(GetObjectString(env, object, req, Password));
+    CHECK(GetObjectInt32(env, object, req, FutureSerial));
+    CHECK(GetObjectInt32(env, object, req, InstallID));
+    CHECK(GetObjectString(env, object, req, UserID));
+    CHECK(GetObjectChar(env, object, req, VerifyCertNoFlag));
+    CHECK(GetObjectString(env, object, req, CurrencyID));
+    CHECK(GetObjectString(env, object, req, Digest));
+    CHECK(GetObjectChar(env, object, req, BankAccType));
+    CHECK(GetObjectString(env, object, req, DeviceID));
+    CHECK(GetObjectChar(env, object, req, BankSecuAccType));
+    CHECK(GetObjectString(env, object, req, BrokerIDByBank));
+    CHECK(GetObjectString(env, object, req, BankSecuAcc));
+    CHECK(GetObjectChar(env, object, req, BankPwdFlag));
+    CHECK(GetObjectChar(env, object, req, SecuPwdFlag));
+    CHECK(GetObjectString(env, object, req, OperNo));
+    CHECK(GetObjectInt32(env, object, req, RequestID));
+    CHECK(GetObjectInt32(env, object, req, TID));
+    CHECK(GetObjectString(env, object, req, LongCustomerName));
+
+    return trader->api->ReqQueryBankAccountMoneyByFuture(&req, sequenceId());
   });
 }
 
 static napi_value qryClassifiedInstrument(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryClassifiedInstrumentField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, ExchangeInstID));
+    CHECK(GetObjectString(env, object, req, ProductID));
+    CHECK(GetObjectChar(env, object, req, TradingType));
+    CHECK(GetObjectChar(env, object, req, ClassType));
+
+    return trader->api->ReqQryClassifiedInstrument(&req, sequenceId());
   });
 }
 
 static napi_value qryCombPromotionParam(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryCombPromotionParamField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, ExchangeID));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+
+    return trader->api->ReqQryCombPromotionParam(&req, sequenceId());
   });
 }
 
 static napi_value qryRiskSettleInvstPosition(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryRiskSettleInvstPositionField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, BrokerID));
+    CHECK(GetObjectString(env, object, req, InvestorID));
+    CHECK(GetObjectString(env, object, req, InstrumentID));
+
+    return trader->api->ReqQryRiskSettleInvstPosition(&req, sequenceId());
   });
 }
 
 static napi_value qryRiskSettleProductStatus(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
-    return 0;
+    CThostFtdcQryRiskSettleProductStatusField req;
+
+    memset(&req, 0, sizeof(req));
+
+    CHECK(GetObjectString(env, object, req, ProductID));
+
+    return trader->api->ReqQryRiskSettleProductStatus(&req, sequenceId());
   });
 }
 

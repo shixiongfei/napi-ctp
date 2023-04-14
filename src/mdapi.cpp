@@ -133,9 +133,18 @@ static napi_value userLogin(napi_env env, napi_callback_info info) {
 
     memset(&req, 0, sizeof(req));
 
+    CHECK(GetObjectString(env, object, req, TradingDay));
     CHECK(GetObjectString(env, object, req, BrokerID));
     CHECK(GetObjectString(env, object, req, UserID));
     CHECK(GetObjectString(env, object, req, Password));
+    CHECK(GetObjectString(env, object, req, UserProductInfo));
+    CHECK(GetObjectString(env, object, req, InterfaceProductInfo));
+    CHECK(GetObjectString(env, object, req, ProtocolInfo));
+    CHECK(GetObjectString(env, object, req, MacAddress));
+    CHECK(GetObjectString(env, object, req, OneTimePassword));
+    CHECK(GetObjectString(env, object, req, LoginRemark));
+    CHECK(GetObjectInt32(env, object, req, ClientIPPort));
+    CHECK(GetObjectString(env, object, req, ClientIPAddress));
 
     return marketData->api->ReqUserLogin(&req, sequenceId());
   });
