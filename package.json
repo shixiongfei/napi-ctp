@@ -4,7 +4,6 @@
   "description": "Node API for CTP",
   "main": "index.js",
   "types": "index.d.ts",
-  "private": true,
   "scripts": {
     "build": "node-gyp-build",
     "install": "node-gyp-build",
