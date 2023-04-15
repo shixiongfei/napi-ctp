@@ -127,7 +127,7 @@ static napi_value callRequestFunc(napi_env env, napi_callback_info info, std::fu
   return retval;
 }
 
-static napi_value userLogin(napi_env env, napi_callback_info info) {
+static napi_value reqUserLogin(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](MarketData *marketData, napi_value object) {
     CThostFtdcReqUserLoginField req;
 
@@ -150,7 +150,7 @@ static napi_value userLogin(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value userLogout(napi_env env, napi_callback_info info) {
+static napi_value reqUserLogout(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](MarketData *marketData, napi_value object) {
     CThostFtdcUserLogoutField req;
 
@@ -334,8 +334,8 @@ napi_status defineMarketData(napi_env env, napi_ref *constructor) {
       DECLARE_NAPI_METHOD(unsubscribeMarketData),
       DECLARE_NAPI_METHOD(subscribeForQuoteRsp),
       DECLARE_NAPI_METHOD(unsubscribeForQuoteRsp),
-      DECLARE_NAPI_METHOD(userLogin),
-      DECLARE_NAPI_METHOD(userLogout),
+      DECLARE_NAPI_METHOD(reqUserLogin),
+      DECLARE_NAPI_METHOD(reqUserLogout),
       DECLARE_NAPI_METHOD(on),
   };
   return defineClass(env, "MarketData", marketDataNew, arraysize(props), props, constructor);

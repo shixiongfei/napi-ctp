@@ -58,7 +58,7 @@ static napi_value callRequestFunc(napi_env env, napi_callback_info info, std::fu
   return retval;
 }
 
-static napi_value authenticate(napi_env env, napi_callback_info info) {
+static napi_value reqAuthenticate(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcReqAuthenticateField req;
 
@@ -74,7 +74,7 @@ static napi_value authenticate(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value userLogin(napi_env env, napi_callback_info info) {
+static napi_value reqUserLogin(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcReqUserLoginField req;
 
@@ -97,7 +97,7 @@ static napi_value userLogin(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value userLogout(napi_env env, napi_callback_info info) {
+static napi_value reqUserLogout(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcUserLogoutField req;
 
@@ -110,7 +110,7 @@ static napi_value userLogout(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value userPasswordUpdate(napi_env env, napi_callback_info info) {
+static napi_value reqUserPasswordUpdate(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcUserPasswordUpdateField req;
 
@@ -125,7 +125,7 @@ static napi_value userPasswordUpdate(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value tradingAccountPasswordUpdate(napi_env env, napi_callback_info info) {
+static napi_value reqTradingAccountPasswordUpdate(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcTradingAccountPasswordUpdateField req;
 
@@ -141,7 +141,7 @@ static napi_value tradingAccountPasswordUpdate(napi_env env, napi_callback_info 
   });
 }
 
-static napi_value userAuthMethod(napi_env env, napi_callback_info info) {
+static napi_value reqUserAuthMethod(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcReqUserAuthMethodField req;
 
@@ -155,7 +155,7 @@ static napi_value userAuthMethod(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value genUserCaptcha(napi_env env, napi_callback_info info) {
+static napi_value reqGenUserCaptcha(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcReqGenUserCaptchaField req;
 
@@ -169,7 +169,7 @@ static napi_value genUserCaptcha(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value genUserText(napi_env env, napi_callback_info info) {
+static napi_value reqGenUserText(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcReqGenUserTextField req;
 
@@ -183,7 +183,7 @@ static napi_value genUserText(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value userLoginWithCaptcha(napi_env env, napi_callback_info info) {
+static napi_value reqUserLoginWithCaptcha(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcReqUserLoginWithCaptchaField req;
 
@@ -206,7 +206,7 @@ static napi_value userLoginWithCaptcha(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value userLoginWithText(napi_env env, napi_callback_info info) {
+static napi_value reqUserLoginWithText(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcReqUserLoginWithTextField req;
 
@@ -229,7 +229,7 @@ static napi_value userLoginWithText(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value userLoginWithOTP(napi_env env, napi_callback_info info) {
+static napi_value reqUserLoginWithOTP(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcReqUserLoginWithOTPField req;
 
@@ -252,7 +252,7 @@ static napi_value userLoginWithOTP(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value orderInsert(napi_env env, napi_callback_info info) {
+static napi_value reqOrderInsert(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcInputOrderField req;
 
@@ -293,7 +293,7 @@ static napi_value orderInsert(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value parkedOrderInsert(napi_env env, napi_callback_info info) {
+static napi_value reqParkedOrderInsert(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcParkedOrderField req;
 
@@ -339,7 +339,7 @@ static napi_value parkedOrderInsert(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value parkedOrderAction(napi_env env, napi_callback_info info) {
+static napi_value reqParkedOrderAction(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcParkedOrderActionField req;
 
@@ -372,7 +372,7 @@ static napi_value parkedOrderAction(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value orderAction(napi_env env, napi_callback_info info) {
+static napi_value reqOrderAction(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcInputOrderActionField req;
 
@@ -400,7 +400,7 @@ static napi_value orderAction(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryMaxOrderVolume(napi_env env, napi_callback_info info) {
+static napi_value reqQryMaxOrderVolume(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryMaxOrderVolumeField req;
 
@@ -420,7 +420,7 @@ static napi_value qryMaxOrderVolume(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value settlementInfoConfirm(napi_env env, napi_callback_info info) {
+static napi_value reqSettlementInfoConfirm(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcSettlementInfoConfirmField req;
 
@@ -438,7 +438,7 @@ static napi_value settlementInfoConfirm(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value removeParkedOrder(napi_env env, napi_callback_info info) {
+static napi_value reqRemoveParkedOrder(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcRemoveParkedOrderField req;
 
@@ -453,7 +453,7 @@ static napi_value removeParkedOrder(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value removeParkedOrderAction(napi_env env, napi_callback_info info) {
+static napi_value reqRemoveParkedOrderAction(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcRemoveParkedOrderActionField req;
 
@@ -468,7 +468,7 @@ static napi_value removeParkedOrderAction(napi_env env, napi_callback_info info)
   });
 }
 
-static napi_value execOrderInsert(napi_env env, napi_callback_info info) {
+static napi_value reqExecOrderInsert(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcInputExecOrderField req;
 
@@ -500,7 +500,7 @@ static napi_value execOrderInsert(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value execOrderAction(napi_env env, napi_callback_info info) {
+static napi_value reqExecOrderAction(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcInputExecOrderActionField req;
 
@@ -526,7 +526,7 @@ static napi_value execOrderAction(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value forQuoteInsert(napi_env env, napi_callback_info info) {
+static napi_value reqForQuoteInsert(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcInputForQuoteField req;
 
@@ -546,7 +546,7 @@ static napi_value forQuoteInsert(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value quoteInsert(napi_env env, napi_callback_info info) {
+static napi_value reqQuoteInsert(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcInputQuoteField req;
 
@@ -581,7 +581,7 @@ static napi_value quoteInsert(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value quoteAction(napi_env env, napi_callback_info info) {
+static napi_value reqQuoteAction(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcInputQuoteActionField req;
 
@@ -608,7 +608,7 @@ static napi_value quoteAction(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value batchOrderAction(napi_env env, napi_callback_info info) {
+static napi_value reqBatchOrderAction(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcInputBatchOrderActionField req;
 
@@ -630,7 +630,7 @@ static napi_value batchOrderAction(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value optionSelfCloseInsert(napi_env env, napi_callback_info info) {
+static napi_value reqOptionSelfCloseInsert(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcInputOptionSelfCloseField req;
 
@@ -658,7 +658,7 @@ static napi_value optionSelfCloseInsert(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value optionSelfCloseAction(napi_env env, napi_callback_info info) {
+static napi_value reqOptionSelfCloseAction(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcInputOptionSelfCloseActionField req;
 
@@ -684,7 +684,7 @@ static napi_value optionSelfCloseAction(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value combActionInsert(napi_env env, napi_callback_info info) {
+static napi_value reqCombActionInsert(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcInputCombActionField req;
 
@@ -710,7 +710,7 @@ static napi_value combActionInsert(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryOrder(napi_env env, napi_callback_info info) {
+static napi_value reqQryOrder(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryOrderField req;
 
@@ -729,7 +729,7 @@ static napi_value qryOrder(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryTrade(napi_env env, napi_callback_info info) {
+static napi_value reqQryTrade(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryTradeField req;
 
@@ -748,7 +748,7 @@ static napi_value qryTrade(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryInvestorPosition(napi_env env, napi_callback_info info) {
+static napi_value reqQryInvestorPosition(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryInvestorPositionField req;
 
@@ -764,7 +764,7 @@ static napi_value qryInvestorPosition(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryTradingAccount(napi_env env, napi_callback_info info) {
+static napi_value reqQryTradingAccount(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryTradingAccountField req;
 
@@ -780,7 +780,7 @@ static napi_value qryTradingAccount(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryInvestor(napi_env env, napi_callback_info info) {
+static napi_value reqQryInvestor(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryInvestorField req;
 
@@ -793,7 +793,7 @@ static napi_value qryInvestor(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryTradingCode(napi_env env, napi_callback_info info) {
+static napi_value reqQryTradingCode(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryTradingCodeField req;
 
@@ -810,7 +810,7 @@ static napi_value qryTradingCode(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryInstrumentMarginRate(napi_env env, napi_callback_info info) {
+static napi_value reqQryInstrumentMarginRate(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryInstrumentMarginRateField req;
 
@@ -827,7 +827,7 @@ static napi_value qryInstrumentMarginRate(napi_env env, napi_callback_info info)
   });
 }
 
-static napi_value qryInstrumentCommissionRate(napi_env env, napi_callback_info info) {
+static napi_value reqQryInstrumentCommissionRate(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryInstrumentCommissionRateField req;
 
@@ -843,7 +843,7 @@ static napi_value qryInstrumentCommissionRate(napi_env env, napi_callback_info i
   });
 }
 
-static napi_value qryExchange(napi_env env, napi_callback_info info) {
+static napi_value reqQryExchange(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryExchangeField req;
 
@@ -855,7 +855,7 @@ static napi_value qryExchange(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryProduct(napi_env env, napi_callback_info info) {
+static napi_value reqQryProduct(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryProductField req;
 
@@ -869,7 +869,7 @@ static napi_value qryProduct(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryInstrument(napi_env env, napi_callback_info info) {
+static napi_value reqQryInstrument(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryInstrumentField req;
 
@@ -884,7 +884,7 @@ static napi_value qryInstrument(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryDepthMarketData(napi_env env, napi_callback_info info) {
+static napi_value reqQryDepthMarketData(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryDepthMarketDataField req;
 
@@ -897,7 +897,7 @@ static napi_value qryDepthMarketData(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryTraderOffer(napi_env env, napi_callback_info info) {
+static napi_value reqQryTraderOffer(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryTraderOfferField req;
 
@@ -911,7 +911,7 @@ static napi_value qryTraderOffer(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qrySettlementInfo(napi_env env, napi_callback_info info) {
+static napi_value reqQrySettlementInfo(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQrySettlementInfoField req;
 
@@ -927,7 +927,7 @@ static napi_value qrySettlementInfo(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryTransferBank(napi_env env, napi_callback_info info) {
+static napi_value reqQryTransferBank(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryTransferBankField req;
 
@@ -940,7 +940,7 @@ static napi_value qryTransferBank(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryInvestorPositionDetail(napi_env env, napi_callback_info info) {
+static napi_value reqQryInvestorPositionDetail(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryInvestorPositionDetailField req;
 
@@ -956,7 +956,7 @@ static napi_value qryInvestorPositionDetail(napi_env env, napi_callback_info inf
   });
 }
 
-static napi_value qryNotice(napi_env env, napi_callback_info info) {
+static napi_value reqQryNotice(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryNoticeField req;
 
@@ -968,7 +968,7 @@ static napi_value qryNotice(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qrySettlementInfoConfirm(napi_env env, napi_callback_info info) {
+static napi_value reqQrySettlementInfoConfirm(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQrySettlementInfoConfirmField req;
 
@@ -983,7 +983,7 @@ static napi_value qrySettlementInfoConfirm(napi_env env, napi_callback_info info
   });
 }
 
-static napi_value qryInvestorPositionCombineDetail(napi_env env, napi_callback_info info) {
+static napi_value reqQryInvestorPositionCombineDetail(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryInvestorPositionCombineDetailField req;
 
@@ -999,7 +999,7 @@ static napi_value qryInvestorPositionCombineDetail(napi_env env, napi_callback_i
   });
 }
 
-static napi_value qryCFMMCTradingAccountKey(napi_env env, napi_callback_info info) {
+static napi_value reqQryCFMMCTradingAccountKey(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryCFMMCTradingAccountKeyField req;
 
@@ -1012,7 +1012,7 @@ static napi_value qryCFMMCTradingAccountKey(napi_env env, napi_callback_info inf
   });
 }
 
-static napi_value qryEWarrantOffset(napi_env env, napi_callback_info info) {
+static napi_value reqQryEWarrantOffset(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryEWarrantOffsetField req;
 
@@ -1028,7 +1028,7 @@ static napi_value qryEWarrantOffset(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryInvestorProductGroupMargin(napi_env env, napi_callback_info info) {
+static napi_value reqQryInvestorProductGroupMargin(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryInvestorProductGroupMarginField req;
 
@@ -1045,7 +1045,7 @@ static napi_value qryInvestorProductGroupMargin(napi_env env, napi_callback_info
   });
 }
 
-static napi_value qryExchangeMarginRate(napi_env env, napi_callback_info info) {
+static napi_value reqQryExchangeMarginRate(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryExchangeMarginRateField req;
 
@@ -1060,7 +1060,7 @@ static napi_value qryExchangeMarginRate(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryExchangeMarginRateAdjust(napi_env env, napi_callback_info info) {
+static napi_value reqQryExchangeMarginRateAdjust(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryExchangeMarginRateAdjustField req;
 
@@ -1074,7 +1074,7 @@ static napi_value qryExchangeMarginRateAdjust(napi_env env, napi_callback_info i
   });
 }
 
-static napi_value qryExchangeRate(napi_env env, napi_callback_info info) {
+static napi_value reqQryExchangeRate(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryExchangeRateField req;
 
@@ -1088,7 +1088,7 @@ static napi_value qryExchangeRate(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qrySecAgentACIDMap(napi_env env, napi_callback_info info) {
+static napi_value reqQrySecAgentACIDMap(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQrySecAgentACIDMapField req;
 
@@ -1103,7 +1103,7 @@ static napi_value qrySecAgentACIDMap(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryProductExchRate(napi_env env, napi_callback_info info) {
+static napi_value reqQryProductExchRate(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryProductExchRateField req;
 
@@ -1116,7 +1116,7 @@ static napi_value qryProductExchRate(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryProductGroup(napi_env env, napi_callback_info info) {
+static napi_value reqQryProductGroup(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryProductGroupField req;
 
@@ -1129,7 +1129,7 @@ static napi_value qryProductGroup(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryMMInstrumentCommissionRate(napi_env env, napi_callback_info info) {
+static napi_value reqQryMMInstrumentCommissionRate(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryMMInstrumentCommissionRateField req;
 
@@ -1143,7 +1143,7 @@ static napi_value qryMMInstrumentCommissionRate(napi_env env, napi_callback_info
   });
 }
 
-static napi_value qryMMOptionInstrCommRate(napi_env env, napi_callback_info info) {
+static napi_value reqQryMMOptionInstrCommRate(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryMMOptionInstrCommRateField req;
 
@@ -1157,7 +1157,7 @@ static napi_value qryMMOptionInstrCommRate(napi_env env, napi_callback_info info
   });
 }
 
-static napi_value qryInstrumentOrderCommRate(napi_env env, napi_callback_info info) {
+static napi_value reqQryInstrumentOrderCommRate(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryInstrumentOrderCommRateField req;
 
@@ -1171,7 +1171,7 @@ static napi_value qryInstrumentOrderCommRate(napi_env env, napi_callback_info in
   });
 }
 
-static napi_value qrySecAgentTradingAccount(napi_env env, napi_callback_info info) {
+static napi_value reqQrySecAgentTradingAccount(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryTradingAccountField req;
 
@@ -1187,7 +1187,7 @@ static napi_value qrySecAgentTradingAccount(napi_env env, napi_callback_info inf
   });
 }
 
-static napi_value qrySecAgentCheckMode(napi_env env, napi_callback_info info) {
+static napi_value reqQrySecAgentCheckMode(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQrySecAgentCheckModeField req;
 
@@ -1200,7 +1200,7 @@ static napi_value qrySecAgentCheckMode(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qrySecAgentTradeInfo(napi_env env, napi_callback_info info) {
+static napi_value reqQrySecAgentTradeInfo(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQrySecAgentTradeInfoField req;
 
@@ -1213,7 +1213,7 @@ static napi_value qrySecAgentTradeInfo(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryOptionInstrTradeCost(napi_env env, napi_callback_info info) {
+static napi_value reqQryOptionInstrTradeCost(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryOptionInstrTradeCostField req;
 
@@ -1232,7 +1232,7 @@ static napi_value qryOptionInstrTradeCost(napi_env env, napi_callback_info info)
   });
 }
 
-static napi_value qryOptionInstrCommRate(napi_env env, napi_callback_info info) {
+static napi_value reqQryOptionInstrCommRate(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryOptionInstrCommRateField req;
 
@@ -1248,7 +1248,7 @@ static napi_value qryOptionInstrCommRate(napi_env env, napi_callback_info info) 
   });
 }
 
-static napi_value qryExecOrder(napi_env env, napi_callback_info info) {
+static napi_value reqQryExecOrder(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryExecOrderField req;
 
@@ -1266,7 +1266,7 @@ static napi_value qryExecOrder(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryForQuote(napi_env env, napi_callback_info info) {
+static napi_value reqQryForQuote(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryForQuoteField req;
 
@@ -1284,7 +1284,7 @@ static napi_value qryForQuote(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryQuote(napi_env env, napi_callback_info info) {
+static napi_value reqQryQuote(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryQuoteField req;
 
@@ -1303,7 +1303,7 @@ static napi_value qryQuote(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryOptionSelfClose(napi_env env, napi_callback_info info) {
+static napi_value reqQryOptionSelfClose(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryOptionSelfCloseField req;
 
@@ -1321,7 +1321,7 @@ static napi_value qryOptionSelfClose(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryInvestUnit(napi_env env, napi_callback_info info) {
+static napi_value reqQryInvestUnit(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryInvestUnitField req;
 
@@ -1335,7 +1335,7 @@ static napi_value qryInvestUnit(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryCombInstrumentGuard(napi_env env, napi_callback_info info) {
+static napi_value reqQryCombInstrumentGuard(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryCombInstrumentGuardField req;
 
@@ -1349,7 +1349,7 @@ static napi_value qryCombInstrumentGuard(napi_env env, napi_callback_info info) 
   });
 }
 
-static napi_value qryCombAction(napi_env env, napi_callback_info info) {
+static napi_value reqQryCombAction(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryCombActionField req;
 
@@ -1365,7 +1365,7 @@ static napi_value qryCombAction(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryTransferSerial(napi_env env, napi_callback_info info) {
+static napi_value reqQryTransferSerial(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryTransferSerialField req;
 
@@ -1380,7 +1380,7 @@ static napi_value qryTransferSerial(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryAccountregister(napi_env env, napi_callback_info info) {
+static napi_value reqQryAccountregister(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryAccountregisterField req;
 
@@ -1396,7 +1396,7 @@ static napi_value qryAccountregister(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryContractBank(napi_env env, napi_callback_info info) {
+static napi_value reqQryContractBank(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryContractBankField req;
 
@@ -1410,7 +1410,7 @@ static napi_value qryContractBank(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryParkedOrder(napi_env env, napi_callback_info info) {
+static napi_value reqQryParkedOrder(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryParkedOrderField req;
 
@@ -1426,7 +1426,7 @@ static napi_value qryParkedOrder(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryParkedOrderAction(napi_env env, napi_callback_info info) {
+static napi_value reqQryParkedOrderAction(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryParkedOrderActionField req;
 
@@ -1442,7 +1442,7 @@ static napi_value qryParkedOrderAction(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryTradingNotice(napi_env env, napi_callback_info info) {
+static napi_value reqQryTradingNotice(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryTradingNoticeField req;
 
@@ -1456,7 +1456,7 @@ static napi_value qryTradingNotice(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryBrokerTradingParams(napi_env env, napi_callback_info info) {
+static napi_value reqQryBrokerTradingParams(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryBrokerTradingParamsField req;
 
@@ -1471,7 +1471,7 @@ static napi_value qryBrokerTradingParams(napi_env env, napi_callback_info info) 
   });
 }
 
-static napi_value qryBrokerTradingAlgos(napi_env env, napi_callback_info info) {
+static napi_value reqQryBrokerTradingAlgos(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryBrokerTradingAlgosField req;
 
@@ -1485,7 +1485,7 @@ static napi_value qryBrokerTradingAlgos(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value queryCFMMCTradingAccountToken(napi_env env, napi_callback_info info) {
+static napi_value reqQueryCFMMCTradingAccountToken(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQueryCFMMCTradingAccountTokenField req;
 
@@ -1499,7 +1499,7 @@ static napi_value queryCFMMCTradingAccountToken(napi_env env, napi_callback_info
   });
 }
 
-static napi_value fromBankToFutureByFuture(napi_env env, napi_callback_info info) {
+static napi_value reqFromBankToFutureByFuture(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcReqTransferField req;
 
@@ -1554,7 +1554,7 @@ static napi_value fromBankToFutureByFuture(napi_env env, napi_callback_info info
   });
 }
 
-static napi_value fromFutureToBankByFuture(napi_env env, napi_callback_info info) {
+static napi_value reqFromFutureToBankByFuture(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcReqTransferField req;
 
@@ -1609,7 +1609,7 @@ static napi_value fromFutureToBankByFuture(napi_env env, napi_callback_info info
   });
 }
 
-static napi_value queryBankAccountMoneyByFuture(napi_env env, napi_callback_info info) {
+static napi_value reqQueryBankAccountMoneyByFuture(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcReqQueryAccountField req;
 
@@ -1657,7 +1657,7 @@ static napi_value queryBankAccountMoneyByFuture(napi_env env, napi_callback_info
   });
 }
 
-static napi_value qryClassifiedInstrument(napi_env env, napi_callback_info info) {
+static napi_value reqQryClassifiedInstrument(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryClassifiedInstrumentField req;
 
@@ -1674,7 +1674,7 @@ static napi_value qryClassifiedInstrument(napi_env env, napi_callback_info info)
   });
 }
 
-static napi_value qryCombPromotionParam(napi_env env, napi_callback_info info) {
+static napi_value reqQryCombPromotionParam(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryCombPromotionParamField req;
 
@@ -1687,7 +1687,7 @@ static napi_value qryCombPromotionParam(napi_env env, napi_callback_info info) {
   });
 }
 
-static napi_value qryRiskSettleInvstPosition(napi_env env, napi_callback_info info) {
+static napi_value reqQryRiskSettleInvstPosition(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryRiskSettleInvstPositionField req;
 
@@ -1701,7 +1701,7 @@ static napi_value qryRiskSettleInvstPosition(napi_env env, napi_callback_info in
   });
 }
 
-static napi_value qryRiskSettleProductStatus(napi_env env, napi_callback_info info) {
+static napi_value reqQryRiskSettleProductStatus(napi_env env, napi_callback_info info) {
   return callRequestFunc(env, info, [&env](Trader *trader, napi_value object) {
     CThostFtdcQryRiskSettleProductStatusField req;
 
@@ -1882,93 +1882,93 @@ static napi_value traderNew(napi_env env, napi_callback_info info) {
 napi_status defineTrader(napi_env env, napi_ref *constructor) {
   napi_property_descriptor props[] = {
       DECLARE_NAPI_METHOD(getApiVersion),
-      DECLARE_NAPI_METHOD(authenticate),
-      DECLARE_NAPI_METHOD(userLogin),
-      DECLARE_NAPI_METHOD(userLogout),
-      DECLARE_NAPI_METHOD(userPasswordUpdate),
-      DECLARE_NAPI_METHOD(tradingAccountPasswordUpdate),
-      DECLARE_NAPI_METHOD(userAuthMethod),
-      DECLARE_NAPI_METHOD(genUserCaptcha),
-      DECLARE_NAPI_METHOD(genUserText),
-      DECLARE_NAPI_METHOD(userLoginWithCaptcha),
-      DECLARE_NAPI_METHOD(userLoginWithText),
-      DECLARE_NAPI_METHOD(userLoginWithOTP),
-      DECLARE_NAPI_METHOD(orderInsert),
-      DECLARE_NAPI_METHOD(parkedOrderInsert),
-      DECLARE_NAPI_METHOD(parkedOrderAction),
-      DECLARE_NAPI_METHOD(orderAction),
-      DECLARE_NAPI_METHOD(qryMaxOrderVolume),
-      DECLARE_NAPI_METHOD(settlementInfoConfirm),
-      DECLARE_NAPI_METHOD(removeParkedOrder),
-      DECLARE_NAPI_METHOD(removeParkedOrderAction),
-      DECLARE_NAPI_METHOD(execOrderInsert),
-      DECLARE_NAPI_METHOD(execOrderAction),
-      DECLARE_NAPI_METHOD(forQuoteInsert),
-      DECLARE_NAPI_METHOD(quoteInsert),
-      DECLARE_NAPI_METHOD(quoteAction),
-      DECLARE_NAPI_METHOD(batchOrderAction),
-      DECLARE_NAPI_METHOD(optionSelfCloseInsert),
-      DECLARE_NAPI_METHOD(optionSelfCloseAction),
-      DECLARE_NAPI_METHOD(combActionInsert),
-      DECLARE_NAPI_METHOD(qryOrder),
-      DECLARE_NAPI_METHOD(qryTrade),
-      DECLARE_NAPI_METHOD(qryInvestorPosition),
-      DECLARE_NAPI_METHOD(qryTradingAccount),
-      DECLARE_NAPI_METHOD(qryInvestor),
-      DECLARE_NAPI_METHOD(qryTradingCode),
-      DECLARE_NAPI_METHOD(qryInstrumentMarginRate),
-      DECLARE_NAPI_METHOD(qryInstrumentCommissionRate),
-      DECLARE_NAPI_METHOD(qryExchange),
-      DECLARE_NAPI_METHOD(qryProduct),
-      DECLARE_NAPI_METHOD(qryInstrument),
-      DECLARE_NAPI_METHOD(qryDepthMarketData),
-      DECLARE_NAPI_METHOD(qryTraderOffer),
-      DECLARE_NAPI_METHOD(qrySettlementInfo),
-      DECLARE_NAPI_METHOD(qryTransferBank),
-      DECLARE_NAPI_METHOD(qryInvestorPositionDetail),
-      DECLARE_NAPI_METHOD(qryNotice),
-      DECLARE_NAPI_METHOD(qrySettlementInfoConfirm),
-      DECLARE_NAPI_METHOD(qryInvestorPositionCombineDetail),
-      DECLARE_NAPI_METHOD(qryCFMMCTradingAccountKey),
-      DECLARE_NAPI_METHOD(qryEWarrantOffset),
-      DECLARE_NAPI_METHOD(qryInvestorProductGroupMargin),
-      DECLARE_NAPI_METHOD(qryExchangeMarginRate),
-      DECLARE_NAPI_METHOD(qryExchangeMarginRateAdjust),
-      DECLARE_NAPI_METHOD(qryExchangeRate),
-      DECLARE_NAPI_METHOD(qrySecAgentACIDMap),
-      DECLARE_NAPI_METHOD(qryProductExchRate),
-      DECLARE_NAPI_METHOD(qryProductGroup),
-      DECLARE_NAPI_METHOD(qryMMInstrumentCommissionRate),
-      DECLARE_NAPI_METHOD(qryMMOptionInstrCommRate),
-      DECLARE_NAPI_METHOD(qryInstrumentOrderCommRate),
-      DECLARE_NAPI_METHOD(qrySecAgentTradingAccount),
-      DECLARE_NAPI_METHOD(qrySecAgentCheckMode),
-      DECLARE_NAPI_METHOD(qrySecAgentTradeInfo),
-      DECLARE_NAPI_METHOD(qryOptionInstrTradeCost),
-      DECLARE_NAPI_METHOD(qryOptionInstrCommRate),
-      DECLARE_NAPI_METHOD(qryExecOrder),
-      DECLARE_NAPI_METHOD(qryForQuote),
-      DECLARE_NAPI_METHOD(qryQuote),
-      DECLARE_NAPI_METHOD(qryOptionSelfClose),
-      DECLARE_NAPI_METHOD(qryInvestUnit),
-      DECLARE_NAPI_METHOD(qryCombInstrumentGuard),
-      DECLARE_NAPI_METHOD(qryCombAction),
-      DECLARE_NAPI_METHOD(qryTransferSerial),
-      DECLARE_NAPI_METHOD(qryAccountregister),
-      DECLARE_NAPI_METHOD(qryContractBank),
-      DECLARE_NAPI_METHOD(qryParkedOrder),
-      DECLARE_NAPI_METHOD(qryParkedOrderAction),
-      DECLARE_NAPI_METHOD(qryTradingNotice),
-      DECLARE_NAPI_METHOD(qryBrokerTradingParams),
-      DECLARE_NAPI_METHOD(qryBrokerTradingAlgos),
-      DECLARE_NAPI_METHOD(queryCFMMCTradingAccountToken),
-      DECLARE_NAPI_METHOD(fromBankToFutureByFuture),
-      DECLARE_NAPI_METHOD(fromFutureToBankByFuture),
-      DECLARE_NAPI_METHOD(queryBankAccountMoneyByFuture),
-      DECLARE_NAPI_METHOD(qryClassifiedInstrument),
-      DECLARE_NAPI_METHOD(qryCombPromotionParam),
-      DECLARE_NAPI_METHOD(qryRiskSettleInvstPosition),
-      DECLARE_NAPI_METHOD(qryRiskSettleProductStatus),
+      DECLARE_NAPI_METHOD(reqAuthenticate),
+      DECLARE_NAPI_METHOD(reqUserLogin),
+      DECLARE_NAPI_METHOD(reqUserLogout),
+      DECLARE_NAPI_METHOD(reqUserPasswordUpdate),
+      DECLARE_NAPI_METHOD(reqTradingAccountPasswordUpdate),
+      DECLARE_NAPI_METHOD(reqUserAuthMethod),
+      DECLARE_NAPI_METHOD(reqGenUserCaptcha),
+      DECLARE_NAPI_METHOD(reqGenUserText),
+      DECLARE_NAPI_METHOD(reqUserLoginWithCaptcha),
+      DECLARE_NAPI_METHOD(reqUserLoginWithText),
+      DECLARE_NAPI_METHOD(reqUserLoginWithOTP),
+      DECLARE_NAPI_METHOD(reqOrderInsert),
+      DECLARE_NAPI_METHOD(reqParkedOrderInsert),
+      DECLARE_NAPI_METHOD(reqParkedOrderAction),
+      DECLARE_NAPI_METHOD(reqOrderAction),
+      DECLARE_NAPI_METHOD(reqQryMaxOrderVolume),
+      DECLARE_NAPI_METHOD(reqSettlementInfoConfirm),
+      DECLARE_NAPI_METHOD(reqRemoveParkedOrder),
+      DECLARE_NAPI_METHOD(reqRemoveParkedOrderAction),
+      DECLARE_NAPI_METHOD(reqExecOrderInsert),
+      DECLARE_NAPI_METHOD(reqExecOrderAction),
+      DECLARE_NAPI_METHOD(reqForQuoteInsert),
+      DECLARE_NAPI_METHOD(reqQuoteInsert),
+      DECLARE_NAPI_METHOD(reqQuoteAction),
+      DECLARE_NAPI_METHOD(reqBatchOrderAction),
+      DECLARE_NAPI_METHOD(reqOptionSelfCloseInsert),
+      DECLARE_NAPI_METHOD(reqOptionSelfCloseAction),
+      DECLARE_NAPI_METHOD(reqCombActionInsert),
+      DECLARE_NAPI_METHOD(reqQryOrder),
+      DECLARE_NAPI_METHOD(reqQryTrade),
+      DECLARE_NAPI_METHOD(reqQryInvestorPosition),
+      DECLARE_NAPI_METHOD(reqQryTradingAccount),
+      DECLARE_NAPI_METHOD(reqQryInvestor),
+      DECLARE_NAPI_METHOD(reqQryTradingCode),
+      DECLARE_NAPI_METHOD(reqQryInstrumentMarginRate),
+      DECLARE_NAPI_METHOD(reqQryInstrumentCommissionRate),
+      DECLARE_NAPI_METHOD(reqQryExchange),
+      DECLARE_NAPI_METHOD(reqQryProduct),
+      DECLARE_NAPI_METHOD(reqQryInstrument),
+      DECLARE_NAPI_METHOD(reqQryDepthMarketData),
+      DECLARE_NAPI_METHOD(reqQryTraderOffer),
+      DECLARE_NAPI_METHOD(reqQrySettlementInfo),
+      DECLARE_NAPI_METHOD(reqQryTransferBank),
+      DECLARE_NAPI_METHOD(reqQryInvestorPositionDetail),
+      DECLARE_NAPI_METHOD(reqQryNotice),
+      DECLARE_NAPI_METHOD(reqQrySettlementInfoConfirm),
+      DECLARE_NAPI_METHOD(reqQryInvestorPositionCombineDetail),
+      DECLARE_NAPI_METHOD(reqQryCFMMCTradingAccountKey),
+      DECLARE_NAPI_METHOD(reqQryEWarrantOffset),
+      DECLARE_NAPI_METHOD(reqQryInvestorProductGroupMargin),
+      DECLARE_NAPI_METHOD(reqQryExchangeMarginRate),
+      DECLARE_NAPI_METHOD(reqQryExchangeMarginRateAdjust),
+      DECLARE_NAPI_METHOD(reqQryExchangeRate),
+      DECLARE_NAPI_METHOD(reqQrySecAgentACIDMap),
+      DECLARE_NAPI_METHOD(reqQryProductExchRate),
+      DECLARE_NAPI_METHOD(reqQryProductGroup),
+      DECLARE_NAPI_METHOD(reqQryMMInstrumentCommissionRate),
+      DECLARE_NAPI_METHOD(reqQryMMOptionInstrCommRate),
+      DECLARE_NAPI_METHOD(reqQryInstrumentOrderCommRate),
+      DECLARE_NAPI_METHOD(reqQrySecAgentTradingAccount),
+      DECLARE_NAPI_METHOD(reqQrySecAgentCheckMode),
+      DECLARE_NAPI_METHOD(reqQrySecAgentTradeInfo),
+      DECLARE_NAPI_METHOD(reqQryOptionInstrTradeCost),
+      DECLARE_NAPI_METHOD(reqQryOptionInstrCommRate),
+      DECLARE_NAPI_METHOD(reqQryExecOrder),
+      DECLARE_NAPI_METHOD(reqQryForQuote),
+      DECLARE_NAPI_METHOD(reqQryQuote),
+      DECLARE_NAPI_METHOD(reqQryOptionSelfClose),
+      DECLARE_NAPI_METHOD(reqQryInvestUnit),
+      DECLARE_NAPI_METHOD(reqQryCombInstrumentGuard),
+      DECLARE_NAPI_METHOD(reqQryCombAction),
+      DECLARE_NAPI_METHOD(reqQryTransferSerial),
+      DECLARE_NAPI_METHOD(reqQryAccountregister),
+      DECLARE_NAPI_METHOD(reqQryContractBank),
+      DECLARE_NAPI_METHOD(reqQryParkedOrder),
+      DECLARE_NAPI_METHOD(reqQryParkedOrderAction),
+      DECLARE_NAPI_METHOD(reqQryTradingNotice),
+      DECLARE_NAPI_METHOD(reqQryBrokerTradingParams),
+      DECLARE_NAPI_METHOD(reqQryBrokerTradingAlgos),
+      DECLARE_NAPI_METHOD(reqQueryCFMMCTradingAccountToken),
+      DECLARE_NAPI_METHOD(reqFromBankToFutureByFuture),
+      DECLARE_NAPI_METHOD(reqFromFutureToBankByFuture),
+      DECLARE_NAPI_METHOD(reqQueryBankAccountMoneyByFuture),
+      DECLARE_NAPI_METHOD(reqQryClassifiedInstrument),
+      DECLARE_NAPI_METHOD(reqQryCombPromotionParam),
+      DECLARE_NAPI_METHOD(reqQryRiskSettleInvstPosition),
+      DECLARE_NAPI_METHOD(reqQryRiskSettleProductStatus),
       DECLARE_NAPI_METHOD(on),
   };
   return defineClass(env, "Trader", traderNew, arraysize(props), props, constructor);
