@@ -55,6 +55,15 @@
           "libraries": [
             "thostmduserapi_se.so",
             "thosttraderapi_se.so"
+          ],
+          "copies": [
+            {
+              "destination": "<(module_root_dir)/build/Release/",
+              "files": [
+                "<(module_root_dir)/tradeapi/linux/thostmduserapi_se.so",
+                "<(module_root_dir)/tradeapi/linux/thosttraderapi_se.so"
+              ]
+            }
           ]
         }]
       ]
