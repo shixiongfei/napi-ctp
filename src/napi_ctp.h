@@ -15,6 +15,7 @@
 #include "ThostFtdcMdApi.h"
 #include "ThostFtdcTraderApi.h"
 #include <assert.h>
+#include <stdlib.h>
 #include <node_api.h>
 
 #ifdef _MSC_VER
