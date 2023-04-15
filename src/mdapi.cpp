@@ -12,10 +12,10 @@
 #include "mdapi.h"
 #include "mdmsg.h"
 #include "mdspi.h"
-#include <functional>
+#include <string.h>
 #include <map>
-#include <stdlib.h>
 #include <string>
+#include <functional>
 
 typedef struct MarketData {
   napi_env env;

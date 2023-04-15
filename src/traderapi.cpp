@@ -12,10 +12,10 @@
 #include "traderapi.h"
 #include "tradermsg.h"
 #include "traderspi.h"
-#include <functional>
+#include <string.h>
 #include <map>
-#include <stdlib.h>
 #include <string>
+#include <functional>
 
 typedef struct Trader {
   napi_env env;

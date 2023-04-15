@@ -12,7 +12,6 @@
 #include "mdapi.h"
 #include "napi_ctp.h"
 #include "traderapi.h"
-#include <stdlib.h>
 #include <string.h>
 
 static void destructor(napi_env env, void *data, void *hint) {
