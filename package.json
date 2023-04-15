@@ -4,6 +4,13 @@
   "description": "Node API for CTP",
   "main": "index.js",
   "types": "index.d.ts",
+  "files": [
+    "src/",
+    "tradeapi/",
+    "index.js",
+    "index.d.ts",
+    "binding.gyp"
+  ],
   "scripts": {
     "build": "node-gyp-build",
     "install": "node-gyp-build",
