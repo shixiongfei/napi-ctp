@@ -3946,10 +3946,7 @@ export enum EnumBoolType {
 }
 
 /** 消息事件回调接口 */
-export interface CallbackFunction {
-  /** 消息对象(不同消息事件，相应的对象也不同) */
-  (message?: number | object): void;
-}
+export type CallbackFunction = (message?: number | object) => void;
 
 /** 行情对象 */
 export declare class MarketData {
