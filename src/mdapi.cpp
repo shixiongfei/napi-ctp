@@ -12,6 +12,7 @@
 #include "mdapi.h"
 #include "mdmsg.h"
 #include "mdspi.h"
+#include "guard.h"
 #include <string.h>
 #include <map>
 #include <string>
@@ -61,6 +62,13 @@ static napi_value callInstrumentIdsFunc(napi_env env, napi_callback_info info, s
   }
 
   dynarray(char *, instrumentIds, length);
+  memset(instrumentIds, 0, length * sizeof(char *));
+
+  Defer([&instrumentIds, length]() {
+    for (uint32_t i = 0; i < length; ++i)
+      if (instrumentIds[i])
+        free(instrumentIds[i]);
+  });
 
   for (uint32_t i = 0; i < length; ++i) {
     CHECK(napi_get_element(env, argv, i, &element));
@@ -73,10 +81,6 @@ static napi_value callInstrumentIdsFunc(napi_env env, napi_callback_info info, s
   }
 
   result = func(marketData, instrumentIds, length);
-
-  for (uint32_t i = 0; i < length; ++i)
-    free(instrumentIds[i]);
-
   CHECK(napi_create_int32(env, result, &retval));
 
   return retval;

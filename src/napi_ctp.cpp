@@ -172,8 +172,8 @@ static char *toUTF8(const char *codepage, const char *mbstr, int len, char *utf8
   return utf8str;
 #else
   int wlen;
-  dynarray(wchar_t, wcstr, len + 1);
 
+  dynarray(wchar_t, wcstr, len + 1);
   memset(wcstr, 0, (len + 1) * sizeof(wchar_t));
 
   wlen = MultiByteToWideChar(CP_ACP, 0, mbstr, len, wcstr, len + 1);
@@ -186,7 +186,9 @@ static char *toUTF8(const char *codepage, const char *mbstr, int len, char *utf8
 napi_status objectSetString(napi_env env, napi_value object, const char *name, const char *string) {
   napi_value value;
   int len = (int)strlen(string);
+
   dynarray(char, utf8str, len * 6 + 1);
+  memset(utf8str, 0, len * 6 + 1);
 
   CHECK(napi_create_string_utf8(env, toUTF8("GBK", string, len, utf8str), NAPI_AUTO_LENGTH, &value));
   return napi_set_named_property(env, object, name, value);
