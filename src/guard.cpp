@@ -11,6 +11,6 @@
 
 #include "guard.h"
 
-Guard::Guard(std::function<void(void)> func) : _func(func) {}
+Guard::Guard(const std::function<void(void)> &func) : _func(func) {}
 
 Guard::~Guard() { _func(); }

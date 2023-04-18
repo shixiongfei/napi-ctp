@@ -38,7 +38,7 @@ static napi_value getApiVersion(napi_env env, napi_callback_info info) {
   return version;
 }
 
-static napi_value callInstrumentIdsFunc(napi_env env, napi_callback_info info, std::function<int(MarketData*, char**, int)> func) {
+static napi_value callInstrumentIdsFunc(napi_env env, napi_callback_info info, const std::function<int(MarketData*, char**, int)> &func) {
   size_t argc = 1, size;
   uint32_t length;
   int result;
@@ -110,7 +110,7 @@ static napi_value unsubscribeForQuoteRsp(napi_env env, napi_callback_info info) 
   });
 }
 
-static napi_value callRequestFunc(napi_env env, napi_callback_info info, std::function<int(MarketData*, napi_value)> func) {
+static napi_value callRequestFunc(napi_env env, napi_callback_info info, const std::function<int(MarketData*, napi_value)> &func) {
   size_t argc = 1;
   int result;
   napi_value object, jsthis, retval;

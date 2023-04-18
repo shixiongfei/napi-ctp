@@ -37,7 +37,7 @@ static napi_value getApiVersion(napi_env env, napi_callback_info info) {
   return version;
 }
 
-static napi_value callRequestFunc(napi_env env, napi_callback_info info, std::function<int(Trader*, napi_value)> func) {
+static napi_value callRequestFunc(napi_env env, napi_callback_info info, const std::function<int(Trader*, napi_value)> &func) {
   size_t argc = 1;
   int result;
   napi_value object, jsthis, retval;

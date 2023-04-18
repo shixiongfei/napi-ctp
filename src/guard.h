@@ -16,7 +16,7 @@
 
 class Guard {
 public:
-  Guard(std::function<void(void)> func);
+  Guard(const std::function<void(void)> &func);
   ~Guard();
 
 private:
