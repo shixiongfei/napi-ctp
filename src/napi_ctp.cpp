@@ -70,7 +70,7 @@ napi_status checkIsStringArray(napi_env env, napi_value value, bool *result) {
   CHECK(napi_is_array(env, value, &isArray));
 
   if (!isArray) {
-    napi_throw_error(env, "TypeError", "The parameter should be string an array");
+    napi_throw_type_error(env, "TypeError", "The parameter should be string an array");
     *result = false;
     return napi_ok;
   }
@@ -82,7 +82,7 @@ napi_status checkIsStringArray(napi_env env, napi_value value, bool *result) {
     CHECK(napi_typeof(env, element, &valuetype));
 
     if (valuetype != napi_string) {
-      napi_throw_error(env, "TypeError", "The parameter should be string an array");
+      napi_throw_type_error(env, "TypeError", "The parameter should be string an array");
       *result = false;
       return napi_ok;
     }
@@ -98,7 +98,7 @@ napi_status checkIsObject(napi_env env, napi_value value, bool *result) {
   CHECK(napi_typeof(env, value, &valuetype));
 
   if (valuetype != napi_object) {
-    napi_throw_error(env, "TypeError", "The parameter should be an object");
+    napi_throw_type_error(env, "TypeError", "The parameter should be an object");
     *result = false;
     return napi_ok;
   }
@@ -145,7 +145,7 @@ napi_status checkValueTypes(napi_env env, size_t argc, const napi_value *argv, c
       char errors[64] = {0};
 
       snprintf(errors, sizeof(errors), "The parameter %d should be a %s", (int)i, getTypeString(types[i]));
-      napi_throw_error(env, "TypeError", errors);
+      napi_throw_type_error(env, "TypeError", errors);
 
       *result = false;
       return napi_ok;
