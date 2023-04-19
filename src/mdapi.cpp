@@ -291,7 +291,7 @@ static napi_value marketDataNew(napi_env env, napi_callback_info info) {
   marketData = new MarketData();
 
   if (!marketData) {
-    napi_throw_error(env, "OutOfMemory", "Market data is out of memory");
+    napi_throw_error(env, nullptr, "Market data is out of memory");
     return nullptr;
   }
 
@@ -300,14 +300,14 @@ static napi_value marketDataNew(napi_env env, napi_callback_info info) {
 
   if (!marketData->spi) {
     delete marketData;
-    napi_throw_error(env, "OutOfMemory", "Market data is out of memory");
+    napi_throw_error(env, nullptr, "Market data is out of memory");
     return nullptr;
   }
 
   if (0 != uv_thread_create(&marketData->thread, processThread, marketData)) {
     delete marketData->spi;
     delete marketData;
-    napi_throw_error(env, "ThreadError", "Market data can not create thread");
+    napi_throw_error(env, nullptr, "Market data can not create thread");
     return nullptr;
   }
 
@@ -318,7 +318,7 @@ static napi_value marketDataNew(napi_env env, napi_callback_info info) {
     uv_thread_join(&marketData->thread);
     delete marketData->spi;
     delete marketData;
-    napi_throw_error(env, "OutOfMemory", "Market data is out of memory");
+    napi_throw_error(env, nullptr, "Market data is out of memory");
     return nullptr;
   }
 

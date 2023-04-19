@@ -33,7 +33,7 @@ static napi_status defineConstructors(napi_env env) {
   Constructors *constructors = (Constructors *)malloc(sizeof(Constructors));
 
   if (!constructors) {
-    napi_throw_error(env, "OutOfMemory", "Out of memory");
+    napi_throw_error(env, nullptr, "Out of memory");
     return napi_object_expected;
   }
 

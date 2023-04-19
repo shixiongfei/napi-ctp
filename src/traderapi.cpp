@@ -1837,7 +1837,7 @@ static napi_value traderNew(napi_env env, napi_callback_info info) {
   trader = new Trader();
 
   if (!trader) {
-    napi_throw_error(env, "OutOfMemory", "Trader is out of memory");
+    napi_throw_error(env, nullptr, "Trader is out of memory");
     return nullptr;
   }
 
@@ -1846,14 +1846,14 @@ static napi_value traderNew(napi_env env, napi_callback_info info) {
 
   if (!trader->spi) {
     delete trader;
-    napi_throw_error(env, "OutOfMemory", "Trader is out of memory");
+    napi_throw_error(env, nullptr, "Trader is out of memory");
     return nullptr;
   }
 
   if (0 != uv_thread_create(&trader->thread, processThread, trader)) {
     delete trader->spi;
     delete trader;
-    napi_throw_error(env, "ThreadError", "Trader can not create thread");
+    napi_throw_error(env, nullptr, "Trader can not create thread");
     return nullptr;
   }
 
@@ -1864,7 +1864,7 @@ static napi_value traderNew(napi_env env, napi_callback_info info) {
     uv_thread_join(&trader->thread);
     delete trader->spi;
     delete trader;
-    napi_throw_error(env, "OutOfMemory", "Trader is out of memory");
+    napi_throw_error(env, nullptr, "Trader is out of memory");
     return nullptr;
   }
 
