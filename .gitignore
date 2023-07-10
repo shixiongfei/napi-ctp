@@ -5,3 +5,5 @@ flowMd/
 .vscode/c_cpp_properties.json
 prebuilds/
 package-lock.json
+types.js
+types.d.ts

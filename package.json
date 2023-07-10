@@ -1,6 +1,6 @@
 {
   "name": "napi-ctp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Node API for CTP",
   "main": "index.js",
   "types": "index.d.ts",
@@ -9,11 +9,13 @@
     "tradeapi/",
     "index.js",
     "index.d.ts",
-    "binding.gyp"
+    "types.ts",
+    "binding.gyp",
+    "tsconfig.json"
   ],
   "scripts": {
-    "build": "node-gyp-build",
-    "install": "node-gyp-build",
+    "build": "node-gyp-build && tsc",
+    "install": "node-gyp-build && tsc",
     "prebuild": "prebuildify --napi",
     "test": "node test.js"
   },
@@ -33,7 +35,8 @@
   "homepage": "https://github.com/shixiongfei/napi-ctp#readme",
   "devDependencies": {
     "node-gyp": "^9.3.0",
-    "prebuildify": "^5.0.1"
+    "prebuildify": "^5.0.1",
+    "typescript": "^5.1.6"
   },
   "dependencies": {
     "node-gyp-build": "^4.5.0"
