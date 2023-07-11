@@ -1747,6 +1747,7 @@ static void processThread(void *data) {
 static void callJs(napi_env env, napi_value js_cb, void *context, void *data) {
   Trader *trader = (Trader *)context;
   Message *message = (Message *)data;
+  int event = message->event;
   napi_value undefined, argv;
 
   CHECK(napi_get_undefined(env, &undefined));
@@ -1754,6 +1755,22 @@ static void callJs(napi_env env, napi_value js_cb, void *context, void *data) {
   CHECK(napi_call_function(env, undefined, js_cb, 1, &argv, nullptr));
 
   trader->spi->done(message);
+
+  if (ET_QUIT == event) {
+    for (auto it = trader->tsfns.begin(); it != trader->tsfns.end(); ++it)
+      napi_unref_threadsafe_function(env, it->second);
+
+    trader->tsfns.clear();
+    napi_delete_reference(trader->env, trader->wrapper);
+
+    if (trader->api)
+      trader->api->Release();
+
+    if (trader->spi)
+      delete trader->spi;
+
+    delete trader;
+  }
 }
 
 static napi_value on(napi_env env, napi_callback_info info) {
@@ -1796,20 +1813,6 @@ static void traderDestructor(napi_env env, void *data, void *hint) {
     trader->spi->quit();
     uv_thread_join(&trader->thread);
   }
-
-  for (auto it = trader->tsfns.begin(); it != trader->tsfns.end(); ++it)
-    napi_unref_threadsafe_function(env, it->second);
-
-  trader->tsfns.clear();
-  napi_delete_reference(trader->env, trader->wrapper);
-
-  if (trader->spi)
-    delete trader->spi;
-
-  if (trader->api)
-    trader->api->Release();
-
-  delete trader;
 }
 
 static napi_value traderNew(napi_env env, napi_callback_info info) {
