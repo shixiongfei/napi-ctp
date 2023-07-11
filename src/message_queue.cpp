@@ -21,7 +21,12 @@ MessageQueue::~MessageQueue() {
   uv_mutex_destroy(&_mutex);
 }
 
-void MessageQueue::push(const Message &message) {
+void MessageQueue::push(int event, uintptr_t data) {
+  Message *message = (Message *)malloc(sizeof(Message));
+
+  message->event = event;
+  message->data = data;
+
   uv_mutex_lock(&_mutex);
 
   _queue.push(message);
@@ -32,7 +37,7 @@ void MessageQueue::push(const Message &message) {
   uv_mutex_unlock(&_mutex);
 }
 
-int MessageQueue::pop(Message *message, unsigned int millisec) {
+int MessageQueue::pop(Message **message, unsigned int millisec) {
   int ret;
 
   if (!message)

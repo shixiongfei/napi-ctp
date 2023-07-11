@@ -23,14 +23,14 @@ public:
   MessageQueue();
   ~MessageQueue();
 
-  void push(const Message &message);
-  int pop(Message *message, unsigned int millisec);
+  void push(int event, uintptr_t data);
+  int pop(Message **message, unsigned int millisec);
 
 private:
   uv_cond_t _cond;
   uv_mutex_t _mutex;
   int _waiting;
-  std::queue<Message> _queue;
+  std::queue<Message *> _queue;
 };
 
 #endif /* __MESSAGE_QUEUE_H__ */

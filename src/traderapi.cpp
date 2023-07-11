@@ -1713,11 +1713,11 @@ static napi_value reqQryRiskSettleProductStatus(napi_env env, napi_callback_info
   });
 }
 
-static bool processMessage(Trader *trader, const Message &message) {
-  const char *eventName = TraderSpi::eventName(message.event);
+static bool processMessage(Trader *trader, const Message *message) {
+  const char *eventName = TraderSpi::eventName(message->event);
 
   if (!eventName) {
-    fprintf(stderr, "<Trader> Unknown message event %d\n", message.event);
+    fprintf(stderr, "<Trader> Unknown message event %d\n", message->event);
     return true;
   }
 
@@ -1725,15 +1725,15 @@ static bool processMessage(Trader *trader, const Message &message) {
 
   if (iter != trader->tsfns.end()) {
     napi_threadsafe_function tsfn = iter->second;
-    CHECK(napi_call_threadsafe_function(tsfn, (void *)&message, napi_tsfn_blocking));
+    CHECK(napi_call_threadsafe_function(tsfn, (void *)message, napi_tsfn_blocking));
   }
 
-  return ET_QUIT != message.event;
+  return ET_QUIT != message->event;
 }
 
 static void processThread(void *data) {
   Trader *trader = (Trader *)data;
-  Message message;
+  Message *message;
   bool isRunning = true;
 
   while (isRunning) {
@@ -1741,18 +1741,19 @@ static void processThread(void *data) {
       continue;
 
     isRunning = processMessage(trader, message);
-    trader->spi->done(message);
   }
 }
 
 static void callJs(napi_env env, napi_value js_cb, void *context, void *data) {
-  // Trader *trader = (Trader *)context;
+  Trader *trader = (Trader *)context;
   Message *message = (Message *)data;
   napi_value undefined, argv;
 
   CHECK(napi_get_undefined(env, &undefined));
   CHECK(getTraderMessageValue(env, message, &argv));
   CHECK(napi_call_function(env, undefined, js_cb, 1, &argv, nullptr));
+
+  trader->spi->done(message);
 }
 
 static napi_value on(napi_env env, napi_callback_info info) {

@@ -167,11 +167,11 @@ static napi_value reqUserLogout(napi_env env, napi_callback_info info) {
   });
 }
 
-static bool processMessage(MarketData *marketData, const Message &message) {
-  const char *eventName = MdSpi::eventName(message.event);
+static bool processMessage(MarketData *marketData, const Message *message) {
+  const char *eventName = MdSpi::eventName(message->event);
 
   if (!eventName) {
-    fprintf(stderr, "<Market Data> Unknown message event %d\n", message.event);
+    fprintf(stderr, "<Market Data> Unknown message event %d\n", message->event);
     return true;
   }
 
@@ -179,15 +179,15 @@ static bool processMessage(MarketData *marketData, const Message &message) {
 
   if (iter != marketData->tsfns.end()) {
     napi_threadsafe_function tsfn = iter->second;
-    CHECK(napi_call_threadsafe_function(tsfn, (void *)&message, napi_tsfn_blocking));
+    CHECK(napi_call_threadsafe_function(tsfn, (void *)message, napi_tsfn_blocking));
   }
 
-  return EM_QUIT != message.event;
+  return EM_QUIT != message->event;
 }
 
 static void processThread(void *data) {
   MarketData *marketData = (MarketData *)data;
-  Message message;
+  Message *message;
   bool isRunning = true;
 
   while (isRunning) {
@@ -195,18 +195,19 @@ static void processThread(void *data) {
       continue;
 
     isRunning = processMessage(marketData, message);
-    marketData->spi->done(message);
   }
 }
 
 static void callJs(napi_env env, napi_value js_cb, void *context, void *data) {
-  // MarketData *marketData = (MarketData *)context;
+  MarketData *marketData = (MarketData *)context;
   Message *message = (Message *)data;
   napi_value undefined, argv;
 
   CHECK(napi_get_undefined(env, &undefined));
   CHECK(getMarketDataMessageValue(env, message, &argv));
   CHECK(napi_call_function(env, undefined, js_cb, 1, &argv, nullptr));
+
+  marketData->spi->done(message);
 }
 
 static napi_value on(napi_env env, napi_callback_info info) {
