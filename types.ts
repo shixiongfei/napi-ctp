@@ -3946,4 +3946,4 @@ export enum EnumBoolType {
 }
 
 /** 消息事件回调接口 */
-export type CallbackFunction = (message?: number | object) => void;
+export type CallbackFunction = (message: any /* number | object */) => void;
