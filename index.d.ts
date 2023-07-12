@@ -28,6 +28,12 @@ export declare class MarketData {
   getApiVersion(): string;
 
   /**
+   * 获取当前交易日
+   * @returns 获取到的交易日
+   */
+  getTradingDay(): string;
+
+  /**
    * 订阅行情
    * @param instrumentIds 合约ID列表
    */
@@ -85,6 +91,12 @@ export declare class Trader {
    * @returns 获取到的版本号
    */
   getApiVersion(): string;
+
+  /**
+   * 获取当前交易日
+   * @returns 获取到的交易日
+   */
+  getTradingDay(): string;
 
   /**
    * 客户端认证请求

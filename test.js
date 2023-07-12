@@ -24,3 +24,6 @@ const md = ctp.createMarketData("./flowMd/", "tcp://180.168.146.187:10212");
 
 console.log(trader.getApiVersion());
 console.log(md.getApiVersion());
+
+console.log(trader.getTradingDay());
+console.log(md.getTradingDay());

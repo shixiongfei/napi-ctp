@@ -37,6 +37,17 @@ static napi_value getApiVersion(napi_env env, napi_callback_info info) {
   return version;
 }
 
+static napi_value getTradingDay(napi_env env, napi_callback_info info) {
+  napi_value jsthis, tradingDay;
+  Trader *trader;
+
+  CHECK(napi_get_cb_info(env, info, nullptr, nullptr, &jsthis, nullptr));
+  CHECK(napi_unwrap(env, jsthis, (void **)&trader));
+  CHECK(napi_create_string_utf8(env, trader->api->GetTradingDay(), NAPI_AUTO_LENGTH, &tradingDay));
+
+  return tradingDay;
+}
+
 static napi_value callRequestFunc(napi_env env, napi_callback_info info, const std::function<int(Trader*, napi_value)> &func) {
   size_t argc = 1;
   int result;
@@ -1886,6 +1897,7 @@ static napi_value traderNew(napi_env env, napi_callback_info info) {
 napi_status defineTrader(napi_env env, napi_ref *constructor) {
   napi_property_descriptor props[] = {
       DECLARE_NAPI_METHOD(getApiVersion),
+      DECLARE_NAPI_METHOD(getTradingDay),
       DECLARE_NAPI_METHOD(reqAuthenticate),
       DECLARE_NAPI_METHOD(reqUserLogin),
       DECLARE_NAPI_METHOD(reqUserLogout),

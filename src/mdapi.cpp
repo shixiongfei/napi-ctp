@@ -38,6 +38,17 @@ static napi_value getApiVersion(napi_env env, napi_callback_info info) {
   return version;
 }
 
+static napi_value getTradingDay(napi_env env, napi_callback_info info) {
+  napi_value jsthis, tradingDay;
+  MarketData *marketData;
+
+  CHECK(napi_get_cb_info(env, info, nullptr, nullptr, &jsthis, nullptr));
+  CHECK(napi_unwrap(env, jsthis, (void **)&marketData));
+  CHECK(napi_create_string_utf8(env, marketData->api->GetTradingDay(), NAPI_AUTO_LENGTH, &tradingDay));
+
+  return tradingDay;
+}
+
 static napi_value callInstrumentIdsFunc(napi_env env, napi_callback_info info, const std::function<int(MarketData*, char**, int)> &func) {
   size_t argc = 1, size;
   uint32_t length;
@@ -338,6 +349,7 @@ static napi_value marketDataNew(napi_env env, napi_callback_info info) {
 napi_status defineMarketData(napi_env env, napi_ref *constructor) {
   napi_property_descriptor props[] = {
       DECLARE_NAPI_METHOD(getApiVersion),
+      DECLARE_NAPI_METHOD(getTradingDay),
       DECLARE_NAPI_METHOD(subscribeMarketData),
       DECLARE_NAPI_METHOD(unsubscribeMarketData),
       DECLARE_NAPI_METHOD(subscribeForQuoteRsp),
