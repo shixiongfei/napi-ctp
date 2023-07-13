@@ -209,6 +209,22 @@ static void processThread(void *data) {
   }
 }
 
+static void marketDataFree(napi_env env, MarketData *marketData) {
+  for (auto it = marketData->tsfns.begin(); it != marketData->tsfns.end(); ++it)
+    napi_unref_threadsafe_function(env, it->second);
+
+  marketData->tsfns.clear();
+  napi_delete_reference(marketData->env, marketData->wrapper);
+
+  if (marketData->api)
+    marketData->api->Release();
+
+  if (marketData->spi)
+    delete marketData->spi;
+
+  delete marketData;
+}
+
 static void callJs(napi_env env, napi_value js_cb, void *context, void *data) {
   MarketData *marketData = (MarketData *)context;
   Message *message = (Message *)data;
@@ -221,21 +237,8 @@ static void callJs(napi_env env, napi_value js_cb, void *context, void *data) {
 
   marketData->spi->done(message);
 
-  if (EM_QUIT == event) {
-    for (auto it = marketData->tsfns.begin(); it != marketData->tsfns.end(); ++it)
-      napi_unref_threadsafe_function(env, it->second);
-
-    marketData->tsfns.clear();
-    napi_delete_reference(marketData->env, marketData->wrapper);
-
-    if (marketData->api)
-      marketData->api->Release();
-
-    if (marketData->spi)
-      delete marketData->spi;
-
-    delete marketData;
-  }
+  if (EM_QUIT == event)
+    marketDataFree(env, marketData);
 }
 
 static napi_value on(napi_env env, napi_callback_info info) {
@@ -278,6 +281,9 @@ static void marketDataDestructor(napi_env env, void *data, void *hint) {
     marketData->spi->quit();
     uv_thread_join(&marketData->thread);
   }
+
+  if (marketData->tsfns.find(MdSpi::eventName(EM_QUIT)) == marketData->tsfns.end())
+    marketDataFree(env, marketData);
 }
 
 static napi_value marketDataNew(napi_env env, napi_callback_info info) {
