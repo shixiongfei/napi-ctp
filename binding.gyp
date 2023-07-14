@@ -24,8 +24,8 @@
             "<(module_root_dir)/tradeapi/macos"
           ],
           "libraries": [
-            "libthostmduserapi_v6.6.7_MacOS_20220302.a",
-            "libthosttraderapi-v6.6.7_MacOS_20220302.a",
+            "libthostmduserapi_se.a",
+            "libthosttraderapi_se.a",
             "<(module_root_dir)/tradeapi/macos/libs/comunicationkeylib.a",
             "<(module_root_dir)/tradeapi/macos/libs/libcrypto.a",
             "<(module_root_dir)/tradeapi/macos/libs/libssl.a"
