@@ -164,7 +164,7 @@ static char *toUTF8(const char *codepage, const char *mbstr, int len, char *utf8
   cd = iconv_open("UTF-8//TRANSLIT", codepage);
 
   if (((iconv_t)(-1)) == cd)
-    return 0;
+    return nullptr;
 
   iconv(cd, (char **)&mbstr, &inlen, &utf8str, &outlen);
   iconv_close(cd);
@@ -189,8 +189,9 @@ napi_status objectSetString(napi_env env, napi_value object, const char *name, c
 
   dynarray(char, utf8str, len * 6 + 1);
   memset(utf8str, 0, len * 6 + 1);
+  toUTF8("GBK", string, len, utf8str);
 
-  CHECK(napi_create_string_utf8(env, toUTF8("GBK", string, len, utf8str), NAPI_AUTO_LENGTH, &value));
+  CHECK(napi_create_string_utf8(env, utf8str, NAPI_AUTO_LENGTH, &value));
   return napi_set_named_property(env, object, name, value);
 }
 
