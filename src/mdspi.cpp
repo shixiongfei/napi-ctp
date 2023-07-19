@@ -64,7 +64,7 @@ void MdSpi::done(Message *message) {
 }
 
 void MdSpi::quit(int nCode) {
-  _msgq.push(EM_QUIT, (uintptr_t)nCode);
+  _msgq.push(EM_QUIT, (uintptr_t)nCode, 0, Undefined);
 }
 
 const char *MdSpi::eventName(int event) {
@@ -77,76 +77,76 @@ const char *MdSpi::eventName(int event) {
 }
 
 void MdSpi::OnFrontConnected() {
-  _msgq.push(EM_FRONTCONNECTED, 0);
+  _msgq.push(EM_FRONTCONNECTED, 0, 0, Undefined);
 }
 
 void MdSpi::OnFrontDisconnected(int nReason) {
-  _msgq.push(EM_FRONTDISCONNECTED, (uintptr_t)nReason);
+  _msgq.push(EM_FRONTDISCONNECTED, (uintptr_t)nReason, 0, Undefined);
 }
 
 void MdSpi::OnHeartBeatWarning(int nTimeLapse) {
-  _msgq.push(EM_HEARTBEATWARNING, (uintptr_t)nTimeLapse);
+  _msgq.push(EM_HEARTBEATWARNING, (uintptr_t)nTimeLapse, 0, Undefined);
 }
 
 void MdSpi::OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(EM_RSPUSERLOGIN, copyData(pRspUserLogin));
+  _msgq.push(EM_RSPUSERLOGIN, copyData(pRspUserLogin), nRequestID, bIsLast);
 }
 
 void MdSpi::OnRspUserLogout(CThostFtdcUserLogoutField *pUserLogout, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(EM_RSPUSERLOGOUT, copyData(pUserLogout));
+  _msgq.push(EM_RSPUSERLOGOUT, copyData(pUserLogout), nRequestID, bIsLast);
 }
 
 void MdSpi::OnRspQryMulticastInstrument(CThostFtdcMulticastInstrumentField *pMulticastInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(EM_RSPQRYMULTICASTINSTRUMENT, copyData(pMulticastInstrument));
+  _msgq.push(EM_RSPQRYMULTICASTINSTRUMENT, copyData(pMulticastInstrument), nRequestID, bIsLast);
 }
 
 void MdSpi::OnRspError(CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-  _msgq.push(EM_RSPERROR, copyData(pRspInfo));
+  _msgq.push(EM_RSPERROR, copyData(pRspInfo), nRequestID, bIsLast);
 }
 
 void MdSpi::OnRspSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(EM_RSPSUBMARKETDATA, copyData(pSpecificInstrument));
+  _msgq.push(EM_RSPSUBMARKETDATA, copyData(pSpecificInstrument), nRequestID, bIsLast);
 }
 
 void MdSpi::OnRspUnSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(EM_RSPUNSUBMARKETDATA, copyData(pSpecificInstrument));
+  _msgq.push(EM_RSPUNSUBMARKETDATA, copyData(pSpecificInstrument), nRequestID, bIsLast);
 }
 
 void MdSpi::OnRspSubForQuoteRsp(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(EM_RSPSUBFORQUOTERSP, copyData(pSpecificInstrument));
+  _msgq.push(EM_RSPSUBFORQUOTERSP, copyData(pSpecificInstrument), nRequestID, bIsLast);
 }
 
 void MdSpi::OnRspUnSubForQuoteRsp(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(EM_RSPUNSUBFORQUOTERSP, copyData(pSpecificInstrument));
+  _msgq.push(EM_RSPUNSUBFORQUOTERSP, copyData(pSpecificInstrument), nRequestID, bIsLast);
 }
 
 void MdSpi::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) {
-  _msgq.push(EM_RTNDEPTHMARKETDATA, copyData(pDepthMarketData));
+  _msgq.push(EM_RTNDEPTHMARKETDATA, copyData(pDepthMarketData), 0, Undefined);
 }
 
 void MdSpi::OnRtnForQuoteRsp(CThostFtdcForQuoteRspField *pForQuoteRsp) {
-  _msgq.push(EM_RTNFORQUOTERSP, copyData(pForQuoteRsp));
+  _msgq.push(EM_RTNFORQUOTERSP, copyData(pForQuoteRsp), 0, Undefined);
 }
 
 bool MdSpi::checkErrorRspInfo(CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {

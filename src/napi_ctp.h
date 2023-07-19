@@ -31,8 +31,12 @@ typedef struct Constructors {
   napi_ref trader;
 } Constructors;
 
+enum { Undefined = -1, False, True };
+
 typedef struct Message {
-  int event;
+  short event;
+  short isLast;
+  int requestId;
   uintptr_t data;
 } Message;
 

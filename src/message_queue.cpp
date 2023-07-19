@@ -21,10 +21,12 @@ MessageQueue::~MessageQueue() {
   uv_mutex_destroy(&_mutex);
 }
 
-void MessageQueue::push(int event, uintptr_t data) {
+void MessageQueue::push(short event, uintptr_t data, int requestId, short isLast) {
   Message *message = (Message *)malloc(sizeof(Message));
 
   message->event = event;
+  message->isLast = isLast;
+  message->requestId = requestId;
   message->data = data;
 
   uv_mutex_lock(&_mutex);

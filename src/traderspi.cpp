@@ -180,7 +180,7 @@ void TraderSpi::done(Message *message) {
 }
 
 void TraderSpi::quit(int nCode) {
-  _msgq.push(ET_QUIT, (uintptr_t)nCode);
+  _msgq.push(ET_QUIT, (uintptr_t)nCode, 0, Undefined);
 }
 
 const char *TraderSpi::eventName(int event) {
@@ -193,824 +193,827 @@ const char *TraderSpi::eventName(int event) {
 }
 
 void TraderSpi::OnFrontConnected() {
-  _msgq.push(ET_FRONTCONNECTED, 0);
+  _msgq.push(ET_FRONTCONNECTED, 0, 0, Undefined);
 }
 
 void TraderSpi::OnFrontDisconnected(int nReason) {
-  _msgq.push(ET_FRONTDISCONNECTED, (uintptr_t)nReason);
+  _msgq.push(ET_FRONTDISCONNECTED, (uintptr_t)nReason, 0, Undefined);
 }
 
 void TraderSpi::OnHeartBeatWarning(int nTimeLapse) {
-  _msgq.push(ET_HEARTBEATWARNING, (uintptr_t)nTimeLapse);
+  _msgq.push(ET_HEARTBEATWARNING, (uintptr_t)nTimeLapse, 0, Undefined);
 }
 
 void TraderSpi::OnRspAuthenticate(CThostFtdcRspAuthenticateField *pRspAuthenticateField, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPAUTHENTICATE, copyData(pRspAuthenticateField));
+  _msgq.push(ET_RSPAUTHENTICATE, copyData(pRspAuthenticateField), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPUSERLOGIN, copyData(pRspUserLogin));
+  _msgq.push(ET_RSPUSERLOGIN, copyData(pRspUserLogin), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspUserLogout(CThostFtdcUserLogoutField *pUserLogout, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPUSERLOGOUT, copyData(pUserLogout));
+  _msgq.push(ET_RSPUSERLOGOUT, copyData(pUserLogout), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspUserPasswordUpdate(CThostFtdcUserPasswordUpdateField *pUserPasswordUpdate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPUSERPASSWORDUPDATE, copyData(pUserPasswordUpdate));
+  _msgq.push(ET_RSPUSERPASSWORDUPDATE, copyData(pUserPasswordUpdate), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspTradingAccountPasswordUpdate(CThostFtdcTradingAccountPasswordUpdateField *pTradingAccountPasswordUpdate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPTRADINGACCOUNTPASSWORDUPDATE, copyData(pTradingAccountPasswordUpdate));
+  _msgq.push(ET_RSPTRADINGACCOUNTPASSWORDUPDATE, copyData(pTradingAccountPasswordUpdate), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspUserAuthMethod(CThostFtdcRspUserAuthMethodField *pRspUserAuthMethod, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPUSERAUTHMETHOD, copyData(pRspUserAuthMethod));
+  _msgq.push(ET_RSPUSERAUTHMETHOD, copyData(pRspUserAuthMethod), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspGenUserCaptcha(CThostFtdcRspGenUserCaptchaField *pRspGenUserCaptcha, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPGENUSERCAPTCHA, copyData(pRspGenUserCaptcha));
+  _msgq.push(ET_RSPGENUSERCAPTCHA, copyData(pRspGenUserCaptcha), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspGenUserText(CThostFtdcRspGenUserTextField *pRspGenUserText, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPGENUSERTEXT, copyData(pRspGenUserText));
+  _msgq.push(ET_RSPGENUSERTEXT, copyData(pRspGenUserText), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspOrderInsert(CThostFtdcInputOrderField *pInputOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPORDERINSERT, copyData(pInputOrder));
+  _msgq.push(ET_RSPORDERINSERT, copyData(pInputOrder), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspParkedOrderInsert(CThostFtdcParkedOrderField *pParkedOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPPARKEDORDERINSERT, copyData(pParkedOrder));
+  _msgq.push(ET_RSPPARKEDORDERINSERT, copyData(pParkedOrder), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspParkedOrderAction(CThostFtdcParkedOrderActionField *pParkedOrderAction, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPPARKEDORDERACTION, copyData(pParkedOrderAction));
+  _msgq.push(ET_RSPPARKEDORDERACTION, copyData(pParkedOrderAction), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspOrderAction(CThostFtdcInputOrderActionField *pInputOrderAction, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPORDERACTION, copyData(pInputOrderAction));
+  _msgq.push(ET_RSPORDERACTION, copyData(pInputOrderAction), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryMaxOrderVolume(CThostFtdcQryMaxOrderVolumeField *pQryMaxOrderVolume, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYMAXORDERVOLUME, copyData(pQryMaxOrderVolume));
+  _msgq.push(ET_RSPQRYMAXORDERVOLUME, copyData(pQryMaxOrderVolume), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspSettlementInfoConfirm(CThostFtdcSettlementInfoConfirmField *pSettlementInfoConfirm, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPSETTLEMENTINFOCONFIRM, copyData(pSettlementInfoConfirm));
+  _msgq.push(ET_RSPSETTLEMENTINFOCONFIRM, copyData(pSettlementInfoConfirm), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspRemoveParkedOrder(CThostFtdcRemoveParkedOrderField *pRemoveParkedOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPREMOVEPARKEDORDER, copyData(pRemoveParkedOrder));
+  _msgq.push(ET_RSPREMOVEPARKEDORDER, copyData(pRemoveParkedOrder), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspRemoveParkedOrderAction(CThostFtdcRemoveParkedOrderActionField *pRemoveParkedOrderAction, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPREMOVEPARKEDORDERACTION, copyData(pRemoveParkedOrderAction));
+  _msgq.push(ET_RSPREMOVEPARKEDORDERACTION, copyData(pRemoveParkedOrderAction), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspExecOrderInsert(CThostFtdcInputExecOrderField *pInputExecOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPEXECORDERINSERT, copyData(pInputExecOrder));
+  _msgq.push(ET_RSPEXECORDERINSERT, copyData(pInputExecOrder), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspExecOrderAction(CThostFtdcInputExecOrderActionField *pInputExecOrderAction, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPEXECORDERACTION, copyData(pInputExecOrderAction));
+  _msgq.push(ET_RSPEXECORDERACTION, copyData(pInputExecOrderAction), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspForQuoteInsert(CThostFtdcInputForQuoteField *pInputForQuote, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPFORQUOTEINSERT, copyData(pInputForQuote));
+  _msgq.push(ET_RSPFORQUOTEINSERT, copyData(pInputForQuote), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQuoteInsert(CThostFtdcInputQuoteField *pInputQuote, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQUOTEINSERT, copyData(pInputQuote));
+  _msgq.push(ET_RSPQUOTEINSERT, copyData(pInputQuote), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQuoteAction(CThostFtdcInputQuoteActionField *pInputQuoteAction, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQUOTEACTION, copyData(pInputQuoteAction));
+  _msgq.push(ET_RSPQUOTEACTION, copyData(pInputQuoteAction), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspBatchOrderAction(CThostFtdcInputBatchOrderActionField *pInputBatchOrderAction, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPBATCHORDERACTION, copyData(pInputBatchOrderAction));
+  _msgq.push(ET_RSPBATCHORDERACTION, copyData(pInputBatchOrderAction), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspOptionSelfCloseInsert(CThostFtdcInputOptionSelfCloseField *pInputOptionSelfClose, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPOPTIONSELFCLOSEINSERT, copyData(pInputOptionSelfClose));
+  _msgq.push(ET_RSPOPTIONSELFCLOSEINSERT, copyData(pInputOptionSelfClose), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspOptionSelfCloseAction(CThostFtdcInputOptionSelfCloseActionField *pInputOptionSelfCloseAction, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPOPTIONSELFCLOSEACTION, copyData(pInputOptionSelfCloseAction));
+  _msgq.push(ET_RSPOPTIONSELFCLOSEACTION, copyData(pInputOptionSelfCloseAction), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspCombActionInsert(CThostFtdcInputCombActionField *pInputCombAction, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPCOMBACTIONINSERT, copyData(pInputCombAction));
+  _msgq.push(ET_RSPCOMBACTIONINSERT, copyData(pInputCombAction), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryOrder(CThostFtdcOrderField *pOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYORDER, copyData(pOrder));
+  _msgq.push(ET_RSPQRYORDER, copyData(pOrder), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryTrade(CThostFtdcTradeField *pTrade, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYTRADE, copyData(pTrade));
+  _msgq.push(ET_RSPQRYTRADE, copyData(pTrade), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryInvestorPosition(CThostFtdcInvestorPositionField *pInvestorPosition, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYINVESTORPOSITION, copyData(pInvestorPosition));
+  _msgq.push(ET_RSPQRYINVESTORPOSITION, copyData(pInvestorPosition), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryTradingAccount(CThostFtdcTradingAccountField *pTradingAccount, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYTRADINGACCOUNT, copyData(pTradingAccount));
+  _msgq.push(ET_RSPQRYTRADINGACCOUNT, copyData(pTradingAccount), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryInvestor(CThostFtdcInvestorField *pInvestor, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYINVESTOR, copyData(pInvestor));
+  _msgq.push(ET_RSPQRYINVESTOR, copyData(pInvestor), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryTradingCode(CThostFtdcTradingCodeField *pTradingCode, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYTRADINGCODE, copyData(pTradingCode));
+  _msgq.push(ET_RSPQRYTRADINGCODE, copyData(pTradingCode), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryInstrumentMarginRate(CThostFtdcInstrumentMarginRateField *pInstrumentMarginRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYINSTRUMENTMARGINRATE, copyData(pInstrumentMarginRate));
+  _msgq.push(ET_RSPQRYINSTRUMENTMARGINRATE, copyData(pInstrumentMarginRate), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryInstrumentCommissionRate(CThostFtdcInstrumentCommissionRateField *pInstrumentCommissionRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYINSTRUMENTCOMMISSIONRATE, copyData(pInstrumentCommissionRate));
+  _msgq.push(ET_RSPQRYINSTRUMENTCOMMISSIONRATE, copyData(pInstrumentCommissionRate), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryExchange(CThostFtdcExchangeField *pExchange, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYEXCHANGE, copyData(pExchange));
+  _msgq.push(ET_RSPQRYEXCHANGE, copyData(pExchange), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryProduct(CThostFtdcProductField *pProduct, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYPRODUCT, copyData(pProduct));
+  _msgq.push(ET_RSPQRYPRODUCT, copyData(pProduct), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryInstrument(CThostFtdcInstrumentField *pInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYINSTRUMENT, copyData(pInstrument));
+  _msgq.push(ET_RSPQRYINSTRUMENT, copyData(pInstrument), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYDEPTHMARKETDATA, copyData(pDepthMarketData));
+  _msgq.push(ET_RSPQRYDEPTHMARKETDATA, copyData(pDepthMarketData), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryTraderOffer(CThostFtdcTraderOfferField *pTraderOffer, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYTRADEROFFER, copyData(pTraderOffer));
+  _msgq.push(ET_RSPQRYTRADEROFFER, copyData(pTraderOffer), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQrySettlementInfo(CThostFtdcSettlementInfoField *pSettlementInfo, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYSETTLEMENTINFO, copyData(pSettlementInfo));
+  _msgq.push(ET_RSPQRYSETTLEMENTINFO, copyData(pSettlementInfo), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryTransferBank(CThostFtdcTransferBankField *pTransferBank, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYTRANSFERBANK, copyData(pTransferBank));
+  _msgq.push(ET_RSPQRYTRANSFERBANK, copyData(pTransferBank), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryInvestorPositionDetail(CThostFtdcInvestorPositionDetailField *pInvestorPositionDetail, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYINVESTORPOSITIONDETAIL, copyData(pInvestorPositionDetail));
+  _msgq.push(ET_RSPQRYINVESTORPOSITIONDETAIL, copyData(pInvestorPositionDetail), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryNotice(CThostFtdcNoticeField *pNotice, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYNOTICE, copyData(pNotice));
+  _msgq.push(ET_RSPQRYNOTICE, copyData(pNotice), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQrySettlementInfoConfirm(CThostFtdcSettlementInfoConfirmField *pSettlementInfoConfirm, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYSETTLEMENTINFOCONFIRM, copyData(pSettlementInfoConfirm));
+  _msgq.push(ET_RSPQRYSETTLEMENTINFOCONFIRM, copyData(pSettlementInfoConfirm), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryInvestorPositionCombineDetail(CThostFtdcInvestorPositionCombineDetailField *pInvestorPositionCombineDetail, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYINVESTORPOSITIONCOMBINEDETAIL, copyData(pInvestorPositionCombineDetail));
+  _msgq.push(ET_RSPQRYINVESTORPOSITIONCOMBINEDETAIL, copyData(pInvestorPositionCombineDetail), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryCFMMCTradingAccountKey(CThostFtdcCFMMCTradingAccountKeyField *pCFMMCTradingAccountKey, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYCFMMCTRADINGACCOUNTKEY, copyData(pCFMMCTradingAccountKey));
+  _msgq.push(ET_RSPQRYCFMMCTRADINGACCOUNTKEY, copyData(pCFMMCTradingAccountKey), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryEWarrantOffset(CThostFtdcEWarrantOffsetField *pEWarrantOffset, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYEWARRANTOFFSET, copyData(pEWarrantOffset));
+  _msgq.push(ET_RSPQRYEWARRANTOFFSET, copyData(pEWarrantOffset), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryInvestorProductGroupMargin(CThostFtdcInvestorProductGroupMarginField *pInvestorProductGroupMargin, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYINVESTORPRODUCTGROUPMARGIN, copyData(pInvestorProductGroupMargin));
+  _msgq.push(ET_RSPQRYINVESTORPRODUCTGROUPMARGIN, copyData(pInvestorProductGroupMargin), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryExchangeMarginRate(CThostFtdcExchangeMarginRateField *pExchangeMarginRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYEXCHANGEMARGINRATE, copyData(pExchangeMarginRate));
+  _msgq.push(ET_RSPQRYEXCHANGEMARGINRATE, copyData(pExchangeMarginRate), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryExchangeMarginRateAdjust(CThostFtdcExchangeMarginRateAdjustField *pExchangeMarginRateAdjust, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYEXCHANGEMARGINRATEADJUST, copyData(pExchangeMarginRateAdjust));
+  _msgq.push(ET_RSPQRYEXCHANGEMARGINRATEADJUST, copyData(pExchangeMarginRateAdjust), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryExchangeRate(CThostFtdcExchangeRateField *pExchangeRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYEXCHANGERATE, copyData(pExchangeRate));
+  _msgq.push(ET_RSPQRYEXCHANGERATE, copyData(pExchangeRate), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQrySecAgentACIDMap(CThostFtdcSecAgentACIDMapField *pSecAgentACIDMap, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYSECAGENTACIDMAP, copyData(pSecAgentACIDMap));
+  _msgq.push(ET_RSPQRYSECAGENTACIDMAP, copyData(pSecAgentACIDMap), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryProductExchRate(CThostFtdcProductExchRateField *pProductExchRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYPRODUCTEXCHRATE, copyData(pProductExchRate));
+  _msgq.push(ET_RSPQRYPRODUCTEXCHRATE, copyData(pProductExchRate), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryProductGroup(CThostFtdcProductGroupField *pProductGroup, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYPRODUCTGROUP, copyData(pProductGroup));
+  _msgq.push(ET_RSPQRYPRODUCTGROUP, copyData(pProductGroup), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryMMInstrumentCommissionRate(CThostFtdcMMInstrumentCommissionRateField *pMMInstrumentCommissionRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYMMINSTRUMENTCOMMISSIONRATE, copyData(pMMInstrumentCommissionRate));
+  _msgq.push(ET_RSPQRYMMINSTRUMENTCOMMISSIONRATE, copyData(pMMInstrumentCommissionRate), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryMMOptionInstrCommRate(CThostFtdcMMOptionInstrCommRateField *pMMOptionInstrCommRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYMMOPTIONINSTRCOMMRATE, copyData(pMMOptionInstrCommRate));
+  _msgq.push(ET_RSPQRYMMOPTIONINSTRCOMMRATE, copyData(pMMOptionInstrCommRate), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryInstrumentOrderCommRate(CThostFtdcInstrumentOrderCommRateField *pInstrumentOrderCommRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYINSTRUMENTORDERCOMMRATE, copyData(pInstrumentOrderCommRate));
+  _msgq.push(ET_RSPQRYINSTRUMENTORDERCOMMRATE, copyData(pInstrumentOrderCommRate), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQrySecAgentTradingAccount(CThostFtdcTradingAccountField *pTradingAccount, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYSECAGENTTRADINGACCOUNT, copyData(pTradingAccount));
+  _msgq.push(ET_RSPQRYSECAGENTTRADINGACCOUNT, copyData(pTradingAccount), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQrySecAgentCheckMode(CThostFtdcSecAgentCheckModeField *pSecAgentCheckMode, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYSECAGENTCHECKMODE, copyData(pSecAgentCheckMode));
+  _msgq.push(ET_RSPQRYSECAGENTCHECKMODE, copyData(pSecAgentCheckMode), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQrySecAgentTradeInfo(CThostFtdcSecAgentTradeInfoField *pSecAgentTradeInfo, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYSECAGENTTRADEINFO, copyData(pSecAgentTradeInfo));
+  _msgq.push(ET_RSPQRYSECAGENTTRADEINFO, copyData(pSecAgentTradeInfo), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryOptionInstrTradeCost(CThostFtdcOptionInstrTradeCostField *pOptionInstrTradeCost, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYOPTIONINSTRTRADECOST, copyData(pOptionInstrTradeCost));
+  _msgq.push(ET_RSPQRYOPTIONINSTRTRADECOST, copyData(pOptionInstrTradeCost), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryOptionInstrCommRate(CThostFtdcOptionInstrCommRateField *pOptionInstrCommRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYOPTIONINSTRCOMMRATE, copyData(pOptionInstrCommRate));
+  _msgq.push(ET_RSPQRYOPTIONINSTRCOMMRATE, copyData(pOptionInstrCommRate), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryExecOrder(CThostFtdcExecOrderField *pExecOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYEXECORDER, copyData(pExecOrder));
+  _msgq.push(ET_RSPQRYEXECORDER, copyData(pExecOrder), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryForQuote(CThostFtdcForQuoteField *pForQuote, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYFORQUOTE, copyData(pForQuote));
+  _msgq.push(ET_RSPQRYFORQUOTE, copyData(pForQuote), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryQuote(CThostFtdcQuoteField *pQuote, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYQUOTE, copyData(pQuote));
+  _msgq.push(ET_RSPQRYQUOTE, copyData(pQuote), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryOptionSelfClose(CThostFtdcOptionSelfCloseField *pOptionSelfClose, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYOPTIONSELFCLOSE, copyData(pOptionSelfClose));
+  _msgq.push(ET_RSPQRYOPTIONSELFCLOSE, copyData(pOptionSelfClose), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryInvestUnit(CThostFtdcInvestUnitField *pInvestUnit, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYINVESTUNIT, copyData(pInvestUnit));
+  _msgq.push(ET_RSPQRYINVESTUNIT, copyData(pInvestUnit), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryCombInstrumentGuard(CThostFtdcCombInstrumentGuardField *pCombInstrumentGuard, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYCOMBINSTRUMENTGUARD, copyData(pCombInstrumentGuard));
+  _msgq.push(ET_RSPQRYCOMBINSTRUMENTGUARD, copyData(pCombInstrumentGuard), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryCombAction(CThostFtdcCombActionField *pCombAction, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYCOMBACTION, copyData(pCombAction));
+  _msgq.push(ET_RSPQRYCOMBACTION, copyData(pCombAction), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryTransferSerial(CThostFtdcTransferSerialField *pTransferSerial, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYTRANSFERSERIAL, copyData(pTransferSerial));
+  _msgq.push(ET_RSPQRYTRANSFERSERIAL, copyData(pTransferSerial), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryAccountregister(CThostFtdcAccountregisterField *pAccountregister, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYACCOUNTREGISTER, copyData(pAccountregister));
+  _msgq.push(ET_RSPQRYACCOUNTREGISTER, copyData(pAccountregister), nRequestID, bIsLast);
 }
 
 
 void TraderSpi::OnRspError(CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-  _msgq.push(ET_RSPERROR, copyData(pRspInfo));
+  if (nRequestID != 0)
+    _msgq.push(ET_RSPERROR, copyData(pRspInfo), nRequestID, bIsLast);
+  else
+    _msgq.push(ET_RSPERROR, copyData(pRspInfo), 0, Undefined);
 }
 
 void TraderSpi::OnRtnOrder(CThostFtdcOrderField *pOrder) {
-  _msgq.push(ET_RTNORDER, copyData(pOrder));
+  _msgq.push(ET_RTNORDER, copyData(pOrder), 0, Undefined);
 }
 
 void TraderSpi::OnRtnTrade(CThostFtdcTradeField *pTrade) {
-  _msgq.push(ET_RTNTRADE, copyData(pTrade));
+  _msgq.push(ET_RTNTRADE, copyData(pTrade), 0, Undefined);
 }
 
 void TraderSpi::OnErrRtnOrderInsert(CThostFtdcInputOrderField *pInputOrder, CThostFtdcRspInfoField *pRspInfo) {
   if (checkErrorRspInfo(pRspInfo, 0, true))
     return;
 
-  _msgq.push(ET_ERRRTNORDERINSERT, copyData(pInputOrder));
+  _msgq.push(ET_ERRRTNORDERINSERT, copyData(pInputOrder), 0, Undefined);
 }
 
 void TraderSpi::OnErrRtnOrderAction(CThostFtdcOrderActionField *pOrderAction, CThostFtdcRspInfoField *pRspInfo) {
   if (checkErrorRspInfo(pRspInfo, 0, true))
     return;
 
-  _msgq.push(ET_ERRRTNORDERACTION, copyData(pOrderAction));
+  _msgq.push(ET_ERRRTNORDERACTION, copyData(pOrderAction), 0, Undefined);
 }
 
 void TraderSpi::OnRtnInstrumentStatus(CThostFtdcInstrumentStatusField *pInstrumentStatus) {
-  _msgq.push(ET_RTNINSTRUMENTSTATUS, copyData(pInstrumentStatus));
+  _msgq.push(ET_RTNINSTRUMENTSTATUS, copyData(pInstrumentStatus), 0, Undefined);
 }
 
 void TraderSpi::OnRtnBulletin(CThostFtdcBulletinField *pBulletin) {
-  _msgq.push(ET_RTNBULLETIN, copyData(pBulletin));
+  _msgq.push(ET_RTNBULLETIN, copyData(pBulletin), 0, Undefined);
 }
 
 void TraderSpi::OnRtnTradingNotice(CThostFtdcTradingNoticeInfoField *pTradingNoticeInfo) {
-  _msgq.push(ET_RTNTRADINGNOTICE, copyData(pTradingNoticeInfo));
+  _msgq.push(ET_RTNTRADINGNOTICE, copyData(pTradingNoticeInfo), 0, Undefined);
 }
 
 void TraderSpi::OnRtnErrorConditionalOrder(CThostFtdcErrorConditionalOrderField *pErrorConditionalOrder) {
-  _msgq.push(ET_RTNERRORCONDITIONALORDER, copyData(pErrorConditionalOrder));
+  _msgq.push(ET_RTNERRORCONDITIONALORDER, copyData(pErrorConditionalOrder), 0, Undefined);
 }
 
 void TraderSpi::OnRtnExecOrder(CThostFtdcExecOrderField *pExecOrder) {
-  _msgq.push(ET_RTNEXECORDER, copyData(pExecOrder));
+  _msgq.push(ET_RTNEXECORDER, copyData(pExecOrder), 0, Undefined);
 }
 
 void TraderSpi::OnErrRtnExecOrderInsert(CThostFtdcInputExecOrderField *pInputExecOrder, CThostFtdcRspInfoField *pRspInfo) {
   if (checkErrorRspInfo(pRspInfo, 0, true))
     return;
 
-  _msgq.push(ET_ERRRTNEXECORDERINSERT, copyData(pInputExecOrder));
+  _msgq.push(ET_ERRRTNEXECORDERINSERT, copyData(pInputExecOrder), 0, Undefined);
 }
 
 void TraderSpi::OnErrRtnExecOrderAction(CThostFtdcExecOrderActionField *pExecOrderAction, CThostFtdcRspInfoField *pRspInfo) {
   if (checkErrorRspInfo(pRspInfo, 0, true))
     return;
 
-  _msgq.push(ET_ERRRTNEXECORDERACTION, copyData(pExecOrderAction));
+  _msgq.push(ET_ERRRTNEXECORDERACTION, copyData(pExecOrderAction), 0, Undefined);
 }
 
 void TraderSpi::OnErrRtnForQuoteInsert(CThostFtdcInputForQuoteField *pInputForQuote, CThostFtdcRspInfoField *pRspInfo) {
   if (checkErrorRspInfo(pRspInfo, 0, true))
     return;
 
-  _msgq.push(ET_ERRRTNFORQUOTEINSERT, copyData(pInputForQuote));
+  _msgq.push(ET_ERRRTNFORQUOTEINSERT, copyData(pInputForQuote), 0, Undefined);
 }
 
 void TraderSpi::OnRtnQuote(CThostFtdcQuoteField *pQuote) {
-  _msgq.push(ET_RTNQUOTE, copyData(pQuote));
+  _msgq.push(ET_RTNQUOTE, copyData(pQuote), 0, Undefined);
 }
 
 void TraderSpi::OnErrRtnQuoteInsert(CThostFtdcInputQuoteField *pInputQuote, CThostFtdcRspInfoField *pRspInfo) {
   if (checkErrorRspInfo(pRspInfo, 0, true))
     return;
 
-  _msgq.push(ET_ERRRTNQUOTEINSERT, copyData(pInputQuote));
+  _msgq.push(ET_ERRRTNQUOTEINSERT, copyData(pInputQuote), 0, Undefined);
 }
 
 void TraderSpi::OnErrRtnQuoteAction(CThostFtdcQuoteActionField *pQuoteAction, CThostFtdcRspInfoField *pRspInfo) {
   if (checkErrorRspInfo(pRspInfo, 0, true))
     return;
 
-  _msgq.push(ET_ERRRTNQUOTEACTION, copyData(pQuoteAction));
+  _msgq.push(ET_ERRRTNQUOTEACTION, copyData(pQuoteAction), 0, Undefined);
 }
 
 void TraderSpi::OnRtnForQuoteRsp(CThostFtdcForQuoteRspField *pForQuoteRsp) {
-  _msgq.push(ET_RTNFORQUOTERSP, copyData(pForQuoteRsp));
+  _msgq.push(ET_RTNFORQUOTERSP, copyData(pForQuoteRsp), 0, Undefined);
 }
 
 void TraderSpi::OnRtnCFMMCTradingAccountToken(CThostFtdcCFMMCTradingAccountTokenField *pCFMMCTradingAccountToken) {
-  _msgq.push(ET_RTNCFMMCTRADINGACCOUNTTOKEN, copyData(pCFMMCTradingAccountToken));
+  _msgq.push(ET_RTNCFMMCTRADINGACCOUNTTOKEN, copyData(pCFMMCTradingAccountToken), 0, Undefined);
 }
 
 void TraderSpi::OnErrRtnBatchOrderAction(CThostFtdcBatchOrderActionField *pBatchOrderAction, CThostFtdcRspInfoField *pRspInfo) {
   if (checkErrorRspInfo(pRspInfo, 0, true))
     return;
 
-  _msgq.push(ET_ERRRTNBATCHORDERACTION, copyData(pBatchOrderAction));
+  _msgq.push(ET_ERRRTNBATCHORDERACTION, copyData(pBatchOrderAction), 0, Undefined);
 }
 
 void TraderSpi::OnRtnOptionSelfClose(CThostFtdcOptionSelfCloseField *pOptionSelfClose) {
-  _msgq.push(ET_RTNOPTIONSELFCLOSE, copyData(pOptionSelfClose));
+  _msgq.push(ET_RTNOPTIONSELFCLOSE, copyData(pOptionSelfClose), 0, Undefined);
 }
 
 void TraderSpi::OnErrRtnOptionSelfCloseInsert(CThostFtdcInputOptionSelfCloseField *pInputOptionSelfClose, CThostFtdcRspInfoField *pRspInfo) {
   if (checkErrorRspInfo(pRspInfo, 0, true))
     return;
 
-  _msgq.push(ET_ERRRTNOPTIONSELFCLOSEINSERT, copyData(pInputOptionSelfClose));
+  _msgq.push(ET_ERRRTNOPTIONSELFCLOSEINSERT, copyData(pInputOptionSelfClose), 0, Undefined);
 }
 
 void TraderSpi::OnErrRtnOptionSelfCloseAction(CThostFtdcOptionSelfCloseActionField *pOptionSelfCloseAction, CThostFtdcRspInfoField *pRspInfo) {
   if (checkErrorRspInfo(pRspInfo, 0, true))
     return;
 
-  _msgq.push(ET_ERRRTNOPTIONSELFCLOSEACTION, copyData(pOptionSelfCloseAction));
+  _msgq.push(ET_ERRRTNOPTIONSELFCLOSEACTION, copyData(pOptionSelfCloseAction), 0, Undefined);
 }
 
 void TraderSpi::OnRtnCombAction(CThostFtdcCombActionField *pCombAction) {
-  _msgq.push(ET_RTNCOMBACTION, copyData(pCombAction));
+  _msgq.push(ET_RTNCOMBACTION, copyData(pCombAction), 0, Undefined);
 }
 
 void TraderSpi::OnErrRtnCombActionInsert(CThostFtdcInputCombActionField *pInputCombAction, CThostFtdcRspInfoField *pRspInfo) {
   if (checkErrorRspInfo(pRspInfo, 0, true))
     return;
 
-  _msgq.push(ET_ERRRTNCOMBACTIONINSERT, copyData(pInputCombAction));
+  _msgq.push(ET_ERRRTNCOMBACTIONINSERT, copyData(pInputCombAction), 0, Undefined);
 }
 
 void TraderSpi::OnRspQryContractBank(CThostFtdcContractBankField *pContractBank, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYCONTRACTBANK, copyData(pContractBank));
+  _msgq.push(ET_RSPQRYCONTRACTBANK, copyData(pContractBank), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryParkedOrder(CThostFtdcParkedOrderField *pParkedOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYPARKEDORDER, copyData(pParkedOrder));
+  _msgq.push(ET_RSPQRYPARKEDORDER, copyData(pParkedOrder), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryParkedOrderAction(CThostFtdcParkedOrderActionField *pParkedOrderAction, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYPARKEDORDERACTION, copyData(pParkedOrderAction));
+  _msgq.push(ET_RSPQRYPARKEDORDERACTION, copyData(pParkedOrderAction), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryTradingNotice(CThostFtdcTradingNoticeField *pTradingNotice, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYTRADINGNOTICE, copyData(pTradingNotice));
+  _msgq.push(ET_RSPQRYTRADINGNOTICE, copyData(pTradingNotice), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryBrokerTradingParams(CThostFtdcBrokerTradingParamsField *pBrokerTradingParams, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYBROKERTRADINGPARAMS, copyData(pBrokerTradingParams));
+  _msgq.push(ET_RSPQRYBROKERTRADINGPARAMS, copyData(pBrokerTradingParams), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryBrokerTradingAlgos(CThostFtdcBrokerTradingAlgosField *pBrokerTradingAlgos, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYBROKERTRADINGALGOS, copyData(pBrokerTradingAlgos));
+  _msgq.push(ET_RSPQRYBROKERTRADINGALGOS, copyData(pBrokerTradingAlgos), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQueryCFMMCTradingAccountToken(CThostFtdcQueryCFMMCTradingAccountTokenField *pQueryCFMMCTradingAccountToken, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQUERYCFMMCTRADINGACCOUNTTOKEN, copyData(pQueryCFMMCTradingAccountToken));
+  _msgq.push(ET_RSPQUERYCFMMCTRADINGACCOUNTTOKEN, copyData(pQueryCFMMCTradingAccountToken), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRtnFromBankToFutureByBank(CThostFtdcRspTransferField *pRspTransfer) {
-  _msgq.push(ET_RTNFROMBANKTOFUTUREBYBANK, copyData(pRspTransfer));
+  _msgq.push(ET_RTNFROMBANKTOFUTUREBYBANK, copyData(pRspTransfer), 0, Undefined);
 }
 
 void TraderSpi::OnRtnFromFutureToBankByBank(CThostFtdcRspTransferField *pRspTransfer) {
-  _msgq.push(ET_RTNFROMFUTURETOBANKBYBANK, copyData(pRspTransfer));
+  _msgq.push(ET_RTNFROMFUTURETOBANKBYBANK, copyData(pRspTransfer), 0, Undefined);
 }
 
 void TraderSpi::OnRtnRepealFromBankToFutureByBank(CThostFtdcRspRepealField *pRspRepeal) {
-  _msgq.push(ET_RTNREPEALFROMBANKTOFUTUREBYBANK, copyData(pRspRepeal));
+  _msgq.push(ET_RTNREPEALFROMBANKTOFUTUREBYBANK, copyData(pRspRepeal), 0, Undefined);
 }
 
 void TraderSpi::OnRtnRepealFromFutureToBankByBank(CThostFtdcRspRepealField *pRspRepeal) {
-  _msgq.push(ET_RTNREPEALFROMFUTURETOBANKBYBANK, copyData(pRspRepeal));
+  _msgq.push(ET_RTNREPEALFROMFUTURETOBANKBYBANK, copyData(pRspRepeal), 0, Undefined);
 }
 
 void TraderSpi::OnRtnFromBankToFutureByFuture(CThostFtdcRspTransferField *pRspTransfer) {
-  _msgq.push(ET_RTNFROMBANKTOFUTUREBYFUTURE, copyData(pRspTransfer));
+  _msgq.push(ET_RTNFROMBANKTOFUTUREBYFUTURE, copyData(pRspTransfer), 0, Undefined);
 }
 
 void TraderSpi::OnRtnFromFutureToBankByFuture(CThostFtdcRspTransferField *pRspTransfer) {
-  _msgq.push(ET_RTNFROMFUTURETOBANKBYFUTURE, copyData(pRspTransfer));
+  _msgq.push(ET_RTNFROMFUTURETOBANKBYFUTURE, copyData(pRspTransfer), 0, Undefined);
 }
 
 void TraderSpi::OnRtnRepealFromBankToFutureByFutureManual(CThostFtdcRspRepealField *pRspRepeal) {
-  _msgq.push(ET_RTNREPEALFROMBANKTOFUTUREBYFUTUREMANUAL, copyData(pRspRepeal));
+  _msgq.push(ET_RTNREPEALFROMBANKTOFUTUREBYFUTUREMANUAL, copyData(pRspRepeal), 0, Undefined);
 }
 
 void TraderSpi::OnRtnRepealFromFutureToBankByFutureManual(CThostFtdcRspRepealField *pRspRepeal) {
-  _msgq.push(ET_RTNREPEALFROMFUTURETOBANKBYFUTUREMANUAL, copyData(pRspRepeal));
+  _msgq.push(ET_RTNREPEALFROMFUTURETOBANKBYFUTUREMANUAL, copyData(pRspRepeal), 0, Undefined);
 }
 
 void TraderSpi::OnRtnQueryBankBalanceByFuture(CThostFtdcNotifyQueryAccountField *pNotifyQueryAccount) {
-  _msgq.push(ET_RTNQUERYBANKBALANCEBYFUTURE, copyData(pNotifyQueryAccount));
+  _msgq.push(ET_RTNQUERYBANKBALANCEBYFUTURE, copyData(pNotifyQueryAccount), 0, Undefined);
 }
 
 void TraderSpi::OnErrRtnBankToFutureByFuture(CThostFtdcReqTransferField *pReqTransfer, CThostFtdcRspInfoField *pRspInfo) {
   if (checkErrorRspInfo(pRspInfo, 0, true))
     return;
 
-  _msgq.push(ET_ERRRTNBANKTOFUTUREBYFUTURE, copyData(pReqTransfer));
+  _msgq.push(ET_ERRRTNBANKTOFUTUREBYFUTURE, copyData(pReqTransfer), 0, Undefined);
 }
 
 void TraderSpi::OnErrRtnFutureToBankByFuture(CThostFtdcReqTransferField *pReqTransfer, CThostFtdcRspInfoField *pRspInfo) {
   if (checkErrorRspInfo(pRspInfo, 0, true))
     return;
 
-  _msgq.push(ET_ERRRTNFUTURETOBANKBYFUTURE, copyData(pReqTransfer));
+  _msgq.push(ET_ERRRTNFUTURETOBANKBYFUTURE, copyData(pReqTransfer), 0, Undefined);
 }
 
 void TraderSpi::OnErrRtnRepealBankToFutureByFutureManual(CThostFtdcReqRepealField *pReqRepeal, CThostFtdcRspInfoField *pRspInfo) {
   if (checkErrorRspInfo(pRspInfo, 0, true))
     return;
 
-  _msgq.push(ET_ERRRTNREPEALBANKTOFUTUREBYFUTUREMANUAL, copyData(pReqRepeal));
+  _msgq.push(ET_ERRRTNREPEALBANKTOFUTUREBYFUTUREMANUAL, copyData(pReqRepeal), 0, Undefined);
 }
 
 void TraderSpi::OnErrRtnRepealFutureToBankByFutureManual(CThostFtdcReqRepealField *pReqRepeal, CThostFtdcRspInfoField *pRspInfo) {
   if (checkErrorRspInfo(pRspInfo, 0, true))
     return;
 
-  _msgq.push(ET_ERRRTNREPEALFUTURETOBANKBYFUTUREMANUAL, copyData(pReqRepeal));
+  _msgq.push(ET_ERRRTNREPEALFUTURETOBANKBYFUTUREMANUAL, copyData(pReqRepeal), 0, Undefined);
 }
 
 void TraderSpi::OnErrRtnQueryBankBalanceByFuture(CThostFtdcReqQueryAccountField *pReqQueryAccount, CThostFtdcRspInfoField *pRspInfo) {
   if (checkErrorRspInfo(pRspInfo, 0, true))
     return;
 
-  _msgq.push(ET_ERRRTNQUERYBANKBALANCEBYFUTURE, copyData(pReqQueryAccount));
+  _msgq.push(ET_ERRRTNQUERYBANKBALANCEBYFUTURE, copyData(pReqQueryAccount), 0, Undefined);
 }
 
 void TraderSpi::OnRtnRepealFromBankToFutureByFuture(CThostFtdcRspRepealField *pRspRepeal) {
-  _msgq.push(ET_RTNREPEALFROMBANKTOFUTUREBYFUTURE, copyData(pRspRepeal));
+  _msgq.push(ET_RTNREPEALFROMBANKTOFUTUREBYFUTURE, copyData(pRspRepeal), 0, Undefined);
 }
 
 void TraderSpi::OnRtnRepealFromFutureToBankByFuture(CThostFtdcRspRepealField *pRspRepeal) {
-  _msgq.push(ET_RTNREPEALFROMFUTURETOBANKBYFUTURE, copyData(pRspRepeal));
+  _msgq.push(ET_RTNREPEALFROMFUTURETOBANKBYFUTURE, copyData(pRspRepeal), 0, Undefined);
 }
 
 void TraderSpi::OnRspFromBankToFutureByFuture(CThostFtdcReqTransferField *pReqTransfer, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPFROMBANKTOFUTUREBYFUTURE, copyData(pReqTransfer));
+  _msgq.push(ET_RSPFROMBANKTOFUTUREBYFUTURE, copyData(pReqTransfer), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspFromFutureToBankByFuture(CThostFtdcReqTransferField *pReqTransfer, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPFROMFUTURETOBANKBYFUTURE, copyData(pReqTransfer));
+  _msgq.push(ET_RSPFROMFUTURETOBANKBYFUTURE, copyData(pReqTransfer), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQueryBankAccountMoneyByFuture(CThostFtdcReqQueryAccountField *pReqQueryAccount, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQUERYBANKACCOUNTMONEYBYFUTURE, copyData(pReqQueryAccount));
+  _msgq.push(ET_RSPQUERYBANKACCOUNTMONEYBYFUTURE, copyData(pReqQueryAccount), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRtnOpenAccountByBank(CThostFtdcOpenAccountField *pOpenAccount) {
-  _msgq.push(ET_RTNOPENACCOUNTBYBANK, copyData(pOpenAccount));
+  _msgq.push(ET_RTNOPENACCOUNTBYBANK, copyData(pOpenAccount), 0, Undefined);
 }
 
 void TraderSpi::OnRtnCancelAccountByBank(CThostFtdcCancelAccountField *pCancelAccount) {
-  _msgq.push(ET_RTNCANCELACCOUNTBYBANK, copyData(pCancelAccount));
+  _msgq.push(ET_RTNCANCELACCOUNTBYBANK, copyData(pCancelAccount), 0, Undefined);
 }
 
 void TraderSpi::OnRtnChangeAccountByBank(CThostFtdcChangeAccountField *pChangeAccount) {
-  _msgq.push(ET_RTNCHANGEACCOUNTBYBANK, copyData(pChangeAccount));
+  _msgq.push(ET_RTNCHANGEACCOUNTBYBANK, copyData(pChangeAccount), 0, Undefined);
 }
 
 void TraderSpi::OnRspQryClassifiedInstrument(CThostFtdcInstrumentField *pInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYCLASSIFIEDINSTRUMENT, copyData(pInstrument));
+  _msgq.push(ET_RSPQRYCLASSIFIEDINSTRUMENT, copyData(pInstrument), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryCombPromotionParam(CThostFtdcCombPromotionParamField *pCombPromotionParam, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYCOMBPROMOTIONPARAM, copyData(pCombPromotionParam));
+  _msgq.push(ET_RSPQRYCOMBPROMOTIONPARAM, copyData(pCombPromotionParam), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryRiskSettleInvstPosition(CThostFtdcRiskSettleInvstPositionField *pRiskSettleInvstPosition, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYRISKSETTLEINVSTPOSITION, copyData(pRiskSettleInvstPosition));
+  _msgq.push(ET_RSPQRYRISKSETTLEINVSTPOSITION, copyData(pRiskSettleInvstPosition), nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryRiskSettleProductStatus(CThostFtdcRiskSettleProductStatusField *pRiskSettleProductStatus, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
     return;
 
-  _msgq.push(ET_RSPQRYRISKSETTLEPRODUCTSTATUS, copyData(pRiskSettleProductStatus));
+  _msgq.push(ET_RSPQRYRISKSETTLEPRODUCTSTATUS, copyData(pRiskSettleProductStatus), nRequestID, bIsLast);
 }
 
 bool TraderSpi::checkErrorRspInfo(CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
