@@ -228,6 +228,13 @@ napi_status objectSetChar(napi_env env, napi_value object, const char *name, cha
   return objectSetString(env, object, name, str);
 }
 
+napi_status objectSetBoolean(napi_env env, napi_value object, const char *name, bool boolean) {
+  napi_value value;
+
+  CHECK(napi_get_boolean(env, boolean, &value));
+  return napi_set_named_property(env, object, name, value);
+}
+
 napi_status objectGetString(napi_env env, napi_value object, const char *name, char *buf, size_t bufsize, size_t *length) {
   napi_value value;
   bool hasProperty;
@@ -303,4 +310,17 @@ napi_status objectGetChar(napi_env env, napi_value object, const char *name, cha
     *ch = strbuf[0];
 
   return napi_ok;
+}
+
+napi_status objectGetBoolean(napi_env env, napi_value object, const char *name, bool *boolean) {
+  napi_value value;
+  bool hasProperty;
+
+  CHECK(napi_has_named_property(env, object, name, &hasProperty));
+
+  if (!hasProperty)
+    return napi_ok;
+
+  CHECK(napi_get_named_property(env, object, name, &value));
+  return napi_get_value_bool(env, value, boolean);
 }

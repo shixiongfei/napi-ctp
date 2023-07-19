@@ -65,6 +65,7 @@ napi_status objectSetUint32(napi_env env, napi_value object, const char *name, u
 napi_status objectSetInt64(napi_env env, napi_value object, const char *name, int64_t number);
 napi_status objectSetDouble(napi_env env, napi_value object, const char *name, double number);
 napi_status objectSetChar(napi_env env, napi_value object, const char *name, char ch);
+napi_status objectSetBoolean(napi_env env, napi_value object, const char *name, bool boolean);
 
 napi_status objectGetString(napi_env env, napi_value object, const char *name, char *buf, size_t bufsize, size_t *length);
 napi_status objectGetInt32(napi_env env, napi_value object, const char *name, int32_t *number);
@@ -72,6 +73,7 @@ napi_status objectGetUint32(napi_env env, napi_value object, const char *name, u
 napi_status objectGetInt64(napi_env env, napi_value object, const char *name, int64_t *number);
 napi_status objectGetDouble(napi_env env, napi_value object, const char *name, double *number);
 napi_status objectGetChar(napi_env env, napi_value object, const char *name, char *ch);
+napi_status objectGetBoolean(napi_env env, napi_value object, const char *name, bool *boolean);
 
 #define SetObjectString(env, object, record, name)                             \
   objectSetString(env, object, #name, (const char *)record->name)
@@ -91,6 +93,9 @@ napi_status objectGetChar(napi_env env, napi_value object, const char *name, cha
 #define SetObjectChar(env, object, record, name)                               \
   objectSetChar(env, object, #name, record->name)
 
+#define SetObjectBoolean(env, object, record, name)                            \
+  objectSetBoolean(env, object, #name, record->name)
+
 #define GetObjectString(env, object, record, name)                             \
   objectGetString(env, object, #name, record.name, sizeof(record.name), nullptr)
 
@@ -108,6 +113,9 @@ napi_status objectGetChar(napi_env env, napi_value object, const char *name, cha
 
 #define GetObjectChar(env, object, record, name)                               \
   objectGetChar(env, object, #name, &record.name)
+
+#define GetObjectBoolean(env, object, record, name)                            \
+  objectGetBoolean(env, object, #name, &record.name)
 
 template <typename T> static inline uintptr_t copyData(T *data) {
   T *p = (T *)malloc(sizeof(T));

@@ -3945,5 +3945,14 @@ export enum EnumBoolType {
   True = "1",
 }
 
+export type CallbackMessage = any /* number | object */;
+
+export type CallbackOptions = {
+  isLast?: boolean;
+};
+
 /** 消息事件回调接口 */
-export type CallbackFunction = (message: any /* number | object */) => void;
+export type CallbackFunction = (
+  message: CallbackMessage,
+  options: CallbackOptions
+) => void;

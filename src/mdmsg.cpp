@@ -33,3 +33,7 @@ static const MessageFuncs messageFuncs = {
 napi_status getMarketDataMessageValue(napi_env env, const Message *message, napi_value *result) {
   return getMessageValue(env, messageFuncs, message, result);
 }
+
+napi_status getMarketDataMessageOptions(napi_env env, const Message *message, napi_value *result) {
+  return getMessageOptions(env, message, result);
+}

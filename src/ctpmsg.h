@@ -19,6 +19,7 @@ typedef napi_status (*MessageHandler)(napi_env env, const Message *message, napi
 typedef std::map<int, MessageHandler> MessageFuncs;
 
 napi_status getMessageValue(napi_env env, const MessageFuncs &messageFuncs, const Message *message, napi_value *result);
+napi_status getMessageOptions(napi_env env, const Message *message, napi_value *result);
 
 napi_status msgQuit(napi_env env, const Message *message, napi_value *result);
 napi_status msgFrontConnected(napi_env env, const Message *message, napi_value *result);

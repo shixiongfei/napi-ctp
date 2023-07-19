@@ -150,3 +150,7 @@ static const MessageFuncs messageFuncs = {
 napi_status getTraderMessageValue(napi_env env, const Message *message, napi_value *result) {
   return getMessageValue(env, messageFuncs, message, result);
 }
+
+napi_status getTraderMessageOptions(napi_env env, const Message *message, napi_value *result) {
+  return getMessageOptions(env, message, result);
+}

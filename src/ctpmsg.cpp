@@ -21,6 +21,15 @@ napi_status getMessageValue(napi_env env, const MessageFuncs &messageFuncs, cons
   return msgFunc(env, message, result);
 }
 
+napi_status getMessageOptions(napi_env env, const Message *message, napi_value *result) {
+  CHECK(napi_create_object(env, result));
+
+  if (message->isLast != Undefined)
+    CHECK(SetObjectBoolean(env, *result, message, isLast));
+
+  return napi_ok;
+}
+
 napi_status msgQuit(napi_env env, const Message *message, napi_value *result) {
   return napi_create_int32(env, (int32_t)message->data, result);
 }

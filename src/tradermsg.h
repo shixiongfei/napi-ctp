@@ -15,5 +15,6 @@
 #include "napi_ctp.h"
 
 napi_status getTraderMessageValue(napi_env env, const Message *message, napi_value *result);
+napi_status getTraderMessageOptions(napi_env env, const Message *message, napi_value *result);
 
 #endif /* __TRADERMSG_H__ */

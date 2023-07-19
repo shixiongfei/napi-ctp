@@ -1775,11 +1775,12 @@ static void callJs(napi_env env, napi_value js_cb, void *context, void *data) {
   Trader *trader = (Trader *)context;
   Message *message = (Message *)data;
   int event = message->event;
-  napi_value undefined, argv[1];
+  napi_value undefined, argv[2];
 
   CHECK(napi_get_undefined(env, &undefined));
   CHECK(getTraderMessageValue(env, message, &argv[0]));
-  CHECK(napi_call_function(env, undefined, js_cb, 1, argv, nullptr));
+  CHECK(getTraderMessageOptions(env, message, &argv[1]));
+  CHECK(napi_call_function(env, undefined, js_cb, 2, argv, nullptr));
 
   trader->spi->done(message);
 
