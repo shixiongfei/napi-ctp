@@ -53,15 +53,11 @@ static napi_value callRequestFunc(napi_env env, napi_callback_info info, const s
   int result;
   napi_value object, jsthis, retval;
   Trader *trader;
-  bool isObject;
 
   CHECK(napi_get_cb_info(env, info, &argc, &object, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&trader));
 
-  CHECK(checkIsObject(env, object, &isObject));
-
-  if (!isObject)
-    return nullptr;
+  CHECK(checkIsObject(env, object));
 
   result = func(trader, object);
   CHECK(napi_create_int32(env, result, &retval));
@@ -1795,15 +1791,11 @@ static napi_value on(napi_env env, napi_callback_info info) {
   napi_threadsafe_function tsfn;
   Trader *trader;
   char fname[64];
-  bool isTypesOk;
 
   CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&trader));
 
-  CHECK(checkValueTypes(env, argc, argv, types, &isTypesOk));
-
-  if (!isTypesOk)
-    return nullptr;
+  CHECK(checkValueTypes(env, argc, argv, types));
 
   CHECK(napi_create_threadsafe_function(env, argv[1], nullptr, argv[0], 0, 1, nullptr, nullptr, trader, callJs, &tsfn));
   CHECK(napi_ref_threadsafe_function(env, tsfn));
@@ -1839,7 +1831,6 @@ static napi_value traderNew(napi_env env, napi_callback_info info) {
   napi_value target, argv[2], jsthis;
   Trader *trader;
   char flowPath[260], frontAddr[64];
-  bool isTypesOk;
 
   CHECK(napi_get_new_target(env, info, &target));
 
@@ -1848,10 +1839,7 @@ static napi_value traderNew(napi_env env, napi_callback_info info) {
 
   CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
 
-  CHECK(checkValueTypes(env, argc, argv, types, &isTypesOk));
-
-  if (!isTypesOk)
-    return nullptr;
+  CHECK(checkValueTypes(env, argc, argv, types));
 
   CHECK(napi_get_value_string_utf8(env, argv[0], flowPath, sizeof(flowPath), nullptr));
   CHECK(napi_get_value_string_utf8(env, argv[1], frontAddr, sizeof(frontAddr), nullptr));

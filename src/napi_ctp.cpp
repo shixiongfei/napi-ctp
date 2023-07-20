@@ -61,7 +61,7 @@ napi_value createInstance(napi_env env, napi_callback_info info, napi_ref constr
   return instance;
 }
 
-napi_status checkIsStringArray(napi_env env, napi_value value, bool *result) {
+napi_status checkIsStringArray(napi_env env, napi_value value) {
   napi_value element;
   napi_valuetype valuetype;
   uint32_t length;
@@ -71,8 +71,7 @@ napi_status checkIsStringArray(napi_env env, napi_value value, bool *result) {
 
   if (!isArray) {
     napi_throw_type_error(env, nullptr, "The parameter should be string an array");
-    *result = false;
-    return napi_ok;
+    return napi_array_expected;
   }
 
   CHECK(napi_get_array_length(env, value, &length));
@@ -83,27 +82,23 @@ napi_status checkIsStringArray(napi_env env, napi_value value, bool *result) {
 
     if (valuetype != napi_string) {
       napi_throw_type_error(env, nullptr, "The parameter should be string an array");
-      *result = false;
-      return napi_ok;
+      return napi_string_expected;
     }
   }
 
-  *result = true;
   return napi_ok;
 }
 
-napi_status checkIsObject(napi_env env, napi_value value, bool *result) {
+napi_status checkIsObject(napi_env env, napi_value value) {
   napi_valuetype valuetype;
 
   CHECK(napi_typeof(env, value, &valuetype));
 
   if (valuetype != napi_object) {
     napi_throw_type_error(env, nullptr, "The parameter should be an object");
-    *result = false;
-    return napi_ok;
+    return napi_object_expected;
   }
 
-  *result = true;
   return napi_ok;
 }
 
@@ -130,12 +125,40 @@ static const char *getTypeString(napi_valuetype type) {
     case napi_bigint:
       return "bigint";
     default:
-      return nullptr;
+      return "<unknown type>";
   }
-  return nullptr;
+  return "<unknown type>";
 }
 
-napi_status checkValueTypes(napi_env env, size_t argc, const napi_value *argv, const napi_valuetype *types, bool *result) {
+static napi_status getTypeExpected(napi_valuetype type) {
+  switch(type) {
+    case napi_undefined:
+      return napi_invalid_arg;
+    case napi_null:
+      return napi_invalid_arg;
+    case napi_boolean:
+      return napi_boolean_expected;
+    case napi_number:
+      return napi_number_expected;
+    case napi_string:
+      return napi_string_expected;
+    case napi_symbol:
+      return napi_name_expected;
+    case napi_object:
+      return napi_object_expected;
+    case napi_function:
+      return napi_function_expected;
+    case napi_external:
+      return napi_invalid_arg;
+    case napi_bigint:
+      return napi_bigint_expected;
+    default:
+      return napi_generic_failure;
+  }
+  return napi_generic_failure;
+}
+
+napi_status checkValueTypes(napi_env env, size_t argc, const napi_value *argv, const napi_valuetype *types) {
   napi_valuetype valuetype;
 
   for (size_t i = 0; i < argc; ++i) {
@@ -147,12 +170,10 @@ napi_status checkValueTypes(napi_env env, size_t argc, const napi_value *argv, c
       snprintf(errors, sizeof(errors), "The parameter %d should be a %s", (int)i, getTypeString(types[i]));
       napi_throw_type_error(env, nullptr, errors);
 
-      *result = false;
-      return napi_ok;
+      return getTypeExpected(types[i]);
     }
   }
 
-  *result = true;
   return napi_ok;
 }
 

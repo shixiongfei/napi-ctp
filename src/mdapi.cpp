@@ -55,16 +55,11 @@ static napi_value callInstrumentIdsFunc(napi_env env, napi_callback_info info, c
   int result;
   napi_value argv, jsthis, retval, element;
   MarketData *marketData;
-  bool isStringArray;
 
   CHECK(napi_get_cb_info(env, info, &argc, &argv, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&marketData));
 
-  CHECK(checkIsStringArray(env, argv, &isStringArray));
-
-  if (!isStringArray)
-    return nullptr;
-
+  CHECK(checkIsStringArray(env, argv));
   CHECK(napi_get_array_length(env, argv, &length));
 
   if (length == 0) {
@@ -126,15 +121,11 @@ static napi_value callRequestFunc(napi_env env, napi_callback_info info, const s
   int result;
   napi_value object, jsthis, retval;
   MarketData *marketData;
-  bool isObject;
 
   CHECK(napi_get_cb_info(env, info, &argc, &object, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&marketData));
 
-  CHECK(checkIsObject(env, object, &isObject));
-
-  if (!isObject)
-    return nullptr;
+  CHECK(checkIsObject(env, object));
 
   result = func(marketData, object);
   CHECK(napi_create_int32(env, result, &retval));
@@ -249,15 +240,11 @@ static napi_value on(napi_env env, napi_callback_info info) {
   napi_threadsafe_function tsfn;
   MarketData *marketData;
   char fname[64];
-  bool isTypesOk;
 
   CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&marketData));
 
-  CHECK(checkValueTypes(env, argc, argv, types, &isTypesOk));
-
-  if (!isTypesOk)
-    return nullptr;
+  CHECK(checkValueTypes(env, argc, argv, types));
 
   CHECK(napi_create_threadsafe_function(env, argv[1], nullptr, argv[0], 0, 1, nullptr, nullptr, marketData, callJs, &tsfn));
   CHECK(napi_ref_threadsafe_function(env, tsfn));
@@ -293,7 +280,6 @@ static napi_value marketDataNew(napi_env env, napi_callback_info info) {
   napi_value target, argv[2], jsthis;
   MarketData *marketData;
   char flowMdPath[260], frontMdAddr[64];
-  bool isTypesOk;
 
   CHECK(napi_get_new_target(env, info, &target));
 
@@ -302,10 +288,7 @@ static napi_value marketDataNew(napi_env env, napi_callback_info info) {
 
   CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
 
-  CHECK(checkValueTypes(env, argc, argv, types, &isTypesOk));
-
-  if (!isTypesOk)
-    return nullptr;
+  CHECK(checkValueTypes(env, argc, argv, types));
 
   CHECK(napi_get_value_string_utf8(env, argv[0], flowMdPath, sizeof(flowMdPath), nullptr));
   CHECK(napi_get_value_string_utf8(env, argv[1], frontMdAddr, sizeof(frontMdAddr), nullptr));
