@@ -50,6 +50,7 @@ napi_status rspUserLogin(napi_env env, const Message *message, napi_value *resul
   auto pRspUserLogin = MessageData<CThostFtdcRspUserLoginField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcRspUserLoginField"));
   CHECK(SetObjectString(env, *result, pRspUserLogin, TradingDay));
   CHECK(SetObjectString(env, *result, pRspUserLogin, LoginTime));
   CHECK(SetObjectString(env, *result, pRspUserLogin, BrokerID));
@@ -72,6 +73,7 @@ napi_status rspUserLogout(napi_env env, const Message *message, napi_value *resu
   auto pUserLogout = MessageData<CThostFtdcUserLogoutField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcUserLogoutField"));
   CHECK(SetObjectString(env, *result, pUserLogout, BrokerID));
   CHECK(SetObjectString(env, *result, pUserLogout, UserID));
 
@@ -82,6 +84,7 @@ napi_status rspQryMulticastInstrument(napi_env env, const Message *message, napi
   auto pMulticastInstrument = MessageData<CThostFtdcMulticastInstrumentField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcMulticastInstrumentField"));
   CHECK(SetObjectInt32(env, *result, pMulticastInstrument, TopicID));
   CHECK(SetObjectString(env, *result, pMulticastInstrument, reserve1));
   CHECK(SetObjectInt32(env, *result, pMulticastInstrument, InstrumentNo));
@@ -97,6 +100,7 @@ napi_status rspError(napi_env env, const Message *message, napi_value *result) {
   auto pRspInfo = MessageData<CThostFtdcRspInfoField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcRspInfoField"));
   CHECK(SetObjectInt32(env, *result, pRspInfo, ErrorID));
   CHECK(SetObjectString(env, *result, pRspInfo, ErrorMsg));
 
@@ -107,6 +111,7 @@ napi_status rspSubMarketData(napi_env env, const Message *message, napi_value *r
   auto pSpecificInstrument = MessageData<CThostFtdcSpecificInstrumentField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcSpecificInstrumentField"));
   CHECK(SetObjectString(env, *result, pSpecificInstrument, reserve1));
   CHECK(SetObjectString(env, *result, pSpecificInstrument, InstrumentID));
 
@@ -117,6 +122,7 @@ napi_status rspUnSubMarketData(napi_env env, const Message *message, napi_value 
   auto pSpecificInstrument = MessageData<CThostFtdcSpecificInstrumentField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcSpecificInstrumentField"));
   CHECK(SetObjectString(env, *result, pSpecificInstrument, reserve1));
   CHECK(SetObjectString(env, *result, pSpecificInstrument, InstrumentID));
 
@@ -127,6 +133,7 @@ napi_status rspSubForQuote(napi_env env, const Message *message, napi_value *res
   auto pSpecificInstrument = MessageData<CThostFtdcSpecificInstrumentField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcSpecificInstrumentField"));
   CHECK(SetObjectString(env, *result, pSpecificInstrument, reserve1));
   CHECK(SetObjectString(env, *result, pSpecificInstrument, InstrumentID));
 
@@ -137,6 +144,7 @@ napi_status rspUnSubForQuote(napi_env env, const Message *message, napi_value *r
   auto pSpecificInstrument = MessageData<CThostFtdcSpecificInstrumentField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcSpecificInstrumentField"));
   CHECK(SetObjectString(env, *result, pSpecificInstrument, reserve1));
   CHECK(SetObjectString(env, *result, pSpecificInstrument, InstrumentID));
 
@@ -147,6 +155,7 @@ napi_status rtnDepthMarketData(napi_env env, const Message *message, napi_value 
   auto pDepthMarketData = MessageData<CThostFtdcDepthMarketDataField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcDepthMarketDataField"));
   CHECK(SetObjectString(env, *result, pDepthMarketData, TradingDay));
   CHECK(SetObjectString(env, *result, pDepthMarketData, reserve1));
   CHECK(SetObjectString(env, *result, pDepthMarketData, ExchangeID));
@@ -203,6 +212,7 @@ napi_status rtnForQuote(napi_env env, const Message *message, napi_value *result
   auto pForQuoteRsp = MessageData<CThostFtdcForQuoteRspField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcForQuoteRspField"));
   CHECK(SetObjectString(env, *result, pForQuoteRsp, TradingDay));
   CHECK(SetObjectString(env, *result, pForQuoteRsp, reserve1));
   CHECK(SetObjectString(env, *result, pForQuoteRsp, ForQuoteSysID));
@@ -218,6 +228,7 @@ napi_status rspAuthenticate(napi_env env, const Message *message, napi_value *re
   auto pAuthenticate = MessageData<CThostFtdcRspAuthenticateField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcRspAuthenticateField"));
   CHECK(SetObjectString(env, *result, pAuthenticate, BrokerID));
   CHECK(SetObjectString(env, *result, pAuthenticate, UserID));
   CHECK(SetObjectString(env, *result, pAuthenticate, UserProductInfo));
@@ -231,6 +242,7 @@ napi_status rspUserPasswordUpdate(napi_env env, const Message *message, napi_val
   auto pUserPasswordUpdate = MessageData<CThostFtdcUserPasswordUpdateField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcUserPasswordUpdateField"));
   CHECK(SetObjectString(env, *result, pUserPasswordUpdate, BrokerID));
   CHECK(SetObjectString(env, *result, pUserPasswordUpdate, UserID));
   CHECK(SetObjectString(env, *result, pUserPasswordUpdate, OldPassword));
@@ -243,6 +255,7 @@ napi_status rspTradingAccountPasswordUpdate(napi_env env, const Message *message
   auto pTradingAccountPasswordUpdate = MessageData<CThostFtdcTradingAccountPasswordUpdateField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcTradingAccountPasswordUpdateField"));
   CHECK(SetObjectString(env, *result, pTradingAccountPasswordUpdate, BrokerID));
   CHECK(SetObjectString(env, *result, pTradingAccountPasswordUpdate, AccountID));
   CHECK(SetObjectString(env, *result, pTradingAccountPasswordUpdate, OldPassword));
@@ -256,6 +269,7 @@ napi_status rspUserAuthMethod(napi_env env, const Message *message, napi_value *
   auto pRspUserAuthMethod = MessageData<CThostFtdcRspUserAuthMethodField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcRspUserAuthMethodField"));
   CHECK(SetObjectInt32(env, *result, pRspUserAuthMethod, UsableAuthMethod));
 
   return napi_ok;
@@ -265,6 +279,7 @@ napi_status rspGenUserCaptcha(napi_env env, const Message *message, napi_value *
   auto pRspGenUserCaptcha = MessageData<CThostFtdcRspGenUserCaptchaField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcRspGenUserCaptchaField"));
   CHECK(SetObjectString(env, *result, pRspGenUserCaptcha, BrokerID));
   CHECK(SetObjectString(env, *result, pRspGenUserCaptcha, UserID));
   CHECK(SetObjectBuffer(env, *result, pRspGenUserCaptcha, CaptchaInfo, CaptchaInfoLen));
@@ -276,6 +291,7 @@ napi_status rspGenUserText(napi_env env, const Message *message, napi_value *res
   auto pRspGenUserText = MessageData<CThostFtdcRspGenUserTextField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcRspGenUserTextField"));
   CHECK(SetObjectInt32(env, *result, pRspGenUserText, UserTextSeq));
 
   return napi_ok;
@@ -285,6 +301,7 @@ napi_status rspOrderInsert(napi_env env, const Message *message, napi_value *res
   auto pInputOrder = MessageData<CThostFtdcInputOrderField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInputOrderField"));
   CHECK(SetObjectString(env, *result, pInputOrder, BrokerID));
   CHECK(SetObjectString(env, *result, pInputOrder, InvestorID));
   CHECK(SetObjectString(env, *result, pInputOrder, reserve1));
@@ -325,6 +342,7 @@ napi_status rspParkedOrderInsert(napi_env env, const Message *message, napi_valu
   auto pParkedOrder = MessageData<CThostFtdcParkedOrderField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcParkedOrderField"));
   CHECK(SetObjectString(env, *result, pParkedOrder, BrokerID));
   CHECK(SetObjectString(env, *result, pParkedOrder, InvestorID));
   CHECK(SetObjectString(env, *result, pParkedOrder, reserve1));
@@ -370,6 +388,7 @@ napi_status rspParkedOrderAction(napi_env env, const Message *message, napi_valu
   auto pParkedOrderAction = MessageData<CThostFtdcParkedOrderActionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcParkedOrderActionField"));
   CHECK(SetObjectString(env, *result, pParkedOrderAction, BrokerID));
   CHECK(SetObjectString(env, *result, pParkedOrderAction, InvestorID));
   CHECK(SetObjectInt32(env, *result, pParkedOrderAction, OrderActionRef));
@@ -402,6 +421,7 @@ napi_status rspOrderAction(napi_env env, const Message *message, napi_value *res
   auto pInputOrderAction = MessageData<CThostFtdcInputOrderActionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInputOrderActionField"));
   CHECK(SetObjectString(env, *result, pInputOrderAction, BrokerID));
   CHECK(SetObjectString(env, *result, pInputOrderAction, InvestorID));
   CHECK(SetObjectInt32(env, *result, pInputOrderAction, OrderActionRef));
@@ -429,6 +449,7 @@ napi_status rspQryMaxOrderVolume(napi_env env, const Message *message, napi_valu
   auto pQryMaxOrderVolume = MessageData<CThostFtdcQryMaxOrderVolumeField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcQryMaxOrderVolumeField"));
   CHECK(SetObjectString(env, *result, pQryMaxOrderVolume, BrokerID));
   CHECK(SetObjectString(env, *result, pQryMaxOrderVolume, InvestorID));
   CHECK(SetObjectString(env, *result, pQryMaxOrderVolume, reserve1));
@@ -447,6 +468,7 @@ napi_status rspSettlementInfoConfirm(napi_env env, const Message *message, napi_
   auto pSettlementInfoConfirm = MessageData<CThostFtdcSettlementInfoConfirmField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcSettlementInfoConfirmField"));
   CHECK(SetObjectString(env, *result, pSettlementInfoConfirm, BrokerID));
   CHECK(SetObjectString(env, *result, pSettlementInfoConfirm, InvestorID));
   CHECK(SetObjectString(env, *result, pSettlementInfoConfirm, ConfirmDate));
@@ -462,6 +484,7 @@ napi_status rspRemoveParkedOrder(napi_env env, const Message *message, napi_valu
   auto pRemoveParkedOrder = MessageData<CThostFtdcRemoveParkedOrderField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcRemoveParkedOrderField"));
   CHECK(SetObjectString(env, *result, pRemoveParkedOrder, BrokerID));
   CHECK(SetObjectString(env, *result, pRemoveParkedOrder, InvestorID));
   CHECK(SetObjectString(env, *result, pRemoveParkedOrder, ParkedOrderID));
@@ -474,6 +497,7 @@ napi_status rspRemoveParkedOrderAction(napi_env env, const Message *message, nap
   auto pRemoveParkedOrderAction = MessageData<CThostFtdcRemoveParkedOrderActionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcRemoveParkedOrderActionField"));
   CHECK(SetObjectString(env, *result, pRemoveParkedOrderAction, BrokerID));
   CHECK(SetObjectString(env, *result, pRemoveParkedOrderAction, InvestorID));
   CHECK(SetObjectString(env, *result, pRemoveParkedOrderAction, ParkedOrderActionID));
@@ -486,6 +510,7 @@ napi_status rspExecOrderInsert(napi_env env, const Message *message, napi_value 
   auto pInputExecOrder = MessageData<CThostFtdcInputExecOrderField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInputExecOrderField"));
   CHECK(SetObjectString(env, *result, pInputExecOrder, BrokerID));
   CHECK(SetObjectString(env, *result, pInputExecOrder, InvestorID));
   CHECK(SetObjectString(env, *result, pInputExecOrder, reserve1));
@@ -517,6 +542,7 @@ napi_status rspExecOrderAction(napi_env env, const Message *message, napi_value 
   auto pInputExecOrderAction = MessageData<CThostFtdcInputExecOrderActionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInputExecOrderActionField"));
   CHECK(SetObjectString(env, *result, pInputExecOrderAction, BrokerID));
   CHECK(SetObjectString(env, *result, pInputExecOrderAction, InvestorID));
   CHECK(SetObjectInt32(env, *result, pInputExecOrderAction, ExecOrderActionRef));
@@ -542,6 +568,7 @@ napi_status rspForQuoteInsert(napi_env env, const Message *message, napi_value *
   auto pInputForQuote = MessageData<CThostFtdcInputForQuoteField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInputForQuoteField"));
   CHECK(SetObjectString(env, *result, pInputForQuote, BrokerID));
   CHECK(SetObjectString(env, *result, pInputForQuote, InvestorID));
   CHECK(SetObjectString(env, *result, pInputForQuote, reserve1));
@@ -561,6 +588,7 @@ napi_status rspQuoteInsert(napi_env env, const Message *message, napi_value *res
   auto pInputQuote = MessageData<CThostFtdcInputQuoteField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInputQuoteField"));
   CHECK(SetObjectString(env, *result, pInputQuote, BrokerID));
   CHECK(SetObjectString(env, *result, pInputQuote, InvestorID));
   CHECK(SetObjectString(env, *result, pInputQuote, reserve1));
@@ -595,6 +623,7 @@ napi_status rspQuoteAction(napi_env env, const Message *message, napi_value *res
   auto pInputQuoteAction = MessageData<CThostFtdcInputQuoteActionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInputQuoteActionField"));
   CHECK(SetObjectString(env, *result, pInputQuoteAction, BrokerID));
   CHECK(SetObjectString(env, *result, pInputQuoteAction, InvestorID));
   CHECK(SetObjectInt32(env, *result, pInputQuoteAction, QuoteActionRef));
@@ -621,6 +650,7 @@ napi_status rspBatchOrderAction(napi_env env, const Message *message, napi_value
   auto pInputBatchOrderAction = MessageData<CThostFtdcInputBatchOrderActionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInputBatchOrderActionField"));
   CHECK(SetObjectString(env, *result, pInputBatchOrderAction, BrokerID));
   CHECK(SetObjectString(env, *result, pInputBatchOrderAction, InvestorID));
   CHECK(SetObjectInt32(env, *result, pInputBatchOrderAction, OrderActionRef));
@@ -641,6 +671,7 @@ napi_status rspOptionSelfCloseInsert(napi_env env, const Message *message, napi_
   auto pInputOptionSelfClose = MessageData<CThostFtdcInputOptionSelfCloseField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInputOptionSelfCloseField"));
   CHECK(SetObjectString(env, *result, pInputOptionSelfClose, BrokerID));
   CHECK(SetObjectString(env, *result, pInputOptionSelfClose, InvestorID));
   CHECK(SetObjectString(env, *result, pInputOptionSelfClose, reserve1));
@@ -668,6 +699,7 @@ napi_status rspOptionSelfCloseAction(napi_env env, const Message *message, napi_
   auto pInputOptionSelfCloseAction = MessageData<CThostFtdcInputOptionSelfCloseActionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInputOptionSelfCloseActionField"));
   CHECK(SetObjectString(env, *result, pInputOptionSelfCloseAction, BrokerID));
   CHECK(SetObjectString(env, *result, pInputOptionSelfCloseAction, InvestorID));
   CHECK(SetObjectInt32(env, *result, pInputOptionSelfCloseAction, OptionSelfCloseActionRef));
@@ -693,6 +725,7 @@ napi_status rspCombActionInsert(napi_env env, const Message *message, napi_value
   auto pInputCombAction = MessageData<CThostFtdcInputCombActionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInputCombActionField"));
   CHECK(SetObjectString(env, *result, pInputCombAction, BrokerID));
   CHECK(SetObjectString(env, *result, pInputCombAction, InvestorID));
   CHECK(SetObjectString(env, *result, pInputCombAction, reserve1));
@@ -718,6 +751,7 @@ napi_status rspQryOrder(napi_env env, const Message *message, napi_value *result
   auto pOrder = MessageData<CThostFtdcOrderField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcOrderField"));
   CHECK(SetObjectString(env, *result, pOrder, BrokerID));
   CHECK(SetObjectString(env, *result, pOrder, InvestorID));
   CHECK(SetObjectString(env, *result, pOrder, reserve1));
@@ -792,6 +826,7 @@ napi_status rspQryTrade(napi_env env, const Message *message, napi_value *result
   auto pTrade = MessageData<CThostFtdcTradeField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcTradeField"));
   CHECK(SetObjectString(env, *result, pTrade, BrokerID));
   CHECK(SetObjectString(env, *result, pTrade, InvestorID));
   CHECK(SetObjectString(env, *result, pTrade, reserve1));
@@ -833,6 +868,7 @@ napi_status rspQryInvestorPosition(napi_env env, const Message *message, napi_va
   auto pInvestorPosition = MessageData<CThostFtdcInvestorPositionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInvestorPositionField"));
   CHECK(SetObjectString(env, *result, pInvestorPosition, reserve1));
   CHECK(SetObjectString(env, *result, pInvestorPosition, BrokerID));
   CHECK(SetObjectString(env, *result, pInvestorPosition, InvestorID));
@@ -891,6 +927,7 @@ napi_status rspQryTradingAccount(napi_env env, const Message *message, napi_valu
   auto pTradingAccount = MessageData<CThostFtdcTradingAccountField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcTradingAccountField"));
   CHECK(SetObjectString(env, *result, pTradingAccount, BrokerID));
   CHECK(SetObjectString(env, *result, pTradingAccount, AccountID));
   CHECK(SetObjectDouble(env, *result, pTradingAccount, PreMortgage));
@@ -948,6 +985,7 @@ napi_status rspQryInvestor(napi_env env, const Message *message, napi_value *res
   auto pInvestor = MessageData<CThostFtdcInvestorField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInvestorField"));
   CHECK(SetObjectString(env, *result, pInvestor, InvestorID));
   CHECK(SetObjectString(env, *result, pInvestor, BrokerID));
   CHECK(SetObjectString(env, *result, pInvestor, InvestorGroupID));
@@ -971,6 +1009,7 @@ napi_status rspQryTradingCode(napi_env env, const Message *message, napi_value *
   auto pTradingCode = MessageData<CThostFtdcTradingCodeField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcTradingCodeField"));
   CHECK(SetObjectString(env, *result, pTradingCode, InvestorID));
   CHECK(SetObjectString(env, *result, pTradingCode, BrokerID));
   CHECK(SetObjectString(env, *result, pTradingCode, ExchangeID));
@@ -988,6 +1027,7 @@ napi_status rspQryInstrumentMarginRate(napi_env env, const Message *message, nap
   auto pInstrumentMarginRate = MessageData<CThostFtdcInstrumentMarginRateField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInstrumentMarginRateField"));
   CHECK(SetObjectString(env, *result, pInstrumentMarginRate, reserve1));
   CHECK(SetObjectChar(env, *result, pInstrumentMarginRate, InvestorRange));
   CHECK(SetObjectString(env, *result, pInstrumentMarginRate, BrokerID));
@@ -1009,6 +1049,7 @@ napi_status rspQryInstrumentCommissionRate(napi_env env, const Message *message,
   auto pInstrumentCommissionRate = MessageData<CThostFtdcInstrumentCommissionRateField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInstrumentCommissionRateField"));
   CHECK(SetObjectString(env, *result, pInstrumentCommissionRate, reserve1));
   CHECK(SetObjectChar(env, *result, pInstrumentCommissionRate, InvestorRange));
   CHECK(SetObjectString(env, *result, pInstrumentCommissionRate, BrokerID));
@@ -1031,6 +1072,7 @@ napi_status rspQryExchange(napi_env env, const Message *message, napi_value *res
   auto pExchange = MessageData<CThostFtdcExchangeField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcExchangeField"));
   CHECK(SetObjectString(env, *result, pExchange, ExchangeID));
   CHECK(SetObjectString(env, *result, pExchange, ExchangeName));
   CHECK(SetObjectChar(env, *result, pExchange, ExchangeProperty));
@@ -1042,6 +1084,7 @@ napi_status rspQryProduct(napi_env env, const Message *message, napi_value *resu
   auto pProduct = MessageData<CThostFtdcProductField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcProductField"));
   CHECK(SetObjectString(env, *result, pProduct, reserve1));
   CHECK(SetObjectString(env, *result, pProduct, ProductName));
   CHECK(SetObjectString(env, *result, pProduct, ExchangeID));
@@ -1071,6 +1114,7 @@ napi_status rspQryInstrument(napi_env env, const Message *message, napi_value *r
   auto pInstrument = MessageData<CThostFtdcInstrumentField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInstrumentField"));
   CHECK(SetObjectString(env, *result, pInstrument, reserve1));
   CHECK(SetObjectString(env, *result, pInstrument, ExchangeID));
   CHECK(SetObjectString(env, *result, pInstrument, InstrumentName));
@@ -1114,6 +1158,7 @@ napi_status rspQryDepthMarketData(napi_env env, const Message *message, napi_val
   auto pDepthMarketData = MessageData<CThostFtdcDepthMarketDataField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcDepthMarketDataField"));
   CHECK(SetObjectString(env, *result, pDepthMarketData, TradingDay));
   CHECK(SetObjectString(env, *result, pDepthMarketData, reserve1));
   CHECK(SetObjectString(env, *result, pDepthMarketData, ExchangeID));
@@ -1170,6 +1215,7 @@ napi_status rspQryTraderOffer(napi_env env, const Message *message, napi_value *
   auto pTraderOffer = MessageData<CThostFtdcTraderOfferField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcTraderOfferField"));
   CHECK(SetObjectString(env, *result, pTraderOffer, ExchangeID));
   CHECK(SetObjectString(env, *result, pTraderOffer, TraderID));
   CHECK(SetObjectString(env, *result, pTraderOffer, ParticipantID));
@@ -1198,6 +1244,7 @@ napi_status rspQrySettlementInfo(napi_env env, const Message *message, napi_valu
   auto pSettlementInfo = MessageData<CThostFtdcSettlementInfoField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcSettlementInfoField"));
   CHECK(SetObjectString(env, *result, pSettlementInfo, TradingDay));
   CHECK(SetObjectInt32(env, *result, pSettlementInfo, SettlementID));
   CHECK(SetObjectString(env, *result, pSettlementInfo, BrokerID));
@@ -1214,6 +1261,7 @@ napi_status rspQryTransferBank(napi_env env, const Message *message, napi_value 
   auto pTransferBank = MessageData<CThostFtdcTransferBankField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcTransferBankField"));
   CHECK(SetObjectString(env, *result, pTransferBank, BankID));
   CHECK(SetObjectString(env, *result, pTransferBank, BankBrchID));
   CHECK(SetObjectString(env, *result, pTransferBank, BankName));
@@ -1226,6 +1274,7 @@ napi_status rspQryInvestorPositionDetail(napi_env env, const Message *message, n
   auto pInvestorPositionDetail = MessageData<CThostFtdcInvestorPositionDetailField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInvestorPositionDetailField"));
   CHECK(SetObjectString(env, *result, pInvestorPositionDetail, reserve1));
   CHECK(SetObjectString(env, *result, pInvestorPositionDetail, BrokerID));
   CHECK(SetObjectString(env, *result, pInvestorPositionDetail, InvestorID));
@@ -1265,6 +1314,7 @@ napi_status rspQryNotice(napi_env env, const Message *message, napi_value *resul
   auto pNotice = MessageData<CThostFtdcNoticeField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcNoticeField"));
   CHECK(SetObjectString(env, *result, pNotice, BrokerID));
   CHECK(SetObjectString(env, *result, pNotice, Content));
   CHECK(SetObjectString(env, *result, pNotice, SequenceLabel));
@@ -1276,6 +1326,7 @@ napi_status rspQrySettlementInfoConfirm(napi_env env, const Message *message, na
   auto pSettlementInfoConfirm = MessageData<CThostFtdcSettlementInfoConfirmField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcSettlementInfoConfirmField"));
   CHECK(SetObjectString(env, *result, pSettlementInfoConfirm, BrokerID));
   CHECK(SetObjectString(env, *result, pSettlementInfoConfirm, InvestorID));
   CHECK(SetObjectString(env, *result, pSettlementInfoConfirm, ConfirmDate));
@@ -1291,6 +1342,7 @@ napi_status rspQryInvestorPositionCombineDetail(napi_env env, const Message *mes
   auto pInvestorPositionCombineDetail = MessageData<CThostFtdcInvestorPositionCombineDetailField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInvestorPositionCombineDetailField"));
   CHECK(SetObjectString(env, *result, pInvestorPositionCombineDetail, TradingDay));
   CHECK(SetObjectString(env, *result, pInvestorPositionCombineDetail, OpenDate));
   CHECK(SetObjectString(env, *result, pInvestorPositionCombineDetail, ExchangeID));
@@ -1322,6 +1374,7 @@ napi_status rspQryCFMMCTradingAccountKey(napi_env env, const Message *message, n
   auto pCFMMCTradingAccountKey = MessageData<CThostFtdcCFMMCTradingAccountKeyField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcCFMMCTradingAccountKeyField"));
   CHECK(SetObjectString(env, *result, pCFMMCTradingAccountKey, BrokerID));
   CHECK(SetObjectString(env, *result, pCFMMCTradingAccountKey, ParticipantID));
   CHECK(SetObjectString(env, *result, pCFMMCTradingAccountKey, AccountID));
@@ -1335,6 +1388,7 @@ napi_status rspQryEWarrantOffset(napi_env env, const Message *message, napi_valu
   auto pEWarrantOffset = MessageData<CThostFtdcEWarrantOffsetField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcEWarrantOffsetField"));
   CHECK(SetObjectString(env, *result, pEWarrantOffset, TradingDay));
   CHECK(SetObjectString(env, *result, pEWarrantOffset, BrokerID));
   CHECK(SetObjectString(env, *result, pEWarrantOffset, InvestorID));
@@ -1353,6 +1407,7 @@ napi_status rspQryInvestorProductGroupMargin(napi_env env, const Message *messag
   auto pInvestorProductGroupMargin = MessageData<CThostFtdcInvestorProductGroupMarginField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInvestorProductGroupMarginField"));
   CHECK(SetObjectString(env, *result, pInvestorProductGroupMargin, reserve1));
   CHECK(SetObjectString(env, *result, pInvestorProductGroupMargin, BrokerID));
   CHECK(SetObjectString(env, *result, pInvestorProductGroupMargin, InvestorID));
@@ -1391,6 +1446,7 @@ napi_status rspQryExchangeMarginRate(napi_env env, const Message *message, napi_
   auto pExchangeMarginRate = MessageData<CThostFtdcExchangeMarginRateField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcExchangeMarginRateField"));
   CHECK(SetObjectString(env, *result, pExchangeMarginRate, BrokerID));
   CHECK(SetObjectString(env, *result, pExchangeMarginRate, reserve1));
   CHECK(SetObjectChar(env, *result, pExchangeMarginRate, HedgeFlag));
@@ -1408,6 +1464,7 @@ napi_status rspQryExchangeMarginRateAdjust(napi_env env, const Message *message,
   auto pExchangeMarginRateAdjust = MessageData<CThostFtdcExchangeMarginRateAdjustField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcExchangeMarginRateAdjustField"));
   CHECK(SetObjectString(env, *result, pExchangeMarginRateAdjust, BrokerID));
   CHECK(SetObjectString(env, *result, pExchangeMarginRateAdjust, reserve1));
   CHECK(SetObjectChar(env, *result, pExchangeMarginRateAdjust, HedgeFlag));
@@ -1432,6 +1489,7 @@ napi_status rspQryExchangeRate(napi_env env, const Message *message, napi_value 
   auto pExchangeRate = MessageData<CThostFtdcExchangeRateField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcExchangeRateField"));
   CHECK(SetObjectString(env, *result, pExchangeRate, BrokerID));
   CHECK(SetObjectString(env, *result, pExchangeRate, FromCurrencyID));
   CHECK(SetObjectDouble(env, *result, pExchangeRate, FromCurrencyUnit));
@@ -1445,6 +1503,7 @@ napi_status rspQrySecAgentACIDMap(napi_env env, const Message *message, napi_val
   auto pSecAgentACIDMap = MessageData<CThostFtdcSecAgentACIDMapField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcSecAgentACIDMapField"));
   CHECK(SetObjectString(env, *result, pSecAgentACIDMap, BrokerID));
   CHECK(SetObjectString(env, *result, pSecAgentACIDMap, UserID));
   CHECK(SetObjectString(env, *result, pSecAgentACIDMap, AccountID));
@@ -1458,6 +1517,7 @@ napi_status rspQryProductExchRate(napi_env env, const Message *message, napi_val
   auto pProductExchRate = MessageData<CThostFtdcProductExchRateField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcProductExchRateField"));
   CHECK(SetObjectString(env, *result, pProductExchRate, reserve1));
   CHECK(SetObjectString(env, *result, pProductExchRate, QuoteCurrencyID));
   CHECK(SetObjectDouble(env, *result, pProductExchRate, ExchangeRate));
@@ -1471,6 +1531,7 @@ napi_status rspQryProductGroup(napi_env env, const Message *message, napi_value 
   auto pProductGroup = MessageData<CThostFtdcProductGroupField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcProductGroupField"));
   CHECK(SetObjectString(env, *result, pProductGroup, reserve1));
   CHECK(SetObjectString(env, *result, pProductGroup, ExchangeID));
   CHECK(SetObjectString(env, *result, pProductGroup, reserve2));
@@ -1484,6 +1545,7 @@ napi_status rspQryMMInstrumentCommissionRate(napi_env env, const Message *messag
   auto pMMInstrumentCommissionRate = MessageData<CThostFtdcMMInstrumentCommissionRateField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcMMInstrumentCommissionRateField"));
   CHECK(SetObjectString(env, *result, pMMInstrumentCommissionRate, reserve1));
   CHECK(SetObjectChar(env, *result, pMMInstrumentCommissionRate, InvestorRange));
   CHECK(SetObjectString(env, *result, pMMInstrumentCommissionRate, BrokerID));
@@ -1503,6 +1565,7 @@ napi_status rspQryMMOptionInstrCommRate(napi_env env, const Message *message, na
   auto pMMOptionInstrCommRate = MessageData<CThostFtdcMMOptionInstrCommRateField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcMMOptionInstrCommRateField"));
   CHECK(SetObjectString(env, *result, pMMOptionInstrCommRate, reserve1));
   CHECK(SetObjectChar(env, *result, pMMOptionInstrCommRate, InvestorRange));
   CHECK(SetObjectString(env, *result, pMMOptionInstrCommRate, BrokerID));
@@ -1524,6 +1587,7 @@ napi_status rspQryInstrumentOrderCommRate(napi_env env, const Message *message, 
   auto pInstrumentOrderCommRate = MessageData<CThostFtdcInstrumentOrderCommRateField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInstrumentOrderCommRateField"));
   CHECK(SetObjectString(env, *result, pInstrumentOrderCommRate, reserve1));
   CHECK(SetObjectChar(env, *result, pInstrumentOrderCommRate, InvestorRange));
   CHECK(SetObjectString(env, *result, pInstrumentOrderCommRate, BrokerID));
@@ -1544,6 +1608,7 @@ napi_status rspQrySecAgentTradingAccount(napi_env env, const Message *message, n
   auto pTradingAccount = MessageData<CThostFtdcTradingAccountField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcTradingAccountField"));
   CHECK(SetObjectString(env, *result, pTradingAccount, BrokerID));
   CHECK(SetObjectString(env, *result, pTradingAccount, AccountID));
   CHECK(SetObjectDouble(env, *result, pTradingAccount, PreMortgage));
@@ -1601,6 +1666,7 @@ napi_status rspQrySecAgentCheckMode(napi_env env, const Message *message, napi_v
   auto pSecAgentCheckMode = MessageData<CThostFtdcSecAgentCheckModeField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcSecAgentCheckModeField"));
   CHECK(SetObjectString(env, *result, pSecAgentCheckMode, InvestorID));
   CHECK(SetObjectString(env, *result, pSecAgentCheckMode, BrokerID));
   CHECK(SetObjectString(env, *result, pSecAgentCheckMode, CurrencyID));
@@ -1614,6 +1680,7 @@ napi_status rspQrySecAgentTradeInfo(napi_env env, const Message *message, napi_v
   auto pSecAgentTradeInfo = MessageData<CThostFtdcSecAgentTradeInfoField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcSecAgentTradeInfoField"));
   CHECK(SetObjectString(env, *result, pSecAgentTradeInfo, BrokerID));
   CHECK(SetObjectString(env, *result, pSecAgentTradeInfo, BrokerSecAgentID));
   CHECK(SetObjectString(env, *result, pSecAgentTradeInfo, InvestorID));
@@ -1626,6 +1693,7 @@ napi_status rspQryOptionInstrTradeCost(napi_env env, const Message *message, nap
   auto pOptionInstrTradeCost = MessageData<CThostFtdcOptionInstrTradeCostField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcOptionInstrTradeCostField"));
   CHECK(SetObjectString(env, *result, pOptionInstrTradeCost, BrokerID));
   CHECK(SetObjectString(env, *result, pOptionInstrTradeCost, InvestorID));
   CHECK(SetObjectString(env, *result, pOptionInstrTradeCost, reserve1));
@@ -1646,6 +1714,7 @@ napi_status rspQryOptionInstrCommRate(napi_env env, const Message *message, napi
   auto pOptionInstrCommRate = MessageData<CThostFtdcOptionInstrCommRateField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcOptionInstrCommRateField"));
   CHECK(SetObjectString(env, *result, pOptionInstrCommRate, reserve1));
   CHECK(SetObjectChar(env, *result, pOptionInstrCommRate, InvestorRange));
   CHECK(SetObjectString(env, *result, pOptionInstrCommRate, BrokerID));
@@ -1669,6 +1738,7 @@ napi_status rspQryExecOrder(napi_env env, const Message *message, napi_value *re
   auto pExecOrder = MessageData<CThostFtdcExecOrderField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcExecOrderField"));
   CHECK(SetObjectString(env, *result, pExecOrder, BrokerID));
   CHECK(SetObjectString(env, *result, pExecOrder, InvestorID));
   CHECK(SetObjectString(env, *result, pExecOrder, reserve1));
@@ -1724,6 +1794,7 @@ napi_status rspQryForQuote(napi_env env, const Message *message, napi_value *res
   auto pForQuote = MessageData<CThostFtdcForQuoteField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcForQuoteField"));
   CHECK(SetObjectString(env, *result, pForQuote, BrokerID));
   CHECK(SetObjectString(env, *result, pForQuote, InvestorID));
   CHECK(SetObjectString(env, *result, pForQuote, reserve1));
@@ -1758,6 +1829,7 @@ napi_status rspQryQuote(napi_env env, const Message *message, napi_value *result
   auto pQuote = MessageData<CThostFtdcQuoteField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcQuoteField"));
   CHECK(SetObjectString(env, *result, pQuote, BrokerID));
   CHECK(SetObjectString(env, *result, pQuote, InvestorID));
   CHECK(SetObjectString(env, *result, pQuote, reserve1));
@@ -1820,6 +1892,7 @@ napi_status rspQryOptionSelfClose(napi_env env, const Message *message, napi_val
   auto pOptionSelfClose = MessageData<CThostFtdcOptionSelfCloseField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcOptionSelfCloseField"));
   CHECK(SetObjectString(env, *result, pOptionSelfClose, BrokerID));
   CHECK(SetObjectString(env, *result, pOptionSelfClose, InvestorID));
   CHECK(SetObjectString(env, *result, pOptionSelfClose, reserve1));
@@ -1871,6 +1944,7 @@ napi_status rspQryInvestUnit(napi_env env, const Message *message, napi_value *r
   auto pInvestUnit = MessageData<CThostFtdcInvestUnitField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInvestUnitField"));
   CHECK(SetObjectString(env, *result, pInvestUnit, BrokerID));
   CHECK(SetObjectString(env, *result, pInvestUnit, InvestorID));
   CHECK(SetObjectString(env, *result, pInvestUnit, InvestUnitID));
@@ -1888,6 +1962,7 @@ napi_status rspQryCombInstrumentGuard(napi_env env, const Message *message, napi
   auto pCombInstrumentGuard = MessageData<CThostFtdcCombInstrumentGuardField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcCombInstrumentGuardField"));
   CHECK(SetObjectString(env, *result, pCombInstrumentGuard, BrokerID));
   CHECK(SetObjectString(env, *result, pCombInstrumentGuard, reserve1));
   CHECK(SetObjectDouble(env, *result, pCombInstrumentGuard, GuarantRatio));
@@ -1901,6 +1976,7 @@ napi_status rspQryCombAction(napi_env env, const Message *message, napi_value *r
   auto pCombAction = MessageData<CThostFtdcCombActionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcCombActionField"));
   CHECK(SetObjectString(env, *result, pCombAction, BrokerID));
   CHECK(SetObjectString(env, *result, pCombAction, InvestorID));
   CHECK(SetObjectString(env, *result, pCombAction, reserve1));
@@ -1942,6 +2018,7 @@ napi_status rspQryTransferSerial(napi_env env, const Message *message, napi_valu
   auto pTransferSerial = MessageData<CThostFtdcTransferSerialField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcTransferSerialField"));
   CHECK(SetObjectInt32(env, *result, pTransferSerial, PlateSerial));
   CHECK(SetObjectString(env, *result, pTransferSerial, TradeDate));
   CHECK(SetObjectString(env, *result, pTransferSerial, TradingDay));
@@ -1977,6 +2054,7 @@ napi_status rspQryAccountRegister(napi_env env, const Message *message, napi_val
   auto pAccountRegister = MessageData<CThostFtdcAccountregisterField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcAccountregisterField"));
   CHECK(SetObjectString(env, *result, pAccountRegister, TradeDay));
   CHECK(SetObjectString(env, *result, pAccountRegister, BankID));
   CHECK(SetObjectString(env, *result, pAccountRegister, BankBranchID));
@@ -2003,6 +2081,7 @@ napi_status rtnOrder(napi_env env, const Message *message, napi_value *result) {
   auto pOrder = MessageData<CThostFtdcOrderField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcOrderField"));
   CHECK(SetObjectString(env, *result, pOrder, BrokerID));
   CHECK(SetObjectString(env, *result, pOrder, InvestorID));
   CHECK(SetObjectString(env, *result, pOrder, reserve1));
@@ -2077,6 +2156,7 @@ napi_status rtnTrade(napi_env env, const Message *message, napi_value *result) {
   auto pTrade = MessageData<CThostFtdcTradeField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcTradeField"));
   CHECK(SetObjectString(env, *result, pTrade, BrokerID));
   CHECK(SetObjectString(env, *result, pTrade, InvestorID));
   CHECK(SetObjectString(env, *result, pTrade, reserve1));
@@ -2118,6 +2198,7 @@ napi_status errRtnOrderInsert(napi_env env, const Message *message, napi_value *
   auto pInputOrder = MessageData<CThostFtdcInputOrderField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInputOrderField"));
   CHECK(SetObjectString(env, *result, pInputOrder, BrokerID));
   CHECK(SetObjectString(env, *result, pInputOrder, InvestorID));
   CHECK(SetObjectString(env, *result, pInputOrder, reserve1));
@@ -2158,6 +2239,7 @@ napi_status errRtnOrderAction(napi_env env, const Message *message, napi_value *
   auto pOrderAction = MessageData<CThostFtdcOrderActionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcOrderActionField"));
   CHECK(SetObjectString(env, *result, pOrderAction, BrokerID));
   CHECK(SetObjectString(env, *result, pOrderAction, InvestorID));
   CHECK(SetObjectInt32(env, *result, pOrderAction, OrderActionRef));
@@ -2197,6 +2279,7 @@ napi_status rtnInstrumentStatus(napi_env env, const Message *message, napi_value
   auto pInstrumentStatus = MessageData<CThostFtdcInstrumentStatusField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInstrumentStatusField"));
   CHECK(SetObjectString(env, *result, pInstrumentStatus, ExchangeID));
   CHECK(SetObjectString(env, *result, pInstrumentStatus, reserve1));
   CHECK(SetObjectString(env, *result, pInstrumentStatus, SettlementGroupID));
@@ -2215,6 +2298,7 @@ napi_status rtnBulletin(napi_env env, const Message *message, napi_value *result
   auto pBulletin = MessageData<CThostFtdcBulletinField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcBulletinField"));
   CHECK(SetObjectString(env, *result, pBulletin, ExchangeID));
   CHECK(SetObjectString(env, *result, pBulletin, TradingDay));
   CHECK(SetObjectInt32(env, *result, pBulletin, BulletinID));
@@ -2235,6 +2319,7 @@ napi_status rtnTradingNotice(napi_env env, const Message *message, napi_value *r
   auto pTradingNoticeInfo = MessageData<CThostFtdcTradingNoticeInfoField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcTradingNoticeInfoField"));
   CHECK(SetObjectString(env, *result, pTradingNoticeInfo, BrokerID));
   CHECK(SetObjectString(env, *result, pTradingNoticeInfo, InvestorID));
   CHECK(SetObjectString(env, *result, pTradingNoticeInfo, SendTime));
@@ -2250,6 +2335,7 @@ napi_status rtnErrorConditionalOrder(napi_env env, const Message *message, napi_
   auto pErrorConditionalOrder = MessageData<CThostFtdcErrorConditionalOrderField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcErrorConditionalOrderField"));
   CHECK(SetObjectString(env, *result, pErrorConditionalOrder, BrokerID));
   CHECK(SetObjectString(env, *result, pErrorConditionalOrder, InvestorID));
   CHECK(SetObjectString(env, *result, pErrorConditionalOrder, reserve1));
@@ -2326,6 +2412,7 @@ napi_status rtnExecOrder(napi_env env, const Message *message, napi_value *resul
   auto pExecOrder = MessageData<CThostFtdcExecOrderField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcExecOrderField"));
   CHECK(SetObjectString(env, *result, pExecOrder, BrokerID));
   CHECK(SetObjectString(env, *result, pExecOrder, InvestorID));
   CHECK(SetObjectString(env, *result, pExecOrder, reserve1));
@@ -2381,6 +2468,7 @@ napi_status errRtnExecOrderInsert(napi_env env, const Message *message, napi_val
   auto pInputExecOrder = MessageData<CThostFtdcInputExecOrderField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInputExecOrderField"));
   CHECK(SetObjectString(env, *result, pInputExecOrder, BrokerID));
   CHECK(SetObjectString(env, *result, pInputExecOrder, InvestorID));
   CHECK(SetObjectString(env, *result, pInputExecOrder, reserve1));
@@ -2412,6 +2500,7 @@ napi_status errRtnExecOrderAction(napi_env env, const Message *message, napi_val
   auto pExecOrderAction = MessageData<CThostFtdcExecOrderActionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcExecOrderActionField"));
   CHECK(SetObjectString(env, *result, pExecOrderAction, BrokerID));
   CHECK(SetObjectString(env, *result, pExecOrderAction, InvestorID));
   CHECK(SetObjectInt32(env, *result, pExecOrderAction, ExecOrderActionRef));
@@ -2450,6 +2539,7 @@ napi_status errRtnForQuoteInsert(napi_env env, const Message *message, napi_valu
   auto pInputForQuote = MessageData<CThostFtdcInputForQuoteField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInputForQuoteField"));
   CHECK(SetObjectString(env, *result, pInputForQuote, BrokerID));
   CHECK(SetObjectString(env, *result, pInputForQuote, InvestorID));
   CHECK(SetObjectString(env, *result, pInputForQuote, reserve1));
@@ -2469,6 +2559,7 @@ napi_status rtnQuote(napi_env env, const Message *message, napi_value *result) {
   auto pQuote = MessageData<CThostFtdcQuoteField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcQuoteField"));
   CHECK(SetObjectString(env, *result, pQuote, BrokerID));
   CHECK(SetObjectString(env, *result, pQuote, InvestorID));
   CHECK(SetObjectString(env, *result, pQuote, reserve1));
@@ -2531,6 +2622,7 @@ napi_status errRtnQuoteInsert(napi_env env, const Message *message, napi_value *
   auto pInputQuote = MessageData<CThostFtdcInputQuoteField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInputQuoteField"));
   CHECK(SetObjectString(env, *result, pInputQuote, BrokerID));
   CHECK(SetObjectString(env, *result, pInputQuote, InvestorID));
   CHECK(SetObjectString(env, *result, pInputQuote, reserve1));
@@ -2565,6 +2657,7 @@ napi_status errRtnQuoteAction(napi_env env, const Message *message, napi_value *
   auto pQuoteAction = MessageData<CThostFtdcQuoteActionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcQuoteActionField"));
   CHECK(SetObjectString(env, *result, pQuoteAction, BrokerID));
   CHECK(SetObjectString(env, *result, pQuoteAction, InvestorID));
   CHECK(SetObjectInt32(env, *result, pQuoteAction, QuoteActionRef));
@@ -2602,6 +2695,7 @@ napi_status rtnCFMMCTradingAccountToken(napi_env env, const Message *message, na
   auto pCFMMCTradingAccountToken = MessageData<CThostFtdcCFMMCTradingAccountTokenField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcCFMMCTradingAccountTokenField"));
   CHECK(SetObjectString(env, *result, pCFMMCTradingAccountToken, BrokerID));
   CHECK(SetObjectString(env, *result, pCFMMCTradingAccountToken, ParticipantID));
   CHECK(SetObjectString(env, *result, pCFMMCTradingAccountToken, AccountID));
@@ -2615,6 +2709,7 @@ napi_status errRtnBatchOrderAction(napi_env env, const Message *message, napi_va
   auto pBatchOrderAction = MessageData<CThostFtdcBatchOrderActionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcBatchOrderActionField"));
   CHECK(SetObjectString(env, *result, pBatchOrderAction, BrokerID));
   CHECK(SetObjectString(env, *result, pBatchOrderAction, InvestorID));
   CHECK(SetObjectInt32(env, *result, pBatchOrderAction, OrderActionRef));
@@ -2645,6 +2740,7 @@ napi_status rtnOptionSelfClose(napi_env env, const Message *message, napi_value 
   auto pOptionSelfClose = MessageData<CThostFtdcOptionSelfCloseField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcOptionSelfCloseField"));
   CHECK(SetObjectString(env, *result, pOptionSelfClose, BrokerID));
   CHECK(SetObjectString(env, *result, pOptionSelfClose, InvestorID));
   CHECK(SetObjectString(env, *result, pOptionSelfClose, reserve1));
@@ -2696,6 +2792,7 @@ napi_status errRtnOptionSelfCloseInsert(napi_env env, const Message *message, na
   auto pInputOptionSelfClose = MessageData<CThostFtdcInputOptionSelfCloseField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInputOptionSelfCloseField"));
   CHECK(SetObjectString(env, *result, pInputOptionSelfClose, BrokerID));
   CHECK(SetObjectString(env, *result, pInputOptionSelfClose, InvestorID));
   CHECK(SetObjectString(env, *result, pInputOptionSelfClose, reserve1));
@@ -2723,6 +2820,7 @@ napi_status errRtnOptionSelfCloseAction(napi_env env, const Message *message, na
   auto pOptionSelfCloseAction = MessageData<CThostFtdcOptionSelfCloseActionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcOptionSelfCloseActionField"));
   CHECK(SetObjectString(env, *result, pOptionSelfCloseAction, BrokerID));
   CHECK(SetObjectString(env, *result, pOptionSelfCloseAction, InvestorID));
   CHECK(SetObjectInt32(env, *result, pOptionSelfCloseAction, OptionSelfCloseActionRef));
@@ -2760,6 +2858,7 @@ napi_status rtnCombAction(napi_env env, const Message *message, napi_value *resu
   auto pCombAction = MessageData<CThostFtdcCombActionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcCombActionField"));
   CHECK(SetObjectString(env, *result, pCombAction, BrokerID));
   CHECK(SetObjectString(env, *result, pCombAction, InvestorID));
   CHECK(SetObjectString(env, *result, pCombAction, reserve1));
@@ -2801,6 +2900,7 @@ napi_status errRtnCombActionInsert(napi_env env, const Message *message, napi_va
   auto pInputCombAction = MessageData<CThostFtdcInputCombActionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInputCombActionField"));
   CHECK(SetObjectString(env, *result, pInputCombAction, BrokerID));
   CHECK(SetObjectString(env, *result, pInputCombAction, InvestorID));
   CHECK(SetObjectString(env, *result, pInputCombAction, reserve1));
@@ -2826,6 +2926,7 @@ napi_status rspQryContractBank(napi_env env, const Message *message, napi_value 
   auto pContractBank = MessageData<CThostFtdcContractBankField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcContractBankField"));
   CHECK(SetObjectString(env, *result, pContractBank, BrokerID));
   CHECK(SetObjectString(env, *result, pContractBank, BankID));
   CHECK(SetObjectString(env, *result, pContractBank, BankBrchID));
@@ -2838,6 +2939,7 @@ napi_status rspQryParkedOrder(napi_env env, const Message *message, napi_value *
   auto pParkedOrder = MessageData<CThostFtdcParkedOrderField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcParkedOrderField"));
   CHECK(SetObjectString(env, *result, pParkedOrder, BrokerID));
   CHECK(SetObjectString(env, *result, pParkedOrder, InvestorID));
   CHECK(SetObjectString(env, *result, pParkedOrder, reserve1));
@@ -2883,6 +2985,7 @@ napi_status rspQryParkedOrderAction(napi_env env, const Message *message, napi_v
   auto pParkedOrderAction = MessageData<CThostFtdcParkedOrderActionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcParkedOrderActionField"));
   CHECK(SetObjectString(env, *result, pParkedOrderAction, BrokerID));
   CHECK(SetObjectString(env, *result, pParkedOrderAction, InvestorID));
   CHECK(SetObjectInt32(env, *result, pParkedOrderAction, OrderActionRef));
@@ -2915,6 +3018,7 @@ napi_status rspQryTradingNotice(napi_env env, const Message *message, napi_value
   auto pTradingNotice = MessageData<CThostFtdcTradingNoticeField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcTradingNoticeField"));
   CHECK(SetObjectString(env, *result, pTradingNotice, BrokerID));
   CHECK(SetObjectChar(env, *result, pTradingNotice, InvestorRange));
   CHECK(SetObjectString(env, *result, pTradingNotice, InvestorID));
@@ -2932,6 +3036,7 @@ napi_status rspQryBrokerTradingParams(napi_env env, const Message *message, napi
   auto pBrokerTradingParams = MessageData<CThostFtdcBrokerTradingParamsField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcBrokerTradingParamsField"));
   CHECK(SetObjectString(env, *result, pBrokerTradingParams, BrokerID));
   CHECK(SetObjectString(env, *result, pBrokerTradingParams, InvestorID));
   CHECK(SetObjectChar(env, *result, pBrokerTradingParams, MarginPriceType));
@@ -2948,6 +3053,7 @@ napi_status rspQryBrokerTradingAlgos(napi_env env, const Message *message, napi_
   auto pBrokerTradingAlgos = MessageData<CThostFtdcBrokerTradingAlgosField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcBrokerTradingAlgosField"));
   CHECK(SetObjectString(env, *result, pBrokerTradingAlgos, BrokerID));
   CHECK(SetObjectString(env, *result, pBrokerTradingAlgos, ExchangeID));
   CHECK(SetObjectString(env, *result, pBrokerTradingAlgos, reserve1));
@@ -2963,6 +3069,7 @@ napi_status rspQueryCFMMCTradingAccountToken(napi_env env, const Message *messag
   auto pQueryCFMMCTradingAccountToken = MessageData<CThostFtdcQueryCFMMCTradingAccountTokenField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcQueryCFMMCTradingAccountTokenField"));
   CHECK(SetObjectString(env, *result, pQueryCFMMCTradingAccountToken, BrokerID));
   CHECK(SetObjectString(env, *result, pQueryCFMMCTradingAccountToken, InvestorID));
   CHECK(SetObjectString(env, *result, pQueryCFMMCTradingAccountToken, InvestUnitID));
@@ -2974,6 +3081,7 @@ napi_status rtnFromBankToFutureByBank(napi_env env, const Message *message, napi
   auto pRspTransfer = MessageData<CThostFtdcRspTransferField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcRspTransferField"));
   CHECK(SetObjectString(env, *result, pRspTransfer, TradeCode));
   CHECK(SetObjectString(env, *result, pRspTransfer, BankID));
   CHECK(SetObjectString(env, *result, pRspTransfer, BankBranchID));
@@ -3028,6 +3136,7 @@ napi_status rtnFromFutureToBankByBank(napi_env env, const Message *message, napi
   auto pRspTransfer = MessageData<CThostFtdcRspTransferField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcRspTransferField"));
   CHECK(SetObjectString(env, *result, pRspTransfer, TradeCode));
   CHECK(SetObjectString(env, *result, pRspTransfer, BankID));
   CHECK(SetObjectString(env, *result, pRspTransfer, BankBranchID));
@@ -3082,6 +3191,7 @@ napi_status rtnRepealFromBankToFutureByBank(napi_env env, const Message *message
   auto pRspRepeal = MessageData<CThostFtdcRspRepealField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcRspRepealField"));
   CHECK(SetObjectInt32(env, *result, pRspRepeal, RepealTimeInterval));
   CHECK(SetObjectInt32(env, *result, pRspRepeal, RepealedTimes));
   CHECK(SetObjectChar(env, *result, pRspRepeal, BankRepealFlag));
@@ -3143,6 +3253,7 @@ napi_status rtnRepealFromFutureToBankByBank(napi_env env, const Message *message
   auto pRspRepeal = MessageData<CThostFtdcRspRepealField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcRspRepealField"));
   CHECK(SetObjectInt32(env, *result, pRspRepeal, RepealTimeInterval));
   CHECK(SetObjectInt32(env, *result, pRspRepeal, RepealedTimes));
   CHECK(SetObjectChar(env, *result, pRspRepeal, BankRepealFlag));
@@ -3204,6 +3315,7 @@ napi_status rtnFromBankToFutureByFuture(napi_env env, const Message *message, na
   auto pRspTransfer = MessageData<CThostFtdcRspTransferField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcRspTransferField"));
   CHECK(SetObjectString(env, *result, pRspTransfer, TradeCode));
   CHECK(SetObjectString(env, *result, pRspTransfer, BankID));
   CHECK(SetObjectString(env, *result, pRspTransfer, BankBranchID));
@@ -3258,6 +3370,7 @@ napi_status rtnFromFutureToBankByFuture(napi_env env, const Message *message, na
   auto pRspTransfer = MessageData<CThostFtdcRspTransferField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcRspTransferField"));
   CHECK(SetObjectString(env, *result, pRspTransfer, TradeCode));
   CHECK(SetObjectString(env, *result, pRspTransfer, BankID));
   CHECK(SetObjectString(env, *result, pRspTransfer, BankBranchID));
@@ -3312,6 +3425,7 @@ napi_status rtnRepealFromBankToFutureByFutureManual(napi_env env, const Message 
   auto pRspRepeal = MessageData<CThostFtdcRspRepealField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcRspRepealField"));
   CHECK(SetObjectInt32(env, *result, pRspRepeal, RepealTimeInterval));
   CHECK(SetObjectInt32(env, *result, pRspRepeal, RepealedTimes));
   CHECK(SetObjectChar(env, *result, pRspRepeal, BankRepealFlag));
@@ -3373,6 +3487,7 @@ napi_status rtnRepealFromFutureToBankByFutureManual(napi_env env, const Message 
   auto pRspRepeal = MessageData<CThostFtdcRspRepealField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcRspRepealField"));
   CHECK(SetObjectInt32(env, *result, pRspRepeal, RepealTimeInterval));
   CHECK(SetObjectInt32(env, *result, pRspRepeal, RepealedTimes));
   CHECK(SetObjectChar(env, *result, pRspRepeal, BankRepealFlag));
@@ -3435,6 +3550,7 @@ napi_status rtnQueryBankBalanceByFuture(napi_env env, const Message *message, na
   auto pNotifyQueryAccount = MessageData<CThostFtdcNotifyQueryAccountField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcNotifyQueryAccountField"));
   CHECK(SetObjectString(env, *result, pNotifyQueryAccount, TradeCode));
   CHECK(SetObjectString(env, *result, pNotifyQueryAccount, BankID));
   CHECK(SetObjectString(env, *result, pNotifyQueryAccount, BankBranchID));
@@ -3484,6 +3600,7 @@ napi_status errRtnBankToFutureByFuture(napi_env env, const Message *message, nap
   auto pReqTransfer = MessageData<CThostFtdcReqTransferField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcReqTransferField"));
   CHECK(SetObjectString(env, *result, pReqTransfer, TradeCode));
   CHECK(SetObjectString(env, *result, pReqTransfer, BankID));
   CHECK(SetObjectString(env, *result, pReqTransfer, BankBranchID));
@@ -3536,6 +3653,7 @@ napi_status errRtnFutureToBankByFuture(napi_env env, const Message *message, nap
   auto pReqTransfer = MessageData<CThostFtdcReqTransferField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcReqTransferField"));
   CHECK(SetObjectString(env, *result, pReqTransfer, TradeCode));
   CHECK(SetObjectString(env, *result, pReqTransfer, BankID));
   CHECK(SetObjectString(env, *result, pReqTransfer, BankBranchID));
@@ -3588,6 +3706,7 @@ napi_status errRtnRepealBankToFutureByFutureManual(napi_env env, const Message *
   auto pReqRepeal = MessageData<CThostFtdcReqRepealField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcReqRepealField"));
   CHECK(SetObjectInt32(env, *result, pReqRepeal, RepealTimeInterval));
   CHECK(SetObjectInt32(env, *result, pReqRepeal, RepealedTimes));
   CHECK(SetObjectChar(env, *result, pReqRepeal, BankRepealFlag));
@@ -3647,6 +3766,7 @@ napi_status errRtnRepealFutureToBankByFutureManual(napi_env env, const Message *
   auto pReqRepeal = MessageData<CThostFtdcReqRepealField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcReqRepealField"));
   CHECK(SetObjectInt32(env, *result, pReqRepeal, RepealTimeInterval));
   CHECK(SetObjectInt32(env, *result, pReqRepeal, RepealedTimes));
   CHECK(SetObjectChar(env, *result, pReqRepeal, BankRepealFlag));
@@ -3706,6 +3826,7 @@ napi_status errRtnQueryBankBalanceByFuture(napi_env env, const Message *message,
   auto pReqQueryAccount = MessageData<CThostFtdcReqQueryAccountField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcReqQueryAccountField"));
   CHECK(SetObjectString(env, *result, pReqQueryAccount, TradeCode));
   CHECK(SetObjectString(env, *result, pReqQueryAccount, BankID));
   CHECK(SetObjectString(env, *result, pReqQueryAccount, BankBranchID));
@@ -3751,6 +3872,7 @@ napi_status rtnRepealFromBankToFutureByFuture(napi_env env, const Message *messa
   auto pRspRepeal = MessageData<CThostFtdcRspRepealField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcRspRepealField"));
   CHECK(SetObjectInt32(env, *result, pRspRepeal, RepealTimeInterval));
   CHECK(SetObjectInt32(env, *result, pRspRepeal, RepealedTimes));
   CHECK(SetObjectChar(env, *result, pRspRepeal, BankRepealFlag));
@@ -3812,6 +3934,7 @@ napi_status rtnRepealFromFutureToBankByFuture(napi_env env, const Message *messa
   auto pRspRepeal = MessageData<CThostFtdcRspRepealField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcRspRepealField"));
   CHECK(SetObjectInt32(env, *result, pRspRepeal, RepealTimeInterval));
   CHECK(SetObjectInt32(env, *result, pRspRepeal, RepealedTimes));
   CHECK(SetObjectChar(env, *result, pRspRepeal, BankRepealFlag));
@@ -3873,6 +3996,7 @@ napi_status rspFromBankToFutureByFuture(napi_env env, const Message *message, na
   auto pReqTransfer = MessageData<CThostFtdcReqTransferField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcReqTransferField"));
   CHECK(SetObjectString(env, *result, pReqTransfer, TradeCode));
   CHECK(SetObjectString(env, *result, pReqTransfer, BankID));
   CHECK(SetObjectString(env, *result, pReqTransfer, BankBranchID));
@@ -3925,6 +4049,7 @@ napi_status rspFromFutureToBankByFuture(napi_env env, const Message *message, na
   auto pReqTransfer = MessageData<CThostFtdcReqTransferField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcReqTransferField"));
   CHECK(SetObjectString(env, *result, pReqTransfer, TradeCode));
   CHECK(SetObjectString(env, *result, pReqTransfer, BankID));
   CHECK(SetObjectString(env, *result, pReqTransfer, BankBranchID));
@@ -3977,6 +4102,7 @@ napi_status rspQueryBankAccountMoneyByFuture(napi_env env, const Message *messag
   auto pReqQueryAccount = MessageData<CThostFtdcReqQueryAccountField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcReqQueryAccountField"));
   CHECK(SetObjectString(env, *result, pReqQueryAccount, TradeCode));
   CHECK(SetObjectString(env, *result, pReqQueryAccount, BankID));
   CHECK(SetObjectString(env, *result, pReqQueryAccount, BankBranchID));
@@ -4022,6 +4148,7 @@ napi_status rtnOpenAccountByBank(napi_env env, const Message *message, napi_valu
   auto pOpenAccount = MessageData<CThostFtdcOpenAccountField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcOpenAccountField"));
   CHECK(SetObjectString(env, *result, pOpenAccount, TradeCode));
   CHECK(SetObjectString(env, *result, pOpenAccount, BankID));
   CHECK(SetObjectString(env, *result, pOpenAccount, BankBranchID));
@@ -4077,6 +4204,7 @@ napi_status rtnCancelAccountByBank(napi_env env, const Message *message, napi_va
   auto pCancelAccount = MessageData<CThostFtdcCancelAccountField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcCancelAccountField"));
   CHECK(SetObjectString(env, *result, pCancelAccount, TradeCode));
   CHECK(SetObjectString(env, *result, pCancelAccount, BankID));
   CHECK(SetObjectString(env, *result, pCancelAccount, BankBranchID));
@@ -4132,6 +4260,7 @@ napi_status rtnChangeAccountByBank(napi_env env, const Message *message, napi_va
   auto pChangeAccount = MessageData<CThostFtdcChangeAccountField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcChangeAccountField"));
   CHECK(SetObjectString(env, *result, pChangeAccount, TradeCode));
   CHECK(SetObjectString(env, *result, pChangeAccount, BankID));
   CHECK(SetObjectString(env, *result, pChangeAccount, BankBranchID));
@@ -4183,6 +4312,7 @@ napi_status rspQryClassifiedInstrument(napi_env env, const Message *message, nap
   auto pInstrument = MessageData<CThostFtdcInstrumentField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcInstrumentField"));
   CHECK(SetObjectString(env, *result, pInstrument, reserve1));
   CHECK(SetObjectString(env, *result, pInstrument, ExchangeID));
   CHECK(SetObjectString(env, *result, pInstrument, InstrumentName));
@@ -4226,6 +4356,7 @@ napi_status rspQryCombPromotionParam(napi_env env, const Message *message, napi_
   auto pCombPromotionParam = MessageData<CThostFtdcCombPromotionParamField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcCombPromotionParamField"));
   CHECK(SetObjectString(env, *result, pCombPromotionParam, ExchangeID));
   CHECK(SetObjectString(env, *result, pCombPromotionParam, InstrumentID));
   CHECK(SetObjectString(env, *result, pCombPromotionParam, CombHedgeFlag));
@@ -4238,6 +4369,7 @@ napi_status rspQryRiskSettleInvstPosition(napi_env env, const Message *message, 
   auto pRiskSettleInvstPosition = MessageData<CThostFtdcRiskSettleInvstPositionField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcRiskSettleInvstPositionField"));
   CHECK(SetObjectString(env, *result, pRiskSettleInvstPosition, InstrumentID));
   CHECK(SetObjectString(env, *result, pRiskSettleInvstPosition, BrokerID));
   CHECK(SetObjectString(env, *result, pRiskSettleInvstPosition, InvestorID));
@@ -4295,6 +4427,7 @@ napi_status rspQryRiskSettleProductStatus(napi_env env, const Message *message, 
   auto pRiskSettleProductStatus = MessageData<CThostFtdcRiskSettleProductStatusField>(message);
 
   CHECK(napi_create_object(env, result));
+  CHECK(objectSetString(env, *result, "kind", "CThostFtdcRiskSettleProductStatusField"));
   CHECK(SetObjectString(env, *result, pRiskSettleProductStatus, ExchangeID));
   CHECK(SetObjectString(env, *result, pRiskSettleProductStatus, ProductID));
   CHECK(SetObjectChar(env, *result, pRiskSettleProductStatus, ProductStatus));
