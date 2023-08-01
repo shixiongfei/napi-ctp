@@ -267,8 +267,7 @@ napi_status rspGenUserCaptcha(napi_env env, const Message *message, napi_value *
   CHECK(napi_create_object(env, result));
   CHECK(SetObjectString(env, *result, pRspGenUserCaptcha, BrokerID));
   CHECK(SetObjectString(env, *result, pRspGenUserCaptcha, UserID));
-  CHECK(SetObjectInt32(env, *result, pRspGenUserCaptcha, CaptchaInfoLen));
-  CHECK(SetObjectString(env, *result, pRspGenUserCaptcha, CaptchaInfo));
+  CHECK(SetObjectBuffer(env, *result, pRspGenUserCaptcha, CaptchaInfo, CaptchaInfoLen));
 
   return napi_ok;
 }

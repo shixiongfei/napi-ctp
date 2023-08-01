@@ -66,6 +66,7 @@ napi_status objectSetInt64(napi_env env, napi_value object, const char *name, in
 napi_status objectSetDouble(napi_env env, napi_value object, const char *name, double number);
 napi_status objectSetChar(napi_env env, napi_value object, const char *name, char ch);
 napi_status objectSetBoolean(napi_env env, napi_value object, const char *name, bool boolean);
+napi_status objectSetBuffer(napi_env env, napi_value object, const char *name, const void *data, size_t len);
 
 napi_status objectGetString(napi_env env, napi_value object, const char *name, char *buf, size_t bufsize, size_t *length);
 napi_status objectGetInt32(napi_env env, napi_value object, const char *name, int32_t *number);
@@ -95,6 +96,9 @@ napi_status objectGetBoolean(napi_env env, napi_value object, const char *name, 
 
 #define SetObjectBoolean(env, object, record, name)                            \
   objectSetBoolean(env, object, #name, record->name)
+
+#define SetObjectBuffer(env, object, record, name, size)                       \
+  objectSetBuffer(env, object, #name, record->name, record->size)
 
 #define GetObjectString(env, object, record, name)                             \
   objectGetString(env, object, #name, record.name, sizeof(record.name), nullptr)

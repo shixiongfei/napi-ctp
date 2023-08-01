@@ -256,6 +256,13 @@ napi_status objectSetBoolean(napi_env env, napi_value object, const char *name, 
   return napi_set_named_property(env, object, name, value);
 }
 
+napi_status objectSetBuffer(napi_env env, napi_value object, const char *name, const void *data, size_t len) {
+  napi_value value;
+
+  CHECK(napi_create_buffer_copy(env, len, data, nullptr, &value));
+  return napi_set_named_property(env, object, name, value);
+}
+
 napi_status objectGetString(napi_env env, napi_value object, const char *name, char *buf, size_t bufsize, size_t *length) {
   napi_value value;
   bool hasProperty;

@@ -1,6 +1,6 @@
 {
   "name": "napi-ctp",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Node API for CTP",
   "main": "index.js",
   "types": "index.d.ts",
@@ -34,6 +34,7 @@
   },
   "homepage": "https://github.com/shixiongfei/napi-ctp#readme",
   "devDependencies": {
+    "@types/node": "^20.4.5",
     "node-gyp": "^9.3.0",
     "prebuildify": "^5.0.1",
     "typescript": "^5.1.6"
