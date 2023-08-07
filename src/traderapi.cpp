@@ -1834,8 +1834,10 @@ static napi_value traderNew(napi_env env, napi_callback_info info) {
 
   CHECK(napi_get_new_target(env, info, &target));
 
-  if (!target)
-    return nullptr;
+  if (!target) {
+    CHECK(napi_get_undefined(env, &target));
+    return target;
+  }
 
   CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
 
@@ -1848,7 +1850,7 @@ static napi_value traderNew(napi_env env, napi_callback_info info) {
 
   if (!trader) {
     napi_throw_error(env, nullptr, "Trader is out of memory");
-    return nullptr;
+    return jsthis;
   }
 
   trader->env = env;
@@ -1857,14 +1859,14 @@ static napi_value traderNew(napi_env env, napi_callback_info info) {
   if (!trader->spi) {
     delete trader;
     napi_throw_error(env, nullptr, "Trader is out of memory");
-    return nullptr;
+    return jsthis;
   }
 
   if (0 != uv_thread_create(&trader->thread, processThread, trader)) {
     delete trader->spi;
     delete trader;
     napi_throw_error(env, nullptr, "Trader can not create thread");
-    return nullptr;
+    return jsthis;
   }
 
   trader->api = CThostFtdcTraderApi::CreateFtdcTraderApi(flowPath);
@@ -1875,7 +1877,7 @@ static napi_value traderNew(napi_env env, napi_callback_info info) {
     delete trader->spi;
     delete trader;
     napi_throw_error(env, nullptr, "Trader is out of memory");
-    return nullptr;
+    return jsthis;
   }
 
   trader->api->RegisterSpi(trader->spi);

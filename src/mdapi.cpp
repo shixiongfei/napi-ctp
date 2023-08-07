@@ -81,8 +81,14 @@ static napi_value callInstrumentIdsFunc(napi_env env, napi_callback_info info, c
     CHECK(napi_get_value_string_utf8(env, element, nullptr, 0, &size));
 
     instrumentIds[i] = (char *)malloc(size + 1);
-    memset(instrumentIds[i], 0, size + 1);
 
+    if (!instrumentIds[i]) {
+      napi_throw_error(env, nullptr, "Out of memory");
+      CHECK(napi_get_undefined(env, &retval));
+      return retval;
+    }
+
+    memset(instrumentIds[i], 0, size + 1);
     CHECK(napi_get_value_string_utf8(env, element, instrumentIds[i], size + 1, nullptr));
   }
 
@@ -283,8 +289,10 @@ static napi_value marketDataNew(napi_env env, napi_callback_info info) {
 
   CHECK(napi_get_new_target(env, info, &target));
 
-  if (!target)
-    return nullptr;
+  if (!target) {
+    CHECK(napi_get_undefined(env, &target));
+    return target;
+  }
 
   CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
 
@@ -297,7 +305,7 @@ static napi_value marketDataNew(napi_env env, napi_callback_info info) {
 
   if (!marketData) {
     napi_throw_error(env, nullptr, "Market data is out of memory");
-    return nullptr;
+    return jsthis;
   }
 
   marketData->env = env;
@@ -306,14 +314,14 @@ static napi_value marketDataNew(napi_env env, napi_callback_info info) {
   if (!marketData->spi) {
     delete marketData;
     napi_throw_error(env, nullptr, "Market data is out of memory");
-    return nullptr;
+    return jsthis;
   }
 
   if (0 != uv_thread_create(&marketData->thread, processThread, marketData)) {
     delete marketData->spi;
     delete marketData;
     napi_throw_error(env, nullptr, "Market data can not create thread");
-    return nullptr;
+    return jsthis;
   }
 
   marketData->api = CThostFtdcMdApi::CreateFtdcMdApi(flowMdPath);
@@ -324,7 +332,7 @@ static napi_value marketDataNew(napi_env env, napi_callback_info info) {
     delete marketData->spi;
     delete marketData;
     napi_throw_error(env, nullptr, "Market data is out of memory");
-    return nullptr;
+    return jsthis;
   }
 
   marketData->api->RegisterSpi(marketData->spi);

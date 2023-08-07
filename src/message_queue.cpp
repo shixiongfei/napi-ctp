@@ -23,6 +23,7 @@ MessageQueue::~MessageQueue() {
 
 void MessageQueue::push(short event, uintptr_t data, int requestId, short isLast) {
   Message *message = (Message *)malloc(sizeof(Message));
+  assert(message != nullptr);
 
   message->event = event;
   message->isLast = isLast;
