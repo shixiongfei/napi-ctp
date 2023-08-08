@@ -67,7 +67,7 @@ int MessageQueue::pop(Message **message, unsigned int millisec) {
   return QUEUE_SUCCESS;
 }
 
-void done(Message *message, bool isFreeData) {
+void MessageQueue::done(Message *message, bool isFreeData) {
   if (isFreeData)
     freeData(message->data);
 
