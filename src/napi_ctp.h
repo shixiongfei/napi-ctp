@@ -131,6 +131,10 @@ template <typename T> static inline uintptr_t copyData(T *data) {
   return (uintptr_t)p;
 }
 
+static inline void freeData(uintptr_t data) {
+  free((void *)data);
+}
+
 template <typename T> static inline T *MessageData(const Message *message) {
   return (T *)message->data;
 }

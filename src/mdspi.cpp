@@ -57,10 +57,7 @@ int MdSpi::poll(Message **message, unsigned int millisec) {
 }
 
 void MdSpi::done(Message *message) {
-  if (isFreeable(message->event))
-    free((void *)message->data);
-
-  free(message);
+  _msgq.done(message, isFreeable(message->event));
 }
 
 void MdSpi::quit(int nCode) {

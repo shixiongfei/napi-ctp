@@ -173,10 +173,7 @@ int TraderSpi::poll(Message **message, unsigned int millisec) {
 }
 
 void TraderSpi::done(Message *message) {
-  if (isFreeable(message->event))
-    free((void *)message->data);
-
-  free(message);
+  _msgq.done(message, isFreeable(message->event));
 }
 
 void TraderSpi::quit(int nCode) {

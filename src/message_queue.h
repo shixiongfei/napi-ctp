@@ -25,6 +25,7 @@ public:
 
   void push(short event, uintptr_t data, int requestId, short isLast);
   int pop(Message **message, unsigned int millisec);
+  void done(Message *message, bool isFreeData);
 
 private:
   uv_cond_t _cond;
