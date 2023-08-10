@@ -1,6 +1,6 @@
 {
   "name": "napi-ctp",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Node API for CTP",
   "main": "index.js",
   "types": "index.d.ts",
@@ -10,12 +10,15 @@
     "index.js",
     "index.d.ts",
     "types.ts",
+    "types.js",
+    "types.d.ts",
     "binding.gyp",
     "tsconfig.json"
   ],
   "scripts": {
+    "gen-types": "tsc",
     "build": "node-gyp-build && tsc",
-    "install": "node-gyp-build && tsc",
+    "install": "node-gyp-build",
     "prebuild": "prebuildify --napi",
     "test": "node test.js"
   },
