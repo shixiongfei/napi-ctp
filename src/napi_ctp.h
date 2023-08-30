@@ -49,7 +49,8 @@ typedef struct Message {
   { name, 0, method, 0, 0, 0, napi_default, 0 }
 #define DECLARE_NAPI_METHOD(method) DECLARE_NAPI_METHOD_(#method, method)
 
-int sequenceId();
+int nextSequenceId();
+int currentSequenceId();
 
 Constructors *getConstructors(napi_env env);
 napi_status defineClass(napi_env env, const char *name, napi_callback constructor, size_t propertyCount, const napi_property_descriptor *properties, napi_ref *result);

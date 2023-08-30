@@ -164,7 +164,7 @@ static napi_value reqUserLogin(napi_env env, napi_callback_info info) {
     CHECK(GetObjectInt32(env, object, req, ClientIPPort));
     CHECK(GetObjectString(env, object, req, ClientIPAddress));
 
-    return marketData->api->ReqUserLogin(&req, sequenceId());
+    return marketData->api->ReqUserLogin(&req, nextSequenceId());
   });
 }
 
@@ -177,7 +177,7 @@ static napi_value reqUserLogout(napi_env env, napi_callback_info info) {
     CHECK(GetObjectString(env, object, req, BrokerID));
     CHECK(GetObjectString(env, object, req, UserID));
 
-    return marketData->api->ReqUserLogout(&req, sequenceId());
+    return marketData->api->ReqUserLogout(&req, nextSequenceId());
   });
 }
 

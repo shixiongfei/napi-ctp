@@ -649,3 +649,9 @@ export declare function createTrader(
   flowPath: string,
   frontAddr: string
 ): Trader;
+
+/**
+ * 获取最后请求序列ID
+ * @returns 序列ID
+ */
+export declare function getLastSequenceId(): number;

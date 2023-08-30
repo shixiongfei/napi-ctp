@@ -45,10 +45,17 @@ static napi_status defineConstructors(napi_env env) {
   return napi_set_instance_data(env, constructors, destructor, nullptr);
 }
 
+static napi_value getLastSequenceId(napi_env env, napi_callback_info info) {
+  napi_value value;
+  CHECK(napi_create_int32(env, currentSequenceId(), &value));
+  return value;
+}
+
 static napi_status defineMethods(napi_env env, napi_value exports) {
   napi_property_descriptor props[] = {
       DECLARE_NAPI_METHOD(createMarketData),
       DECLARE_NAPI_METHOD(createTrader),
+      DECLARE_NAPI_METHOD(getLastSequenceId),
   };
   return napi_define_properties(env, exports, arraysize(props), props);
 }
