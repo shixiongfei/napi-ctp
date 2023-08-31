@@ -24,6 +24,9 @@ napi_status getMessageValue(napi_env env, const MessageFuncs &messageFuncs, cons
 napi_status getMessageOptions(napi_env env, const Message *message, napi_value *result) {
   CHECK(napi_create_object(env, result));
 
+  if (message->requestId != 0)
+    CHECK(SetObjectInt32(env, *result, message, requestId));
+
   if (message->isLast != Undefined)
     CHECK(SetObjectBoolean(env, *result, message, isLast));
 

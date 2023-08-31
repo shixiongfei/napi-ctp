@@ -6280,6 +6280,7 @@ export type CallbackMessage =
   | RiskSettleProductStatusField;
 
 export type CallbackOptions = {
+  requestId?: number;
   isLast?: boolean;
 };
 

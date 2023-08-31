@@ -28,4 +28,4 @@ console.log(md.getApiVersion());
 console.log(trader.getTradingDay());
 console.log(md.getTradingDay());
 
-console.log(ctp.getLastSequenceId());
+console.log(ctp.getLastRequestId());
