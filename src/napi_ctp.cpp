@@ -19,6 +19,16 @@
 #include <iconv.h>
 #endif
 
+void checkStatus(napi_env env, napi_status status, const char *file, int line) {
+  if (status == napi_ok)
+    return;
+
+  napi_value exception;
+
+  assert(napi_get_and_clear_last_exception(env, &exception) == napi_ok);
+  assert(napi_fatal_exception(env, exception) == napi_ok);
+}
+
 #ifdef _MSC_VER
 #define atom_incr(p) InterlockedIncrement((LONG volatile *)(p))
 #define atom_cas(p, o, n) ((o) == InterlockedCompareExchange((p), (n), (o)))

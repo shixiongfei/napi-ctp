@@ -192,6 +192,7 @@ static bool processMessage(MarketData *marketData, const Message *message) {
   auto iter = marketData->tsfns.find(eventName);
 
   if (iter != marketData->tsfns.end()) {
+    napi_env env = marketData->env;
     napi_threadsafe_function tsfn = iter->second;
     CHECK(napi_call_threadsafe_function(tsfn, (void *)message, napi_tsfn_blocking));
   }

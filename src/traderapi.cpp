@@ -1737,6 +1737,7 @@ static bool processMessage(Trader *trader, const Message *message) {
   auto iter = trader->tsfns.find(eventName);
 
   if (iter != trader->tsfns.end()) {
+    napi_env env = trader->env;
     napi_threadsafe_function tsfn = iter->second;
     CHECK(napi_call_threadsafe_function(tsfn, (void *)message, napi_tsfn_blocking));
   }
