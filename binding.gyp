@@ -41,7 +41,7 @@
           ],
           "copies": [
             {
-              "destination": "<(module_root_dir)/build/Release/",
+              "destination": "<(PRODUCT_DIR)",
               "files": [
                 "<(module_root_dir)/tradeapi/windows/thostmduserapi_se.dll",
                 "<(module_root_dir)/tradeapi/windows/thosttraderapi_se.dll"

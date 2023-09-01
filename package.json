@@ -17,7 +17,8 @@
   ],
   "scripts": {
     "gen-types": "tsc",
-    "build": "node-gyp-build && tsc",
+    "build": "node-gyp clean && node-gyp-build && tsc",
+    "build:debug": "node-gyp clean && node-gyp configure && node-gyp build --debug && tsc",
     "install": "node-gyp-build",
     "prebuild": "prebuildify --napi",
     "test": "node test.js"
