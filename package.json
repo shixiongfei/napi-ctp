@@ -1,6 +1,6 @@
 {
   "name": "napi-ctp",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Node API for CTP",
   "main": "index.js",
   "types": "index.d.ts",
