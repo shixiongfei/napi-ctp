@@ -123,6 +123,9 @@ napi_status objectGetBoolean(napi_env env, napi_value object, const char *name, 
   objectGetBoolean(env, object, #name, &record.name)
 
 template <typename T> static inline uintptr_t copyData(T *data) {
+  if (!data)
+    return 0;
+
   T *p = (T *)malloc(sizeof(T));
 
   if (!p)
