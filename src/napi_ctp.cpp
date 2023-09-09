@@ -27,6 +27,8 @@ void checkStatus(napi_env env, napi_status status, const char *file, int line) {
 
   assert(napi_get_and_clear_last_exception(env, &exception) == napi_ok);
   assert(napi_fatal_exception(env, exception) == napi_ok);
+
+  fprintf(stderr, "Node-API check status = %d, file: %s, line: %d\n", status, file, line);
 }
 
 #ifdef _MSC_VER
