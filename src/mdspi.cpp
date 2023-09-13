@@ -28,7 +28,6 @@ static const std::map<int, std::string> eventNames = {
   {EM_RSPUNSUBFORQUOTERSP,        "rsp-unsub-for-quote"},
   {EM_RTNDEPTHMARKETDATA,         "rtn-depth-market-data"},
   {EM_RTNFORQUOTERSP,             "rtn-for-quote"},
-
 };
 
 static bool isFreeable(int event) {

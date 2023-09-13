@@ -691,7 +691,6 @@ void TraderSpi::OnRspQryAccountregister(CThostFtdcAccountregisterField *pAccount
   _msgq.push(ET_RSPQRYACCOUNTREGISTER, copyData(pAccountregister), nRequestID, bIsLast);
 }
 
-
 void TraderSpi::OnRspError(CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (nRequestID != 0)
     _msgq.push(ET_RSPERROR, copyData(pRspInfo), nRequestID, bIsLast);
