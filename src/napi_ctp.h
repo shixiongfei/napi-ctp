@@ -52,6 +52,8 @@ void checkStatus(napi_env env, napi_status status, const char *file, int line);
 int nextSequenceId();
 int currentSequenceId();
 
+bool isUndefined(napi_env env, napi_value value);
+
 Constructors *getConstructors(napi_env env);
 napi_status defineClass(napi_env env, const char *name, napi_callback constructor, size_t propertyCount, const napi_property_descriptor *properties, napi_ref *result);
 napi_value createInstance(napi_env env, napi_callback_info info, napi_ref constructor, size_t argc);

@@ -52,15 +52,12 @@ static napi_value callRequestFunc(napi_env env, napi_callback_info info, const s
   size_t argc = 1;
   int result;
   napi_value object, jsthis, retval;
-  napi_valuetype valuetype;
   Trader *trader;
 
   CHECK(napi_get_cb_info(env, info, &argc, &object, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&trader));
 
-  CHECK(napi_typeof(env, object, &valuetype));
-
-  if (valuetype == napi_undefined)
+  if (isUndefined(env, object))
     CHECK(napi_create_object(env, &object));
 
   CHECK(checkIsObject(env, object));

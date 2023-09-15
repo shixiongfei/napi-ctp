@@ -56,6 +56,13 @@ int currentSequenceId() {
   return (int)sequenceId;
 }
 
+bool isUndefined(napi_env env, napi_value value) {
+  napi_valuetype valuetype;
+
+  CHECK(napi_typeof(env, value, &valuetype));
+  return valuetype == napi_undefined;
+}
+
 Constructors *getConstructors(napi_env env) {
   Constructors *constructors;
 
@@ -300,6 +307,10 @@ napi_status objectGetString(napi_env env, napi_value object, const char *name, c
     return napi_ok;
 
   CHECK(napi_get_named_property(env, object, name, &value));
+
+  if (isUndefined(env, value))
+    return napi_ok;
+
   return napi_get_value_string_utf8(env, value, buf, bufsize, length);
 }
 
@@ -313,6 +324,10 @@ napi_status objectGetInt32(napi_env env, napi_value object, const char *name, in
     return napi_ok;
 
   CHECK(napi_get_named_property(env, object, name, &value));
+
+  if (isUndefined(env, value))
+    return napi_ok;
+
   return napi_get_value_int32(env, value, number);
 }
 
@@ -326,6 +341,10 @@ napi_status objectGetUint32(napi_env env, napi_value object, const char *name, u
     return napi_ok;
 
   CHECK(napi_get_named_property(env, object, name, &value));
+
+  if (isUndefined(env, value))
+    return napi_ok;
+
   return napi_get_value_uint32(env, value, number);
 }
 
@@ -339,6 +358,10 @@ napi_status objectGetInt64(napi_env env, napi_value object, const char *name, in
     return napi_ok;
 
   CHECK(napi_get_named_property(env, object, name, &value));
+
+  if (isUndefined(env, value))
+    return napi_ok;
+
   return napi_get_value_int64(env, value, number);
 }
 
@@ -352,6 +375,10 @@ napi_status objectGetDouble(napi_env env, napi_value object, const char *name, d
     return napi_ok;
 
   CHECK(napi_get_named_property(env, object, name, &value));
+
+  if (isUndefined(env, value))
+    return napi_ok;
+
   return napi_get_value_double(env, value, number);
 }
 
@@ -377,5 +404,9 @@ napi_status objectGetBoolean(napi_env env, napi_value object, const char *name, 
     return napi_ok;
 
   CHECK(napi_get_named_property(env, object, name, &value));
+
+  if (isUndefined(env, value))
+    return napi_ok;
+
   return napi_get_value_bool(env, value, boolean);
 }
