@@ -63,7 +63,7 @@ static int gettimeofday(struct timeval *tv, struct timezone *tz) {
 double hrtime(long *sec, long *usec) {
   struct timeval time;
 
-  gettimeofday(&time, NULL);
+  gettimeofday(&time, nullptr);
 
   if (sec)
     *sec = time.tv_sec;
@@ -286,7 +286,7 @@ static char *toUTF8(const char *codepage, const char *mbstr, int len, char *utf8
   memset(wcstr, 0, (len + 1) * sizeof(wchar_t));
 
   wlen = MultiByteToWideChar(CP_ACP, 0, mbstr, len, wcstr, len + 1);
-  WideCharToMultiByte(CP_UTF8, 0, wcstr, wlen, utf8str, len * sizeof(wchar_t), NULL, NULL);
+  WideCharToMultiByte(CP_UTF8, 0, wcstr, wlen, utf8str, len * sizeof(wchar_t), nullptr, nullptr);
 
   return utf8str;
 #endif
