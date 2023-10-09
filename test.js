@@ -17,10 +17,18 @@ if (!fs.existsSync("./flow/")) {
 }
 const trader = ctp.createTrader("./flow/", "tcp://180.168.146.187:10202");
 
+trader.on(ctp.TraderEvent.Quit, (...args) => {
+  console.log("Trader Quit:", ...args);
+});
+
 if (!fs.existsSync("./flowMd/")) {
   fs.mkdirSync("./flowMd/", { recursive: true });
 }
 const md = ctp.createMarketData("./flowMd/", "tcp://180.168.146.187:10212");
+
+md.on(ctp.MarketDataEvent.Quit, (...args) => {
+  console.log("Market Data Quit:", ...args);
+});
 
 console.log(trader.getApiVersion());
 console.log(md.getApiVersion());

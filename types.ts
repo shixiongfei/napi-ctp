@@ -6282,6 +6282,7 @@ export type CallbackMessage =
 export type CallbackOptions = {
   requestId?: number;
   isLast?: boolean;
+  timestamp: number;
 };
 
 /** 消息事件回调接口 */
