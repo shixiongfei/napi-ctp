@@ -14,10 +14,64 @@
 #include <stdio.h>
 
 #ifdef _WIN32
+#include <WinSock2.h>
 #include <Windows.h>
+#include <time.h>
 #else
 #include <iconv.h>
+#include <sys/time.h>
 #endif
+
+#ifdef _WIN32
+struct timezone {
+  int tz_minuteswest; /* minutes W of Greenwich */
+  int tz_dsttime;     /* type of dst correction */
+};
+
+static int gettimeofday(struct timeval *tv, struct timezone *tz) {
+  static const uint64_t epoch = 116444736000000000ULL;
+  static int tzflag = 0;
+  FILETIME ft;
+  ULARGE_INTEGER ui;
+  uint64_t tmres;
+
+  GetSystemTimeAsFileTime(&ft);
+
+  ui.u.LowPart = ft.dwLowDateTime;
+  ui.u.HighPart = ft.dwHighDateTime;
+
+  /* convert into microseconds */
+  tmres = (ui.QuadPart - epoch) / 10;
+
+  tv->tv_sec = (long)(tmres / 1000000);
+  tv->tv_usec = (long)(tmres % 1000000);
+
+  if (tz) {
+    if (!tzflag) {
+      _tzset();
+      tzflag = 1;
+    }
+
+    tz->tz_minuteswest = _timezone / 60;
+    tz->tz_dsttime = _daylight;
+  }
+
+  return 0;
+}
+#endif
+
+double hrtime(long *sec, long *usec) {
+  struct timeval time;
+
+  gettimeofday(&time, NULL);
+
+  if (sec)
+    *sec = time.tv_sec;
+  if (usec)
+    *usec = time.tv_usec;
+
+  return time.tv_sec + time.tv_usec / 1000000.0;
+}
 
 void checkStatus(napi_env env, napi_status status, const char *file, int line) {
   if (status == napi_ok)

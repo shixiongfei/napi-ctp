@@ -42,6 +42,8 @@ typedef struct Message {
 
 #define arraysize(a) ((int)(sizeof(a) / sizeof(*a)))
 
+double hrtime(long *sec, long *usec);
+
 void checkStatus(napi_env env, napi_status status, const char *file, int line);
 #define CHECK(__expression__) checkStatus(env, __expression__, __FILE__, __LINE__)
 
