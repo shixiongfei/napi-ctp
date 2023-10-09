@@ -16,6 +16,7 @@
 #include "ThostFtdcTraderApi.h"
 #include <assert.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <node_api.h>
 
 #ifdef _MSC_VER
@@ -37,6 +38,7 @@ typedef struct Message {
   short event;
   short isLast;
   int requestId;
+  int64_t timestamp;
   uintptr_t data;
 } Message;
 

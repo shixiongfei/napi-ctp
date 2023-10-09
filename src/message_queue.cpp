@@ -28,6 +28,7 @@ void MessageQueue::push(short event, uintptr_t data, int requestId, short isLast
   message->event = event;
   message->isLast = isLast;
   message->requestId = requestId;
+  message->timestamp = (int64_t)(hrtime(nullptr, nullptr) * 1000.0);
   message->data = data;
 
   uv_mutex_lock(&_mutex);

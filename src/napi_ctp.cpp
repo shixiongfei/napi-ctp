@@ -67,6 +67,7 @@ double hrtime(long *sec, long *usec) {
 
   if (sec)
     *sec = time.tv_sec;
+
   if (usec)
     *usec = time.tv_usec;
 
