@@ -75,6 +75,11 @@ export declare class MarketData {
    * @param func 回调函数
    */
   on(event: MarketDataEvent, func: CallbackFunction): MarketData;
+
+  /**
+   * 关闭行情对象
+   */
+  close(): void;
 }
 
 /** 交易对象 */
@@ -626,6 +631,11 @@ export declare class Trader {
    * @param func 回调函数
    */
   on(event: TraderEvent, func: CallbackFunction): Trader;
+
+  /**
+   * 关闭交易对象
+   */
+  close(): void;
 }
 
 /**
