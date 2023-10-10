@@ -33,6 +33,14 @@ static napi_value getApiVersion(napi_env env, napi_callback_info info) {
 
   CHECK(napi_get_cb_info(env, info, nullptr, nullptr, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&marketData));
+
+  if (!marketData->api) {
+    napi_value undefined;
+    napi_throw_error(env, nullptr, "MdApi is closed");
+    CHECK(napi_get_undefined(env, &undefined));
+    return undefined;
+  }
+
   CHECK(napi_create_string_utf8(env, marketData->api->GetApiVersion(), NAPI_AUTO_LENGTH, &version));
 
   return version;
@@ -44,6 +52,14 @@ static napi_value getTradingDay(napi_env env, napi_callback_info info) {
 
   CHECK(napi_get_cb_info(env, info, nullptr, nullptr, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&marketData));
+
+  if (!marketData->api) {
+    napi_value undefined;
+    napi_throw_error(env, nullptr, "MdApi is closed");
+    CHECK(napi_get_undefined(env, &undefined));
+    return undefined;
+  }
+
   CHECK(napi_create_string_utf8(env, marketData->api->GetTradingDay(), NAPI_AUTO_LENGTH, &tradingDay));
 
   return tradingDay;
@@ -58,6 +74,12 @@ static napi_value callInstrumentIdsFunc(napi_env env, napi_callback_info info, c
 
   CHECK(napi_get_cb_info(env, info, &argc, &argv, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&marketData));
+
+  if (!marketData->api) {
+    napi_throw_error(env, nullptr, "MdApi is closed");
+    CHECK(napi_get_undefined(env, &retval));
+    return retval;
+  }
 
   CHECK(checkIsStringArray(env, argv));
   CHECK(napi_get_array_length(env, argv, &length));
@@ -130,6 +152,12 @@ static napi_value callRequestFunc(napi_env env, napi_callback_info info, const s
 
   CHECK(napi_get_cb_info(env, info, &argc, &object, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&marketData));
+
+  if (!marketData->api) {
+    napi_throw_error(env, nullptr, "MdApi is closed");
+    CHECK(napi_get_undefined(env, &retval));
+    return retval;
+  }
 
   if (isUndefined(env, object))
     CHECK(napi_create_object(env, &object));
@@ -269,6 +297,22 @@ static napi_value on(napi_env env, napi_callback_info info) {
   return jsthis;
 }
 
+static napi_value close(napi_env env, napi_callback_info info) {
+  napi_value jsthis, undefined;
+  MarketData *marketData;
+
+  CHECK(napi_get_cb_info(env, info, nullptr, nullptr, &jsthis, nullptr));
+  CHECK(napi_unwrap(env, jsthis, (void **)&marketData));
+
+  if (marketData->api) {
+    marketData->api->Release();
+    marketData->api = nullptr;
+  }
+
+  CHECK(napi_get_undefined(env, &undefined));
+  return undefined;
+}
+
 static void marketDataDestructor(napi_env env, void *data, void *hint) {
   MarketData *marketData = (MarketData *)data;
 
@@ -359,6 +403,7 @@ napi_status defineMarketData(napi_env env, napi_ref *constructor) {
       DECLARE_NAPI_METHOD(reqUserLogin),
       DECLARE_NAPI_METHOD(reqUserLogout),
       DECLARE_NAPI_METHOD(on),
+      DECLARE_NAPI_METHOD(close),
   };
   return defineClass(env, "MarketData", marketDataNew, arraysize(props), props, constructor);
 }
