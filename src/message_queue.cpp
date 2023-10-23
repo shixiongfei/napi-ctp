@@ -10,6 +10,7 @@
  */
 
 #include "message_queue.h"
+#include "guard.h"
 
 MessageQueue::MessageQueue() : _waiting(0) {
   uv_cond_init(&_cond);
@@ -31,14 +32,14 @@ void MessageQueue::push(short event, uintptr_t data, int requestId, short isLast
   message->timestamp = (int64_t)(hrtime(nullptr, nullptr) * 1000.0);
   message->data = data;
 
-  uv_mutex_lock(&_mutex);
+  {
+    AutoLock(_mutex);
 
-  _queue.push(message);
+    _queue.push(message);
 
-  if (_waiting > 0)
-    uv_cond_signal(&_cond);
-
-  uv_mutex_unlock(&_mutex);
+    if (_waiting > 0)
+      uv_cond_signal(&_cond);
+  }
 }
 
 int MessageQueue::pop(Message **message, unsigned int millisec) {
@@ -47,23 +48,21 @@ int MessageQueue::pop(Message **message, unsigned int millisec) {
   if (!message)
     return QUEUE_FAILED;
 
-  uv_mutex_lock(&_mutex);
+  {
+    AutoLock(_mutex);
 
-  while (_queue.empty()) {
-    _waiting += 1;
-    ret = uv_cond_timedwait(&_cond, &_mutex, (uint64_t)millisec * 1000 * 1000);
-    _waiting -= 1;
+    while (_queue.empty()) {
+      _waiting += 1;
+      ret = uv_cond_timedwait(&_cond, &_mutex, (uint64_t)millisec * 1000 * 1000);
+      _waiting -= 1;
 
-    if (ret != 0) {
-      uv_mutex_unlock(&_mutex);
-      return ret == UV_ETIMEDOUT ? QUEUE_TIMEOUT : QUEUE_FAILED;
+      if (ret != 0)
+        return ret == UV_ETIMEDOUT ? QUEUE_TIMEOUT : QUEUE_FAILED;
     }
+
+    *message = _queue.front();
+    _queue.pop();
   }
-
-  *message = _queue.front();
-  _queue.pop();
-
-  uv_mutex_unlock(&_mutex);
 
   return QUEUE_SUCCESS;
 }
