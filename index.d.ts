@@ -61,13 +61,28 @@ export declare class MarketData {
    * 用户登录请求
    * @param req 用户登陆信息
    */
-  reqUserLogin(req?: object): number;
+  reqUserLogin(
+    req?: Partial<{
+      TradingDay: string;
+      BrokerID: string;
+      UserID: string;
+      Password: string;
+      UserProductInfo: string;
+      InterfaceProductInfo: string;
+      ProtocolInfo: string;
+      MacAddress: string;
+      OneTimePassword: string;
+      LoginRemark: string;
+      ClientIPPort: number;
+      ClientIPAddress: string;
+    }>
+  ): number;
 
   /**
    * 用户登出请求
    * @param req 用户登出信息
    */
-  reqUserLogout(req?: object): number;
+  reqUserLogout(req?: Partial<{ BrokerID: string; UserID: string }>): number;
 
   /**
    * 注册行情消息回调函数
