@@ -73,6 +73,7 @@ napi_status rspUserLogin(napi_env env, const Message *message, napi_value *resul
   CHECK(SetObjectString(env, *result, pRspUserLogin, FFEXTime));
   CHECK(SetObjectString(env, *result, pRspUserLogin, INETime));
   CHECK(SetObjectString(env, *result, pRspUserLogin, SysVersion));
+  CHECK(SetObjectString(env, *result, pRspUserLogin, GFEXTime));
 
   return napi_ok;
 }

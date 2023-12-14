@@ -10,7 +10,19 @@
  */
 
 export * from "./types";
-import { MarketDataEvent, TraderEvent, CallbackFunction } from "./types";
+import {
+  MarketDataEvent,
+  TraderEvent,
+  CallbackFunction,
+  DirectionType,
+  OrderPriceType,
+  TimeConditionType,
+  VolumeConditionType,
+  ContingentConditionType,
+  ForceCloseReasonType,
+  UserTypeType,
+  ParkedOrderStatusType,
+} from "./types";
 
 /** 行情对象 */
 export declare class MarketData {
@@ -63,17 +75,29 @@ export declare class MarketData {
    */
   reqUserLogin(
     req?: Partial<{
+      /** 交易日 */
       TradingDay: string;
+      /** 经纪公司代码 */
       BrokerID: string;
+      /** 用户代码 */
       UserID: string;
+      /** 密码 */
       Password: string;
+      /** 用户端产品信息 */
       UserProductInfo: string;
+      /** 接口端产品信息 */
       InterfaceProductInfo: string;
+      /** 协议信息 */
       ProtocolInfo: string;
+      /** Mac地址 */
       MacAddress: string;
+      /** 动态密码 */
       OneTimePassword: string;
+      /** 登录备注 */
       LoginRemark: string;
+      /** 终端IP端口 */
       ClientIPPort: number;
+      /** 终端IP地址 */
       ClientIPAddress: string;
     }>
   ): number;
@@ -82,7 +106,14 @@ export declare class MarketData {
    * 用户登出请求
    * @param req 用户登出信息
    */
-  reqUserLogout(req?: Partial<{ BrokerID: string; UserID: string }>): number;
+  reqUserLogout(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 用户代码 */
+      UserID: string;
+    }>
+  ): number;
 
   /**
    * 注册行情消息回调函数
@@ -122,79 +153,394 @@ export declare class Trader {
    * 客户端认证请求
    * @param req 客户端认证信息
    */
-  reqAuthenticate(req?: object): number;
+  reqAuthenticate(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 用户代码 */
+      UserID: string;
+      /** 用户端产品信息 */
+      UserProductInfo: string;
+      /** 认证码 */
+      AuthCode: string;
+      /** App代码 */
+      AppID: string;
+    }>
+  ): number;
 
   /**
    * 用户登录请求
    * @param req 用户登陆信息
    */
-  reqUserLogin(req?: object): number;
+  reqUserLogin(
+    req?: Partial<{
+      /** 交易日 */
+      TradingDay: string;
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 用户代码 */
+      UserID: string;
+      /** 密码 */
+      Password: string;
+      /** 用户端产品信息 */
+      UserProductInfo: string;
+      /** 接口端产品信息 */
+      InterfaceProductInfo: string;
+      /** 协议信息 */
+      ProtocolInfo: string;
+      /** Mac地址 */
+      MacAddress: string;
+      /** 动态密码 */
+      OneTimePassword: string;
+      /** 登录备注 */
+      LoginRemark: string;
+      /** 终端IP端口 */
+      ClientIPPort: number;
+      /** 终端IP地址 */
+      ClientIPAddress: string;
+    }>
+  ): number;
 
   /**
    * 用户登出请求
    * @param req 用户登出信息
    */
-  reqUserLogout(req?: object): number;
+  reqUserLogout(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 用户代码 */
+      UserID: string;
+    }>
+  ): number;
 
   /**
    * 用户口令更新请求
    * @param req 用户口令信息
    */
-  reqUserPasswordUpdate(req?: object): number;
+  reqUserPasswordUpdate(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 用户代码 */
+      UserID: string;
+      /** 原来的口令 */
+      OldPassword: string;
+      /** 新的口令 */
+      NewPassword: string;
+    }>
+  ): number;
 
   /**
    * 资金账户口令更新请求
    * @param req 用户口令信息
    */
-  reqTradingAccountPasswordUpdate(req?: object): number;
+  reqTradingAccountPasswordUpdate(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者帐号 */
+      AccountID: string;
+      /** 原来的口令 */
+      OldPassword: string;
+      /** 新的口令 */
+      NewPassword: string;
+      /** 币种代码 */
+      CurrencyID: string;
+    }>
+  ): number;
 
   /**
    * 查询用户当前支持的认证模式
    * @param req 用户信息
    */
-  reqUserAuthMethod(req?: object): number;
+  reqUserAuthMethod(
+    req?: Partial<{
+      /** 交易日 */
+      TradingDay: string;
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 用户代码 */
+      UserID: string;
+    }>
+  ): number;
 
   /**
    * 用户发出获取图形验证码请求
    * @param req 用户信息
    */
-  reqGenUserCaptcha(req?: object): number;
+  reqGenUserCaptcha(
+    req?: Partial<{
+      /** 交易日 */
+      TradingDay: string;
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 用户代码 */
+      UserID: string;
+    }>
+  ): number;
 
   /**
    * 用户发出获取短信验证码请求
    * @param req 用户信息
    */
-  reqGenUserText(req?: object): number;
+  reqGenUserText(
+    req?: Partial<{
+      /** 交易日 */
+      TradingDay: string;
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 用户代码 */
+      UserID: string;
+    }>
+  ): number;
 
   /**
    * 用户发出带有图片验证码的登陆请求
    * @param req 用户登陆信息
    */
-  reqUserLoginWithCaptcha(req?: object): number;
+  reqUserLoginWithCaptcha(
+    req?: Partial<{
+      /** 交易日 */
+      TradingDay: string;
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 用户代码 */
+      UserID: string;
+      /** 密码 */
+      Password: string;
+      /** 用户端产品信息 */
+      UserProductInfo: string;
+      /** 接口端产品信息 */
+      InterfaceProductInfo: string;
+      /** 协议信息 */
+      ProtocolInfo: string;
+      /** Mac地址 */
+      MacAddress: string;
+      /** 登录备注 */
+      LoginRemark: string;
+      /** 图形验证码的文字内容 */
+      Captcha: string;
+      /** 终端IP端口 */
+      ClientIPPort: number;
+      /** 终端IP地址 */
+      ClientIPAddress: string;
+    }>
+  ): number;
 
   /**
    * 用户发出带有短信验证码的登陆请求
    * @param req 用户登陆信息
    */
-  reqUserLoginWithText(req?: object): number;
+  reqUserLoginWithText(
+    req?: Partial<{
+      /** 交易日 */
+      TradingDay: string;
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 用户代码 */
+      UserID: string;
+      /** 密码 */
+      Password: string;
+      /** 用户端产品信息 */
+      UserProductInfo: string;
+      /** 接口端产品信息 */
+      InterfaceProductInfo: string;
+      /** 协议信息 */
+      ProtocolInfo: string;
+      /** Mac地址 */
+      MacAddress: string;
+      /** 登录备注 */
+      LoginRemark: string;
+      /** 短信验证码文字内容 */
+      Text: string;
+      /** 终端IP端口 */
+      ClientIPPort: number;
+      /** 终端IP地址 */
+      ClientIPAddress: string;
+    }>
+  ): number;
 
   /**
    * 用户发出带有动态口令的登陆请求
    * @param req 用户登陆信息
    */
-  reqUserLoginWithOTP(req?: object): number;
+  reqUserLoginWithOTP(
+    req?: Partial<{
+      /** 交易日 */
+      TradingDay: string;
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 用户代码 */
+      UserID: string;
+      /** 密码 */
+      Password: string;
+      /** 用户端产品信息 */
+      UserProductInfo: string;
+      /** 接口端产品信息 */
+      InterfaceProductInfo: string;
+      /** 协议信息 */
+      ProtocolInfo: string;
+      /** Mac地址 */
+      MacAddress: string;
+      /** 登录备注 */
+      LoginRemark: string;
+      /** OTP密码 */
+      OTPPassword: string;
+      /** 终端IP端口 */
+      ClientIPPort: number;
+      /** 终端IP地址 */
+      ClientIPAddress: string;
+    }>
+  ): number;
 
   /**
    * 报单录入请求
    * @param req 报单信息
    */
-  reqOrderInsert(req?: object): number;
+  reqOrderInsert(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 报单引用 */
+      OrderRef: string;
+      /** 用户代码 */
+      UserID: string;
+      /** 报单价格条件 */
+      OrderPriceType: OrderPriceType;
+      /** 买卖方向 */
+      Direction: DirectionType;
+      /** 组合开平标志 @type [OffsetFlagType].join("") */
+      CombOffsetFlag: string;
+      /** 组合投机套保标志 @type [HedgeFlagType].join("") */
+      CombHedgeFlag: string;
+      /** 价格 */
+      LimitPrice: number;
+      /** 数量 */
+      VolumeTotalOriginal: number;
+      /** 有效期类型 */
+      TimeCondition: TimeConditionType;
+      /** GTD日期 */
+      GTDDate: string;
+      /** 成交量类型 */
+      VolumeCondition: VolumeConditionType;
+      /** 最小成交量 */
+      MinVolume: number;
+      /** 触发条件 */
+      ContingentCondition: ContingentConditionType;
+      /** 止损价 */
+      StopPrice: number;
+      /** 强平原因 */
+      ForceCloseReason: ForceCloseReasonType;
+      /** 自动挂起标志 */
+      IsAutoSuspend: number;
+      /** 业务单元 */
+      BusinessUnit: string;
+      /** 请求编号 */
+      RequestID: number;
+      /** 用户强评标志 */
+      UserForceClose: number;
+      /** 互换单标志 */
+      IsSwapOrder: number;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** 资金账号 */
+      AccountID: string;
+      /** 币种代码 */
+      CurrencyID: string;
+      /** 交易编码 */
+      ClientID: string;
+      /** Mac地址 */
+      MacAddress: string;
+      /** 合约代码 */
+      InstrumentID: string;
+      /** IP地址 */
+      IPAddress: string;
+    }>
+  ): number;
 
   /**
    * 预埋单录入请求
    * @param req 预埋单信息
    */
-  reqParkedOrderInsert(req?: object): number;
+  reqParkedOrderInsert(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 报单引用 */
+      OrderRef: string;
+      /** 用户代码 */
+      UserID: string;
+      /** 报单价格条件 */
+      OrderPriceType: OrderPriceType;
+      /** 买卖方向 */
+      Direction: DirectionType;
+      /** 组合开平标志 @type [OffsetFlagType].join("") */
+      CombOffsetFlag: string;
+      /** 组合投机套保标志 @type [HedgeFlagType].join("") */
+      CombHedgeFlag: string;
+      /** 价格 */
+      LimitPrice: number;
+      /** 数量 */
+      VolumeTotalOriginal: number;
+      /** 有效期类型 */
+      TimeCondition: TimeConditionType;
+      /** GTD日期 */
+      GTDDate: string;
+      /** 成交量类型 */
+      VolumeCondition: VolumeConditionType;
+      /** 最小成交量 */
+      MinVolume: number;
+      /** 触发条件 */
+      ContingentCondition: ContingentConditionType;
+      /** 止损价 */
+      StopPrice: number;
+      /** 强平原因 */
+      ForceCloseReason: ForceCloseReasonType;
+      /** 自动挂起标志 */
+      IsAutoSuspend: number;
+      /** 业务单元 */
+      BusinessUnit: string;
+      /** 请求编号 */
+      RequestID: number;
+      /** 用户强评标志 */
+      UserForceClose: number;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 预埋报单编号 */
+      ParkedOrderID: string;
+      /** 用户类型 */
+      UserType: UserTypeType;
+      /** 预埋单状态 */
+      Status: ParkedOrderStatusType;
+      /** 错误代码 */
+      ErrorID: number;
+      /** 错误信息 */
+      ErrorMsg: string;
+      /** 互换单标志 */
+      IsSwapOrder: number;
+      /** 资金账号 */
+      AccountID: string;
+      /** 币种代码 */
+      CurrencyID: string;
+      /** 交易编码 */
+      ClientID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** Mac地址 */
+      MacAddress: string;
+      /** 合约代码 */
+      InstrumentID: string;
+      /** IP地址 */
+      IPAddress: string;
+    }>
+  ): number;
 
   /**
    * 预埋撤单录入请求

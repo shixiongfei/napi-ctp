@@ -11,19 +11,33 @@
 
 /** 行情消息事件 */
 export enum MarketDataEvent {
+  /** 退出 */
   Quit = "quit",
+  /** 当客户端与交易后台建立起通信连接时（还未登录前） */
   FrontConnected = "front-connected",
+  /** 当客户端与交易后台通信连接断开时。当发生这个情况后，API会自动重新连接，客户端可不做处理 */
   FrontDisconnected = "front-disconnected",
+  /** 心跳超时警告。当长时间未收到报文时 */
   HeartBeatWarning = "heart-beat-warning",
+  /** 登录请求响应 */
   RspUserLogin = "rsp-user-login",
+  /** 登出请求响应 */
   RspUserLogout = "rsp-user-logout",
+  /** 请求查询组播合约响应 */
   RspQryMulticastInstrument = "rsp-qry-multicast-instrument",
+  /** 错误应答 */
   RspError = "rsp-error",
+  /** 订阅行情应答 */
   RspSubMarketData = "rsp-sub-market-data",
+  /** 取消订阅行情应答 */
   RspUnSubMarketData = "rsp-unsub-market-data",
+  /** 订阅询价应答 */
   RspSubForQuote = "rsp-sub-for-quote",
+  /** 取消订阅询价应答 */
   RspUnSubForQuote = "rsp-unsub-for-quote",
+  /** 深度行情通知 */
   RtnDepthMarketData = "rtn-depth-market-data",
+  /** 询价通知 */
   RtnForQuote = "rtn-for-quote",
 }
 
@@ -1404,7 +1418,7 @@ export enum SexType {
 }
 
 /** 用户类型类型 */
-export enum UserType {
+export enum UserTypeType {
   /** 投资者 */
   Investor = "0",
   /** 操作员 */
@@ -3949,25 +3963,43 @@ export enum EnumBoolType {
 
 export type RspUserLoginField = {
   kind: "CThostFtdcRspUserLoginField";
+  /** 交易日 */
   TradingDay: string;
+  /** 登录成功时间 */
   LoginTime: string;
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 用户代码 */
   UserID: string;
+  /** 交易系统名称 */
   SystemName: string;
+  /** 前置编号 */
   FrontID: number;
+  /** 会话编号 */
   SessionID: number;
+  /** 最大报单引用 */
   MaxOrderRef: string;
+  /** 上期所时间 */
   SHFETime: string;
+  /** 大商所时间 */
   DCETime: string;
+  /** 郑商所时间 */
   CZCETime: string;
+  /** 中金所时间 */
   FFEXTime: string;
+  /** 能源中心时间 */
   INETime: string;
+  /** 后台版本信息 */
   SysVersion: string;
+  /** 广期所时间 */
+  GFEXTime: string;
 };
 
 export type UserLogoutField = {
   kind: "CThostFtdcUserLogoutField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 用户代码 */
   UserID: string;
 };
 
