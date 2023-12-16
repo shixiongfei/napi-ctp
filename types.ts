@@ -4135,72 +4135,127 @@ export type UserLogoutField = {
 
 export type MulticastInstrumentField = {
   kind: "CThostFtdcMulticastInstrumentField";
+  /** 主题号 */
   TopicID: number;
+  /** 合约编号 */
   InstrumentNo: number;
+  /** 基准价 */
   CodePrice: number;
+  /** 合约数量乘数 */
   VolumeMultiple: number;
+  /** 最小变动价位 */
   PriceTick: number;
+  /** 合约代码 */
   InstrumentID: string;
 };
 
 export type RspInfoField = {
   kind: "CThostFtdcRspInfoField";
+  /** 错误代码 */
   ErrorID: number;
+  /** 错误信息 */
   ErrorMsg: string;
 };
 
 export type SpecificInstrumentField = {
   kind: "CThostFtdcSpecificInstrumentField";
+  /** 合约代码 */
   InstrumentID: string;
 };
 
 export type DepthMarketDataField = {
   kind: "CThostFtdcDepthMarketDataField";
+  /** 交易日 */
   TradingDay: string;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 最新价 */
   LastPrice: number;
+  /** 上次结算价 */
   PreSettlementPrice: number;
+  /** 昨收盘 */
   PreClosePrice: number;
+  /** 昨持仓量 */
   PreOpenInterest: number;
+  /** 今开盘 */
   OpenPrice: number;
+  /** 最高价 */
   HighestPrice: number;
+  /** 最低价 */
   LowestPrice: number;
+  /** 数量 */
   Volume: number;
+  /** 成交金额 */
   Turnover: number;
+  /** 持仓量 */
   OpenInterest: number;
+  /** 今收盘 */
   ClosePrice: number;
+  /** 本次结算价 */
   SettlementPrice: number;
+  /** 涨停板价 */
   UpperLimitPrice: number;
+  /** 跌停板价 */
   LowerLimitPrice: number;
+  /** 昨虚实度 */
   PreDelta: number;
+  /** 今虚实度 */
   CurrDelta: number;
+  /** 最后修改时间 */
   UpdateTime: string;
+  /** 最后修改毫秒 */
   UpdateMillisec: number;
+  /** 申买价一 */
   BidPrice1: number;
+  /** 申买量一 */
   BidVolume1: number;
+  /** 申卖价一 */
   AskPrice1: number;
+  /** 申卖量一 */
   AskVolume1: number;
+  /** 申买价二 */
   BidPrice2: number;
+  /** 申买量二 */
   BidVolume2: number;
+  /** 申卖价二 */
   AskPrice2: number;
+  /** 申卖量二 */
   AskVolume2: number;
+  /** 申买价三 */
   BidPrice3: number;
+  /** 申买量三 */
   BidVolume3: number;
+  /** 申卖价三 */
   AskPrice3: number;
+  /** 申卖量三 */
   AskVolume3: number;
+  /** 申买价四 */
   BidPrice4: number;
+  /** 申买量四 */
   BidVolume4: number;
+  /** 申卖价四 */
   AskPrice4: number;
+  /** 申卖量四 */
   AskVolume4: number;
+  /** 申买价五 */
   BidPrice5: number;
+  /** 申买量五 */
   BidVolume5: number;
+  /** 申卖价五 */
   AskPrice5: number;
+  /** 申卖量五 */
   AskVolume5: number;
+  /** 当日均价 */
   AveragePrice: number;
+  /** 业务日期 */
   ActionDay: string;
+  /** 合约代码 */
   InstrumentID: string;
+  /** 合约在交易所的代码 */
   ExchangeInstID: string;
+  /** 上带价 */
   BandingUpperPrice: number;
+  /** 下带价 */
   BandingLowerPrice: number;
 };
 

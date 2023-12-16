@@ -22,6 +22,7 @@ import {
   ForceCloseReasonType,
   UserTypeType,
   ParkedOrderStatusType,
+  ActionFlagType,
 } from "./types";
 
 /** 行情对象 */
@@ -546,7 +547,32 @@ export declare class Trader {
    * 预埋撤单录入请求
    * @param req 预埋单信息
    */
-  reqParkedOrderAction(req?: object): number;
+  reqParkedOrderAction(
+    req?: Partial<{
+      BrokerID: string;
+      InvestorID: string;
+      OrderActionRef: number;
+      OrderRef: string;
+      RequestID: number;
+      FrontID: number;
+      SessionID: number;
+      ExchangeID: string;
+      OrderSysID: string;
+      ActionFlag: ActionFlagType;
+      LimitPrice: number;
+      VolumeChange: number;
+      UserID: string;
+      ParkedOrderActionID: string;
+      UserType: UserTypeType;
+      Status: ParkedOrderStatusType;
+      ErrorID: number;
+      ErrorMsg: string;
+      InvestUnitID: string;
+      MacAddress: string;
+      InstrumentID: string;
+      IPAddress: string;
+    }>
+  ): number;
 
   /**
    * 报单操作请求
