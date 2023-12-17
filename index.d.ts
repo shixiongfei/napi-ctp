@@ -15,7 +15,7 @@ import {
   TraderEvent,
   CallbackFunction,
   DirectionType,
-  OrderPriceType,
+  OrderPriceTypeType,
   TimeConditionType,
   VolumeConditionType,
   ContingentConditionType,
@@ -430,7 +430,7 @@ export declare class Trader {
       /** 用户代码 */
       UserID: string;
       /** 报单价格条件 */
-      OrderPriceType: OrderPriceType;
+      OrderPriceType: OrderPriceTypeType;
       /** 买卖方向 */
       Direction: DirectionType;
       /** 组合开平标志 @type [OffsetFlagType].join("") */
@@ -499,7 +499,7 @@ export declare class Trader {
       /** 用户代码 */
       UserID: string;
       /** 报单价格条件 */
-      OrderPriceType: OrderPriceType;
+      OrderPriceType: OrderPriceTypeType;
       /** 买卖方向 */
       Direction: DirectionType;
       /** 组合开平标志 @type [OffsetFlagType].join("") */

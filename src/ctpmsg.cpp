@@ -586,7 +586,6 @@ napi_status rspExecOrderInsert(napi_env env, const Message *message, napi_value 
   CHECK(SetObjectChar(env, *result, pInputExecOrder, HedgeFlag));
   CHECK(SetObjectChar(env, *result, pInputExecOrder, ActionType));
   CHECK(SetObjectChar(env, *result, pInputExecOrder, PosiDirection));
-  CHECK(SetObjectChar(env, *result, pInputExecOrder, ReservePositionFlag));
   CHECK(SetObjectChar(env, *result, pInputExecOrder, CloseFlag));
   CHECK(SetObjectString(env, *result, pInputExecOrder, ExchangeID));
   CHECK(SetObjectString(env, *result, pInputExecOrder, InvestUnitID));
@@ -1900,7 +1899,6 @@ napi_status rspQryExecOrder(napi_env env, const Message *message, napi_value *re
   CHECK(SetObjectChar(env, *result, pExecOrder, HedgeFlag));
   CHECK(SetObjectChar(env, *result, pExecOrder, ActionType));
   CHECK(SetObjectChar(env, *result, pExecOrder, PosiDirection));
-  CHECK(SetObjectChar(env, *result, pExecOrder, ReservePositionFlag));
   CHECK(SetObjectChar(env, *result, pExecOrder, CloseFlag));
   CHECK(SetObjectString(env, *result, pExecOrder, ExecOrderLocalID));
   CHECK(SetObjectString(env, *result, pExecOrder, ExchangeID));
@@ -2595,7 +2593,6 @@ napi_status rtnExecOrder(napi_env env, const Message *message, napi_value *resul
   CHECK(SetObjectChar(env, *result, pExecOrder, HedgeFlag));
   CHECK(SetObjectChar(env, *result, pExecOrder, ActionType));
   CHECK(SetObjectChar(env, *result, pExecOrder, PosiDirection));
-  CHECK(SetObjectChar(env, *result, pExecOrder, ReservePositionFlag));
   CHECK(SetObjectChar(env, *result, pExecOrder, CloseFlag));
   CHECK(SetObjectString(env, *result, pExecOrder, ExecOrderLocalID));
   CHECK(SetObjectString(env, *result, pExecOrder, ExchangeID));
@@ -2651,7 +2648,6 @@ napi_status errRtnExecOrderInsert(napi_env env, const Message *message, napi_val
   CHECK(SetObjectChar(env, *result, pInputExecOrder, HedgeFlag));
   CHECK(SetObjectChar(env, *result, pInputExecOrder, ActionType));
   CHECK(SetObjectChar(env, *result, pInputExecOrder, PosiDirection));
-  CHECK(SetObjectChar(env, *result, pInputExecOrder, ReservePositionFlag));
   CHECK(SetObjectChar(env, *result, pInputExecOrder, CloseFlag));
   CHECK(SetObjectString(env, *result, pInputExecOrder, ExchangeID));
   CHECK(SetObjectString(env, *result, pInputExecOrder, InvestUnitID));

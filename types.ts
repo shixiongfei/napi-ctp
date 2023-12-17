@@ -634,7 +634,7 @@ export enum PositionDateType {
 }
 
 /** 持仓日期类型类型 */
-export enum PositionDateType {
+export enum PositionDateTypeType {
   /** 使用历史持仓 */
   UseHistory = "1",
   /** 不使用历史持仓 */
@@ -712,7 +712,7 @@ export enum DirectionType {
 }
 
 /** 持仓类型类型 */
-export enum PositionType {
+export enum PositionTypeType {
   /** 净持仓 */
   Net = "1",
   /** 综合持仓 */
@@ -790,7 +790,7 @@ export enum ClientIDTypeType {
 }
 
 /** 报单价格条件类型 */
-export enum OrderPriceType {
+export enum OrderPriceTypeType {
   /** 任意价 */
   AnyPrice = "1",
   /** 限价 */
@@ -866,7 +866,7 @@ export enum ForceCloseReasonType {
 }
 
 /** 报单类型类型 */
-export enum OrderType {
+export enum OrderTypeType {
   /** 正常 */
   Normal = "0",
   /** 报价衍生 */
@@ -974,7 +974,7 @@ export enum OrderSourceType {
 }
 
 /** 成交类型类型 */
-export enum TradeType {
+export enum TradeTypeType {
   /** 组合持仓拆分为单一持仓,初始化不应包含该类型的持仓 */
   SplitCombination = "#",
   /** 普通成交 */
@@ -1610,7 +1610,7 @@ export enum UserRightType {
 }
 
 /** 保证金价格类型类型 */
-export enum MarginPriceType {
+export enum MarginPriceTypeType {
   /** 昨结算价 */
   PreSettlementPrice = "1",
   /** 最新价 */
@@ -2218,7 +2218,7 @@ export enum BankAccTypeType {
 }
 
 /** 期货公司帐号类型类型 */
-export enum FutureAccType {
+export enum FutureAccTypeType {
   /** 银行存折 */
   BankBook = "1",
   /** 储蓄卡 */
@@ -3274,7 +3274,7 @@ export enum CTPType {
 }
 
 /** 平仓处理类型类型 */
-export enum CloseDealType {
+export enum CloseDealTypeType {
   /** 正常 */
   Normal = "0",
   /** 投机平仓优先 */
@@ -3644,7 +3644,7 @@ export enum FundMortDirectionEnType {
 }
 
 /** 期权类型类型 */
-export enum OptionsType {
+export enum OptionsTypeType {
   /** 看涨 */
   CallOptions = "1",
   /** 看跌 */
@@ -3712,7 +3712,7 @@ export enum ExecResultType {
 }
 
 /** 组合类型类型 */
-export enum CombinationType {
+export enum CombinationTypeType {
   /** 期货组合 */
   Future = "0",
   /** 垂直价差BUL */
@@ -3764,7 +3764,7 @@ export enum DceCombinationType {
 }
 
 /** 期权权利金价格类型类型 */
-export enum OptionRoyaltyPriceType {
+export enum OptionRoyaltyPriceTypeType {
   /** 昨结算价 */
   PreSettlementPrice = "1",
   /** 开仓价 */
@@ -4091,6 +4091,7 @@ export enum EnumBoolType {
 
 /*----------------------------------------------------------------------------*/
 
+/** 用户登录应答 */
 export type RspUserLoginField = {
   kind: "CThostFtdcRspUserLoginField";
   /** 交易日 */
@@ -4125,6 +4126,7 @@ export type RspUserLoginField = {
   GFEXTime: string;
 };
 
+/** 用户登出请求 */
 export type UserLogoutField = {
   kind: "CThostFtdcUserLogoutField";
   /** 经纪公司代码 */
@@ -4133,6 +4135,7 @@ export type UserLogoutField = {
   UserID: string;
 };
 
+/** MulticastInstrument */
 export type MulticastInstrumentField = {
   kind: "CThostFtdcMulticastInstrumentField";
   /** 主题号 */
@@ -4149,6 +4152,7 @@ export type MulticastInstrumentField = {
   InstrumentID: string;
 };
 
+/** 响应信息 */
 export type RspInfoField = {
   kind: "CThostFtdcRspInfoField";
   /** 错误代码 */
@@ -4157,12 +4161,14 @@ export type RspInfoField = {
   ErrorMsg: string;
 };
 
+/** 指定的合约 */
 export type SpecificInstrumentField = {
   kind: "CThostFtdcSpecificInstrumentField";
   /** 合约代码 */
   InstrumentID: string;
 };
 
+/** 深度行情 */
 export type DepthMarketDataField = {
   kind: "CThostFtdcDepthMarketDataField";
   /** 交易日 */
@@ -4259,2138 +4265,3995 @@ export type DepthMarketDataField = {
   BandingLowerPrice: number;
 };
 
+/** 发给做市商的询价请求 */
 export type ForQuoteRspField = {
   kind: "CThostFtdcForQuoteRspField";
+  /** 交易日 */
   TradingDay: string;
+  /** 询价编号 */
   ForQuoteSysID: string;
+  /** 询价时间 */
   ForQuoteTime: string;
+  /** 业务日期 */
   ActionDay: string;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 合约代码 */
   InstrumentID: string;
 };
 
+/** 客户端认证响应 */
 export type RspAuthenticateField = {
   kind: "CThostFtdcRspAuthenticateField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 用户代码 */
   UserID: string;
+  /** 用户端产品信息 */
   UserProductInfo: string;
+  /** App代码 */
   AppID: string;
+  /** App类型 */
   AppType: string;
 };
 
+/** 用户口令变更 */
 export type UserPasswordUpdateField = {
   kind: "CThostFtdcUserPasswordUpdateField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 用户代码 */
   UserID: string;
+  /** 原来的口令 */
   OldPassword: string;
+  /** 新的口令 */
   NewPassword: string;
 };
 
+/** 资金账户口令变更域 */
 export type TradingAccountPasswordUpdateField = {
   kind: "CThostFtdcTradingAccountPasswordUpdateField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 原来的口令 */
   OldPassword: string;
+  /** 新的口令 */
   NewPassword: string;
+  /** 币种代码 */
   CurrencyID: string;
 };
 
+/** 用户发出获取安全安全登陆方法回复 */
 export type RspUserAuthMethodField = {
   kind: "CThostFtdcRspUserAuthMethodField";
+  /** 当前可以用的认证模式 */
   UsableAuthMethod: number;
 };
 
+/** 生成的图片验证码信息 */
 export type RspGenUserCaptchaField = {
   kind: "CThostFtdcRspGenUserCaptchaField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 用户代码 */
   UserID: string;
+  /** 图片信息 */
   CaptchaInfo: Buffer;
 };
 
+/** 短信验证码生成的回复 */
 export type RspGenUserTextField = {
   kind: "CThostFtdcRspGenUserTextField";
+  /** 短信验证码序号 */
   UserTextSeq: number;
 };
 
+/** 输入报单 */
 export type InputOrderField = {
   kind: "CThostFtdcInputOrderField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 报单引用 */
   OrderRef: string;
+  /** 用户代码 */
   UserID: string;
-  OrderPriceType: string;
-  Direction: string;
+  /** 报单价格条件 */
+  OrderPriceType: OrderPriceTypeType;
+  /** 买卖方向 */
+  Direction: DirectionType;
+  /** 组合开平标志 @type [OffsetFlagType].join("") */
   CombOffsetFlag: string;
+  /** 组合投机套保标志 @type [HedgeFlagType].join("") */
   CombHedgeFlag: string;
+  /** 价格 */
   LimitPrice: number;
+  /** 数量 */
   VolumeTotalOriginal: number;
-  TimeCondition: string;
+  /** 有效期类型 */
+  TimeCondition: TimeConditionType;
+  /** GTD日期 */
   GTDDate: string;
-  VolumeCondition: string;
+  /** 成交量类型 */
+  VolumeCondition: VolumeConditionType;
+  /** 最小成交量 */
   MinVolume: number;
-  ContingentCondition: string;
+  /** 触发条件 */
+  ContingentCondition: ContingentConditionType;
+  /** 止损价 */
   StopPrice: number;
-  ForceCloseReason: string;
+  /** 强平原因 */
+  ForceCloseReason: ForceCloseReasonType;
+  /** 自动挂起标志 */
   IsAutoSuspend: number;
+  /** 业务单元 */
   BusinessUnit: string;
+  /** 请求编号 */
   RequestID: number;
+  /** 用户强评标志 */
   UserForceClose: number;
+  /** 互换单标志 */
   IsSwapOrder: number;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 币种代码 */
   CurrencyID: string;
+  /** 客户代码 */
   ClientID: string;
+  /** Mac地址 */
   MacAddress: string;
+  /** 合约代码 */
   InstrumentID: string;
+  /** IP地址 */
   IPAddress: string;
 };
 
+/** 预埋单 */
 export type ParkedOrderField = {
   kind: "CThostFtdcParkedOrderField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 报单引用 */
   OrderRef: string;
+  /** 用户代码 */
   UserID: string;
-  OrderPriceType: string;
-  Direction: string;
+  /** 报单价格条件 */
+  OrderPriceType: OrderPriceTypeType;
+  /** 买卖方向 */
+  Direction: DirectionType;
+  /** 组合开平标志 @type [OffsetFlagType].join("") */
   CombOffsetFlag: string;
+  /** 组合投机套保标志 @type [HedgeFlagType].join("") */
   CombHedgeFlag: string;
+  /** 价格 */
   LimitPrice: number;
+  /** 数量 */
   VolumeTotalOriginal: number;
-  TimeCondition: string;
+  /** 有效期类型 */
+  TimeCondition: TimeConditionType;
+  /** GTD日期 */
   GTDDate: string;
-  VolumeCondition: string;
+  /** 成交量类型 */
+  VolumeCondition: VolumeConditionType;
+  /** 最小成交量 */
   MinVolume: number;
-  ContingentCondition: string;
+  /** 触发条件 */
+  ContingentCondition: ContingentConditionType;
+  /** 止损价 */
   StopPrice: number;
-  ForceCloseReason: string;
+  /** 强平原因 */
+  ForceCloseReason: ForceCloseReasonType;
+  /** 自动挂起标志 */
   IsAutoSuspend: number;
+  /** 业务单元 */
   BusinessUnit: string;
+  /** 请求编号 */
   RequestID: number;
+  /** 用户强评标志 */
   UserForceClose: number;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 预埋报单编号 */
   ParkedOrderID: string;
-  UserType: string;
-  Status: string;
+  /** 用户类型 */
+  UserType: UserTypeType;
+  /** 预埋单状态 */
+  Status: ParkedOrderStatusType;
+  /** 错误代码 */
   ErrorID: number;
+  /** 错误信息 */
   ErrorMsg: string;
+  /** 互换单标志 */
   IsSwapOrder: number;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 币种代码 */
   CurrencyID: string;
+  /** 客户代码 */
   ClientID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** Mac地址 */
   MacAddress: string;
+  /** 合约代码 */
   InstrumentID: string;
+  /** IP地址 */
   IPAddress: string;
 };
 
+/** 输入预埋单操作 */
 export type ParkedOrderActionField = {
   kind: "CThostFtdcParkedOrderActionField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 报单操作引用 */
   OrderActionRef: number;
+  /** 报单引用 */
   OrderRef: string;
+  /** 请求编号 */
   RequestID: number;
+  /** 前置编号 */
   FrontID: number;
+  /** 会话编号 */
   SessionID: number;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 报单编号 */
   OrderSysID: string;
-  ActionFlag: string;
+  /** 操作标志 */
+  ActionFlag: ActionFlagType;
+  /** 价格 */
   LimitPrice: number;
+  /** 数量变化 */
   VolumeChange: number;
+  /** 用户代码 */
   UserID: string;
+  /** 预埋撤单单编号 */
   ParkedOrderActionID: string;
-  UserType: string;
-  Status: string;
+  /** 用户类型 */
+  UserType: UserTypeType;
+  /** 预埋单状态 */
+  Status: ParkedOrderStatusType;
+  /** 错误代码 */
   ErrorID: number;
+  /** 错误信息 */
   ErrorMsg: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** Mac地址 */
   MacAddress: string;
+  /** 合约代码 */
   InstrumentID: string;
+  /** IP地址 */
   IPAddress: string;
 };
 
+/** 输入报单操作 */
 export type InputOrderActionField = {
   kind: "CThostFtdcInputOrderActionField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 报单操作引用 */
   OrderActionRef: number;
+  /** 报单引用 */
   OrderRef: string;
+  /** 请求编号 */
   RequestID: number;
+  /** 前置编号 */
   FrontID: number;
+  /** 会话编号 */
   SessionID: number;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 报单编号 */
   OrderSysID: string;
-  ActionFlag: string;
+  /** 操作标志 */
+  ActionFlag: ActionFlagType;
+  /** 价格 */
   LimitPrice: number;
+  /** 数量变化 */
   VolumeChange: number;
+  /** 用户代码 */
   UserID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** Mac地址 */
   MacAddress: string;
+  /** 合约代码 */
   InstrumentID: string;
+  /** IP地址 */
   IPAddress: string;
 };
 
+/** 查询最大报单数量 */
 export type QryMaxOrderVolumeField = {
   kind: "CThostFtdcQryMaxOrderVolumeField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
-  Direction: string;
-  OffsetFlag: string;
-  HedgeFlag: string;
+  /** 买卖方向 */
+  Direction: DirectionType;
+  /** 开平标志 */
+  OffsetFlag: OffsetFlagType;
+  /** 投机套保标志 */
+  HedgeFlag: HedgeFlagType;
+  /** 最大允许报单数量 */
   MaxVolume: number;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** 合约代码 */
   InstrumentID: string;
 };
 
+/** 投资者结算结果确认信息 */
 export type SettlementInfoConfirmField = {
   kind: "CThostFtdcSettlementInfoConfirmField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 确认日期 */
   ConfirmDate: string;
+  /** 确认时间 */
   ConfirmTime: string;
+  /** 结算编号 */
   SettlementID: number;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 币种代码 */
   CurrencyID: string;
 };
 
+/** 删除预埋单 */
 export type RemoveParkedOrderField = {
   kind: "CThostFtdcRemoveParkedOrderField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 预埋报单编号 */
   ParkedOrderID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
 };
 
+/** 删除预埋撤单 */
 export type RemoveParkedOrderActionField = {
   kind: "CThostFtdcRemoveParkedOrderActionField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 预埋撤单单编号 */
   ParkedOrderActionID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
 };
 
+/** 输入的执行宣告 */
 export type InputExecOrderField = {
   kind: "CThostFtdcInputExecOrderField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 执行宣告引用 */
   ExecOrderRef: string;
+  /** 用户代码 */
   UserID: string;
+  /** 数量 */
   Volume: number;
+  /** 请求编号 */
   RequestID: number;
+  /** 业务单元 */
   BusinessUnit: string;
-  OffsetFlag: string;
-  HedgeFlag: string;
-  ActionType: string;
-  PosiDirection: string;
-  ReservePositionFlag: string;
-  CloseFlag: string;
+  /** 开平标志 */
+  OffsetFlag: OffsetFlagType;
+  /** 投机套保标志 */
+  HedgeFlag: HedgeFlagType;
+  /** 执行类型 */
+  ActionType: ActionTypeType;
+  /** 保留头寸申请的持仓方向 */
+  PosiDirection: PosiDirectionType;
+  /** 期权行权后生成的头寸是否自动平仓 */
+  CloseFlag: ExecOrderCloseFlagType;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 币种代码 */
   CurrencyID: string;
+  /** 客户代码 */
   ClientID: string;
+  /** Mac地址 */
   MacAddress: string;
+  /** 合约代码 */
   InstrumentID: string;
+  /** IP地址 */
   IPAddress: string;
 };
 
+/** 输入执行宣告操作 */
 export type InputExecOrderActionField = {
   kind: "CThostFtdcInputExecOrderActionField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 执行宣告操作引用 */
   ExecOrderActionRef: number;
+  /** 执行宣告引用 */
   ExecOrderRef: string;
+  /** 请求编号 */
   RequestID: number;
+  /** 前置编号 */
   FrontID: number;
+  /** 会话编号 */
   SessionID: number;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 执行宣告操作编号 */
   ExecOrderSysID: string;
-  ActionFlag: string;
+  /** 操作标志 */
+  ActionFlag: ActionFlagType;
+  /** 用户代码 */
   UserID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** Mac地址 */
   MacAddress: string;
+  /** 合约代码 */
   InstrumentID: string;
+  /** IP地址 */
   IPAddress: string;
 };
 
+/** 输入的询价 */
 export type InputForQuoteField = {
   kind: "CThostFtdcInputForQuoteField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 询价引用 */
   ForQuoteRef: string;
+  /** 用户代码 */
   UserID: string;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** Mac地址 */
   MacAddress: string;
+  /** 合约代码 */
   InstrumentID: string;
+  /** IP地址 */
   IPAddress: string;
 };
 
+/** 输入的报价 */
 export type InputQuoteField = {
   kind: "CThostFtdcInputQuoteField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 报价引用 */
   QuoteRef: string;
+  /** 用户代码 */
   UserID: string;
+  /** 卖价格 */
   AskPrice: number;
+  /** 买价格 */
   BidPrice: number;
+  /** 卖数量 */
   AskVolume: number;
+  /** 买数量 */
   BidVolume: number;
+  /** 请求编号 */
   RequestID: number;
+  /** 业务单元 */
   BusinessUnit: string;
-  AskOffsetFlag: string;
-  BidOffsetFlag: string;
-  AskHedgeFlag: string;
-  BidHedgeFlag: string;
+  /** 卖开平标志 */
+  AskOffsetFlag: OffsetFlagType;
+  /** 买开平标志 */
+  BidOffsetFlag: OffsetFlagType;
+  /** 卖投机套保标志 */
+  AskHedgeFlag: HedgeFlagType;
+  /** 买投机套保标志 */
+  BidHedgeFlag: HedgeFlagType;
+  /** 衍生卖报单引用 */
   AskOrderRef: string;
+  /** 衍生买报单引用 */
   BidOrderRef: string;
+  /** 询价编号 */
   ForQuoteSysID: string;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** 客户代码 */
   ClientID: string;
+  /** Mac地址 */
   MacAddress: string;
+  /** 合约代码 */
   InstrumentID: string;
+  /** IP地址 */
   IPAddress: string;
+  /** 被顶单编号 */
   ReplaceSysID: string;
 };
 
+/** 输入报价操作 */
 export type InputQuoteActionField = {
   kind: "CThostFtdcInputQuoteActionField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 报价操作引用 */
   QuoteActionRef: number;
+  /** 报价引用 */
   QuoteRef: string;
+  /** 请求编号 */
   RequestID: number;
+  /** 前置编号 */
   FrontID: number;
+  /** 会话编号 */
   SessionID: number;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 报价操作编号 */
   QuoteSysID: string;
-  ActionFlag: string;
+  /** 操作标志 */
+  ActionFlag: ActionFlagType;
+  /** 用户代码 */
   UserID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** 客户代码 */
   ClientID: string;
+  /** Mac地址 */
   MacAddress: string;
+  /** 合约代码 */
   InstrumentID: string;
+  /** IP地址 */
   IPAddress: string;
 };
 
+/** 输入批量报单操作 */
 export type InputBatchOrderActionField = {
   kind: "CThostFtdcInputBatchOrderActionField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 报单操作引用 */
   OrderActionRef: number;
+  /** 请求编号 */
   RequestID: number;
+  /** 前置编号 */
   FrontID: number;
+  /** 会话编号 */
   SessionID: number;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 用户代码 */
   UserID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** Mac地址 */
   MacAddress: string;
+  /** IP地址 */
   IPAddress: string;
 };
 
+/** 输入的期权自对冲 */
 export type InputOptionSelfCloseField = {
   kind: "CThostFtdcInputOptionSelfCloseField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 期权自对冲引用 */
   OptionSelfCloseRef: string;
+  /** 用户代码 */
   UserID: string;
+  /** 数量 */
   Volume: number;
+  /** 请求编号 */
   RequestID: number;
+  /** 业务单元 */
   BusinessUnit: string;
-  HedgeFlag: string;
-  OptSelfCloseFlag: string;
+  /** 投机套保标志 */
+  HedgeFlag: HedgeFlagType;
+  /** 期权行权的头寸是否自对冲 */
+  OptSelfCloseFlag: OptSelfCloseFlagType;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 币种代码 */
   CurrencyID: string;
+  /** 客户代码 */
   ClientID: string;
+  /** Mac地址 */
   MacAddress: string;
+  /** 合约代码 */
   InstrumentID: string;
+  /** IP地址 */
   IPAddress: string;
 };
 
+/** 输入期权自对冲操作 */
 export type InputOptionSelfCloseActionField = {
   kind: "CThostFtdcInputOptionSelfCloseActionField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 期权自对冲操作引用 */
   OptionSelfCloseActionRef: number;
+  /** 期权自对冲引用 */
   OptionSelfCloseRef: string;
+  /** 请求编号 */
   RequestID: number;
+  /** 前置编号 */
   FrontID: number;
+  /** 会话编号 */
   SessionID: number;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 期权自对冲操作编号 */
   OptionSelfCloseSysID: string;
-  ActionFlag: string;
+  /** 操作标志 */
+  ActionFlag: ActionFlagType;
+  /** 用户代码 */
   UserID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** Mac地址 */
   MacAddress: string;
+  /** 合约代码 */
   InstrumentID: string;
+  /** IP地址 */
   IPAddress: string;
 };
 
+/** 输入的申请组合 */
 export type InputCombActionField = {
   kind: "CThostFtdcInputCombActionField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 组合引用 */
   CombActionRef: string;
+  /** 用户代码 */
   UserID: string;
-  Direction: string;
+  /** 买卖方向 */
+  Direction: DirectionType;
+  /** 数量 */
   Volume: number;
-  CombDirection: string;
-  HedgeFlag: string;
+  /** 组合指令方向 */
+  CombDirection: CombDirectionType;
+  /** 投机套保标志 */
+  HedgeFlag: HedgeFlagType;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** Mac地址 */
   MacAddress: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** 前置编号 */
   FrontID: number;
+  /** 会话编号 */
   SessionID: number;
+  /** 合约代码 */
   InstrumentID: string;
+  /** IP地址 */
   IPAddress: string;
 };
 
+/** 报单 */
 export type OrderField = {
   kind: "CThostFtdcOrderField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 报单引用 */
   OrderRef: string;
+  /** 用户代码 */
   UserID: string;
-  OrderPriceType: string;
-  Direction: string;
+  /** 报单价格条件 */
+  OrderPriceType: OrderPriceTypeType;
+  /** 买卖方向 */
+  Direction: DirectionType;
+  /** 组合开平标志 @type [OffsetFlagType].join("") */
   CombOffsetFlag: string;
+  /** 组合投机套保标志 @type [HedgeFlagType].join("") */
   CombHedgeFlag: string;
+  /** 价格 */
   LimitPrice: number;
+  /** 数量 */
   VolumeTotalOriginal: number;
-  TimeCondition: string;
+  /** 有效期类型 */
+  TimeCondition: TimeConditionType;
+  /** GTD日期 */
   GTDDate: string;
-  VolumeCondition: string;
+  /** 成交量类型 */
+  VolumeCondition: VolumeConditionType;
+  /** 最小成交量 */
   MinVolume: number;
-  ContingentCondition: string;
+  /** 触发条件 */
+  ContingentCondition: ContingentConditionType;
+  /** 止损价 */
   StopPrice: number;
-  ForceCloseReason: string;
+  /** 强平原因 */
+  ForceCloseReason: ForceCloseReasonType;
+  /** 自动挂起标志 */
   IsAutoSuspend: number;
+  /** 业务单元 */
   BusinessUnit: string;
+  /** 请求编号 */
   RequestID: number;
+  /** 本地报单编号 */
   OrderLocalID: string;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 会员代码 */
   ParticipantID: string;
+  /** 客户代码 */
   ClientID: string;
+  /** 交易所交易员代码 */
   TraderID: string;
+  /** 安装编号 */
   InstallID: number;
-  OrderSubmitStatus: string;
+  /** 报单提交状态 */
+  OrderSubmitStatus: OrderSubmitStatusType;
+  /** 报单提示序号 */
   NotifySequence: number;
+  /** 交易日 */
   TradingDay: string;
+  /** 结算编号 */
   SettlementID: number;
+  /** 报单编号 */
   OrderSysID: string;
+  /** 报单来源 */
   OrderSource: string;
-  OrderStatus: string;
-  OrderType: string;
+  /** 报单状态 */
+  OrderStatus: OrderStatusType;
+  /** 报单类型 */
+  OrderType: OrderTypeType;
+  /** 今成交数量 */
   VolumeTraded: number;
+  /** 剩余数量 */
   VolumeTotal: number;
+  /** 报单日期 */
   InsertDate: string;
+  /** 委托时间 */
   InsertTime: string;
+  /** 激活时间 */
   ActiveTime: string;
+  /** 挂起时间 */
   SuspendTime: string;
+  /** 最后修改时间 */
   UpdateTime: string;
+  /** 撤销时间 */
   CancelTime: string;
+  /** 最后修改交易所交易员代码 */
   ActiveTraderID: string;
+  /** 结算会员编号 */
   ClearingPartID: string;
+  /** 序号 */
   SequenceNo: number;
+  /** 前置编号 */
   FrontID: number;
+  /** 会话编号 */
   SessionID: number;
+  /** 用户端产品信息 */
   UserProductInfo: string;
+  /** 状态信息 */
   StatusMsg: string;
+  /** 用户强评标志 */
   UserForceClose: number;
+  /** 操作用户代码 */
   ActiveUserID: string;
+  /** 经纪公司报单编号 */
   BrokerOrderSeq: number;
+  /** 相关报单 */
   RelativeOrderSysID: string;
+  /** 郑商所成交数量 */
   ZCETotalTradedVolume: number;
+  /** 互换单标志 */
   IsSwapOrder: number;
+  /** 营业部编号 */
   BranchID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 币种代码 */
   CurrencyID: string;
+  /** Mac地址 */
   MacAddress: string;
+  /** 合约代码 */
   InstrumentID: string;
+  /** 合约在交易所的代码 */
   ExchangeInstID: string;
+  /** IP地址 */
   IPAddress: string;
 };
 
+/** 成交 */
 export type TradeField = {
   kind: "CThostFtdcTradeField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 报单引用 */
   OrderRef: string;
+  /** 用户代码 */
   UserID: string;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 成交编号 */
   TradeID: string;
-  Direction: string;
+  /** 买卖方向 */
+  Direction: DirectionType;
+  /** 报单编号 */
   OrderSysID: string;
+  /** 会员代码 */
   ParticipantID: string;
+  /** 客户代码 */
   ClientID: string;
+  /** 交易角色 */
   TradingRole: string;
-  OffsetFlag: string;
-  HedgeFlag: string;
+  /** 开平标志 */
+  OffsetFlag: OffsetFlagType;
+  /** 投机套保标志 */
+  HedgeFlag: HedgeFlagType;
+  /** 价格 */
   Price: number;
+  /** 数量 */
   Volume: number;
+  /** 交易时期 */
   TradeDate: string;
+  /** 交易时间 */
   TradeTime: string;
-  TradeType: string;
-  PriceSource: string;
+  /** 交易类型 */
+  TradeType: TradeTypeType;
+  /** 成交价来源 */
+  PriceSource: PriceSourceType;
+  /** 交易所交易员代码 */
   TraderID: string;
+  /** 本地报单编号 */
   OrderLocalID: string;
+  /** 结算会员编号 */
   ClearingPartID: string;
+  /** 业务单元 */
   BusinessUnit: string;
+  /** 序号 */
   SequenceNo: number;
+  /** 交易日 */
   TradingDay: string;
+  /** 结算编号 */
   SettlementID: number;
+  /** 经纪公司报单编号 */
   BrokerOrderSeq: number;
-  TradeSource: string;
+  /** 成交来源 */
+  TradeSource: TradeSourceType;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** 合约代码 */
   InstrumentID: string;
+  /** 合约在交易所的代码 */
   ExchangeInstID: string;
 };
 
+/** 投资者持仓 */
 export type InvestorPositionField = {
   kind: "CThostFtdcInvestorPositionField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
-  PosiDirection: string;
-  HedgeFlag: string;
-  PositionDate: string;
+  /** 保留头寸申请的持仓方向 */
+  PosiDirection: PosiDirectionType;
+  /** 投机套保标志 */
+  HedgeFlag: HedgeFlagType;
+  /** 持仓日期 */
+  PositionDate: PositionDateType;
+  /** 上日持仓 */
   YdPosition: number;
+  /** 今日持仓 */
   Position: number;
+  /** 多头冻结 */
   LongFrozen: number;
+  /** 空头冻结 */
   ShortFrozen: number;
+  /** 多头冻结金额 */
   LongFrozenAmount: number;
+  /** 空头冻结金额 */
   ShortFrozenAmount: number;
+  /** 开仓量 */
   OpenVolume: number;
+  /** 平仓量 */
   CloseVolume: number;
+  /** 开仓金额 */
   OpenAmount: number;
+  /** 平仓金额 */
   CloseAmount: number;
+  /** 持仓成本 */
   PositionCost: number;
+  /** 上次占用的保证金 */
   PreMargin: number;
+  /** 占用的保证金 */
   UseMargin: number;
+  /** 冻结的保证金 */
   FrozenMargin: number;
+  /** 冻结的资金 */
   FrozenCash: number;
+  /** 冻结的手续费 */
   FrozenCommission: number;
+  /** 资金差额 */
   CashIn: number;
+  /** 手续费 */
   Commission: number;
+  /** 平仓盈亏 */
   CloseProfit: number;
+  /** 持仓盈亏 */
   PositionProfit: number;
+  /** 上次结算价 */
   PreSettlementPrice: number;
+  /** 本次结算价 */
   SettlementPrice: number;
+  /** 交易日 */
   TradingDay: string;
+  /** 结算编号 */
   SettlementID: number;
+  /** 开仓成本 */
   OpenCost: number;
+  /** 交易所保证金 */
   ExchangeMargin: number;
+  /** 组合成交形成的持仓 */
   CombPosition: number;
+  /** 组合多头冻结 */
   CombLongFrozen: number;
+  /** 组合空头冻结 */
   CombShortFrozen: number;
+  /** 逐日盯市平仓盈亏 */
   CloseProfitByDate: number;
+  /** 逐笔对冲平仓盈亏 */
   CloseProfitByTrade: number;
+  /** 今日持仓 */
   TodayPosition: number;
+  /** 保证金率 */
   MarginRateByMoney: number;
+  /** 保证金率(按手数) */
   MarginRateByVolume: number;
+  /** 执行冻结 */
   StrikeFrozen: number;
+  /** 执行冻结金额 */
   StrikeFrozenAmount: number;
+  /** 放弃执行冻结 */
   AbandonFrozen: number;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 执行冻结的昨仓 */
   YdStrikeFrozen: number;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** 持仓成本差值 */
   PositionCostOffset: number;
+  /** tas持仓手数 */
   TasPosition: number;
+  /** tas持仓成本 */
   TasPositionCost: number;
+  /** 合约代码 */
   InstrumentID: string;
 };
 
+/** 资金账户 */
 export type TradingAccountField = {
   kind: "CThostFtdcTradingAccountField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 上次质押金额 */
   PreMortgage: number;
+  /** 上次信用额度 */
   PreCredit: number;
+  /** 上次存款额 */
   PreDeposit: number;
+  /** 上次结算准备金 */
   PreBalance: number;
+  /** 上次占用的保证金 */
   PreMargin: number;
+  /** 利息基数 */
   InterestBase: number;
+  /** 利息收入 */
   Interest: number;
+  /** 入金金额 */
   Deposit: number;
+  /** 出金金额 */
   Withdraw: number;
+  /** 冻结的保证金 */
   FrozenMargin: number;
+  /** 冻结的资金 */
   FrozenCash: number;
+  /** 冻结的手续费 */
   FrozenCommission: number;
+  /** 当前保证金总额 */
   CurrMargin: number;
+  /** 资金差额 */
   CashIn: number;
+  /** 手续费 */
   Commission: number;
+  /** 平仓盈亏 */
   CloseProfit: number;
+  /** 持仓盈亏 */
   PositionProfit: number;
+  /** 期货结算准备金 */
   Balance: number;
+  /** 可用资金 */
   Available: number;
+  /** 可取资金 */
   WithdrawQuota: number;
+  /** 基本准备金 */
   Reserve: number;
+  /** 交易日 */
   TradingDay: string;
+  /** 结算编号 */
   SettlementID: number;
+  /** 信用额度 */
   Credit: number;
+  /** 质押金额 */
   Mortgage: number;
+  /** 交易所保证金 */
   ExchangeMargin: number;
+  /** 投资者交割保证金 */
   DeliveryMargin: number;
+  /** 交易所交割保证金 */
   ExchangeDeliveryMargin: number;
+  /** 保底期货结算准备金 */
   ReserveBalance: number;
+  /** 币种代码 */
   CurrencyID: string;
+  /** 上次货币质入金额 */
   PreFundMortgageIn: number;
+  /** 上次货币质出金额 */
   PreFundMortgageOut: number;
+  /** 货币质入金额 */
   FundMortgageIn: number;
+  /** 货币质出金额 */
   FundMortgageOut: number;
+  /** 货币质押余额 */
   FundMortgageAvailable: number;
+  /** 可质押货币金额 */
   MortgageableFund: number;
+  /** 特殊产品占用保证金 */
   SpecProductMargin: number;
+  /** 特殊产品冻结保证金 */
   SpecProductFrozenMargin: number;
+  /** 特殊产品手续费 */
   SpecProductCommission: number;
+  /** 特殊产品冻结手续费 */
   SpecProductFrozenCommission: number;
+  /** 特殊产品持仓盈亏 */
   SpecProductPositionProfit: number;
+  /** 特殊产品平仓盈亏 */
   SpecProductCloseProfit: number;
+  /** 根据持仓盈亏算法计算的特殊产品持仓盈亏 */
   SpecProductPositionProfitByAlg: number;
+  /** 特殊产品交易所保证金 */
   SpecProductExchangeMargin: number;
-  BizType: string;
+  /** 业务类型 */
+  BizType: BizTypeType;
+  /** 延时换汇冻结金额 */
   FrozenSwap: number;
+  /** 剩余换汇额度 */
   RemainSwap: number;
 };
 
+/** 投资者 */
 export type InvestorField = {
   kind: "CThostFtdcInvestorField";
+  /** 投资者代码 */
   InvestorID: string;
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者分组代码 */
   InvestorGroupID: string;
+  /** 投资者名称 */
   InvestorName: string;
-  IdentifiedCardType: string;
+  /** 证件类型 */
+  IdentifiedCardType: IdCardTypeType;
+  /** 证件号码 */
   IdentifiedCardNo: string;
+  /** 是否活跃 */
   IsActive: number;
+  /** 联系电话 */
   Telephone: string;
+  /** 通讯地址 */
   Address: string;
+  /** 开户日期 */
   OpenDate: string;
+  /** 手机 */
   Mobile: string;
+  /** 手续费率模板代码 */
   CommModelID: string;
+  /** 保证金率模板代码 */
   MarginModelID: string;
-  IsOrderFreq: string;
-  IsOpenVolLimit: string;
+  /** 是否频率控制 */
+  IsOrderFreq: EnumBoolType;
+  /** 是否开仓限制 */
+  IsOpenVolLimit: EnumBoolType;
 };
 
+/** 交易编码 */
 export type TradingCodeField = {
   kind: "CThostFtdcTradingCodeField";
+  /** 投资者代码 */
   InvestorID: string;
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 客户代码 */
   ClientID: string;
+  /** 是否活跃 */
   IsActive: number;
-  ClientIDType: string;
+  /** 交易编码类型 */
+  ClientIDType: ClientIDTypeType;
+  /** 营业部编号 */
   BranchID: string;
-  BizType: string;
+  /** 业务类型 */
+  BizType: BizTypeType;
+  /** 投资单元代码 */
   InvestUnitID: string;
 };
 
+/** 合约保证金率 */
 export type InstrumentMarginRateField = {
   kind: "CThostFtdcInstrumentMarginRateField";
-  InvestorRange: string;
+  /** 投资者范围 */
+  InvestorRange: InvestorRangeType;
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
-  HedgeFlag: string;
+  /** 投机套保标志 */
+  HedgeFlag: HedgeFlagType;
+  /** 多头保证金率 */
   LongMarginRatioByMoney: number;
+  /** 多头保证金费 */
   LongMarginRatioByVolume: number;
+  /** 空头保证金率 */
   ShortMarginRatioByMoney: number;
+  /** 空头保证金费 */
   ShortMarginRatioByVolume: number;
+  /** 是否相对交易所收取 */
   IsRelative: number;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** 合约代码 */
   InstrumentID: string;
 };
 
+/** 合约手续费率 */
 export type InstrumentCommissionRateField = {
   kind: "CThostFtdcInstrumentCommissionRateField";
-  InvestorRange: string;
+  /** 投资者范围 */
+  InvestorRange: InvestorRangeType;
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 开仓手续费率 */
   OpenRatioByMoney: number;
+  /** 开仓手续费 */
   OpenRatioByVolume: number;
+  /** 平仓手续费率 */
   CloseRatioByMoney: number;
+  /** 平仓手续费 */
   CloseRatioByVolume: number;
+  /** 平今手续费率 */
   CloseTodayRatioByMoney: number;
+  /** 平今手续费 */
   CloseTodayRatioByVolume: number;
+  /** 交易所代码 */
   ExchangeID: string;
-  BizType: string;
+  /** 业务类型 */
+  BizType: BizTypeType;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** 合约代码 */
   InstrumentID: string;
 };
 
+/** 交易所 */
 export type ExchangeField = {
   kind: "CThostFtdcExchangeField";
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 交易所名称 */
   ExchangeName: string;
-  ExchangeProperty: string;
+  /** 交易所属性 */
+  ExchangeProperty: ExchangePropertyType;
 };
 
+/** 产品 */
 export type ProductField = {
   kind: "CThostFtdcProductField";
+  /** 产品名称 */
   ProductName: string;
+  /** 交易所代码 */
   ExchangeID: string;
-  ProductClass: string;
+  /** 产品类型 */
+  ProductClass: ProductClassType;
+  /** 合约数量乘数 */
   VolumeMultiple: number;
+  /** 最小变动价位 */
   PriceTick: number;
+  /** 市价单最大下单量 */
   MaxMarketOrderVolume: number;
+  /** 市价单最小下单量 */
   MinMarketOrderVolume: number;
+  /** 限价单最大下单量 */
   MaxLimitOrderVolume: number;
+  /** 限价单最小下单量 */
   MinLimitOrderVolume: number;
-  PositionType: string;
-  PositionDateType: string;
-  CloseDealType: string;
+  /** 持仓类型 */
+  PositionType: PositionTypeType;
+  /** 持仓日期类型 */
+  PositionDateType: PositionDateTypeType;
+  /** 平仓处理类型 */
+  CloseDealType: CloseDealTypeType;
+  /** 交易币种类型 */
   TradeCurrencyID: string;
-  MortgageFundUseRange: string;
+  /** 质押资金可用范围 */
+  MortgageFundUseRange: MortgageFundUseRangeType;
+  /** 合约基础商品乘数 */
   UnderlyingMultiple: number;
+  /** 产品代码 */
   ProductID: string;
+  /** 交易所产品代码 */
   ExchangeProductID: string;
-  OpenLimitControlLevel: string;
-  OrderFreqControlLevel: string;
+  /** 开仓量限制粒度 */
+  OpenLimitControlLevel: OpenLimitControlLevelType;
+  /** 报单频率控制粒度 */
+  OrderFreqControlLevel: OrderFreqControlLevelType;
 };
 
+/** 合约 */
 export type InstrumentField = {
   kind: "CThostFtdcInstrumentField";
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 合约名称 */
   InstrumentName: string;
-  ProductClass: string;
+  /** 产品类型 */
+  ProductClass: ProductClassType;
+  /** 交割年份 */
   DeliveryYear: number;
+  /** 交割月 */
   DeliveryMonth: number;
+  /** 市价单最大下单量 */
   MaxMarketOrderVolume: number;
+  /** 市价单最小下单量 */
   MinMarketOrderVolume: number;
+  /** 限价单最大下单量 */
   MaxLimitOrderVolume: number;
+  /** 限价单最小下单量 */
   MinLimitOrderVolume: number;
+  /** 合约数量乘数 */
   VolumeMultiple: number;
+  /** 最小变动价位 */
   PriceTick: number;
+  /** 创建日 */
   CreateDate: string;
+  /** 上市日 */
   OpenDate: string;
+  /** 到期日 */
   ExpireDate: string;
+  /** 开始交割日 */
   StartDelivDate: string;
+  /** 结束交割日 */
   EndDelivDate: string;
-  InstLifePhase: string;
+  /** 合约生命周期状态 */
+  InstLifePhase: InstLifePhaseType;
+  /** 当前是否交易 */
   IsTrading: number;
-  PositionType: string;
-  PositionDateType: string;
+  /** 持仓类型 */
+  PositionType: PositionTypeType;
+  /** 持仓日期类型 */
+  PositionDateType: PositionDateTypeType;
+  /** 多头保证金率 */
   LongMarginRatio: number;
+  /** 空头保证金率 */
   ShortMarginRatio: number;
-  MaxMarginSideAlgorithm: string;
+  /** 是否使用大额单边保证金算法 */
+  MaxMarginSideAlgorithm: MaxMarginSideAlgorithmType;
+  /** 执行价 */
   StrikePrice: number;
-  OptionsType: string;
+  /** 期权类型 */
+  OptionsType: OptionsTypeType;
+  /** 合约基础商品乘数 */
   UnderlyingMultiple: number;
-  CombinationType: string;
+  /** 组合类型 */
+  CombinationType: CombinationTypeType;
+  /** 合约代码 */
   InstrumentID: string;
+  /** 合约在交易所的代码 */
   ExchangeInstID: string;
+  /** 产品代码 */
   ProductID: string;
+  /** 基础商品代码 */
   UnderlyingInstrID: string;
 };
 
+/** 交易所交易员报盘机 */
 export type TraderOfferField = {
   kind: "CThostFtdcTraderOfferField";
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 交易所交易员代码 */
   TraderID: string;
+  /** 会员代码 */
   ParticipantID: string;
+  /** 密码 */
   Password: string;
+  /** 安装编号 */
   InstallID: number;
+  /** 本地报单编号 */
   OrderLocalID: string;
-  TraderConnectStatus: string;
+  /** 交易所交易员连接状态 */
+  TraderConnectStatus: TraderConnectStatusType;
+  /** 发出连接请求的日期 */
   ConnectRequestDate: string;
+  /** 发出连接请求的时间 */
   ConnectRequestTime: string;
+  /** 上次报告日期 */
   LastReportDate: string;
+  /** 上次报告时间 */
   LastReportTime: string;
+  /** 完成连接日期 */
   ConnectDate: string;
+  /** 完成连接时间 */
   ConnectTime: string;
+  /** 启动日期 */
   StartDate: string;
+  /** 启动时间 */
   StartTime: string;
+  /** 交易日 */
   TradingDay: string;
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 本席位最大成交编号 */
   MaxTradeID: string;
+  /** 本席位最大报单备拷 */
   MaxOrderMessageReference: string;
-  OrderCancelAlg: string;
+  /** 撤单时选择席位算法 */
+  OrderCancelAlg: OrderCancelAlgType;
 };
 
+/** 投资者结算结果 */
 export type SettlementInfoField = {
   kind: "CThostFtdcSettlementInfoField";
+  /** 交易日 */
   TradingDay: string;
+  /** 结算编号 */
   SettlementID: number;
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 序号 */
   SequenceNo: number;
+  /** 消息正文 */
   Content: string;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 币种代码 */
   CurrencyID: string;
 };
 
+/** 转帐银行 */
 export type TransferBankField = {
   kind: "CThostFtdcTransferBankField";
+  /** 银行代码 */
   BankID: string;
+  /** 银行分中心代码 */
   BankBrchID: string;
+  /** 银行名称 */
   BankName: string;
+  /** 是否活跃 */
   IsActive: number;
 };
 
+/** 投资者持仓明细 */
 export type InvestorPositionDetailField = {
   kind: "CThostFtdcInvestorPositionDetailField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
-  HedgeFlag: string;
-  Direction: string;
+  /** 投机套保标志 */
+  HedgeFlag: HedgeFlagType;
+  /** 买卖方向 */
+  Direction: DirectionType;
+  /** 开仓日期 */
   OpenDate: string;
+  /** 成交编号 */
   TradeID: string;
+  /** 数量 */
   Volume: number;
+  /** 开仓价 */
   OpenPrice: number;
+  /** 交易日 */
   TradingDay: string;
+  /** 结算编号 */
   SettlementID: number;
-  TradeType: string;
+  /** 交易类型 */
+  TradeType: TradeTypeType;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 逐日盯市平仓盈亏 */
   CloseProfitByDate: number;
+  /** 逐笔对冲平仓盈亏 */
   CloseProfitByTrade: number;
+  /** 逐日盯市持仓盈亏 */
   PositionProfitByDate: number;
+  /** 逐笔对冲持仓盈亏 */
   PositionProfitByTrade: number;
+  /** 投资者保证金 */
   Margin: number;
+  /** 交易所保证金 */
   ExchMargin: number;
+  /** 保证金率 */
   MarginRateByMoney: number;
+  /** 保证金率(按手数) */
   MarginRateByVolume: number;
+  /** 昨结算价 */
   LastSettlementPrice: number;
+  /** 本次结算价 */
   SettlementPrice: number;
+  /** 平仓量 */
   CloseVolume: number;
+  /** 平仓金额 */
   CloseAmount: number;
+  /** 先开先平剩余数量 */
   TimeFirstVolume: number;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** 特殊持仓标志 */
   SpecPosiType: string;
+  /** 合约代码 */
   InstrumentID: string;
+  /** 组合合约代码 */
   CombInstrumentID: string;
 };
 
+/** 客户通知 */
 export type NoticeField = {
   kind: "CThostFtdcNoticeField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 消息正文 */
   Content: string;
+  /** 经纪公司通知内容序列号 */
   SequenceLabel: string;
 };
 
+/** 保证金监管系统经纪公司资金账户密钥 */
 export type CFMMCTradingAccountKeyField = {
   kind: "CThostFtdcCFMMCTradingAccountKeyField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 会员代码 */
   ParticipantID: string;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 密钥编号 */
   KeyID: number;
+  /** 动态密钥 */
   CurrentKey: string;
 };
 
+/** 仓单折抵信息 */
 export type EWarrantOffsetField = {
   kind: "CThostFtdcEWarrantOffsetField";
+  /** 交易日 */
   TradingDay: string;
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 交易所代码 */
   ExchangeID: string;
-  Direction: string;
-  HedgeFlag: string;
+  /** 买卖方向 */
+  Direction: DirectionType;
+  /** 投机套保标志 */
+  HedgeFlag: HedgeFlagType;
+  /** 数量 */
   Volume: number;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** 合约代码 */
   InstrumentID: string;
 };
 
+/** 投资者品种/跨品种保证金 */
 export type InvestorProductGroupMarginField = {
   kind: "CThostFtdcInvestorProductGroupMarginField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 交易日 */
   TradingDay: string;
+  /** 结算编号 */
   SettlementID: number;
+  /** 冻结的保证金 */
   FrozenMargin: number;
+  /** 多头冻结的保证金 */
   LongFrozenMargin: number;
+  /** 空头冻结的保证金 */
   ShortFrozenMargin: number;
+  /** 占用的保证金 */
   UseMargin: number;
+  /** 多头保证金 */
   LongUseMargin: number;
+  /** 空头保证金 */
   ShortUseMargin: number;
+  /** 交易所保证金 */
   ExchMargin: number;
+  /** 交易所多头保证金 */
   LongExchMargin: number;
+  /** 交易所空头保证金 */
   ShortExchMargin: number;
+  /** 平仓盈亏 */
   CloseProfit: number;
+  /** 冻结的手续费 */
   FrozenCommission: number;
+  /** 手续费 */
   Commission: number;
+  /** 冻结的资金 */
   FrozenCash: number;
+  /** 资金差额 */
   CashIn: number;
+  /** 持仓盈亏 */
   PositionProfit: number;
+  /** 折抵总金额 */
   OffsetAmount: number;
+  /** 多头折抵总金额 */
   LongOffsetAmount: number;
+  /** 空头折抵总金额 */
   ShortOffsetAmount: number;
+  /** 交易所折抵总金额 */
   ExchOffsetAmount: number;
+  /** 交易所多头折抵总金额 */
   LongExchOffsetAmount: number;
+  /** 交易所空头折抵总金额 */
   ShortExchOffsetAmount: number;
-  HedgeFlag: string;
+  /** 投机套保标志 */
+  HedgeFlag: HedgeFlagType;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** 品种/跨品种标示 */
   ProductGroupID: string;
 };
 
+/** 交易所保证金率 */
 export type ExchangeMarginRateField = {
   kind: "CThostFtdcExchangeMarginRateField";
+  /** 经纪公司代码 */
   BrokerID: string;
-  HedgeFlag: string;
+  /** 投机套保标志 */
+  HedgeFlag: HedgeFlagType;
+  /** 多头保证金率 */
   LongMarginRatioByMoney: number;
+  /** 多头保证金费 */
   LongMarginRatioByVolume: number;
+  /** 空头保证金率 */
   ShortMarginRatioByMoney: number;
+  /** 空头保证金费 */
   ShortMarginRatioByVolume: number;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 合约代码 */
   InstrumentID: string;
 };
 
+/** 交易所保证金率调整 */
 export type ExchangeMarginRateAdjustField = {
   kind: "CThostFtdcExchangeMarginRateAdjustField";
+  /** 经纪公司代码 */
   BrokerID: string;
-  HedgeFlag: string;
+  /** 投机套保标志 */
+  HedgeFlag: HedgeFlagType;
+  /** 多头保证金率 */
   LongMarginRatioByMoney: number;
+  /** 多头保证金费 */
   LongMarginRatioByVolume: number;
+  /** 空头保证金率 */
   ShortMarginRatioByMoney: number;
+  /** 空头保证金费 */
   ShortMarginRatioByVolume: number;
+  /** 交易所多头保证金率 */
   ExchLongMarginRatioByMoney: number;
+  /** 交易所多头保证金费 */
   ExchLongMarginRatioByVolume: number;
+  /** 交易所空头保证金率 */
   ExchShortMarginRatioByMoney: number;
+  /** 交易所空头保证金费 */
   ExchShortMarginRatioByVolume: number;
+  /** 不跟随交易所投资者多头保证金率 */
   NoLongMarginRatioByMoney: number;
+  /** 不跟随交易所投资者多头保证金费 */
   NoLongMarginRatioByVolume: number;
+  /** 不跟随交易所投资者空头保证金率 */
   NoShortMarginRatioByMoney: number;
+  /** 不跟随交易所投资者空头保证金费 */
   NoShortMarginRatioByVolume: number;
+  /** 合约代码 */
   InstrumentID: string;
 };
 
+/** 汇率 */
 export type ExchangeRateField = {
   kind: "CThostFtdcExchangeRateField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 源币种 */
   FromCurrencyID: string;
+  /** 源币种单位数量 */
   FromCurrencyUnit: number;
+  /** 目标币种 */
   ToCurrencyID: string;
+  /** 汇率 */
   ExchangeRate: number;
 };
 
+/** 二级代理操作员银期权限 */
 export type SecAgentACIDMapField = {
   kind: "CThostFtdcSecAgentACIDMapField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 用户代码 */
   UserID: string;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 币种代码 */
   CurrencyID: string;
+  /** 境外中介机构资金帐号 */
   BrokerSecAgentID: string;
 };
 
+/** 产品报价汇率 */
 export type ProductExchRateField = {
   kind: "CThostFtdcProductExchRateField";
+  /** 报价币种类型 */
   QuoteCurrencyID: string;
+  /** 汇率 */
   ExchangeRate: number;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 产品代码 */
   ProductID: string;
 };
 
+/** 投资者品种/跨品种保证金产品组 */
 export type ProductGroupField = {
   kind: "CThostFtdcProductGroupField";
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 产品代码 */
   ProductID: string;
+  /** 品种/跨品种标示 */
   ProductGroupID: string;
 };
 
+/** 做市商合约手续费率 */
 export type MMInstrumentCommissionRateField = {
   kind: "CThostFtdcMMInstrumentCommissionRateField";
-  InvestorRange: string;
+  /** 投资者范围 */
+  InvestorRange: InvestorRangeType;
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 开仓手续费率 */
   OpenRatioByMoney: number;
+  /** 开仓手续费 */
   OpenRatioByVolume: number;
+  /** 平仓手续费率 */
   CloseRatioByMoney: number;
+  /** 平仓手续费 */
   CloseRatioByVolume: number;
+  /** 平今手续费率 */
   CloseTodayRatioByMoney: number;
+  /** 平今手续费 */
   CloseTodayRatioByVolume: number;
+  /** 合约代码 */
   InstrumentID: string;
 };
 
+/** 当前做市商期权合约手续费的详细内容 */
 export type MMOptionInstrCommRateField = {
   kind: "CThostFtdcMMOptionInstrCommRateField";
-  InvestorRange: string;
+  /** 投资者范围 */
+  InvestorRange: InvestorRangeType;
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 开仓手续费率 */
   OpenRatioByMoney: number;
+  /** 开仓手续费 */
   OpenRatioByVolume: number;
+  /** 平仓手续费率 */
   CloseRatioByMoney: number;
+  /** 平仓手续费 */
   CloseRatioByVolume: number;
+  /** 平今手续费率 */
   CloseTodayRatioByMoney: number;
+  /** 平今手续费 */
   CloseTodayRatioByVolume: number;
+  /** 执行手续费率 */
   StrikeRatioByMoney: number;
+  /** 执行手续费 */
   StrikeRatioByVolume: number;
+  /** 合约代码 */
   InstrumentID: string;
 };
 
+/** 当前报单手续费的详细内容 */
 export type InstrumentOrderCommRateField = {
   kind: "CThostFtdcInstrumentOrderCommRateField";
-  InvestorRange: string;
+  /** 投资者范围 */
+  InvestorRange: InvestorRangeType;
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
-  HedgeFlag: string;
+  /** 投机套保标志 */
+  HedgeFlag: HedgeFlagType;
+  /** 报单手续费 */
   OrderCommByVolume: number;
+  /** 撤单手续费 */
   OrderActionCommByVolume: number;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** 合约代码 */
   InstrumentID: string;
+  /** 报单手续费 */
   OrderCommByTrade: number;
+  /** 撤单手续费 */
   OrderActionCommByTrade: number;
 };
 
+/** 二级代理商资金校验模式 */
 export type SecAgentCheckModeField = {
   kind: "CThostFtdcSecAgentCheckModeField";
+  /** 投资者代码 */
   InvestorID: string;
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 币种代码 */
   CurrencyID: string;
+  /** 境外中介机构资金帐号 */
   BrokerSecAgentID: string;
+  /** 是否需要校验自己的资金账户 */
   CheckSelfAccount: number;
 };
 
+/** 二级代理商信息 */
 export type SecAgentTradeInfoField = {
   kind: "CThostFtdcSecAgentTradeInfoField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 境外中介机构资金帐号 */
   BrokerSecAgentID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 二级代理商姓名 */
   LongCustomerName: string;
 };
 
+/** 期权交易成本 */
 export type OptionInstrTradeCostField = {
   kind: "CThostFtdcOptionInstrTradeCostField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
-  HedgeFlag: string;
+  /** 投机套保标志 */
+  HedgeFlag: HedgeFlagType;
+  /** 期权合约保证金不变部分 */
   FixedMargin: number;
+  /** 期权合约最小保证金 */
   MiniMargin: number;
+  /** 期权合约权利金 */
   Royalty: number;
+  /** 交易所期权合约保证金不变部分 */
   ExchFixedMargin: number;
+  /** 交易所期权合约最小保证金 */
   ExchMiniMargin: number;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** 合约代码 */
   InstrumentID: string;
 };
 
+/** 当前期权合约手续费的详细内容 */
 export type OptionInstrCommRateField = {
   kind: "CThostFtdcOptionInstrCommRateField";
-  InvestorRange: string;
+  /** 投资者范围 */
+  InvestorRange: InvestorRangeType;
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 开仓手续费率 */
   OpenRatioByMoney: number;
+  /** 开仓手续费 */
   OpenRatioByVolume: number;
+  /** 平仓手续费率 */
   CloseRatioByMoney: number;
+  /** 平仓手续费 */
   CloseRatioByVolume: number;
+  /** 平今手续费率 */
   CloseTodayRatioByMoney: number;
+  /** 平今手续费 */
   CloseTodayRatioByVolume: number;
+  /** 执行手续费率 */
   StrikeRatioByMoney: number;
+  /** 执行手续费 */
   StrikeRatioByVolume: number;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** 合约代码 */
   InstrumentID: string;
 };
 
+/** 执行宣告 */
 export type ExecOrderField = {
   kind: "CThostFtdcExecOrderField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 执行宣告引用 */
   ExecOrderRef: string;
+  /** 用户代码 */
   UserID: string;
+  /** 数量 */
   Volume: number;
+  /** 请求编号 */
   RequestID: number;
+  /** 业务单元 */
   BusinessUnit: string;
-  OffsetFlag: string;
-  HedgeFlag: string;
-  ActionType: string;
-  PosiDirection: string;
-  ReservePositionFlag: string;
-  CloseFlag: string;
+  /** 开平标志 */
+  OffsetFlag: OffsetFlagType;
+  /** 投机套保标志 */
+  HedgeFlag: HedgeFlagType;
+  /** 执行类型 */
+  ActionType: ActionTypeType;
+  /** 保留头寸申请的持仓方向 */
+  PosiDirection: PosiDirectionType;
+  /** 期权行权后生成的头寸是否自动平仓 */
+  CloseFlag: ExecOrderCloseFlagType;
+  /** 本地执行宣告编号 */
   ExecOrderLocalID: string;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 会员代码 */
   ParticipantID: string;
+  /** 客户代码 */
   ClientID: string;
+  /** 交易所交易员代码 */
   TraderID: string;
+  /** 安装编号 */
   InstallID: number;
-  OrderSubmitStatus: string;
+  /** 报单提交状态 */
+  OrderSubmitStatus: OrderSubmitStatusType;
+  /** 报单提示序号 */
   NotifySequence: number;
+  /** 交易日 */
   TradingDay: string;
+  /** 结算编号 */
   SettlementID: number;
+  /** 执行宣告操作编号 */
   ExecOrderSysID: string;
+  /** 报单日期 */
   InsertDate: string;
+  /** 委托时间 */
   InsertTime: string;
+  /** 撤销时间 */
   CancelTime: string;
-  ExecResult: string;
+  /** 执行结果 */
+  ExecResult: ExecResultType;
+  /** 结算会员编号 */
   ClearingPartID: string;
+  /** 序号 */
   SequenceNo: number;
+  /** 前置编号 */
   FrontID: number;
+  /** 会话编号 */
   SessionID: number;
+  /** 用户端产品信息 */
   UserProductInfo: string;
+  /** 状态信息 */
   StatusMsg: string;
+  /** 操作用户代码 */
   ActiveUserID: string;
+  /** 经纪公司报单编号 */
   BrokerExecOrderSeq: number;
+  /** 营业部编号 */
   BranchID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 币种代码 */
   CurrencyID: string;
+  /** Mac地址 */
   MacAddress: string;
+  /** 合约代码 */
   InstrumentID: string;
+  /** 合约在交易所的代码 */
   ExchangeInstID: string;
+  /** IP地址 */
   IPAddress: string;
 };
 
+/** 询价 */
 export type ForQuoteField = {
   kind: "CThostFtdcForQuoteField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 询价引用 */
   ForQuoteRef: string;
+  /** 用户代码 */
   UserID: string;
+  /** 本地询价编号 */
   ForQuoteLocalID: string;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 会员代码 */
   ParticipantID: string;
+  /** 客户代码 */
   ClientID: string;
+  /** 交易所交易员代码 */
   TraderID: string;
+  /** 安装编号 */
   InstallID: number;
+  /** 报单日期 */
   InsertDate: string;
+  /** 委托时间 */
   InsertTime: string;
-  ForQuoteStatus: string;
+  /** 询价状态 */
+  ForQuoteStatus: ForQuoteStatusType;
+  /** 前置编号 */
   FrontID: number;
+  /** 会话编号 */
   SessionID: number;
+  /** 状态信息 */
   StatusMsg: string;
+  /** 操作用户代码 */
   ActiveUserID: string;
+  /** 经纪公司询价编号 */
   BrokerForQutoSeq: number;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** Mac地址 */
   MacAddress: string;
+  /** 合约代码 */
   InstrumentID: string;
+  /** 合约在交易所的代码 */
   ExchangeInstID: string;
+  /** IP地址 */
   IPAddress: string;
 };
 
+/** 报价 */
 export type QuoteField = {
   kind: "CThostFtdcQuoteField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 报价引用 */
   QuoteRef: string;
+  /** 用户代码 */
   UserID: string;
+  /** 卖价格 */
   AskPrice: number;
+  /** 买价格 */
   BidPrice: number;
+  /** 卖数量 */
   AskVolume: number;
+  /** 买数量 */
   BidVolume: number;
+  /** 请求编号 */
   RequestID: number;
+  /** 业务单元 */
   BusinessUnit: string;
-  AskOffsetFlag: string;
-  BidOffsetFlag: string;
-  AskHedgeFlag: string;
-  BidHedgeFlag: string;
+  /** 卖开平标志 */
+  AskOffsetFlag: OffsetFlagType;
+  /** 买开平标志 */
+  BidOffsetFlag: OffsetFlagType;
+  /** 卖投机套保标志 */
+  AskHedgeFlag: HedgeFlagType;
+  /** 买投机套保标志 */
+  BidHedgeFlag: HedgeFlagType;
+  /** 本地报价编号 */
   QuoteLocalID: string;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 会员代码 */
   ParticipantID: string;
+  /** 客户代码 */
   ClientID: string;
+  /** 交易所交易员代码 */
   TraderID: string;
+  /** 安装编号 */
   InstallID: number;
+  /** 报单提示序号 */
   NotifySequence: number;
-  OrderSubmitStatus: string;
+  /** 报单提交状态 */
+  OrderSubmitStatus: OrderSubmitStatusType;
+  /** 交易日 */
   TradingDay: string;
+  /** 结算编号 */
   SettlementID: number;
+  /** 报价操作编号 */
   QuoteSysID: string;
+  /** 报单日期 */
   InsertDate: string;
+  /** 委托时间 */
   InsertTime: string;
+  /** 撤销时间 */
   CancelTime: string;
-  QuoteStatus: string;
+  /** 报价状态 */
+  QuoteStatus: OrderStatusType;
+  /** 结算会员编号 */
   ClearingPartID: string;
+  /** 序号 */
   SequenceNo: number;
+  /** 卖方报单编号 */
   AskOrderSysID: string;
+  /** 买方报单编号 */
   BidOrderSysID: string;
+  /** 前置编号 */
   FrontID: number;
+  /** 会话编号 */
   SessionID: number;
+  /** 用户端产品信息 */
   UserProductInfo: string;
+  /** 状态信息 */
   StatusMsg: string;
+  /** 操作用户代码 */
   ActiveUserID: string;
+  /** 经纪公司报价编号 */
   BrokerQuoteSeq: number;
+  /** 衍生卖报单引用 */
   AskOrderRef: string;
+  /** 衍生买报单引用 */
   BidOrderRef: string;
+  /** 询价编号 */
   ForQuoteSysID: string;
+  /** 营业部编号 */
   BranchID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 币种代码 */
   CurrencyID: string;
+  /** Mac地址 */
   MacAddress: string;
+  /** 合约代码 */
   InstrumentID: string;
+  /** 合约在交易所的代码 */
   ExchangeInstID: string;
+  /** IP地址 */
   IPAddress: string;
+  /** 被顶单编号 */
   ReplaceSysID: string;
 };
 
+/** 期权自对冲 */
 export type OptionSelfCloseField = {
   kind: "CThostFtdcOptionSelfCloseField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 期权自对冲引用 */
   OptionSelfCloseRef: string;
+  /** 用户代码 */
   UserID: string;
+  /** 数量 */
   Volume: number;
+  /** 请求编号 */
   RequestID: number;
+  /** 业务单元 */
   BusinessUnit: string;
-  HedgeFlag: string;
-  OptSelfCloseFlag: string;
+  /** 投机套保标志 */
+  HedgeFlag: HedgeFlagType;
+  /** 期权行权的头寸是否自对冲 */
+  OptSelfCloseFlag: OptSelfCloseFlagType;
+  /** 本地期权自对冲编号 */
   OptionSelfCloseLocalID: string;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 会员代码 */
   ParticipantID: string;
+  /** 客户代码 */
   ClientID: string;
+  /** 交易所交易员代码 */
   TraderID: string;
+  /** 安装编号 */
   InstallID: number;
-  OrderSubmitStatus: string;
+  /** 报单提交状态 */
+  OrderSubmitStatus: OrderSubmitStatusType;
+  /** 报单提示序号 */
   NotifySequence: number;
+  /** 交易日 */
   TradingDay: string;
+  /** 结算编号 */
   SettlementID: number;
+  /** 期权自对冲操作编号 */
   OptionSelfCloseSysID: string;
+  /** 报单日期 */
   InsertDate: string;
+  /** 委托时间 */
   InsertTime: string;
+  /** 撤销时间 */
   CancelTime: string;
-  ExecResult: string;
+  /** 执行结果 */
+  ExecResult: ExecResultType;
+  /** 结算会员编号 */
   ClearingPartID: string;
+  /** 序号 */
   SequenceNo: number;
+  /** 前置编号 */
   FrontID: number;
+  /** 会话编号 */
   SessionID: number;
+  /** 用户端产品信息 */
   UserProductInfo: string;
+  /** 状态信息 */
   StatusMsg: string;
+  /** 操作用户代码 */
   ActiveUserID: string;
+  /** 经纪公司报单编号 */
   BrokerOptionSelfCloseSeq: number;
+  /** 营业部编号 */
   BranchID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 币种代码 */
   CurrencyID: string;
+  /** Mac地址 */
   MacAddress: string;
+  /** 合约代码 */
   InstrumentID: string;
+  /** 合约在交易所的代码 */
   ExchangeInstID: string;
+  /** IP地址 */
   IPAddress: string;
 };
 
+/** 投资单元 */
 export type InvestUnitField = {
   kind: "CThostFtdcInvestUnitField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** 投资者单元名称 */
   InvestorUnitName: string;
+  /** 投资者分组代码 */
   InvestorGroupID: string;
+  /** 手续费率模板代码 */
   CommModelID: string;
+  /** 保证金率模板代码 */
   MarginModelID: string;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 币种代码 */
   CurrencyID: string;
 };
 
+/** 组合合约安全系数 */
 export type CombInstrumentGuardField = {
   kind: "CThostFtdcCombInstrumentGuardField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 担保比率 */
   GuarantRatio: number;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 合约代码 */
   InstrumentID: string;
 };
 
+/** 申请组合 */
 export type CombActionField = {
   kind: "CThostFtdcCombActionField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 组合引用 */
   CombActionRef: string;
+  /** 用户代码 */
   UserID: string;
-  Direction: string;
+  /** 买卖方向 */
+  Direction: DirectionType;
+  /** 数量 */
   Volume: number;
-  CombDirection: string;
-  HedgeFlag: string;
+  /** 组合指令方向 */
+  CombDirection: CombDirectionType;
+  /** 投机套保标志 */
+  HedgeFlag: HedgeFlagType;
+  /** 本地申请组合编号 */
   ActionLocalID: string;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 会员代码 */
   ParticipantID: string;
+  /** 客户代码 */
   ClientID: string;
+  /** 交易所交易员代码 */
   TraderID: string;
+  /** 安装编号 */
   InstallID: number;
-  ActionStatus: string;
+  /** 组合状态 */
+  ActionStatus: OrderActionStatusType;
+  /** 报单提示序号 */
   NotifySequence: number;
+  /** 交易日 */
   TradingDay: string;
+  /** 结算编号 */
   SettlementID: number;
+  /** 序号 */
   SequenceNo: number;
+  /** 前置编号 */
   FrontID: number;
+  /** 会话编号 */
   SessionID: number;
+  /** 用户端产品信息 */
   UserProductInfo: string;
+  /** 状态信息 */
   StatusMsg: string;
+  /** Mac地址 */
   MacAddress: string;
+  /** 组合编号 */
   ComTradeID: string;
+  /** 营业部编号 */
   BranchID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** 合约代码 */
   InstrumentID: string;
+  /** 合约在交易所的代码 */
   ExchangeInstID: string;
+  /** IP地址 */
   IPAddress: string;
 };
 
+/** 银期转账交易流水表 */
 export type TransferSerialField = {
   kind: "CThostFtdcTransferSerialField";
+  /** 平台流水号 */
   PlateSerial: number;
+  /** 交易时期 */
   TradeDate: string;
+  /** 交易日 */
   TradingDay: string;
+  /** 交易时间 */
   TradeTime: string;
+  /** 交易代码 */
   TradeCode: string;
+  /** 会话编号 */
   SessionID: number;
+  /** 银行代码 */
   BankID: string;
+  /** 银行分支机构编码 */
   BankBranchID: string;
-  BankAccType: string;
+  /** 银行帐号类型 */
+  BankAccType: BankAccTypeType;
+  /** 银行帐号 */
   BankAccount: string;
+  /** 银行流水号 */
   BankSerial: string;
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 期商分支机构代码 */
   BrokerBranchID: string;
-  FutureAccType: string;
+  /** 期货公司帐号类型 */
+  FutureAccType: FutureAccTypeType;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 期货公司流水号 */
   FutureSerial: number;
-  IdCardType: string;
+  /** 证件类型 */
+  IdCardType: IdCardTypeType;
+  /** 证件号码 */
   IdentifiedCardNo: string;
+  /** 币种代码 */
   CurrencyID: string;
+  /** 应收客户费用 */
   CustFee: number;
+  /** 应收期货公司费用 */
   BrokerFee: number;
-  AvailabilityFlag: string;
+  /** 有效标志 */
+  AvailabilityFlag: AvailabilityFlagType;
+  /** 操作员 */
   OperatorCode: string;
+  /** 新银行帐号 */
   BankNewAccount: string;
+  /** 错误代码 */
   ErrorID: number;
+  /** 错误信息 */
   ErrorMsg: string;
 };
 
+/** 客户开销户信息表 */
 export type AccountregisterField = {
   kind: "CThostFtdcAccountregisterField";
+  /** 交易日期 */
   TradeDay: string;
+  /** 银行代码 */
   BankID: string;
+  /** 银行分支机构编码 */
   BankBranchID: string;
+  /** 银行帐号 */
   BankAccount: string;
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 期商分支机构代码 */
   BrokerBranchID: string;
+  /** 投资者帐号 */
   AccountID: string;
-  IdCardType: string;
+  /** 证件类型 */
+  IdCardType: IdCardTypeType;
+  /** 证件号码 */
   IdentifiedCardNo: string;
+  /** 客户姓名 */
   CustomerName: string;
+  /** 币种代码 */
   CurrencyID: string;
-  OpenOrDestroy: string;
+  /** 开销户类别 */
+  OpenOrDestroy: OpenOrDestroyType;
+  /** 签约日期 */
   RegDate: string;
+  /** 解约日期 */
   OutDate: string;
+  /** 交易ID */
   TID: number;
-  CustType: string;
-  BankAccType: string;
+  /** 客户类型 */
+  CustType: CustTypeType;
+  /** 银行帐号类型 */
+  BankAccType: BankAccTypeType;
+  /** 长客户姓名 */
   LongCustomerName: string;
 };
 
+/** 报单操作 */
 export type OrderActionField = {
   kind: "CThostFtdcOrderActionField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 报单操作引用 */
   OrderActionRef: number;
+  /** 报单引用 */
   OrderRef: string;
+  /** 请求编号 */
   RequestID: number;
+  /** 前置编号 */
   FrontID: number;
+  /** 会话编号 */
   SessionID: number;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 报单编号 */
   OrderSysID: string;
-  ActionFlag: string;
+  /** 操作标志 */
+  ActionFlag: ActionFlagType;
+  /** 价格 */
   LimitPrice: number;
+  /** 数量变化 */
   VolumeChange: number;
+  /** 操作日期 */
   ActionDate: string;
+  /** 操作时间 */
   ActionTime: string;
+  /** 交易所交易员代码 */
   TraderID: string;
+  /** 安装编号 */
   InstallID: number;
+  /** 本地报单编号 */
   OrderLocalID: string;
+  /** 本地申请组合编号 */
   ActionLocalID: string;
+  /** 会员代码 */
   ParticipantID: string;
+  /** 客户代码 */
   ClientID: string;
+  /** 业务单元 */
   BusinessUnit: string;
-  OrderActionStatus: string;
+  /** 报单操作状态 */
+  OrderActionStatus: OrderActionStatusType;
+  /** 用户代码 */
   UserID: string;
+  /** 状态信息 */
   StatusMsg: string;
+  /** 营业部编号 */
   BranchID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** Mac地址 */
   MacAddress: string;
+  /** 合约代码 */
   InstrumentID: string;
+  /** IP地址 */
   IPAddress: string;
 };
 
+/** 合约状态 */
 export type InstrumentStatusField = {
   kind: "CThostFtdcInstrumentStatusField";
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 结算组代码 */
   SettlementGroupID: string;
-  InstrumentStatus: string;
+  /** 合约交易状态 */
+  InstrumentStatus: InstrumentStatusType;
+  /** 交易阶段编号 */
   TradingSegmentSN: number;
+  /** 进入本状态时间 */
   EnterTime: string;
-  EnterReason: string;
+  /** 进入本状态原因 */
+  EnterReason: InstStatusEnterReasonType;
+  /** 合约在交易所的代码 */
   ExchangeInstID: string;
+  /** 合约代码 */
   InstrumentID: string;
 };
 
+/** 交易所公告 */
 export type BulletinField = {
   kind: "CThostFtdcBulletinField";
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 交易日 */
   TradingDay: string;
+  /** 公告编号 */
   BulletinID: number;
+  /** 序号 */
   SequenceNo: number;
+  /** 公告类型 */
   NewsType: string;
+  /** 紧急程度 */
   NewsUrgency: string;
+  /** 发送时间 */
   SendTime: string;
+  /** 消息摘要 */
   Abstract: string;
+  /** 消息来源 */
   ComeFrom: string;
+  /** 消息正文 */
   Content: string;
+  /** WEB地址 */
   URLLink: string;
+  /** 市场代码 */
   MarketID: string;
 };
 
+/** 用户事件通知信息 */
 export type TradingNoticeInfoField = {
   kind: "CThostFtdcTradingNoticeInfoField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 发送时间 */
   SendTime: string;
+  /** 消息正文 */
   FieldContent: string;
+  /** 序列系列号 */
   SequenceSeries: number;
+  /** 序号 */
   SequenceNo: number;
+  /** 投资单元代码 */
   InvestUnitID: string;
 };
 
+/** 查询错误报单操作 */
 export type ErrorConditionalOrderField = {
   kind: "CThostFtdcErrorConditionalOrderField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 报单引用 */
   OrderRef: string;
+  /** 用户代码 */
   UserID: string;
-  OrderPriceType: string;
-  Direction: string;
+  /** 报单价格条件 */
+  OrderPriceType: OrderPriceTypeType;
+  /** 买卖方向 */
+  Direction: DirectionType;
+  /** 组合开平标志 @type [OffsetFlagType].join("") */
   CombOffsetFlag: string;
+  /** 组合投机套保标志 @type [HedgeFlagType].join("") */
   CombHedgeFlag: string;
+  /** 价格 */
   LimitPrice: number;
+  /** 数量 */
   VolumeTotalOriginal: number;
-  TimeCondition: string;
+  /** 有效期类型 */
+  TimeCondition: TimeConditionType;
+  /** GTD日期 */
   GTDDate: string;
-  VolumeCondition: string;
+  /** 成交量类型 */
+  VolumeCondition: VolumeConditionType;
+  /** 最小成交量 */
   MinVolume: number;
-  ContingentCondition: string;
+  /** 触发条件 */
+  ContingentCondition: ContingentConditionType;
+  /** 止损价 */
   StopPrice: number;
-  ForceCloseReason: string;
+  /** 强平原因 */
+  ForceCloseReason: ForceCloseReasonType;
+  /** 自动挂起标志 */
   IsAutoSuspend: number;
+  /** 业务单元 */
   BusinessUnit: string;
+  /** 请求编号 */
   RequestID: number;
+  /** 本地报单编号 */
   OrderLocalID: string;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 会员代码 */
   ParticipantID: string;
+  /** 客户代码 */
   ClientID: string;
+  /** 交易所交易员代码 */
   TraderID: string;
+  /** 安装编号 */
   InstallID: number;
-  OrderSubmitStatus: string;
+  /** 报单提交状态 */
+  OrderSubmitStatus: OrderSubmitStatusType;
+  /** 报单提示序号 */
   NotifySequence: number;
+  /** 交易日 */
   TradingDay: string;
+  /** 结算编号 */
   SettlementID: number;
+  /** 报单编号 */
   OrderSysID: string;
+  /** 报单来源 */
   OrderSource: string;
-  OrderStatus: string;
-  OrderType: string;
+  /** 报单状态 */
+  OrderStatus: OrderStatusType;
+  /** 报单类型 */
+  OrderType: OrderTypeType;
+  /** 今成交数量 */
   VolumeTraded: number;
+  /** 剩余数量 */
   VolumeTotal: number;
+  /** 报单日期 */
   InsertDate: string;
+  /** 委托时间 */
   InsertTime: string;
+  /** 激活时间 */
   ActiveTime: string;
+  /** 挂起时间 */
   SuspendTime: string;
+  /** 最后修改时间 */
   UpdateTime: string;
+  /** 撤销时间 */
   CancelTime: string;
+  /** 最后修改交易所交易员代码 */
   ActiveTraderID: string;
+  /** 结算会员编号 */
   ClearingPartID: string;
+  /** 序号 */
   SequenceNo: number;
+  /** 前置编号 */
   FrontID: number;
+  /** 会话编号 */
   SessionID: number;
+  /** 用户端产品信息 */
   UserProductInfo: string;
+  /** 状态信息 */
   StatusMsg: string;
+  /** 用户强评标志 */
   UserForceClose: number;
+  /** 操作用户代码 */
   ActiveUserID: string;
+  /** 经纪公司报单编号 */
   BrokerOrderSeq: number;
+  /** 相关报单 */
   RelativeOrderSysID: string;
+  /** 郑商所成交数量 */
   ZCETotalTradedVolume: number;
+  /** 错误代码 */
   ErrorID: number;
+  /** 错误信息 */
   ErrorMsg: string;
+  /** 互换单标志 */
   IsSwapOrder: number;
+  /** 营业部编号 */
   BranchID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 币种代码 */
   CurrencyID: string;
+  /** Mac地址 */
   MacAddress: string;
+  /** 合约代码 */
   InstrumentID: string;
+  /** 合约在交易所的代码 */
   ExchangeInstID: string;
+  /** IP地址 */
   IPAddress: string;
 };
 
+/** 执行宣告操作 */
 export type ExecOrderActionField = {
   kind: "CThostFtdcExecOrderActionField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 执行宣告操作引用 */
   ExecOrderActionRef: number;
+  /** 执行宣告引用 */
   ExecOrderRef: string;
+  /** 请求编号 */
   RequestID: number;
+  /** 前置编号 */
   FrontID: number;
+  /** 会话编号 */
   SessionID: number;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 执行宣告操作编号 */
   ExecOrderSysID: string;
-  ActionFlag: string;
+  /** 操作标志 */
+  ActionFlag: ActionFlagType;
+  /** 操作日期 */
   ActionDate: string;
+  /** 操作时间 */
   ActionTime: string;
+  /** 交易所交易员代码 */
   TraderID: string;
+  /** 安装编号 */
   InstallID: number;
+  /** 本地执行宣告编号 */
   ExecOrderLocalID: string;
+  /** 本地申请组合编号 */
   ActionLocalID: string;
+  /** 会员代码 */
   ParticipantID: string;
+  /** 客户代码 */
   ClientID: string;
+  /** 业务单元 */
   BusinessUnit: string;
-  OrderActionStatus: string;
+  /** 报单操作状态 */
+  OrderActionStatus: OrderActionStatusType;
+  /** 用户代码 */
   UserID: string;
-  ActionType: string;
+  /** 执行类型 */
+  ActionType: ActionTypeType;
+  /** 状态信息 */
   StatusMsg: string;
+  /** 营业部编号 */
   BranchID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** Mac地址 */
   MacAddress: string;
+  /** 合约代码 */
   InstrumentID: string;
+  /** IP地址 */
   IPAddress: string;
 };
 
+/** 报价操作 */
 export type QuoteActionField = {
   kind: "CThostFtdcQuoteActionField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 报价操作引用 */
   QuoteActionRef: number;
+  /** 报价引用 */
   QuoteRef: string;
+  /** 请求编号 */
   RequestID: number;
+  /** 前置编号 */
   FrontID: number;
+  /** 会话编号 */
   SessionID: number;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 报价操作编号 */
   QuoteSysID: string;
-  ActionFlag: string;
+  /** 操作标志 */
+  ActionFlag: ActionFlagType;
+  /** 操作日期 */
   ActionDate: string;
+  /** 操作时间 */
   ActionTime: string;
+  /** 交易所交易员代码 */
   TraderID: string;
+  /** 安装编号 */
   InstallID: number;
+  /** 本地报价编号 */
   QuoteLocalID: string;
+  /** 本地申请组合编号 */
   ActionLocalID: string;
+  /** 会员代码 */
   ParticipantID: string;
+  /** 客户代码 */
   ClientID: string;
+  /** 业务单元 */
   BusinessUnit: string;
-  OrderActionStatus: string;
+  /** 报单操作状态 */
+  OrderActionStatus: OrderActionStatusType;
+  /** 用户代码 */
   UserID: string;
+  /** 状态信息 */
   StatusMsg: string;
+  /** 营业部编号 */
   BranchID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** Mac地址 */
   MacAddress: string;
+  /** 合约代码 */
   InstrumentID: string;
+  /** IP地址 */
   IPAddress: string;
 };
 
+/** 监控中心用户令牌 */
 export type CFMMCTradingAccountTokenField = {
   kind: "CThostFtdcCFMMCTradingAccountTokenField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 会员代码 */
   ParticipantID: string;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 密钥编号 */
   KeyID: number;
+  /** 动态令牌 */
   Token: string;
 };
 
+/** 批量报单操作 */
 export type BatchOrderActionField = {
   kind: "CThostFtdcBatchOrderActionField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 报单操作引用 */
   OrderActionRef: number;
+  /** 请求编号 */
   RequestID: number;
+  /** 前置编号 */
   FrontID: number;
+  /** 会话编号 */
   SessionID: number;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 操作日期 */
   ActionDate: string;
+  /** 操作时间 */
   ActionTime: string;
+  /** 交易所交易员代码 */
   TraderID: string;
+  /** 安装编号 */
   InstallID: number;
+  /** 本地申请组合编号 */
   ActionLocalID: string;
+  /** 会员代码 */
   ParticipantID: string;
+  /** 客户代码 */
   ClientID: string;
+  /** 业务单元 */
   BusinessUnit: string;
-  OrderActionStatus: string;
+  /** 报单操作状态 */
+  OrderActionStatus: OrderActionStatusType;
+  /** 用户代码 */
   UserID: string;
+  /** 状态信息 */
   StatusMsg: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** Mac地址 */
   MacAddress: string;
+  /** IP地址 */
   IPAddress: string;
 };
 
+/** 期权自对冲操作 */
 export type OptionSelfCloseActionField = {
   kind: "CThostFtdcOptionSelfCloseActionField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 期权自对冲操作引用 */
   OptionSelfCloseActionRef: number;
+  /** 期权自对冲引用 */
   OptionSelfCloseRef: string;
+  /** 请求编号 */
   RequestID: number;
+  /** 前置编号 */
   FrontID: number;
+  /** 会话编号 */
   SessionID: number;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 期权自对冲操作编号 */
   OptionSelfCloseSysID: string;
-  ActionFlag: string;
+  /** 操作标志 */
+  ActionFlag: ActionFlagType;
+  /** 操作日期 */
   ActionDate: string;
+  /** 操作时间 */
   ActionTime: string;
+  /** 交易所交易员代码 */
   TraderID: string;
+  /** 安装编号 */
   InstallID: number;
+  /** 本地期权自对冲编号 */
   OptionSelfCloseLocalID: string;
+  /** 本地申请组合编号 */
   ActionLocalID: string;
+  /** 会员代码 */
   ParticipantID: string;
+  /** 客户代码 */
   ClientID: string;
+  /** 业务单元 */
   BusinessUnit: string;
-  OrderActionStatus: string;
+  /** 报单操作状态 */
+  OrderActionStatus: OrderActionStatusType;
+  /** 用户代码 */
   UserID: string;
+  /** 状态信息 */
   StatusMsg: string;
+  /** 营业部编号 */
   BranchID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** Mac地址 */
   MacAddress: string;
+  /** 合约代码 */
   InstrumentID: string;
+  /** IP地址 */
   IPAddress: string;
 };
 
+/** 查询签约银行响应 */
 export type ContractBankField = {
   kind: "CThostFtdcContractBankField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 银行代码 */
   BankID: string;
+  /** 银行分中心代码 */
   BankBrchID: string;
+  /** 银行名称 */
   BankName: string;
 };
 
+/** 用户事件通知 */
 export type TradingNoticeField = {
   kind: "CThostFtdcTradingNoticeField";
+  /** 经纪公司代码 */
   BrokerID: string;
-  InvestorRange: string;
+  /** 投资者范围 */
+  InvestorRange: InvestorRangeType;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 序列系列号 */
   SequenceSeries: number;
+  /** 用户代码 */
   UserID: string;
+  /** 发送时间 */
   SendTime: string;
+  /** 序号 */
   SequenceNo: number;
+  /** 消息正文 */
   FieldContent: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
 };
 
+/** 经纪公司交易参数 */
 export type BrokerTradingParamsField = {
   kind: "CThostFtdcBrokerTradingParamsField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
-  MarginPriceType: string;
-  Algorithm: string;
-  AvailIncludeCloseProfit: string;
+  /** 保证金价格类型 */
+  MarginPriceType: MarginPriceTypeType;
+  /** 盈亏算法 */
+  Algorithm: AlgorithmType;
+  /** 可用是否包含平仓盈利 */
+  AvailIncludeCloseProfit: IncludeCloseProfitType;
+  /** 币种代码 */
   CurrencyID: string;
-  OptionRoyaltyPriceType: string;
+  /** 期权权利金价格类型 */
+  OptionRoyaltyPriceType: OptionRoyaltyPriceTypeType;
+  /** 投资者帐号 */
   AccountID: string;
 };
 
+/** 经纪公司交易算法 */
 export type BrokerTradingAlgosField = {
   kind: "CThostFtdcBrokerTradingAlgosField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 交易所代码 */
   ExchangeID: string;
-  HandlePositionAlgoID: string;
-  FindMarginRateAlgoID: string;
-  HandleTradingAccountAlgoID: string;
+  /** 持仓处理算法编号 */
+  HandlePositionAlgoID: HandlePositionAlgoIDType;
+  /** 寻找保证金率算法编号 */
+  FindMarginRateAlgoID: FindMarginRateAlgoIDType;
+  /** 资金处理算法编号 */
+  HandleTradingAccountAlgoID: HandleTradingAccountAlgoIDType;
+  /** 合约代码 */
   InstrumentID: string;
 };
 
+/** 查询监控中心用户令牌 */
 export type QueryCFMMCTradingAccountTokenField = {
   kind: "CThostFtdcQueryCFMMCTradingAccountTokenField";
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
+  /** 投资单元代码 */
   InvestUnitID: string;
 };
 
+/** 银行发起银行资金转期货响应 */
 export type RspTransferField = {
   kind: "CThostFtdcRspTransferField";
+  /** 交易代码 */
   TradeCode: string;
+  /** 银行代码 */
   BankID: string;
+  /** 银行分支机构编码 */
   BankBranchID: string;
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 期商分支机构代码 */
   BrokerBranchID: string;
+  /** 交易时期 */
   TradeDate: string;
+  /** 交易时间 */
   TradeTime: string;
+  /** 银行流水号 */
   BankSerial: string;
+  /** 交易日 */
   TradingDay: string;
+  /** 平台流水号 */
   PlateSerial: number;
-  LastFragment: string;
+  /** 最后分片标志 */
+  LastFragment: LastFragmentType;
+  /** 会话编号 */
   SessionID: number;
+  /** 客户姓名 */
   CustomerName: string;
-  IdCardType: string;
+  /** 证件类型 */
+  IdCardType: IdCardTypeType;
+  /** 证件号码 */
   IdentifiedCardNo: string;
-  CustType: string;
+  /** 客户类型 */
+  CustType: CustTypeType;
+  /** 银行帐号 */
   BankAccount: string;
+  /** 银行密码 */
   BankPassWord: string;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 密码 */
   Password: string;
+  /** 安装编号 */
   InstallID: number;
+  /** 期货公司流水号 */
   FutureSerial: number;
+  /** 用户代码 */
   UserID: string;
-  VerifyCertNoFlag: string;
+  /** 验证客户证件号码标志 */
+  VerifyCertNoFlag: YesNoIndicatorType;
+  /** 币种代码 */
   CurrencyID: string;
+  /** 转帐金额 */
   TradeAmount: number;
+  /** 期货可取金额 */
   FutureFetchAmount: number;
-  FeePayFlag: string;
+  /** 费用支付标志 */
+  FeePayFlag: FeePayFlagType;
+  /** 应收客户费用 */
   CustFee: number;
+  /** 应收期货公司费用 */
   BrokerFee: number;
+  /** 发送方给接收方的消息 */
   Message: string;
+  /** 摘要 */
   Digest: string;
-  BankAccType: string;
+  /** 银行帐号类型 */
+  BankAccType: BankAccTypeType;
+  /** 渠道标志 */
   DeviceID: string;
-  BankSecuAccType: string;
+  /** 期货单位帐号类型 */
+  BankSecuAccType: BankAccTypeType;
+  /** 期货公司银行编码 */
   BrokerIDByBank: string;
+  /** 期货单位帐号 */
   BankSecuAcc: string;
-  BankPwdFlag: string;
-  SecuPwdFlag: string;
+  /** 银行密码标志 */
+  BankPwdFlag: PwdFlagType;
+  /** 期货资金密码核对标志 */
+  SecuPwdFlag: PwdFlagType;
+  /** 交易柜员 */
   OperNo: string;
+  /** 请求编号 */
   RequestID: number;
+  /** 交易ID */
   TID: number;
-  TransferStatus: string;
+  /** 转账交易状态 */
+  TransferStatus: TransferStatusType;
+  /** 错误代码 */
   ErrorID: number;
+  /** 错误信息 */
   ErrorMsg: string;
+  /** 长客户姓名 */
   LongCustomerName: string;
 };
 
+/** 冲正响应 */
 export type RspRepealField = {
   kind: "CThostFtdcRspRepealField";
+  /** 冲正时间间隔 */
   RepealTimeInterval: number;
+  /** 已经冲正次数 */
   RepealedTimes: number;
-  BankRepealFlag: string;
-  BrokerRepealFlag: string;
+  /** 银行冲正标志 */
+  BankRepealFlag: BankRepealFlagType;
+  /** 期商冲正标志 */
+  BrokerRepealFlag: BrokerRepealFlagType;
+  /** 被冲正平台流水号 */
   PlateRepealSerial: number;
+  /** 被冲正银行流水号 */
   BankRepealSerial: string;
+  /** 被冲正期货流水号 */
   FutureRepealSerial: number;
+  /** 交易代码 */
   TradeCode: string;
+  /** 银行代码 */
   BankID: string;
+  /** 银行分支机构编码 */
   BankBranchID: string;
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 期商分支机构代码 */
   BrokerBranchID: string;
+  /** 交易时期 */
   TradeDate: string;
+  /** 交易时间 */
   TradeTime: string;
+  /** 银行流水号 */
   BankSerial: string;
+  /** 交易日 */
   TradingDay: string;
+  /** 平台流水号 */
   PlateSerial: number;
-  LastFragment: string;
+  /** 最后分片标志 */
+  LastFragment: LastFragmentType;
+  /** 会话编号 */
   SessionID: number;
+  /** 客户姓名 */
   CustomerName: string;
-  IdCardType: string;
+  /** 证件类型 */
+  IdCardType: IdCardTypeType;
+  /** 证件号码 */
   IdentifiedCardNo: string;
-  CustType: string;
+  /** 客户类型 */
+  CustType: CustTypeType;
+  /** 银行帐号 */
   BankAccount: string;
+  /** 银行密码 */
   BankPassWord: string;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 密码 */
   Password: string;
+  /** 安装编号 */
   InstallID: number;
+  /** 期货公司流水号 */
   FutureSerial: number;
+  /** 用户代码 */
   UserID: string;
-  VerifyCertNoFlag: string;
+  /** 验证客户证件号码标志 */
+  VerifyCertNoFlag: YesNoIndicatorType;
+  /** 币种代码 */
   CurrencyID: string;
+  /** 转帐金额 */
   TradeAmount: number;
+  /** 期货可取金额 */
   FutureFetchAmount: number;
-  FeePayFlag: string;
+  /** 费用支付标志 */
+  FeePayFlag: FeePayFlagType;
+  /** 应收客户费用 */
   CustFee: number;
+  /** 应收期货公司费用 */
   BrokerFee: number;
+  /** 发送方给接收方的消息 */
   Message: string;
+  /** 摘要 */
   Digest: string;
-  BankAccType: string;
+  /** 银行帐号类型 */
+  BankAccType: BankAccTypeType;
+  /** 渠道标志 */
   DeviceID: string;
-  BankSecuAccType: string;
+  /** 期货单位帐号类型 */
+  BankSecuAccType: BankAccTypeType;
+  /** 期货公司银行编码 */
   BrokerIDByBank: string;
+  /** 期货单位帐号 */
   BankSecuAcc: string;
-  BankPwdFlag: string;
-  SecuPwdFlag: string;
+  /** 银行密码标志 */
+  BankPwdFlag: PwdFlagType;
+  /** 期货资金密码核对标志 */
+  SecuPwdFlag: PwdFlagType;
+  /** 交易柜员 */
   OperNo: string;
+  /** 请求编号 */
   RequestID: number;
+  /** 交易ID */
   TID: number;
-  TransferStatus: string;
+  /** 转账交易状态 */
+  TransferStatus: TransferStatusType;
+  /** 错误代码 */
   ErrorID: number;
+  /** 错误信息 */
   ErrorMsg: string;
+  /** 长客户姓名 */
   LongCustomerName: string;
 };
 
+/** 查询账户信息通知 */
 export type NotifyQueryAccountField = {
   kind: "CThostFtdcNotifyQueryAccountField";
+  /** 交易代码 */
   TradeCode: string;
+  /** 银行代码 */
   BankID: string;
+  /** 银行分支机构编码 */
   BankBranchID: string;
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 期商分支机构代码 */
   BrokerBranchID: string;
+  /** 交易时期 */
   TradeDate: string;
+  /** 交易时间 */
   TradeTime: string;
+  /** 银行流水号 */
   BankSerial: string;
+  /** 交易日 */
   TradingDay: string;
+  /** 平台流水号 */
   PlateSerial: number;
-  LastFragment: string;
+  /** 最后分片标志 */
+  LastFragment: LastFragmentType;
+  /** 会话编号 */
   SessionID: number;
+  /** 客户姓名 */
   CustomerName: string;
-  IdCardType: string;
+  /** 证件类型 */
+  IdCardType: IdCardTypeType;
+  /** 证件号码 */
   IdentifiedCardNo: string;
-  CustType: string;
+  /** 客户类型 */
+  CustType: CustTypeType;
+  /** 银行帐号 */
   BankAccount: string;
+  /** 银行密码 */
   BankPassWord: string;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 密码 */
   Password: string;
+  /** 期货公司流水号 */
   FutureSerial: number;
+  /** 安装编号 */
   InstallID: number;
+  /** 用户代码 */
   UserID: string;
-  VerifyCertNoFlag: string;
+  /** 验证客户证件号码标志 */
+  VerifyCertNoFlag: YesNoIndicatorType;
+  /** 币种代码 */
   CurrencyID: string;
+  /** 摘要 */
   Digest: string;
-  BankAccType: string;
+  /** 银行帐号类型 */
+  BankAccType: BankAccTypeType;
+  /** 渠道标志 */
   DeviceID: string;
-  BankSecuAccType: string;
+  /** 期货单位帐号类型 */
+  BankSecuAccType: BankAccTypeType;
+  /** 期货公司银行编码 */
   BrokerIDByBank: string;
+  /** 期货单位帐号 */
   BankSecuAcc: string;
-  BankPwdFlag: string;
-  SecuPwdFlag: string;
+  /** 银行密码标志 */
+  BankPwdFlag: PwdFlagType;
+  /** 期货资金密码核对标志 */
+  SecuPwdFlag: PwdFlagType;
+  /** 交易柜员 */
   OperNo: string;
+  /** 请求编号 */
   RequestID: number;
+  /** 交易ID */
   TID: number;
+  /** 银行可用金额 */
   BankUseAmount: number;
+  /** 银行可取金额 */
   BankFetchAmount: number;
+  /** 错误代码 */
   ErrorID: number;
+  /** 错误信息 */
   ErrorMsg: string;
+  /** 长客户姓名 */
   LongCustomerName: string;
 };
 
+/** 转账请求 */
 export type ReqTransferField = {
   kind: "CThostFtdcReqTransferField";
+  /** 交易代码 */
   TradeCode: string;
+  /** 银行代码 */
   BankID: string;
+  /** 银行分支机构编码 */
   BankBranchID: string;
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 期商分支机构代码 */
   BrokerBranchID: string;
+  /** 交易时期 */
   TradeDate: string;
+  /** 交易时间 */
   TradeTime: string;
+  /** 银行流水号 */
   BankSerial: string;
+  /** 交易日 */
   TradingDay: string;
+  /** 平台流水号 */
   PlateSerial: number;
-  LastFragment: string;
+  /** 最后分片标志 */
+  LastFragment: LastFragmentType;
+  /** 会话编号 */
   SessionID: number;
+  /** 客户姓名 */
   CustomerName: string;
-  IdCardType: string;
+  /** 证件类型 */
+  IdCardType: IdCardTypeType;
+  /** 证件号码 */
   IdentifiedCardNo: string;
-  CustType: string;
+  /** 客户类型 */
+  CustType: CustTypeType;
+  /** 银行帐号 */
   BankAccount: string;
+  /** 银行密码 */
   BankPassWord: string;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 密码 */
   Password: string;
+  /** 安装编号 */
   InstallID: number;
+  /** 期货公司流水号 */
   FutureSerial: number;
+  /** 用户代码 */
   UserID: string;
-  VerifyCertNoFlag: string;
+  /** 验证客户证件号码标志 */
+  VerifyCertNoFlag: YesNoIndicatorType;
+  /** 币种代码 */
   CurrencyID: string;
+  /** 转帐金额 */
   TradeAmount: number;
+  /** 期货可取金额 */
   FutureFetchAmount: number;
-  FeePayFlag: string;
+  /** 费用支付标志 */
+  FeePayFlag: FeePayFlagType;
+  /** 应收客户费用 */
   CustFee: number;
+  /** 应收期货公司费用 */
   BrokerFee: number;
+  /** 发送方给接收方的消息 */
   Message: string;
+  /** 摘要 */
   Digest: string;
-  BankAccType: string;
+  /** 银行帐号类型 */
+  BankAccType: BankAccTypeType;
+  /** 渠道标志 */
   DeviceID: string;
-  BankSecuAccType: string;
+  /** 期货单位帐号类型 */
+  BankSecuAccType: BankAccTypeType;
+  /** 期货公司银行编码 */
   BrokerIDByBank: string;
+  /** 期货单位帐号 */
   BankSecuAcc: string;
-  BankPwdFlag: string;
-  SecuPwdFlag: string;
+  /** 银行密码标志 */
+  BankPwdFlag: PwdFlagType;
+  /** 期货资金密码核对标志 */
+  SecuPwdFlag: PwdFlagType;
+  /** 交易柜员 */
   OperNo: string;
+  /** 请求编号 */
   RequestID: number;
+  /** 交易ID */
   TID: number;
-  TransferStatus: string;
+  /** 转账交易状态 */
+  TransferStatus: TransferStatusType;
+  /** 长客户姓名 */
   LongCustomerName: string;
 };
 
+/** 冲正请求 */
 export type ReqRepealField = {
   kind: "CThostFtdcReqRepealField";
+  /** 冲正时间间隔 */
   RepealTimeInterval: number;
+  /** 已经冲正次数 */
   RepealedTimes: number;
-  BankRepealFlag: string;
-  BrokerRepealFlag: string;
+  /** 银行冲正标志 */
+  BankRepealFlag: BankRepealFlagType;
+  /** 期商冲正标志 */
+  BrokerRepealFlag: BrokerRepealFlagType;
+  /** 被冲正平台流水号 */
   PlateRepealSerial: number;
+  /** 被冲正银行流水号 */
   BankRepealSerial: string;
+  /** 被冲正期货流水号 */
   FutureRepealSerial: number;
+  /** 交易代码 */
   TradeCode: string;
+  /** 银行代码 */
   BankID: string;
+  /** 银行分支机构编码 */
   BankBranchID: string;
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 期商分支机构代码 */
   BrokerBranchID: string;
+  /** 交易时期 */
   TradeDate: string;
+  /** 交易时间 */
   TradeTime: string;
+  /** 银行流水号 */
   BankSerial: string;
+  /** 交易日 */
   TradingDay: string;
+  /** 平台流水号 */
   PlateSerial: number;
-  LastFragment: string;
+  /** 最后分片标志 */
+  LastFragment: LastFragmentType;
+  /** 会话编号 */
   SessionID: number;
+  /** 客户姓名 */
   CustomerName: string;
-  IdCardType: string;
+  /** 证件类型 */
+  IdCardType: IdCardTypeType;
+  /** 证件号码 */
   IdentifiedCardNo: string;
-  CustType: string;
+  /** 客户类型 */
+  CustType: CustTypeType;
+  /** 银行帐号 */
   BankAccount: string;
+  /** 银行密码 */
   BankPassWord: string;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 密码 */
   Password: string;
+  /** 安装编号 */
   InstallID: number;
+  /** 期货公司流水号 */
   FutureSerial: number;
+  /** 用户代码 */
   UserID: string;
-  VerifyCertNoFlag: string;
+  /** 验证客户证件号码标志 */
+  VerifyCertNoFlag: YesNoIndicatorType;
+  /** 币种代码 */
   CurrencyID: string;
+  /** 转帐金额 */
   TradeAmount: number;
+  /** 期货可取金额 */
   FutureFetchAmount: number;
-  FeePayFlag: string;
+  /** 费用支付标志 */
+  FeePayFlag: FeePayFlagType;
+  /** 应收客户费用 */
   CustFee: number;
+  /** 应收期货公司费用 */
   BrokerFee: number;
+  /** 发送方给接收方的消息 */
   Message: string;
+  /** 摘要 */
   Digest: string;
-  BankAccType: string;
+  /** 银行帐号类型 */
+  BankAccType: BankAccTypeType;
+  /** 渠道标志 */
   DeviceID: string;
-  BankSecuAccType: string;
+  /** 期货单位帐号类型 */
+  BankSecuAccType: BankAccTypeType;
+  /** 期货公司银行编码 */
   BrokerIDByBank: string;
+  /** 期货单位帐号 */
   BankSecuAcc: string;
-  BankPwdFlag: string;
-  SecuPwdFlag: string;
+  /** 银行密码标志 */
+  BankPwdFlag: PwdFlagType;
+  /** 期货资金密码核对标志 */
+  SecuPwdFlag: PwdFlagType;
+  /** 交易柜员 */
   OperNo: string;
+  /** 请求编号 */
   RequestID: number;
+  /** 交易ID */
   TID: number;
-  TransferStatus: string;
+  /** 转账交易状态 */
+  TransferStatus: TransferStatusType;
+  /** 长客户姓名 */
   LongCustomerName: string;
 };
 
+/** 查询账户信息请求 */
 export type ReqQueryAccountField = {
   kind: "CThostFtdcReqQueryAccountField";
+  /** 交易代码 */
   TradeCode: string;
+  /** 银行代码 */
   BankID: string;
+  /** 银行分支机构编码 */
   BankBranchID: string;
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 期商分支机构代码 */
   BrokerBranchID: string;
+  /** 交易时期 */
   TradeDate: string;
+  /** 交易时间 */
   TradeTime: string;
+  /** 银行流水号 */
   BankSerial: string;
+  /** 交易日 */
   TradingDay: string;
+  /** 平台流水号 */
   PlateSerial: number;
-  LastFragment: string;
+  /** 最后分片标志 */
+  LastFragment: LastFragmentType;
+  /** 会话编号 */
   SessionID: number;
+  /** 客户姓名 */
   CustomerName: string;
-  IdCardType: string;
+  /** 证件类型 */
+  IdCardType: IdCardTypeType;
+  /** 证件号码 */
   IdentifiedCardNo: string;
-  CustType: string;
+  /** 客户类型 */
+  CustType: CustTypeType;
+  /** 银行帐号 */
   BankAccount: string;
+  /** 银行密码 */
   BankPassWord: string;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 密码 */
   Password: string;
+  /** 期货公司流水号 */
   FutureSerial: number;
+  /** 安装编号 */
   InstallID: number;
+  /** 用户代码 */
   UserID: string;
-  VerifyCertNoFlag: string;
+  /** 验证客户证件号码标志 */
+  VerifyCertNoFlag: YesNoIndicatorType;
+  /** 币种代码 */
   CurrencyID: string;
+  /** 摘要 */
   Digest: string;
-  BankAccType: string;
+  /** 银行帐号类型 */
+  BankAccType: BankAccTypeType;
+  /** 渠道标志 */
   DeviceID: string;
-  BankSecuAccType: string;
+  /** 期货单位帐号类型 */
+  BankSecuAccType: BankAccTypeType;
+  /** 期货公司银行编码 */
   BrokerIDByBank: string;
+  /** 期货单位帐号 */
   BankSecuAcc: string;
-  BankPwdFlag: string;
-  SecuPwdFlag: string;
+  /** 银行密码标志 */
+  BankPwdFlag: PwdFlagType;
+  /** 期货资金密码核对标志 */
+  SecuPwdFlag: PwdFlagType;
+  /** 交易柜员 */
   OperNo: string;
+  /** 请求编号 */
   RequestID: number;
+  /** 交易ID */
   TID: number;
+  /** 长客户姓名 */
   LongCustomerName: string;
 };
 
+/** 银期开户信息 */
 export type OpenAccountField = {
   kind: "CThostFtdcOpenAccountField";
+  /** 交易代码 */
   TradeCode: string;
+  /** 银行代码 */
   BankID: string;
+  /** 银行分支机构编码 */
   BankBranchID: string;
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 期商分支机构代码 */
   BrokerBranchID: string;
+  /** 交易时期 */
   TradeDate: string;
+  /** 交易时间 */
   TradeTime: string;
+  /** 银行流水号 */
   BankSerial: string;
+  /** 交易日 */
   TradingDay: string;
+  /** 平台流水号 */
   PlateSerial: number;
-  LastFragment: string;
+  /** 最后分片标志 */
+  LastFragment: LastFragmentType;
+  /** 会话编号 */
   SessionID: number;
+  /** 客户姓名 */
   CustomerName: string;
-  IdCardType: string;
+  /** 证件类型 */
+  IdCardType: IdCardTypeType;
+  /** 证件号码 */
   IdentifiedCardNo: string;
+  /** 性别 */
   Gender: string;
+  /** 国家代码 */
   CountryCode: string;
-  CustType: string;
+  /** 客户类型 */
+  CustType: CustTypeType;
+  /** 通讯地址 */
   Address: string;
+  /** 邮编 */
   ZipCode: string;
+  /** 联系电话 */
   Telephone: string;
+  /** 手机 */
   MobilePhone: string;
+  /** 传真 */
   Fax: string;
+  /** 电子邮件 */
   EMail: string;
-  MoneyAccountStatus: string;
+  /** 资金账户状态 */
+  MoneyAccountStatus: MoneyAccountStatusType;
+  /** 银行帐号 */
   BankAccount: string;
+  /** 银行密码 */
   BankPassWord: string;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 密码 */
   Password: string;
+  /** 安装编号 */
   InstallID: number;
-  VerifyCertNoFlag: string;
+  /** 验证客户证件号码标志 */
+  VerifyCertNoFlag: YesNoIndicatorType;
+  /** 币种代码 */
   CurrencyID: string;
+  /** 汇钞标志 */
   CashExchangeCode: string;
+  /** 摘要 */
   Digest: string;
-  BankAccType: string;
+  /** 银行帐号类型 */
+  BankAccType: BankAccTypeType;
+  /** 渠道标志 */
   DeviceID: string;
-  BankSecuAccType: string;
+  /** 期货单位帐号类型 */
+  BankSecuAccType: BankAccTypeType;
+  /** 期货公司银行编码 */
   BrokerIDByBank: string;
+  /** 期货单位帐号 */
   BankSecuAcc: string;
-  BankPwdFlag: string;
-  SecuPwdFlag: string;
+  /** 银行密码标志 */
+  BankPwdFlag: PwdFlagType;
+  /** 期货资金密码核对标志 */
+  SecuPwdFlag: PwdFlagType;
+  /** 交易柜员 */
   OperNo: string;
+  /** 交易ID */
   TID: number;
+  /** 用户代码 */
   UserID: string;
+  /** 错误代码 */
   ErrorID: number;
+  /** 错误信息 */
   ErrorMsg: string;
+  /** 长客户姓名 */
   LongCustomerName: string;
 };
 
+/** 银期销户信息 */
 export type CancelAccountField = {
   kind: "CThostFtdcCancelAccountField";
+  /** 交易代码 */
   TradeCode: string;
+  /** 银行代码 */
   BankID: string;
+  /** 银行分支机构编码 */
   BankBranchID: string;
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 期商分支机构代码 */
   BrokerBranchID: string;
+  /** 交易时期 */
   TradeDate: string;
+  /** 交易时间 */
   TradeTime: string;
+  /** 银行流水号 */
   BankSerial: string;
+  /** 交易日 */
   TradingDay: string;
+  /** 平台流水号 */
   PlateSerial: number;
-  LastFragment: string;
+  /** 最后分片标志 */
+  LastFragment: LastFragmentType;
+  /** 会话编号 */
   SessionID: number;
+  /** 客户姓名 */
   CustomerName: string;
-  IdCardType: string;
+  /** 证件类型 */
+  IdCardType: IdCardTypeType;
+  /** 证件号码 */
   IdentifiedCardNo: string;
+  /** 性别 */
   Gender: string;
+  /** 国家代码 */
   CountryCode: string;
-  CustType: string;
+  /** 客户类型 */
+  CustType: CustTypeType;
+  /** 通讯地址 */
   Address: string;
+  /** 邮编 */
   ZipCode: string;
+  /** 联系电话 */
   Telephone: string;
+  /** 手机 */
   MobilePhone: string;
+  /** 传真 */
   Fax: string;
+  /** 电子邮件 */
   EMail: string;
-  MoneyAccountStatus: string;
+  /** 资金账户状态 */
+  MoneyAccountStatus: MoneyAccountStatusType;
+  /** 银行帐号 */
   BankAccount: string;
+  /** 银行密码 */
   BankPassWord: string;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 密码 */
   Password: string;
+  /** 安装编号 */
   InstallID: number;
-  VerifyCertNoFlag: string;
+  /** 验证客户证件号码标志 */
+  VerifyCertNoFlag: YesNoIndicatorType;
+  /** 币种代码 */
   CurrencyID: string;
+  /** 汇钞标志 */
   CashExchangeCode: string;
+  /** 摘要 */
   Digest: string;
-  BankAccType: string;
+  /** 银行帐号类型 */
+  BankAccType: BankAccTypeType;
+  /** 渠道标志 */
   DeviceID: string;
-  BankSecuAccType: string;
+  /** 期货单位帐号类型 */
+  BankSecuAccType: BankAccTypeType;
+  /** 期货公司银行编码 */
   BrokerIDByBank: string;
+  /** 期货单位帐号 */
   BankSecuAcc: string;
-  BankPwdFlag: string;
-  SecuPwdFlag: string;
+  /** 银行密码标志 */
+  BankPwdFlag: PwdFlagType;
+  /** 期货资金密码核对标志 */
+  SecuPwdFlag: PwdFlagType;
+  /** 交易柜员 */
   OperNo: string;
+  /** 交易ID */
   TID: number;
+  /** 用户代码 */
   UserID: string;
+  /** 错误代码 */
   ErrorID: number;
+  /** 错误信息 */
   ErrorMsg: string;
+  /** 长客户姓名 */
   LongCustomerName: string;
 };
 
+/** 银期变更银行账号信息 */
 export type ChangeAccountField = {
   kind: "CThostFtdcChangeAccountField";
+  /** 交易代码 */
   TradeCode: string;
+  /** 银行代码 */
   BankID: string;
+  /** 银行分支机构编码 */
   BankBranchID: string;
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 期商分支机构代码 */
   BrokerBranchID: string;
+  /** 交易时期 */
   TradeDate: string;
+  /** 交易时间 */
   TradeTime: string;
+  /** 银行流水号 */
   BankSerial: string;
+  /** 交易日 */
   TradingDay: string;
+  /** 平台流水号 */
   PlateSerial: number;
-  LastFragment: string;
+  /** 最后分片标志 */
+  LastFragment: LastFragmentType;
+  /** 会话编号 */
   SessionID: number;
+  /** 客户姓名 */
   CustomerName: string;
-  IdCardType: string;
+  /** 证件类型 */
+  IdCardType: IdCardTypeType;
+  /** 证件号码 */
   IdentifiedCardNo: string;
+  /** 性别 */
   Gender: string;
+  /** 国家代码 */
   CountryCode: string;
-  CustType: string;
+  /** 客户类型 */
+  CustType: CustTypeType;
+  /** 通讯地址 */
   Address: string;
+  /** 邮编 */
   ZipCode: string;
+  /** 联系电话 */
   Telephone: string;
+  /** 手机 */
   MobilePhone: string;
+  /** 传真 */
   Fax: string;
+  /** 电子邮件 */
   EMail: string;
-  MoneyAccountStatus: string;
+  /** 资金账户状态 */
+  MoneyAccountStatus: MoneyAccountStatusType;
+  /** 银行帐号 */
   BankAccount: string;
+  /** 银行密码 */
   BankPassWord: string;
+  /** 新银行帐号 */
   NewBankAccount: string;
+  /** 新银行密码 */
   NewBankPassWord: string;
+  /** 投资者帐号 */
   AccountID: string;
+  /** 密码 */
   Password: string;
-  BankAccType: string;
+  /** 银行帐号类型 */
+  BankAccType: BankAccTypeType;
+  /** 安装编号 */
   InstallID: number;
-  VerifyCertNoFlag: string;
+  /** 验证客户证件号码标志 */
+  VerifyCertNoFlag: YesNoIndicatorType;
+  /** 币种代码 */
   CurrencyID: string;
+  /** 期货公司银行编码 */
   BrokerIDByBank: string;
-  BankPwdFlag: string;
-  SecuPwdFlag: string;
+  /** 银行密码标志 */
+  BankPwdFlag: PwdFlagType;
+  /** 期货资金密码核对标志 */
+  SecuPwdFlag: PwdFlagType;
+  /** 交易ID */
   TID: number;
+  /** 摘要 */
   Digest: string;
+  /** 错误代码 */
   ErrorID: number;
+  /** 错误信息 */
   ErrorMsg: string;
+  /** 长客户姓名 */
   LongCustomerName: string;
 };
 
+/** 投资者风险结算持仓 */
 export type RiskSettleInvstPositionField = {
   kind: "CThostFtdcRiskSettleInvstPositionField";
+  /** 合约代码 */
   InstrumentID: string;
+  /** 经纪公司代码 */
   BrokerID: string;
+  /** 投资者代码 */
   InvestorID: string;
-  PosiDirection: string;
-  HedgeFlag: string;
-  PositionDate: string;
+  /** 保留头寸申请的持仓方向 */
+  PosiDirection: PosiDirectionType;
+  /** 投机套保标志 */
+  HedgeFlag: HedgeFlagType;
+  /** 持仓日期 */
+  PositionDate: PositionDateType;
+  /** 上日持仓 */
   YdPosition: number;
+  /** 今日持仓 */
   Position: number;
+  /** 多头冻结 */
   LongFrozen: number;
+  /** 空头冻结 */
   ShortFrozen: number;
+  /** 多头冻结金额 */
   LongFrozenAmount: number;
+  /** 空头冻结金额 */
   ShortFrozenAmount: number;
+  /** 开仓量 */
   OpenVolume: number;
+  /** 平仓量 */
   CloseVolume: number;
+  /** 开仓金额 */
   OpenAmount: number;
+  /** 平仓金额 */
   CloseAmount: number;
+  /** 持仓成本 */
   PositionCost: number;
+  /** 上次占用的保证金 */
   PreMargin: number;
+  /** 占用的保证金 */
   UseMargin: number;
+  /** 冻结的保证金 */
   FrozenMargin: number;
+  /** 冻结的资金 */
   FrozenCash: number;
+  /** 冻结的手续费 */
   FrozenCommission: number;
+  /** 资金差额 */
   CashIn: number;
+  /** 手续费 */
   Commission: number;
+  /** 平仓盈亏 */
   CloseProfit: number;
+  /** 持仓盈亏 */
   PositionProfit: number;
+  /** 上次结算价 */
   PreSettlementPrice: number;
+  /** 本次结算价 */
   SettlementPrice: number;
+  /** 交易日 */
   TradingDay: string;
+  /** 结算编号 */
   SettlementID: number;
+  /** 开仓成本 */
   OpenCost: number;
+  /** 交易所保证金 */
   ExchangeMargin: number;
+  /** 组合成交形成的持仓 */
   CombPosition: number;
+  /** 组合多头冻结 */
   CombLongFrozen: number;
+  /** 组合空头冻结 */
   CombShortFrozen: number;
+  /** 逐日盯市平仓盈亏 */
   CloseProfitByDate: number;
+  /** 逐笔对冲平仓盈亏 */
   CloseProfitByTrade: number;
+  /** 今日持仓 */
   TodayPosition: number;
+  /** 保证金率 */
   MarginRateByMoney: number;
+  /** 保证金率(按手数) */
   MarginRateByVolume: number;
+  /** 执行冻结 */
   StrikeFrozen: number;
+  /** 执行冻结金额 */
   StrikeFrozenAmount: number;
+  /** 放弃执行冻结 */
   AbandonFrozen: number;
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 执行冻结的昨仓 */
   YdStrikeFrozen: number;
+  /** 投资单元代码 */
   InvestUnitID: string;
+  /** 持仓成本差值 */
   PositionCostOffset: number;
+  /** tas持仓手数 */
   TasPosition: number;
+  /** tas持仓成本 */
   TasPositionCost: number;
 };
 
+/** 风险品种 */
 export type RiskSettleProductStatusField = {
   kind: "CThostFtdcRiskSettleProductStatusField";
+  /** 交易所代码 */
   ExchangeID: string;
+  /** 产品代码 */
   ProductID: string;
-  ProductStatus: string;
+  /** 产品结算状态 */
+  ProductStatus: ProductStatusType;
 };
 
 /*----------------------------------------------------------------------------*/
