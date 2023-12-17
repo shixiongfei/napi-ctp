@@ -517,7 +517,6 @@ static napi_value reqExecOrderInsert(napi_env env, napi_callback_info info) {
     CHECK(GetObjectChar(env, object, req, HedgeFlag));
     CHECK(GetObjectChar(env, object, req, ActionType));
     CHECK(GetObjectChar(env, object, req, PosiDirection));
-    CHECK(GetObjectChar(env, object, req, ReservePositionFlag));
     CHECK(GetObjectChar(env, object, req, CloseFlag));
     CHECK(GetObjectString(env, object, req, ExchangeID));
     CHECK(GetObjectString(env, object, req, InvestUnitID));

@@ -314,7 +314,7 @@ export enum ExchangePropertyType {
 }
 
 /** 证件类型类型 */
-export enum IdCardType {
+export enum IdCardTypeType {
   /** 组织机构代码 */
   EID = "0",
   /** 中国公民身份证 */
@@ -778,7 +778,7 @@ export enum BillHedgeFlagType {
 }
 
 /** 交易编码类型类型 */
-export enum ClientIDType {
+export enum ClientIDTypeType {
   /** 投机 */
   Speculation = "1",
   /** 套利 */
@@ -2122,7 +2122,7 @@ export enum ProcessStatusType {
 }
 
 /** 客户类型类型 */
-export enum CustType {
+export enum CustTypeType {
   /** 自然人 */
   Person = "0",
   /** 机构户 */
@@ -2208,7 +2208,7 @@ export enum SyncModeType {
 }
 
 /** 银行帐号类型类型 */
-export enum BankAccType {
+export enum BankAccTypeType {
   /** 银行存折 */
   BankBook = "1",
   /** 储蓄卡 */
@@ -3782,7 +3782,7 @@ export enum BalanceAlgorithmType {
 }
 
 /** 执行类型类型 */
-export enum ActionType {
+export enum ActionTypeType {
   /** 执行 */
   Exec = "1",
   /** 放弃 */
@@ -3950,7 +3950,7 @@ export enum OptSelfCloseFlagType {
 }
 
 /** 业务类型类型 */
-export enum BizType {
+export enum BizTypeType {
   /** 期货 */
   Future = "1",
   /** 证券 */
@@ -4002,7 +4002,7 @@ export enum AuthType {
 }
 
 /** 合约分类方式类型 */
-export enum ClassType {
+export enum ClassTypeType {
   /** 所有合约 */
   ALL = "0",
   /** 期货、即期、期转现、Tas、金属指数合约 */
@@ -4014,7 +4014,7 @@ export enum ClassType {
 }
 
 /** 合约交易状态分类方式类型 */
-export enum TradingType {
+export enum TradingTypeType {
   /** 所有状态 */
   ALL = "0",
   /** 交易 */

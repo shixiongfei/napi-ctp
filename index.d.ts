@@ -23,6 +23,26 @@ import {
   UserTypeType,
   ParkedOrderStatusType,
   ActionFlagType,
+  OffsetFlagType,
+  HedgeFlagType,
+  ActionTypeType,
+  PosiDirectionType,
+  ExecOrderCloseFlagType,
+  OptSelfCloseFlagType,
+  CombDirectionType,
+  BizTypeType,
+  ClientIDTypeType,
+  ProductClassType,
+  LastFragmentType,
+  IdCardTypeType,
+  CustTypeType,
+  YesNoIndicatorType,
+  BankAccTypeType,
+  FeePayFlagType,
+  PwdFlagType,
+  TransferStatusType,
+  TradingTypeType,
+  ClassTypeType,
 } from "./types";
 
 /** 行情对象 */
@@ -549,27 +569,49 @@ export declare class Trader {
    */
   reqParkedOrderAction(
     req?: Partial<{
+      /** 经纪公司代码 */
       BrokerID: string;
+      /** 投资者代码 */
       InvestorID: string;
+      /** 报单操作引用 */
       OrderActionRef: number;
+      /** 报单引用 */
       OrderRef: string;
+      /** 请求编号 */
       RequestID: number;
+      /** 前置编号 */
       FrontID: number;
+      /** 会话编号 */
       SessionID: number;
+      /** 交易所代码 */
       ExchangeID: string;
+      /** 报单编号 */
       OrderSysID: string;
+      /** 操作标志 */
       ActionFlag: ActionFlagType;
+      /** 价格 */
       LimitPrice: number;
+      /** 数量变化 */
       VolumeChange: number;
+      /** 用户代码 */
       UserID: string;
+      /** 预埋撤单单编号 */
       ParkedOrderActionID: string;
+      /** 用户类型 */
       UserType: UserTypeType;
+      /** 预埋撤单状态 */
       Status: ParkedOrderStatusType;
+      /** 错误代码 */
       ErrorID: number;
+      /** 错误信息 */
       ErrorMsg: string;
+      /** 投资单元代码 */
       InvestUnitID: string;
+      /** Mac地址 */
       MacAddress: string;
+      /** 合约代码 */
       InstrumentID: string;
+      /** IP地址 */
       IPAddress: string;
     }>
   ): number;
@@ -578,439 +620,1732 @@ export declare class Trader {
    * 报单操作请求
    * @param req 报单信息
    */
-  reqOrderAction(req?: object): number;
+  reqOrderAction(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 报单操作引用 */
+      OrderActionRef: number;
+      /** 报单引用 */
+      OrderRef: string;
+      /** 请求编号 */
+      RequestID: number;
+      /** 前置编号 */
+      FrontID: number;
+      /** 会话编号 */
+      SessionID: number;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 报单编号 */
+      OrderSysID: string;
+      /** 操作标志 */
+      ActionFlag: ActionFlagType;
+      /** 价格 */
+      LimitPrice: number;
+      /** 数量变化 */
+      VolumeChange: number;
+      /** 用户代码 */
+      UserID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** Mac地址 */
+      MacAddress: string;
+      /** 合约代码 */
+      InstrumentID: string;
+      /** IP地址 */
+      IPAddress: string;
+    }>
+  ): number;
 
   /**
    * 查询最大报单数量请求
    * @param req 查询最大报单数量
    */
-  reqQryMaxOrderVolume(req?: object): number;
+  reqQryMaxOrderVolume(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 买卖方向 */
+      Direction: DirectionType;
+      /** 开平标志 */
+      OffsetFlag: OffsetFlagType;
+      /** 投机套保标志 */
+      HedgeFlag: HedgeFlagType;
+      /** 最大允许报单数量 */
+      MaxVolume: number;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 投资者结算结果确认
    * @param req 投资者结算结果确认信息
    */
-  reqSettlementInfoConfirm(req?: object): number;
+  reqSettlementInfoConfirm(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 确认日期 */
+      ConfirmDate: string;
+      /** 确认时间 */
+      ConfirmTime: string;
+      /** 结算编号 */
+      SettlementID: number;
+      /** 投资者帐号 */
+      AccountID: string;
+      /** 币种代码 */
+      CurrencyID: string;
+    }>
+  ): number;
 
   /**
    * 请求删除预埋单
    * @param req 预埋单信息
    */
-  reqRemoveParkedOrder(req?: object): number;
+  reqRemoveParkedOrder(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 预埋报单编号 */
+      ParkedOrderID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+    }>
+  ): number;
 
   /**
    * 请求删除预埋撤单
    * @param req 预埋单信息
    */
-  reqRemoveParkedOrderAction(req?: object): number;
+  reqRemoveParkedOrderAction(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 预埋撤单编号 */
+      ParkedOrderActionID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+    }>
+  ): number;
 
   /**
    * 执行宣告录入请求
    * @param req 宣告信息
    */
-  reqExecOrderInsert(req?: object): number;
+  reqExecOrderInsert(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 执行宣告引用 */
+      ExecOrderRef: string;
+      /** 用户代码 */
+      UserID: string;
+      /** 数量 */
+      Volume: number;
+      /** 请求编号 */
+      RequestID: number;
+      /** 业务单元 */
+      BusinessUnit: string;
+      /** 开平标志 */
+      OffsetFlag: OffsetFlagType;
+      /** 投机套保标志 */
+      HedgeFlag: HedgeFlagType;
+      /** 执行类型 */
+      ActionType: ActionTypeType;
+      /** 保留头寸申请的持仓方向 */
+      PosiDirection: PosiDirectionType;
+      /** 期权行权后生成的头寸是否自动平仓 */
+      CloseFlag: ExecOrderCloseFlagType;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** 资金账号 */
+      AccountID: string;
+      /** 币种代码 */
+      CurrencyID: string;
+      /** 客户代码 */
+      ClientID: string;
+      /** Mac地址 */
+      MacAddress: string;
+      /** 合约代码 */
+      InstrumentID: string;
+      /** IP地址 */
+      IPAddress: string;
+    }>
+  ): number;
 
   /**
    * 执行宣告操作请求
    * @param req 宣告信息
    */
-  reqExecOrderAction(req?: object): number;
+  reqExecOrderAction(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 执行宣告操作引用 */
+      ExecOrderActionRef: number;
+      /** 执行宣告引用 */
+      ExecOrderRef: string;
+      /** 请求编号 */
+      RequestID: number;
+      /** 前置编号 */
+      FrontID: number;
+      /** 会话编号 */
+      SessionID: number;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 执行宣告编号 */
+      ExecOrderSysID: number;
+      /** 操作标志 */
+      ActionFlag: ActionFlagType;
+      /** 用户代码 */
+      UserID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** Mac地址 */
+      MacAddress: string;
+      /** 合约代码 */
+      InstrumentID: string;
+      /** IP地址 */
+      IPAddress: string;
+    }>
+  ): number;
 
   /**
    * 询价录入请求
    * @param req 询价信息
    */
-  reqForQuoteInsert(req?: object): number;
+  reqForQuoteInsert(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 询价引用 */
+      ForQuoteRef: string;
+      /** 用户代码 */
+      UserID: string;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** Mac地址 */
+      MacAddress: string;
+      /** 合约代码 */
+      InstrumentID: string;
+      /** IP地址 */
+      IPAddress: string;
+    }>
+  ): number;
 
   /**
    * 报价录入请求
    * @param req 报价信息
    */
-  reqQuoteInsert(req?: object): number;
+  reqQuoteInsert(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 报价引用 */
+      QuoteRef: string;
+      /** 用户代码 */
+      UserID: string;
+      /** 卖价格 */
+      AskPrice: number;
+      /** 买价格 */
+      BidPrice: number;
+      /** 卖数量 */
+      AskVolume: number;
+      /** 买数量 */
+      BidVolume: number;
+      /** 请求编号 */
+      RequestID: number;
+      /** 业务单元 */
+      BusinessUnit: string;
+      /** 卖开平标志 */
+      AskOffsetFlag: OffsetFlagType;
+      /** 买开平标志 */
+      BidOffsetFlag: OffsetFlagType;
+      /** 卖投机套保标志 */
+      AskHedgeFlag: HedgeFlagType;
+      /** 买投机套保标志 */
+      BidHedgeFlag: HedgeFlagType;
+      /** 衍生卖报单引用 */
+      AskOrderRef: string;
+      /** 衍生买报单引用 */
+      BidOrderRef: string;
+      /** 应价编号 */
+      ForQuoteSysID: string;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** 客户代码 */
+      ClientID: string;
+      /** Mac地址 */
+      MacAddress: string;
+      /** 合约代码 */
+      InstrumentID: string;
+      /** IP地址 */
+      IPAddress: string;
+      /** 被顶单编号 */
+      ReplaceSysID: string;
+    }>
+  ): number;
 
   /**
    * 报价操作请求
    * @param req 报价信息
    */
-  reqQuoteAction(req?: object): number;
+  reqQuoteAction(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 报价操作引用 */
+      QuoteActionRef: number;
+      /** 报价引用 */
+      QuoteRef: string;
+      /** 请求编号 */
+      RequestID: number;
+      /** 前置编号 */
+      FrontID: number;
+      /** 会话编号 */
+      SessionID: number;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 报价操作编号 */
+      QuoteSysID: string;
+      /** 操作标志 */
+      ActionFlag: ActionFlagType;
+      /** 用户代码 */
+      UserID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** 客户代码 */
+      ClientID: string;
+      /** Mac地址 */
+      MacAddress: string;
+      /** 合约代码 */
+      InstrumentID: string;
+      /** IP地址 */
+      IPAddress: string;
+    }>
+  ): number;
 
   /**
    * 批量报单操作请求
    * @param req 报单请求
    */
-  reqBatchOrderAction(req?: object): number;
+  reqBatchOrderAction(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 报单操作引用 */
+      OrderActionRef: number;
+      /** 请求编号 */
+      RequestID: number;
+      /** 前置编号 */
+      FrontID: number;
+      /** 会话编号 */
+      SessionID: number;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 用户代码 */
+      UserID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** Mac地址 */
+      MacAddress: string;
+      /** IP地址 */
+      IPAddress: string;
+    }>
+  ): number;
 
   /**
    * 期权自对冲录入请求
    * @param req 期权自对冲信息
    */
-  reqOptionSelfCloseInsert(req?: object): number;
+  reqOptionSelfCloseInsert(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 期权自对冲引用 */
+      OptionSelfCloseRef: string;
+      /** 用户代码 */
+      UserID: string;
+      /** 数量 */
+      Volume: number;
+      /** 请求编号 */
+      RequestID: number;
+      /** 业务单元 */
+      BusinessUnit: string;
+      /** 投机套保标志 */
+      HedgeFlag: HedgeFlagType;
+      /** 期权行权的头寸是否自对冲 */
+      OptSelfCloseFlag: OptSelfCloseFlagType;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** 资金账号 */
+      AccountID: string;
+      /** 币种代码 */
+      CurrencyID: string;
+      /** 客户代码 */
+      ClientID: string;
+      /** Mac地址 */
+      MacAddress: string;
+      /** 合约代码 */
+      InstrumentID: string;
+      /** IP地址 */
+      IPAddress: string;
+    }>
+  ): number;
 
   /**
    * 期权自对冲操作请求
    * @param req 期权自对冲信息
    */
-  reqOptionSelfCloseAction(req?: object): number;
+  reqOptionSelfCloseAction(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 期权自对冲操作引用 */
+      OptionSelfCloseActionRef: number;
+      /** 期权自对冲引用 */
+      OptionSelfCloseRef: string;
+      /** 请求编号 */
+      RequestID: number;
+      /** 前置编号 */
+      FrontID: number;
+      /** 会话编号 */
+      SessionID: number;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 期权自对冲操作编号 */
+      OptionSelfCloseSysID: string;
+      /** 操作标志 */
+      ActionFlag: ActionFlagType;
+      /** 用户代码 */
+      UserID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** Mac地址 */
+      MacAddress: string;
+      /** 合约代码 */
+      InstrumentID: string;
+      /** IP地址 */
+      IPAddress: string;
+    }>
+  ): number;
 
   /**
    * 申请组合录入请求
    * @param req 组合信息
    */
-  reqCombActionInsert(req?: object): number;
+  reqCombActionInsert(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 组合引用 */
+      CombActionRef: string;
+      /** 用户代码 */
+      UserID: string;
+      /** 买卖方向 */
+      Direction: DirectionType;
+      /** 数量 */
+      Volume: number;
+      /** 组合指令方向 */
+      CombDirection: CombDirectionType;
+      /** 投机套保标志 */
+      HedgeFlag: HedgeFlagType;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** Mac地址 */
+      MacAddress: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** 前置编号 */
+      FrontID: number;
+      /** 会话编号 */
+      SessionID: number;
+      /** 合约代码 */
+      InstrumentID: string;
+      /** IP地址 */
+      IPAddress: string;
+    }>
+  ): number;
 
   /**
    * 请求查询报单
    * @param req 查询信息
    */
-  reqQryOrder(req?: object): number;
+  reqQryOrder(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 报单编号 */
+      OrderSysID: string;
+      /** 开始时间 */
+      InsertTimeStart: string;
+      /** 结束时间 */
+      InsertTimeEnd: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询成交
    * @param req 查询信息
    */
-  reqQryTrade(req?: object): number;
+  reqQryTrade(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 成交编号 */
+      TradeID: string;
+      /** 开始时间 */
+      TradeTimeStart: string;
+      /** 结束时间 */
+      TradeTimeEnd: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询投资者持仓
    * @param req 查询信息
    */
-  reqQryInvestorPosition(req?: object): number;
+  reqQryInvestorPosition(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询资金账户
    * @param req 查询信息
    */
-  reqQryTradingAccount(req?: object): number;
+  reqQryTradingAccount(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 币种代码 */
+      CurrencyID: string;
+      /** 业务类型 */
+      BizType: BizTypeType;
+      /** 资金账号 */
+      AccountID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询投资者
    * @param req 查询信息
    */
-  reqQryInvestor(req?: object): number;
+  reqQryInvestor(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询交易编码
    * @param req 查询信息
    */
-  reqQryTradingCode(req?: object): number;
+  reqQryTradingCode(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 客户代码 */
+      ClientID: string;
+      /** 交易编码类型 */
+      ClientIDType: ClientIDTypeType;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询合约保证金率
    * @param req 查询信息
    */
-  reqQryInstrumentMarginRate(req?: object): number;
+  reqQryInstrumentMarginRate(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 投机套保标志 */
+      HedgeFlag: HedgeFlagType;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询合约手续费率
    * @param req 查询信息
    */
-  reqQryInstrumentCommissionRate(req?: object): number;
+  reqQryInstrumentCommissionRate(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询交易所
    * @param req 查询信息
    */
-  reqQryExchange(req?: object): number;
+  reqQryExchange(
+    req?: Partial<{
+      /** 交易所代码 */
+      ExchangeID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询产品
    * @param req 查询信息
    */
-  reqQryProduct(req?: object): number;
+  reqQryProduct(
+    req?: Partial<{
+      /** 产品类型 */
+      ProductClass: ProductClassType;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 产品代码 */
+      ProductID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询合约
    * @param req 查询信息
    */
-  reqQryInstrument(req?: object): number;
+  reqQryInstrument(
+    req?: Partial<{
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 合约代码 */
+      InstrumentID: string;
+      /** 合约在交易所的代码 */
+      ExchangeInstID: string;
+      /** 产品代码 */
+      ProductID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询行情
    * @param req 查询信息
    */
-  reqQryDepthMarketData(req?: object): number;
+  reqQryDepthMarketData(
+    req?: Partial<{
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询交易员报盘机
    * @param req 查询信息
    */
-  reqQryTraderOffer(req?: object): number;
+  reqQryTraderOffer(
+    req?: Partial<{
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 会员代码 */
+      ParticipantID: string;
+      /** 交易所交易员代码 */
+      TraderID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询投资者结算结果
    * @param req 查询信息
    */
-  reqQrySettlementInfo(req?: object): number;
+  reqQrySettlementInfo(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 交易日 */
+      TradingDay: string;
+      /** 资金账号 */
+      AccountID: string;
+      /** 币种代码 */
+      CurrencyID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询转帐银行
    * @param req 转账信息
    */
-  reqQryTransferBank(req?: object): number;
+  reqQryTransferBank(
+    req?: Partial<{
+      /** 银行代码 */
+      BankID: string;
+      /** 银行分中心代码 */
+      BankBrchID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询投资者持仓明细
    * @param req 查询信息
    */
-  reqQryInvestorPositionDetail(req?: object): number;
+  reqQryInvestorPositionDetail(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询客户通知
    * @param req 查询信息
    */
-  reqQryNotice(req?: object): number;
+  reqQryNotice(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询结算信息确认
    * @param req 查询信息
    */
-  reqQrySettlementInfoConfirm(req?: object): number;
+  reqQrySettlementInfoConfirm(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 资金账号 */
+      AccountID: string;
+      /** 币种代码 */
+      CurrencyID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询投资者持仓明细
    * @param req 查询信息
    */
-  reqQryInvestorPositionCombineDetail(req?: object): number;
+  reqQryInvestorPositionCombineDetail(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** 组合持仓合约编码 */
+      CombInstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询保证金监管系统经纪公司资金账户密钥
    * @param req 查询信息
    */
-  reqQryCFMMCTradingAccountKey(req?: object): number;
+  reqQryCFMMCTradingAccountKey(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询仓单折抵信息
    * @param req 查询信息
    */
-  reqQryEWarrantOffset(req?: object): number;
+  reqQryEWarrantOffset(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询投资者品种/跨品种保证金
    * @param req 查询信息
    */
-  reqQryInvestorProductGroupMargin(req?: object): number;
+  reqQryInvestorProductGroupMargin(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 投机套保标志 */
+      HedgeFlag: HedgeFlagType;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** 品种/跨品种标示 */
+      ProductGroupID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询交易所保证金率
    * @param req 查询信息
    */
-  reqQryExchangeMarginRate(req?: object): number;
+  reqQryExchangeMarginRate(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投机套保标志 */
+      HedgeFlag: HedgeFlagType;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询交易所调整保证金率
    * @param req 查询信息
    */
-  reqQryExchangeMarginRateAdjust(req?: object): number;
+  reqQryExchangeMarginRateAdjust(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投机套保标志 */
+      HedgeFlag: HedgeFlagType;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询汇率
    * @param req 查询信息
    */
-  reqQryExchangeRate(req?: object): number;
+  reqQryExchangeRate(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 源币种 */
+      FromCurrencyID: string;
+      /** 目标币种 */
+      ToCurrencyID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询二级代理操作员银期权限
    * @param req 查询信息
    */
-  reqQrySecAgentACIDMap(req?: object): number;
+  reqQrySecAgentACIDMap(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 用户代码 */
+      UserID: string;
+      /** 资金账号 */
+      AccountID: string;
+      /** 币种代码 */
+      CurrencyID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询产品报价汇率
    * @param req 查询信息
    */
-  reqQryProductExchRate(req?: object): number;
+  reqQryProductExchRate(
+    req?: Partial<{
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 产品代码 */
+      ProductID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询产品组
    * @param req 查询信息
    */
-  reqQryProductGroup(req?: object): number;
+  reqQryProductGroup(
+    req?: Partial<{
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 产品代码 */
+      ProductID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询做市商合约手续费率
    * @param req 查询信息
    */
-  reqQryMMInstrumentCommissionRate(req?: object): number;
+  reqQryMMInstrumentCommissionRate(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询做市商期权合约手续费
    * @param req 查询信息
    */
-  reqQryMMOptionInstrCommRate(req?: object): number;
+  reqQryMMOptionInstrCommRate(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询报单手续费
    * @param req 查询信息
    */
-  reqQryInstrumentOrderCommRate(req?: object): number;
+  reqQryInstrumentOrderCommRate(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询资金账户
    * @param req 查询信息
    */
-  reqQrySecAgentTradingAccount(req?: object): number;
+  reqQrySecAgentTradingAccount(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 币种代码 */
+      CurrencyID: string;
+      /** 业务类型 */
+      BizType: BizTypeType;
+      /** 资金账号 */
+      AccountID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询二级代理商资金校验模式
    * @param req 查询信息
    */
-  reqQrySecAgentCheckMode(req?: object): number;
+  reqQrySecAgentCheckMode(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询二级代理商信息
    * @param req 查询信息
    */
-  reqQrySecAgentTradeInfo(req?: object): number;
+  reqQrySecAgentTradeInfo(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 境外中介机构资金帐号 */
+      BrokerSecAgentID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询期权交易成本
    * @param req 查询信息
    */
-  reqQryOptionInstrTradeCost(req?: object): number;
+  reqQryOptionInstrTradeCost(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 投机套保标志 */
+      HedgeFlag: HedgeFlagType;
+      /** 期权合约报价 */
+      InputPrice: number;
+      /** 标的价格,填0则用昨结算价 */
+      UnderlyingPrice: number;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询期权合约手续费
    * @param req 查询信息
    */
-  reqQryOptionInstrCommRate(req?: object): number;
+  reqQryOptionInstrCommRate(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询执行宣告
    * @param req 查询信息
    */
-  reqQryExecOrder(req?: object): number;
+  reqQryExecOrder(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 执行宣告编号 */
+      ExecOrderSysID: number;
+      /** 开始时间 */
+      InsertTimeStart: string;
+      /** 结束时间 */
+      InsertTimeEnd: string;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询询价
    * @param req 查询信息
    */
-  reqQryForQuote(req?: object): number;
+  reqQryForQuote(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 开始时间 */
+      InsertTimeStart: string;
+      /** 结束时间 */
+      InsertTimeEnd: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询报价
    * @param req 查询信息
    */
-  reqQryQuote(req?: object): number;
+  reqQryQuote(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 报价操作编号 */
+      QuoteSysID: string;
+      /** 开始时间 */
+      InsertTimeStart: string;
+      /** 结束时间 */
+      InsertTimeEnd: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询期权自对冲
    * @param req 查询信息
    */
-  reqQryOptionSelfClose(req?: object): number;
+  reqQryOptionSelfClose(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 期权自对冲操作编号 */
+      OptionSelfCloseSysID: string;
+      /** 开始时间 */
+      InsertTimeStart: string;
+      /** 结束时间 */
+      InsertTimeEnd: string;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询投资单元
    * @param req 查询信息
    */
-  reqQryInvestUnit(req?: object): number;
+  reqQryInvestUnit(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询组合合约安全系数
    * @param req 查询信息
    */
-  reqQryCombInstrumentGuard(req?: object): number;
+  reqQryCombInstrumentGuard(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询申请组合
    * @param req 查询信息
    */
-  reqQryCombAction(req?: object): number;
+  reqQryCombAction(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询转帐流水
    * @param req 查询信息
    */
-  reqQryTransferSerial(req?: object): number;
+  reqQryTransferSerial(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 资金账号 */
+      AccountID: string;
+      /** 银行代码 */
+      BankID: string;
+      /** 币种代码 */
+      CurrencyID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询银期签约关系
    * @param req 查询信息
    */
-  reqQryAccountregister(req?: object): number;
+  reqQryAccountregister(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 资金账号 */
+      AccountID: string;
+      /** 银行代码 */
+      BankID: string;
+      /** 银行分支机构代码 */
+      BankBranchID: string;
+      /** 币种代码 */
+      CurrencyID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询签约银行
    * @param req 查询信息
    */
-  reqQryContractBank(req?: object): number;
+  reqQryContractBank(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 银行代码 */
+      BankID: string;
+      /** 银行分中心代码 */
+      BankBrchID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询预埋单
    * @param req 查询信息
    */
-  reqQryParkedOrder(req?: object): number;
+  reqQryParkedOrder(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询预埋撤单
    * @param req 查询信息
    */
-  reqQryParkedOrderAction(req?: object): number;
+  reqQryParkedOrderAction(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询交易通知
    * @param req 查询信息
    */
-  reqQryTradingNotice(req?: object): number;
+  reqQryTradingNotice(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询经纪公司交易参数
    * @param req 查询信息
    */
-  reqQryBrokerTradingParams(req?: object): number;
+  reqQryBrokerTradingParams(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 币种代码 */
+      CurrencyID: string;
+      /** 资金账号 */
+      AccountID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询经纪公司交易算法
    * @param req 查询信息
    */
-  reqQryBrokerTradingAlgos(req?: object): number;
+  reqQryBrokerTradingAlgos(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 请求查询监控中心用户令牌
    * @param req 查询信息
    */
-  reqQueryCFMMCTradingAccountToken(req?: object): number;
+  reqQueryCFMMCTradingAccountToken(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 投资单元代码 */
+      InvestUnitID: string;
+    }>
+  ): number;
 
   /**
    * 期货发起银行资金转期货请求
    * @param req 查询信息
    */
-  reqFromBankToFutureByFuture(req?: object): number;
+  reqFromBankToFutureByFuture(
+    req?: Partial<{
+      /** 业务功能码 */
+      TradeCode: string;
+      /** 银行代码 */
+      BankID: string;
+      /** 银行分支机构代码 */
+      BankBranchID: string;
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 期商分支机构代码 */
+      BrokerBranchID: string;
+      /** 交易日期 */
+      TradeDate: string;
+      /** 交易时间 */
+      TradeTime: string;
+      /** 银行流水号 */
+      BankSerial: string;
+      /** 交易日 */
+      TradingDay: string;
+      /** 期平台消息流水号 */
+      PlateSerial: number;
+      /** 最后分片标志 */
+      LastFragment: LastFragmentType;
+      /** 会话编号 */
+      SessionID: number;
+      /** 客户姓名 */
+      CustomerName: string;
+      /** 证件类型 */
+      IdCardType: IdCardTypeType;
+      /** 证件号码 */
+      IdentifiedCardNo: string;
+      /** 客户类型 */
+      CustType: CustTypeType;
+      /** 银行帐号 */
+      BankAccount: string;
+      /** 银行密码 */
+      BankPassWord: string;
+      /** 资金账号 */
+      AccountID: string;
+      /** 期货密码 */
+      Password: string;
+      /** 安装编号 */
+      InstallID: number;
+      /** 期货公司流水号 */
+      FutureSerial: number;
+      /** 用户代码 */
+      UserID: string;
+      /** 验证客户证件号码标志 */
+      VerifyCertNoFlag: YesNoIndicatorType;
+      /** 币种代码 */
+      CurrencyID: string;
+      /** 转帐金额 */
+      TradeAmount: number;
+      /** 期货可取金额 */
+      FutureFetchAmount: number;
+      /** 费用支付标志 */
+      FeePayFlag: FeePayFlagType;
+      /** 应收客户费用 */
+      CustFee: number;
+      /** 应收期货公司费用 */
+      BrokerFee: number;
+      /** 发送方给接收方的消息 */
+      Message: string;
+      /** 摘要 */
+      Digest: string;
+      /** 银行帐号类型 */
+      BankAccType: BankAccTypeType;
+      /** 渠道标志 */
+      DeviceID: string;
+      /** 期货单位帐号类型 */
+      BankSecuAccType: BankAccTypeType;
+      /** 期货公司银行编码 */
+      BrokerIDByBank: string;
+      /** 期货单位帐号 */
+      BankSecuAcc: string;
+      /** 银行密码标志 */
+      BankPwdFlag: PwdFlagType;
+      /** 期货资金密码核对标志 */
+      SecuPwdFlag: PwdFlagType;
+      /** 交易柜员 */
+      OperNo: string;
+      /** 请求编号 */
+      RequestID: number;
+      /** 交易ID */
+      TID: number;
+      /** 转账交易状态 */
+      TransferStatus: TransferStatusType;
+      /** 长客户姓名 */
+      LongCustomerName: string;
+    }>
+  ): number;
 
   /**
    * 期货发起期货资金转银行请求
    * @param req 查询信息
    */
-  reqFromFutureToBankByFuture(req?: object): number;
+  reqFromFutureToBankByFuture(
+    req?: Partial<{
+      /** 业务功能码 */
+      TradeCode: string;
+      /** 银行代码 */
+      BankID: string;
+      /** 银行分支机构代码 */
+      BankBranchID: string;
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 期商分支机构代码 */
+      BrokerBranchID: string;
+      /** 交易日期 */
+      TradeDate: string;
+      /** 交易时间 */
+      TradeTime: string;
+      /** 银行流水号 */
+      BankSerial: string;
+      /** 交易日 */
+      TradingDay: string;
+      /** 期平台消息流水号 */
+      PlateSerial: number;
+      /** 最后分片标志 */
+      LastFragment: LastFragmentType;
+      /** 会话编号 */
+      SessionID: number;
+      /** 客户姓名 */
+      CustomerName: string;
+      /** 证件类型 */
+      IdCardType: IdCardTypeType;
+      /** 证件号码 */
+      IdentifiedCardNo: string;
+      /** 客户类型 */
+      CustType: CustTypeType;
+      /** 银行帐号 */
+      BankAccount: string;
+      /** 银行密码 */
+      BankPassWord: string;
+      /** 资金账号 */
+      AccountID: string;
+      /** 期货密码 */
+      Password: string;
+      /** 安装编号 */
+      InstallID: number;
+      /** 期货公司流水号 */
+      FutureSerial: number;
+      /** 用户代码 */
+      UserID: string;
+      /** 验证客户证件号码标志 */
+      VerifyCertNoFlag: YesNoIndicatorType;
+      /** 币种代码 */
+      CurrencyID: string;
+      /** 转帐金额 */
+      TradeAmount: number;
+      /** 期货可取金额 */
+      FutureFetchAmount: number;
+      /** 费用支付标志 */
+      FeePayFlag: FeePayFlagType;
+      /** 应收客户费用 */
+      CustFee: number;
+      /** 应收期货公司费用 */
+      BrokerFee: number;
+      /** 发送方给接收方的消息 */
+      Message: string;
+      /** 摘要 */
+      Digest: string;
+      /** 银行帐号类型 */
+      BankAccType: BankAccTypeType;
+      /** 渠道标志 */
+      DeviceID: string;
+      /** 期货单位帐号类型 */
+      BankSecuAccType: BankAccTypeType;
+      /** 期货公司银行编码 */
+      BrokerIDByBank: string;
+      /** 期货单位帐号 */
+      BankSecuAcc: string;
+      /** 银行密码标志 */
+      BankPwdFlag: PwdFlagType;
+      /** 期货资金密码核对标志 */
+      SecuPwdFlag: PwdFlagType;
+      /** 交易柜员 */
+      OperNo: string;
+      /** 请求编号 */
+      RequestID: number;
+      /** 交易ID */
+      TID: number;
+      /** 转账交易状态 */
+      TransferStatus: TransferStatusType;
+      /** 长客户姓名 */
+      LongCustomerName: string;
+    }>
+  ): number;
 
   /**
    * 期货发起查询银行余额请求
    * @param req 查询信息
    */
-  reqQueryBankAccountMoneyByFuture(req?: object): number;
+  reqQueryBankAccountMoneyByFuture(
+    req?: Partial<{
+      /** 业务功能码 */
+      TradeCode: string;
+      /** 银行代码 */
+      BankID: string;
+      /** 银行分支机构代码 */
+      BankBranchID: string;
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 期商分支机构代码 */
+      BrokerBranchID: string;
+      /** 交易日期 */
+      TradeDate: string;
+      /** 交易时间 */
+      TradeTime: string;
+      /** 银行流水号 */
+      BankSerial: string;
+      /** 交易日 */
+      TradingDay: string;
+      /** 期平台消息流水号 */
+      PlateSerial: number;
+      /** 最后分片标志 */
+      LastFragment: LastFragmentType;
+      /** 会话编号 */
+      SessionID: number;
+      /** 客户姓名 */
+      CustomerName: string;
+      /** 证件类型 */
+      IdCardType: IdCardTypeType;
+      /** 证件号码 */
+      IdentifiedCardNo: string;
+      /** 客户类型 */
+      CustType: CustTypeType;
+      /** 银行帐号 */
+      BankAccount: string;
+      /** 银行密码 */
+      BankPassWord: string;
+      /** 资金账号 */
+      AccountID: string;
+      /** 期货密码 */
+      Password: string;
+      /** 期货公司流水号 */
+      FutureSerial: number;
+      /** 安装编号 */
+      InstallID: number;
+      /** 用户代码 */
+      UserID: string;
+      /** 验证客户证件号码标志 */
+      VerifyCertNoFlag: YesNoIndicatorType;
+      /** 币种代码 */
+      CurrencyID: string;
+      /** 摘要 */
+      Digest: string;
+      /** 银行帐号类型 */
+      BankAccType: BankAccTypeType;
+      /** 渠道标志 */
+      DeviceID: string;
+      /** 期货单位帐号类型 */
+      BankSecuAccType: BankAccTypeType;
+      /** 期货公司银行编码 */
+      BrokerIDByBank: string;
+      /** 期货单位帐号 */
+      BankSecuAcc: string;
+      /** 银行密码标志 */
+      BankPwdFlag: PwdFlagType;
+      /** 期货资金密码核对标志 */
+      SecuPwdFlag: PwdFlagType;
+      /** 交易柜员 */
+      OperNo: string;
+      /** 请求编号 */
+      RequestID: number;
+      /** 交易ID */
+      TID: number;
+      /** 长客户姓名 */
+      LongCustomerName: string;
+    }>
+  ): number;
 
   /**
    * 请求查询分类合约
    * @param req 查询信息
    */
-  reqQryClassifiedInstrument(req?: object): number;
+  reqQryClassifiedInstrument(
+    req?: Partial<{
+      /** 合约代码 */
+      InstrumentID: string;
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 合约在交易所的代码 */
+      ExchangeInstID: string;
+      /** 产品代码 */
+      ProductID: string;
+      /** 合约交易状态 */
+      TradingType: TradingTypeType;
+      /** 合约分类类型 */
+      ClassType: ClassTypeType;
+    }>
+  ): number;
 
   /**
    * 请求组合优惠比例
    * @param req 查询信息
    */
-  reqQryCombPromotionParam(req?: object): number;
+  reqQryCombPromotionParam(
+    req?: Partial<{
+      /** 交易所代码 */
+      ExchangeID: string;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 投资者风险结算持仓查询
    * @param req 查询信息
    */
-  reqQryRiskSettleInvstPosition(req?: object): number;
+  reqQryRiskSettleInvstPosition(
+    req?: Partial<{
+      /** 经纪公司代码 */
+      BrokerID: string;
+      /** 投资者代码 */
+      InvestorID: string;
+      /** 合约代码 */
+      InstrumentID: string;
+    }>
+  ): number;
 
   /**
    * 风险结算产品查询
    * @param req 查询信息
    */
-  reqQryRiskSettleProductStatus(req?: object): number;
+  reqQryRiskSettleProductStatus(
+    req?: Partial<{
+      /** 产品代码 */
+      ProductID: string;
+    }>
+  ): number;
 
   /**
    * 注册交易消息回调函数
