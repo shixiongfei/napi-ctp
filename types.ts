@@ -4365,9 +4365,9 @@ export type InputOrderField = {
   OrderPriceType: OrderPriceTypeType;
   /** 买卖方向 */
   Direction: DirectionType;
-  /** 组合开平标志 @type [OffsetFlagType].join("") */
+  /** 组合开平标志 [OffsetFlagType].join("") */
   CombOffsetFlag: string;
-  /** 组合投机套保标志 @type [HedgeFlagType].join("") */
+  /** 组合投机套保标志 [HedgeFlagType].join("") */
   CombHedgeFlag: string;
   /** 价格 */
   LimitPrice: number;
@@ -4430,9 +4430,9 @@ export type ParkedOrderField = {
   OrderPriceType: OrderPriceTypeType;
   /** 买卖方向 */
   Direction: DirectionType;
-  /** 组合开平标志 @type [OffsetFlagType].join("") */
+  /** 组合开平标志 [OffsetFlagType].join("") */
   CombOffsetFlag: string;
-  /** 组合投机套保标志 @type [HedgeFlagType].join("") */
+  /** 组合投机套保标志 [HedgeFlagType].join("") */
   CombHedgeFlag: string;
   /** 价格 */
   LimitPrice: number;
@@ -4990,9 +4990,9 @@ export type OrderField = {
   OrderPriceType: OrderPriceTypeType;
   /** 买卖方向 */
   Direction: DirectionType;
-  /** 组合开平标志 @type [OffsetFlagType].join("") */
+  /** 组合开平标志 [OffsetFlagType].join("") */
   CombOffsetFlag: string;
-  /** 组合投机套保标志 @type [HedgeFlagType].join("") */
+  /** 组合投机套保标志 [HedgeFlagType].join("") */
   CombHedgeFlag: string;
   /** 价格 */
   LimitPrice: number;
@@ -6833,9 +6833,9 @@ export type ErrorConditionalOrderField = {
   OrderPriceType: OrderPriceTypeType;
   /** 买卖方向 */
   Direction: DirectionType;
-  /** 组合开平标志 @type [OffsetFlagType].join("") */
+  /** 组合开平标志 [OffsetFlagType].join("") */
   CombOffsetFlag: string;
-  /** 组合投机套保标志 @type [HedgeFlagType].join("") */
+  /** 组合投机套保标志 [HedgeFlagType].join("") */
   CombHedgeFlag: string;
   /** 价格 */
   LimitPrice: number;
