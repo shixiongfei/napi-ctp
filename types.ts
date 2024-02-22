@@ -3645,6 +3645,8 @@ export enum FundMortDirectionEnType {
 
 /** 期权类型类型 */
 export enum OptionsTypeType {
+  Reserve1 = "",
+  Reserve2 = "0",
   /** 看涨 */
   CallOptions = "1",
   /** 看跌 */
@@ -3713,6 +3715,7 @@ export enum ExecResultType {
 
 /** 组合类型类型 */
 export enum CombinationTypeType {
+  Reserve = "",
   /** 期货组合 */
   Future = "0",
   /** 垂直价差BUL */
