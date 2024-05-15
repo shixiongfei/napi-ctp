@@ -289,7 +289,7 @@ static const char *toUTF8(const char *codepage, const char *mbstr, int len, char
   memset(wcstr, 0, (len + 1) * sizeof(wchar_t));
 
   wlen = MultiByteToWideChar(CP_ACP, 0, mbstr, len, wcstr, len + 1);
-  WideCharToMultiByte(CP_UTF8, 0, wcstr, wlen, utf8str, len * sizeof(wchar_t), nullptr, nullptr);
+  WideCharToMultiByte(CP_UTF8, 0, wcstr, wlen, utf8str, len * sizeof(int) + 1, nullptr, nullptr);
 
   return utf8str;
 #endif
