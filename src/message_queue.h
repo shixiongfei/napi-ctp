@@ -30,7 +30,7 @@ public:
 private:
   uv_cond_t _cond;
   uv_mutex_t _mutex;
-  int _waiting;
+  volatile int _waiting;
   std::queue<Message *> _queue;
 };
 
