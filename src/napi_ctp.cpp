@@ -266,17 +266,19 @@ napi_status checkValueTypes(napi_env env, size_t argc, const napi_value *argv, c
   return napi_ok;
 }
 
-static char *toUTF8(const char *codepage, const char *mbstr, int len, char *utf8str) {
+static const char *toUTF8(const char *codepage, const char *mbstr, int len, char *utf8str) {
 #ifndef _WIN32
   iconv_t cd;
-  size_t inlen = len, outlen = len * sizeof(int);
+  size_t inlen = len, outlen = len * sizeof(int) + 1;
+  char *inbuffer = (char *)mbstr;
+  char *outbuffer = utf8str;
 
   cd = iconv_open("UTF-8//TRANSLIT", codepage);
 
   if (((iconv_t)(-1)) == cd)
-    return nullptr;
+    return mbstr;
 
-  iconv(cd, (char **)&mbstr, &inlen, &utf8str, &outlen);
+  iconv(cd, &inbuffer, &inlen, &outbuffer, &outlen);
   iconv_close(cd);
 
   return utf8str;
@@ -296,15 +298,12 @@ static char *toUTF8(const char *codepage, const char *mbstr, int len, char *utf8
 napi_status objectSetString(napi_env env, napi_value object, const char *name, const char *string) {
   napi_value value;
   int len = (int)strlen(string);
+  int utf8len = len * sizeof(int) + 1;
 
-  dynarray(char, utf8str, len * 6 + 1);
-  memset(utf8str, 0, len * 6 + 1);
+  dynarray(char, utf8str, utf8len);
+  memset(utf8str, 0, utf8len);
 
-  if (toUTF8("GBK", string, len, utf8str))
-    CHECK(napi_create_string_utf8(env, utf8str, NAPI_AUTO_LENGTH, &value));
-  else
-    CHECK(napi_create_string_utf8(env, string, NAPI_AUTO_LENGTH, &value));
-
+  CHECK(napi_create_string_utf8(env, toUTF8("GBK", string, len, utf8str), NAPI_AUTO_LENGTH, &value));
   return napi_set_named_property(env, object, name, value);
 }
 
