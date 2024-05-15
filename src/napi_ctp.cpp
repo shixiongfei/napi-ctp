@@ -1,7 +1,7 @@
 /*
  * napi_ctp.cpp
  *
- * Copyright (c) 2022, 2023 Xiongfei Shi
+ * Copyright (c) 2022-2024 Xiongfei Shi
  *
  * Author: Xiongfei Shi <xiongfei.shi(a)icloud.com>
  * License: Apache-2.0
@@ -300,11 +300,10 @@ napi_status objectSetString(napi_env env, napi_value object, const char *name, c
   dynarray(char, utf8str, len * 6 + 1);
   memset(utf8str, 0, len * 6 + 1);
 
-  if (toUTF8("GBK", string, len, utf8str)) {
+  if (toUTF8("GBK", string, len, utf8str))
     CHECK(napi_create_string_utf8(env, utf8str, NAPI_AUTO_LENGTH, &value));
-  } else {
+  else
     CHECK(napi_create_string_utf8(env, string, NAPI_AUTO_LENGTH, &value));
-  }
 
   return napi_set_named_property(env, object, name, value);
 }

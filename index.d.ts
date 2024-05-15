@@ -1,7 +1,7 @@
 /*
  * index.d.ts
  *
- * Copyright (c) 2022, 2023 Xiongfei Shi
+ * Copyright (c) 2022-2024 Xiongfei Shi
  *
  * Author: Xiongfei Shi <xiongfei.shi(a)icloud.com>
  * License: Apache-2.0
