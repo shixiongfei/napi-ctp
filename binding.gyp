@@ -20,15 +20,11 @@
       ],
       "conditions": [
         ['OS=="mac"', {
-          "library_dirs": [
-            "<(module_root_dir)/tradeapi/macos"
-          ],
           "libraries": [
-            "libthostmduserapi_se.a",
-            "libthosttraderapi_se.a",
-            "<(module_root_dir)/tradeapi/macos/libs/comunicationkeylib.a",
-            "<(module_root_dir)/tradeapi/macos/libs/libcrypto.a",
-            "<(module_root_dir)/tradeapi/macos/libs/libssl.a"
+            "-Wl,-rpath,<(module_root_dir)/tradeapi/macos",
+            "-F<(module_root_dir)/tradeapi/macos",
+            "-framework thostmduserapi_se",
+            "-framework thosttraderapi_se"
           ]
         }],
         ['OS=="win"', {
