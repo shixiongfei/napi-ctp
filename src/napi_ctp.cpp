@@ -275,8 +275,10 @@ static const char *toUTF8(const char *codepage, const char *mbstr, int len, char
 
   cd = iconv_open("UTF-8//TRANSLIT", codepage);
 
-  if (((iconv_t)(-1)) == cd)
+  if (((iconv_t)(-1)) == cd) {
+    fprintf(stderr, "The iconv library is invalid, conversion to utf8 encoding failed, the original string will be used instead\n");
     return mbstr;
+  }
 
   iconv(cd, &inbuffer, &inlen, &outbuffer, &outlen);
   iconv_close(cd);
