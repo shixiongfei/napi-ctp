@@ -1,6 +1,6 @@
 {
   "name": "napi-ctp",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Node API for CTP",
   "main": "index.js",
   "types": "index.d.ts",
@@ -12,6 +12,7 @@
     "types.ts",
     "types.js",
     "types.d.ts",
+    "prebuild.js",
     "binding.gyp",
     "tsconfig.json"
   ],
