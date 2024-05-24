@@ -9,7 +9,12 @@
  * https://github.com/shixiongfei/napi-ctp
  */
 
-const binding = require("node-gyp-build")(__dirname);
-const types = require("./types");
+const types = require("./types.js");
 
-module.exports = Object.assign(binding, types);
+try {
+  const binding = require("./build/Release/napi_ctp.node");
+  module.exports = Object.assign(binding, types);
+} catch {
+  const binding = require("./build/Debug/napi_ctp.node");
+  module.exports = Object.assign(binding, types);
+}

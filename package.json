@@ -18,10 +18,9 @@
   ],
   "scripts": {
     "gen-types": "tsc",
-    "build": "node-gyp clean && node-gyp-build && tsc",
-    "build:debug": "node-gyp clean && node-gyp configure && node-gyp build --debug && tsc",
-    "install": "npm run build",
-    "prebuild": "node prebuild.js && prebuildify --napi",
+    "build": "node prebuild.js && node-gyp clean && node-gyp configure && node-gyp build && tsc",
+    "build:debug": "node prebuild.js && node-gyp clean && node-gyp configure && node-gyp build --debug && tsc",
+    "install": "node prebuild.js && node-gyp configure && node-gyp build",
     "test": "node test.js"
   },
   "repository": {
@@ -41,10 +40,6 @@
   "devDependencies": {
     "@types/node": "^20.12.12",
     "node-gyp": "^10.1.0",
-    "prebuildify": "^6.0.1",
     "typescript": "^5.4.5"
-  },
-  "dependencies": {
-    "node-gyp-build": "^4.8.1"
   }
 }
