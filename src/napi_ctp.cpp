@@ -80,10 +80,10 @@ void checkStatus(napi_env env, napi_status status, const char *file, int line) {
 
   napi_value exception;
 
-  assert(napi_get_and_clear_last_exception(env, &exception) == napi_ok);
-  assert(napi_fatal_exception(env, exception) == napi_ok);
+  if (napi_ok == napi_get_and_clear_last_exception(env, &exception))
+    napi_fatal_exception(env, exception);
 
-  fprintf(stderr, "Node-API check status = %d, file: %s, line: %d\n", status, file, line);
+  fprintf(stderr, "NAPI check status = %d, file: %s, line: %d\n", status, file, line);
 }
 
 #ifdef _MSC_VER

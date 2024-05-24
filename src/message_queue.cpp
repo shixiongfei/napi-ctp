@@ -24,7 +24,11 @@ MessageQueue::~MessageQueue() {
 
 void MessageQueue::push(short event, uintptr_t data, int requestId, short isLast) {
   Message *message = (Message *)malloc(sizeof(Message));
-  assert(message != nullptr);
+
+  if (!message) {
+    fprintf(stderr, "Push message failed, out of memory\n");
+    return;
+  }
 
   message->event = event;
   message->isLast = isLast;
