@@ -8261,9 +8261,7 @@ export type RiskSettleProductStatusField = {
 
 /*----------------------------------------------------------------------------*/
 
-export type CallbackMessage =
-  | undefined
-  | number
+export type MessageFields =
   | RspUserLoginField
   | UserLogoutField
   | MulticastInstrumentField
@@ -8361,6 +8359,9 @@ export type CallbackMessage =
   | ChangeAccountField
   | RiskSettleInvstPositionField
   | RiskSettleProductStatusField;
+
+export type MessageFieldKinds = MessageFields["kind"];
+export type CallbackMessage = undefined | number | MessageFields;
 
 export type CallbackOptions = {
   requestId?: number;
