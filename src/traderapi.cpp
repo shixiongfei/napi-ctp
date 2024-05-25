@@ -1857,12 +1857,14 @@ static void traderDestructor(napi_env env, void *data, void *hint) {
   if (!trader)
     return;
 
+  bool needFree = trader->tsfns.find(TraderSpi::eventName(ET_QUIT)) == trader->tsfns.end();
+
   if (trader->spi) {
     trader->spi->quit();
     uv_thread_join(&trader->thread);
   }
 
-  if (trader->tsfns.find(TraderSpi::eventName(ET_QUIT)) == trader->tsfns.end())
+  if (needFree)
     traderFree(env, trader);
 }
 

@@ -319,12 +319,14 @@ static void marketDataDestructor(napi_env env, void *data, void *hint) {
   if (!marketData)
     return;
 
+  bool needFree = marketData->tsfns.find(MdSpi::eventName(EM_QUIT)) == marketData->tsfns.end();
+
   if (marketData->spi) {
     marketData->spi->quit();
     uv_thread_join(&marketData->thread);
   }
 
-  if (marketData->tsfns.find(MdSpi::eventName(EM_QUIT)) == marketData->tsfns.end())
+  if (needFree)
     marketDataFree(env, marketData);
 }
 
