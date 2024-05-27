@@ -125,7 +125,11 @@ static napi_value reqUserLogin(napi_env env, napi_callback_info info) {
     CHECK(GetObjectInt32(env, object, req, ClientIPPort));
     CHECK(GetObjectString(env, object, req, ClientIPAddress));
 
+  #ifndef __APPLE__
     return trader->api->ReqUserLogin(&req, nextSequenceId());
+  #else
+    return trader->api->ReqUserLogin(&req, nextSequenceId(), 0, nullptr);
+  #endif
   });
 }
 

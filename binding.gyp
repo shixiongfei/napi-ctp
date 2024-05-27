@@ -15,11 +15,12 @@
         "./src/traderspi.cpp",
         "./src/tradermsg.cpp"
       ],
-      "include_dirs": [
-        "./tradeapi"
-      ],
       "conditions": [
         ['OS=="mac"', {
+          "include_dirs": [
+            "<(module_root_dir)/tradeapi/macos/thostmduserapi_se.framework/Versions/A/Headers",
+            "<(module_root_dir)/tradeapi/macos/thosttraderapi_se.framework/Versions/A/Headers"
+          ],
           "libraries": [
             "-Wl,-rpath,<(module_root_dir)/tradeapi/macos",
             "-F<(module_root_dir)/tradeapi/macos",
@@ -28,6 +29,9 @@
           ]
         }],
         ['OS=="win"', {
+          "include_dirs": [
+            "<(module_root_dir)/tradeapi"
+          ],
           "library_dirs": [
             "<(module_root_dir)/tradeapi/windows"
           ],
@@ -46,6 +50,9 @@
           ]
         }],
         ['OS=="linux"', {
+          "include_dirs": [
+            "<(module_root_dir)/tradeapi"
+          ],
           "libraries": [
             "<(module_root_dir)/tradeapi/linux/thostmduserapi_se.so",
             "<(module_root_dir)/tradeapi/linux/thosttraderapi_se.so"
