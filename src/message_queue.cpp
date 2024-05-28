@@ -22,12 +22,12 @@ MessageQueue::~MessageQueue() {
   uv_mutex_destroy(&_mutex);
 }
 
-void MessageQueue::push(int event, uintptr_t data, int requestId, int isLast) {
+bool MessageQueue::push(int event, uintptr_t data, int requestId, int isLast) {
   Message *message = (Message *)malloc(sizeof(Message));
 
   if (!message) {
     fprintf(stderr, "Push message failed, out of memory\n");
-    return;
+    return false;
   }
 
   message->event = event;
@@ -45,6 +45,8 @@ void MessageQueue::push(int event, uintptr_t data, int requestId, int isLast) {
     if (_waiting > 0)
       uv_cond_signal(&_cond);
   }
+
+  return true;
 }
 
 int MessageQueue::pop(Message **message, unsigned int millisec) {

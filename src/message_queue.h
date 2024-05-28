@@ -23,9 +23,17 @@ public:
   MessageQueue();
   ~MessageQueue();
 
-  void push(int event, uintptr_t data, int requestId, int isLast);
+  bool push(int event, uintptr_t data, int requestId, int isLast);
   int pop(Message **message, unsigned int millisec);
   void done(Message *message, bool isFreeData);
+
+  template <typename T>
+  void push(int event, T *data, int requestId, int isLast) {
+    uintptr_t copied = copyData(data);
+
+    if (!push(event, copied, requestId, isLast))
+      freeData(copied);
+  }
 
 private:
   uv_cond_t _cond;
