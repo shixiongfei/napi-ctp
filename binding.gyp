@@ -3,6 +3,7 @@
     {
       "target_name": "napi_ctp",
       "sources": [
+        "./src/is_utf8.cpp",
         "./src/binding.cpp",
         "./src/ctpmsg.cpp",
         "./src/mdapi.cpp",

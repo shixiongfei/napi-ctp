@@ -10,6 +10,7 @@
  */
 
 #include "napi_ctp.h"
+#include "is_utf8.h"
 #include <float.h>
 #include <math.h>
 #include <string.h>
@@ -302,12 +303,18 @@ static const char *toUTF8(const char *codepage, const char *mbstr, int len, char
 napi_status objectSetString(napi_env env, napi_value object, const char *name, const char *string) {
   napi_value value;
   int len = (int)strlen(string);
-  int utf8len = len * sizeof(int) + 1;
 
-  dynarray(char, utf8str, utf8len);
-  memset(utf8str, 0, utf8len);
+  if (is_utf8(string, len))
+    CHECK(napi_create_string_utf8(env, string, NAPI_AUTO_LENGTH, &value));
+  else {
+    int utf8len = len * sizeof(int) + 1;
 
-  CHECK(napi_create_string_utf8(env, toUTF8("GBK", string, len, utf8str), NAPI_AUTO_LENGTH, &value));
+    dynarray(char, utf8str, utf8len);
+    memset(utf8str, 0, utf8len);
+
+    CHECK(napi_create_string_utf8(env, toUTF8("GBK", string, len, utf8str), NAPI_AUTO_LENGTH, &value));
+  }
+
   return napi_set_named_property(env, object, name, value);
 }
 
