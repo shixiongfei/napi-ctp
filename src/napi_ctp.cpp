@@ -338,7 +338,7 @@ static double rounding(double number, int precision) {
   if (precision == 0)
     return round(number);
 
-  double factor = pow(10, precision);
+  double factor = pow(10.0, precision);
   double value = number * factor;
   double rounded = round(value);
 
@@ -350,9 +350,8 @@ static double rounding(double number, int precision) {
 napi_status objectSetDouble(napi_env env, napi_value object, const char *name, double number) {
   napi_value value;
 
-  if (!equal(number, DBL_MAX)) {
+  if (!equal(number, DBL_MAX))
     number = rounding(number, 5);
-  }
 
   CHECK(napi_create_double(env, number, &value));
   return napi_set_named_property(env, object, name, value);
