@@ -67,10 +67,10 @@ int MessageQueue::pop(Message **message, unsigned int millisec) {
 
     *message = _queue.front();
     _queue.pop();
-
-    if (*message)
-      (*message)->elapsed = (int)(nowtick() - (*message)->timestamp);
   }
+
+  if (*message)
+    (*message)->elapsed = (int)(nowtick() - (*message)->timestamp);
 
   return QUEUE_SUCCESS;
 }
