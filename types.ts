@@ -8367,6 +8367,7 @@ export type CallbackOptions = {
   requestId?: number;
   isLast?: boolean;
   timestamp: number;
+  elapsed: number;
 };
 
 /** 消息事件回调接口 */

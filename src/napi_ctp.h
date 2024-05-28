@@ -45,6 +45,10 @@ typedef struct Message {
 
 double hrtime(long *sec, long *usec);
 
+static inline int64_t nowtick(void) {
+  return (int64_t)(hrtime(nullptr, nullptr) * 1000.0);
+}
+
 void checkStatus(napi_env env, napi_status status, const char *file, int line);
 #define CHECK(__expression__) checkStatus(env, __expression__, __FILE__, __LINE__)
 
@@ -52,8 +56,8 @@ void checkStatus(napi_env env, napi_status status, const char *file, int line);
   { name, 0, method, 0, 0, 0, napi_default, 0 }
 #define DECLARE_NAPI_METHOD(method) DECLARE_NAPI_METHOD_(#method, method)
 
-int nextSequenceId();
-int currentSequenceId();
+int nextSequenceId(void);
+int currentSequenceId(void);
 
 bool isUndefined(napi_env env, napi_value value);
 

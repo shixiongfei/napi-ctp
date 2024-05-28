@@ -31,6 +31,7 @@ napi_status getMessageOptions(napi_env env, const Message *message, napi_value *
     CHECK(SetObjectBoolean(env, *result, message, isLast));
 
   CHECK(SetObjectInt64(env, *result, message, timestamp));
+  CHECK(objectSetInt32(env, *result, "elapsed", (int)(nowtick() - message->timestamp)));
 
   return napi_ok;
 }

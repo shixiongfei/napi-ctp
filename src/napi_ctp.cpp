@@ -103,11 +103,11 @@ void checkStatus(napi_env env, napi_status status, const char *file, int line) {
 
 static long volatile sequenceLastId = 0;
 
-int nextSequenceId() {
+int nextSequenceId(void) {
   return (int)atom_incr(&sequenceLastId);
 }
 
-int currentSequenceId() {
+int currentSequenceId(void) {
   long sequenceId;
   atom_get(&sequenceLastId, &sequenceId);
   return (int)sequenceId;
