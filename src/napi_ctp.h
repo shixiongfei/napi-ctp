@@ -34,9 +34,10 @@ typedef struct Constructors {
 enum { Undefined = -1, False, True };
 
 typedef struct Message {
-  short event;
-  short isLast;
+  int event;
+  int isLast;
   int requestId;
+  int elapsed;
   int64_t timestamp;
   uintptr_t data;
 } Message;

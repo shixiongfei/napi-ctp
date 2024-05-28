@@ -22,7 +22,7 @@ MessageQueue::~MessageQueue() {
   uv_mutex_destroy(&_mutex);
 }
 
-void MessageQueue::push(short event, uintptr_t data, int requestId, short isLast) {
+void MessageQueue::push(int event, uintptr_t data, int requestId, int isLast) {
   Message *message = (Message *)malloc(sizeof(Message));
 
   if (!message) {
@@ -33,6 +33,7 @@ void MessageQueue::push(short event, uintptr_t data, int requestId, short isLast
   message->event = event;
   message->isLast = isLast;
   message->requestId = requestId;
+  message->elapsed = -1;
   message->timestamp = nowtick();
   message->data = data;
 
@@ -66,6 +67,9 @@ int MessageQueue::pop(Message **message, unsigned int millisec) {
 
     *message = _queue.front();
     _queue.pop();
+
+    if (*message)
+      (*message)->elapsed = (int)(nowtick() - (*message)->timestamp);
   }
 
   return QUEUE_SUCCESS;

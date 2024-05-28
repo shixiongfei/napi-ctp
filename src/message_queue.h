@@ -23,7 +23,7 @@ public:
   MessageQueue();
   ~MessageQueue();
 
-  void push(short event, uintptr_t data, int requestId, short isLast);
+  void push(int event, uintptr_t data, int requestId, int isLast);
   int pop(Message **message, unsigned int millisec);
   void done(Message *message, bool isFreeData);
 
