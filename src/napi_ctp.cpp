@@ -342,7 +342,7 @@ static double rounding(double number, int precision) {
   double value = number * factor;
   double rounded = round(value);
 
-  return equal(value - rounded, 0.5)
+  return equal(fabs(value - rounded), 0.5)
     ? (round(value / 2.0) * 2.0) / factor
     : rounded / factor;
 }
