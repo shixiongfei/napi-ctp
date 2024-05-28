@@ -10,6 +10,8 @@
  */
 
 #include "napi_ctp.h"
+#include <float.h>
+#include <math.h>
 #include <string.h>
 #include <stdio.h>
 
@@ -330,8 +332,27 @@ napi_status objectSetInt64(napi_env env, napi_value object, const char *name, in
   return napi_set_named_property(env, object, name, value);
 }
 
+#define equal(a, b) (fabs((a) - (b)) < DBL_EPSILON)
+
+static double rounding(double number, int precision) {
+  if (precision == 0)
+    return round(number);
+
+  double factor = pow(10, precision);
+  double value = number * factor;
+  double rounded = round(value);
+
+  return equal(value - rounded, 0.5)
+    ? (round(value / 2.0) * 2.0) / factor
+    : rounded / factor;
+}
+
 napi_status objectSetDouble(napi_env env, napi_value object, const char *name, double number) {
   napi_value value;
+
+  if (!equal(number, DBL_MAX)) {
+    number = rounding(number, 5);
+  }
 
   CHECK(napi_create_double(env, number, &value));
   return napi_set_named_property(env, object, name, value);
