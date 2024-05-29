@@ -22,7 +22,7 @@ MessageQueue::~MessageQueue() {
   uv_mutex_destroy(&_mutex);
 }
 
-bool MessageQueue::push(int event, uintptr_t data, int requestId, int isLast) {
+bool MessageQueue::push(int event, int data, int requestId, int isLast) {
   int64_t timestamp = nowtick();
   Message *message = (Message *)malloc(sizeof(Message));
 

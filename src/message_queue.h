@@ -23,9 +23,7 @@ public:
   MessageQueue();
   ~MessageQueue();
 
-  bool push(int event, uintptr_t data, int requestId, int isLast);
-  int pop(Message **message, unsigned int millisec);
-  void done(Message *message);
+  bool push(int event, int data, int requestId, int isLast);
 
   template <typename T>
   bool push(int event, T *data, int requestId, int isLast) {
@@ -38,6 +36,9 @@ public:
 
     return push(message, event, (uintptr_t)p, requestId, isLast, timestamp);
   }
+
+  int pop(Message **message, unsigned int millisec);
+  void done(Message *message);
 
 private:
   bool push(Message *message, int event, uintptr_t data, int requestId, int isLast, int64_t timestamp);

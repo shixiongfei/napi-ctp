@@ -165,7 +165,7 @@ void TraderSpi::done(Message *message) {
 }
 
 void TraderSpi::quit(int nCode) {
-  _msgq.push(ET_QUIT, (uintptr_t)nCode, 0, Undefined);
+  _msgq.push(ET_QUIT, nCode, 0, Undefined);
 }
 
 const char *TraderSpi::eventName(int event) {
@@ -182,11 +182,11 @@ void TraderSpi::OnFrontConnected() {
 }
 
 void TraderSpi::OnFrontDisconnected(int nReason) {
-  _msgq.push(ET_FRONTDISCONNECTED, (uintptr_t)nReason, 0, Undefined);
+  _msgq.push(ET_FRONTDISCONNECTED, nReason, 0, Undefined);
 }
 
 void TraderSpi::OnHeartBeatWarning(int nTimeLapse) {
-  _msgq.push(ET_HEARTBEATWARNING, (uintptr_t)nTimeLapse, 0, Undefined);
+  _msgq.push(ET_HEARTBEATWARNING, nTimeLapse, 0, Undefined);
 }
 
 void TraderSpi::OnRspAuthenticate(CThostFtdcRspAuthenticateField *pRspAuthenticateField, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {

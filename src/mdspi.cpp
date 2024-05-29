@@ -48,7 +48,7 @@ void MdSpi::done(Message *message) {
 }
 
 void MdSpi::quit(int nCode) {
-  _msgq.push(EM_QUIT, (uintptr_t)nCode, 0, Undefined);
+  _msgq.push(EM_QUIT, nCode, 0, Undefined);
 }
 
 const char *MdSpi::eventName(int event) {
@@ -65,11 +65,11 @@ void MdSpi::OnFrontConnected() {
 }
 
 void MdSpi::OnFrontDisconnected(int nReason) {
-  _msgq.push(EM_FRONTDISCONNECTED, (uintptr_t)nReason, 0, Undefined);
+  _msgq.push(EM_FRONTDISCONNECTED, nReason, 0, Undefined);
 }
 
 void MdSpi::OnHeartBeatWarning(int nTimeLapse) {
-  _msgq.push(EM_HEARTBEATWARNING, (uintptr_t)nTimeLapse, 0, Undefined);
+  _msgq.push(EM_HEARTBEATWARNING, nTimeLapse, 0, Undefined);
 }
 
 void MdSpi::OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
