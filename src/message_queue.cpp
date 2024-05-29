@@ -23,30 +23,10 @@ MessageQueue::~MessageQueue() {
 }
 
 bool MessageQueue::push(int event, uintptr_t data, int requestId, int isLast) {
+  int64_t timestamp = nowtick();
   Message *message = (Message *)malloc(sizeof(Message));
 
-  if (!message) {
-    fprintf(stderr, "Push message failed, out of memory\n");
-    return false;
-  }
-
-  message->event = event;
-  message->isLast = isLast;
-  message->requestId = requestId;
-  message->elapsed = -1;
-  message->timestamp = nowtick();
-  message->data = data;
-
-  {
-    AutoLock(_mutex);
-
-    _queue.push(message);
-
-    if (_waiting > 0)
-      uv_cond_signal(&_cond);
-  }
-
-  return true;
+  return push(message, event, data, requestId, isLast, timestamp);
 }
 
 int MessageQueue::pop(Message **message, unsigned int millisec) {
@@ -77,9 +57,31 @@ int MessageQueue::pop(Message **message, unsigned int millisec) {
   return QUEUE_SUCCESS;
 }
 
-void MessageQueue::done(Message *message, bool isFreeData) {
-  if (isFreeData)
-    freeData(message->data);
-
+void MessageQueue::done(Message *message) {
   free(message);
+}
+
+bool MessageQueue::push(Message *message, int event, uintptr_t data, int requestId, int isLast, int64_t timestamp) {
+  if (!message) {
+    fprintf(stderr, "Push message failed, out of memory\n");
+    return false;
+  }
+
+  message->event = event;
+  message->isLast = isLast;
+  message->requestId = requestId;
+  message->elapsed = -1;
+  message->timestamp = timestamp;
+  message->data = data;
+
+  {
+    AutoLock(_mutex);
+
+    _queue.push(message);
+
+    if (_waiting > 0)
+      uv_cond_signal(&_cond);
+  }
+
+  return true;
 }

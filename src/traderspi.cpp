@@ -147,18 +147,6 @@ static const std::map<int, std::string> eventNames = {
   {ET_RSPQRYRISKSETTLEPRODUCTSTATUS,            "rsp-qry-risk-settle-product-status"},
 };
 
-static bool isFreeable(int event) {
-  switch(event) {
-    case ET_QUIT:
-    case ET_FRONTCONNECTED:
-    case ET_FRONTDISCONNECTED:
-    case ET_HEARTBEATWARNING:
-      return false;
-    default:
-      return true;
-  }
-}
-
 TraderSpi::TraderSpi() {}
 
 TraderSpi::~TraderSpi() {
@@ -173,7 +161,7 @@ int TraderSpi::poll(Message **message, unsigned int millisec) {
 }
 
 void TraderSpi::done(Message *message) {
-  _msgq.done(message, isFreeable(message->event));
+  _msgq.done(message);
 }
 
 void TraderSpi::quit(int nCode) {

@@ -30,18 +30,6 @@ static const std::map<int, std::string> eventNames = {
   {EM_RTNFORQUOTERSP,             "rtn-for-quote"},
 };
 
-static bool isFreeable(int event) {
-  switch(event) {
-    case EM_QUIT:
-    case EM_FRONTCONNECTED:
-    case EM_FRONTDISCONNECTED:
-    case EM_HEARTBEATWARNING:
-      return false;
-    default:
-      return true;
-  }
-}
-
 MdSpi::MdSpi() {}
 
 MdSpi::~MdSpi() {
@@ -56,7 +44,7 @@ int MdSpi::poll(Message **message, unsigned int millisec) {
 }
 
 void MdSpi::done(Message *message) {
-  _msgq.done(message, isFreeable(message->event));
+  _msgq.done(message);
 }
 
 void MdSpi::quit(int nCode) {

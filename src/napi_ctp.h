@@ -132,23 +132,6 @@ napi_status objectGetBoolean(napi_env env, napi_value object, const char *name, 
 #define GetObjectBoolean(env, object, record, name)                            \
   objectGetBoolean(env, object, #name, &record.name)
 
-template <typename T> static inline uintptr_t copyData(T *data) {
-  if (!data)
-    return 0;
-
-  T *p = (T *)malloc(sizeof(T));
-
-  if (!p)
-    return 0;
-
-  *p = *data;
-  return (uintptr_t)p;
-}
-
-static inline void freeData(uintptr_t data) {
-  free((void *)data);
-}
-
 template <typename T> static inline T *MessageData(const Message *message) {
   return (T *)message->data;
 }

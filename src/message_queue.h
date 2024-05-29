@@ -25,15 +25,22 @@ public:
 
   bool push(int event, uintptr_t data, int requestId, int isLast);
   int pop(Message **message, unsigned int millisec);
-  void done(Message *message, bool isFreeData);
+  void done(Message *message);
 
   template <typename T>
-  void push(int event, T *data, int requestId, int isLast) {
-    uintptr_t copied = copyData(data);
+  bool push(int event, T *data, int requestId, int isLast) {
+    int64_t timestamp = nowtick();
+    Message *message = (Message *)malloc(sizeof(Message) + sizeof(T));
+    T *p = (T *)(message + 1);
 
-    if (!push(event, copied, requestId, isLast))
-      freeData(copied);
+    if (message)
+      *p = *data;
+
+    return push(message, event, (uintptr_t)p, requestId, isLast, timestamp);
   }
+
+private:
+  bool push(Message *message, int event, uintptr_t data, int requestId, int isLast, int64_t timestamp);
 
 private:
   uv_cond_t _cond;
