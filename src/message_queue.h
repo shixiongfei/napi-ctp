@@ -27,6 +27,9 @@ public:
 
   template <typename T>
   bool push(int event, T *data, int requestId, int isLast) {
+    if (!data)
+      return push(event, 0, requestId, isLast);
+
     int64_t timestamp = nowtick();
     Message *message = (Message *)malloc(sizeof(Message) + sizeof(T));
     T *p = (T *)(message + 1);
