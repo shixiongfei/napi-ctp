@@ -1,6 +1,6 @@
 {
   "name": "napi-ctp",
-  "version": "0.2.10",
+  "version": "0.3.0",
   "description": "Node API for CTP",
   "main": "index.js",
   "types": "index.d.ts",
@@ -24,7 +24,11 @@
   },
   "keywords": [
     "ctp",
-    "nodectp"
+    "nodectp",
+    "futures",
+    "quant",
+    "trading",
+    "trade"
   ],
   "author": "shixiongfei",
   "license": "Apache-2.0",
