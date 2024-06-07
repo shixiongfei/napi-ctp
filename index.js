@@ -9,10 +9,12 @@
  * https://github.com/shixiongfei/napi-ctp
  */
 
+const types = require("./types.js");
+
 try {
   const binding = require("./build/Release/napi_ctp.node");
-  module.exports = binding;
+  module.exports = Object.assign(binding, types);
 } catch {
   const binding = require("./build/Debug/napi_ctp.node");
-  module.exports = binding;
+  module.exports = Object.assign(binding, types);
 }
