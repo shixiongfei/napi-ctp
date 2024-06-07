@@ -37,3 +37,5 @@ console.log(trader.getTradingDay());
 console.log(md.getTradingDay());
 
 console.log(ctp.getLastRequestId());
+
+console.log(ctp.ProductClassType.Futures);
