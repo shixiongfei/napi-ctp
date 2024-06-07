@@ -9,17 +9,12 @@
     "tradeapi/",
     "index.js",
     "index.d.ts",
-    "types.ts",
-    "types.js",
-    "types.d.ts",
     "prebuild.js",
-    "binding.gyp",
-    "tsconfig.json"
+    "binding.gyp"
   ],
   "scripts": {
-    "gen-types": "tsc",
-    "build": "node prebuild.js && node-gyp clean && node-gyp configure && node-gyp build && tsc",
-    "build:debug": "node prebuild.js && node-gyp clean && node-gyp configure && node-gyp build --debug && tsc",
+    "build": "node prebuild.js && node-gyp clean && node-gyp configure && node-gyp build",
+    "build:debug": "node prebuild.js && node-gyp clean && node-gyp configure && node-gyp build --debug",
     "install": "node prebuild.js && node-gyp configure && node-gyp build",
     "test": "node test.js"
   },
@@ -38,8 +33,9 @@
   },
   "homepage": "https://github.com/shixiongfei/napi-ctp#readme",
   "devDependencies": {
-    "@types/node": "^20.12.12",
-    "node-gyp": "^10.1.0",
-    "typescript": "^5.4.5"
+    "node-gyp": "^10.1.0"
+  },
+  "dependencies": {
+    "@napi-ctp/types": "^0.1.0"
   }
 }

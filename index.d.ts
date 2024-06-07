@@ -40,7 +40,7 @@ import {
   UserTypeType,
   VolumeConditionType,
   YesNoIndicatorType,
-} from "./types";
+} from "@napi-ctp/types";
 
 /** 行情消息事件 */
 export enum MarketDataEvent {
