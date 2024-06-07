@@ -9,6 +9,9 @@
  * https://github.com/shixiongfei/napi-ctp
  */
 
+export * from "@napi-ctp/types";
+export * from "./types.js";
+
 import {
   ActionFlagType,
   ActionTypeType,
