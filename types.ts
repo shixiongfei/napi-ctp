@@ -307,12 +307,18 @@ export enum TraderEvent {
   RspQryRiskSettleProductStatus = "rsp-qry-risk-settle-product-status",
 }
 
+/** 回调消息类型 */
 export type CallbackMessage = undefined | number | MessageFields;
 
+/** 回调消息信息 */
 export type CallbackOptions = {
+  /** 请求时产生的唯一编号 */
   requestId?: number;
+  /** 是否为该请求的最后一条消息 */
   isLast?: boolean;
+  /** 从 CTP 产生回调时的时间戳（毫秒） */
   timestamp: number;
+  /** 从 CTP 产生回调到进入 NodeJS 主循环队列的耗时（毫秒） */
   elapsed: number;
 };
 
