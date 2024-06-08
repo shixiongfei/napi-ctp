@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "NodeNext",
-    "target": "ES5",
+    "target": "ESNext",
     "outDir": ".",
     "declaration": true,
     "esModuleInterop": true,
