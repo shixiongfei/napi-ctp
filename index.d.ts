@@ -461,7 +461,7 @@ export declare class Trader {
       BusinessUnit: string;
       /** 请求编号 */
       RequestID: number;
-      /** 用户强评标志 */
+      /** 用户强平标志 */
       UserForceClose: number;
       /** 互换单标志 */
       IsSwapOrder: number;
@@ -530,7 +530,7 @@ export declare class Trader {
       BusinessUnit: string;
       /** 请求编号 */
       RequestID: number;
-      /** 用户强评标志 */
+      /** 用户强平标志 */
       UserForceClose: number;
       /** 交易所代码 */
       ExchangeID: string;
