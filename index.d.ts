@@ -43,7 +43,12 @@ import {
   VolumeConditionType,
   YesNoIndicatorType,
 } from "@napi-ctp/types";
-import { MarketDataEvent, TraderEvent, CallbackFunction } from "./types.js";
+import {
+  MarketDataEvent,
+  TraderEvent,
+  CallbackFunction,
+  CallbackMessage,
+} from "./types.js";
 
 /** 行情对象 */
 export declare class MarketData {
@@ -141,7 +146,10 @@ export declare class MarketData {
    * @param event 行情消息事件
    * @param func 回调函数
    */
-  on(event: MarketDataEvent, func: CallbackFunction): MarketData;
+  on<T extends CallbackMessage>(
+    event: MarketDataEvent,
+    func: CallbackFunction<T>
+  ): MarketData;
 
   /**
    * 关闭行情对象
@@ -2352,7 +2360,10 @@ export declare class Trader {
    * @param event 交易消息事件
    * @param func 回调函数
    */
-  on(event: TraderEvent, func: CallbackFunction): Trader;
+  on<T extends CallbackMessage>(
+    event: TraderEvent,
+    func: CallbackFunction<T>
+  ): Trader;
 
   /**
    * 关闭交易对象

@@ -325,7 +325,7 @@ export type CallbackOptions = {
 };
 
 /** 消息事件回调接口 */
-export type CallbackFunction = (
-  message: CallbackMessage,
+export type CallbackFunction<T extends CallbackMessage> = (
+  message: T,
   options: CallbackOptions
 ) => void;
