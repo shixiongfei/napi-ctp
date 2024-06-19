@@ -40,6 +40,7 @@ typedef struct Message {
   int elapsed;
   int64_t timestamp;
   uintptr_t data;
+  uintptr_t rspInfo;
 } Message;
 
 #define arraysize(a) ((int)(sizeof(a) / sizeof(*a)))
@@ -132,8 +133,13 @@ napi_status objectGetBoolean(napi_env env, napi_value object, const char *name, 
 #define GetObjectBoolean(env, object, record, name)                            \
   objectGetBoolean(env, object, #name, &record.name)
 
-template <typename T> static inline T *MessageData(const Message *message) {
+template <typename T>
+static inline T *MessageData(const Message *message) {
   return (T *)message->data;
+}
+
+static inline CThostFtdcRspInfoField *RspInfoData(const Message *message) {
+  return (CThostFtdcRspInfoField *)message->rspInfo;
 }
 
 #endif /* __NAPI_CTP_H__ */

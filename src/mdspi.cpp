@@ -61,36 +61,27 @@ const char *MdSpi::eventName(int event) {
 }
 
 void MdSpi::OnFrontConnected() {
-  _msgq.push(EM_FRONTCONNECTED, 0, 0, Undefined);
+  _msgq.push(EM_FRONTCONNECTED);
 }
 
 void MdSpi::OnFrontDisconnected(int nReason) {
-  _msgq.push(EM_FRONTDISCONNECTED, nReason, 0, Undefined);
+  _msgq.push(EM_FRONTDISCONNECTED, nReason);
 }
 
 void MdSpi::OnHeartBeatWarning(int nTimeLapse) {
-  _msgq.push(EM_HEARTBEATWARNING, nTimeLapse, 0, Undefined);
+  _msgq.push(EM_HEARTBEATWARNING, nTimeLapse);
 }
 
 void MdSpi::OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-  if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
-    return;
-
-  _msgq.push(EM_RSPUSERLOGIN, pRspUserLogin, nRequestID, bIsLast);
+  _msgq.push(EM_RSPUSERLOGIN, pRspUserLogin, pRspInfo, nRequestID, bIsLast);
 }
 
 void MdSpi::OnRspUserLogout(CThostFtdcUserLogoutField *pUserLogout, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-  if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
-    return;
-
-  _msgq.push(EM_RSPUSERLOGOUT, pUserLogout, nRequestID, bIsLast);
+  _msgq.push(EM_RSPUSERLOGOUT, pUserLogout, pRspInfo, nRequestID, bIsLast);
 }
 
 void MdSpi::OnRspQryMulticastInstrument(CThostFtdcMulticastInstrumentField *pMulticastInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-  if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
-    return;
-
-  _msgq.push(EM_RSPQRYMULTICASTINSTRUMENT, pMulticastInstrument, nRequestID, bIsLast);
+  _msgq.push(EM_RSPQRYMULTICASTINSTRUMENT, pMulticastInstrument, pRspInfo, nRequestID, bIsLast);
 }
 
 void MdSpi::OnRspError(CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
@@ -98,46 +89,25 @@ void MdSpi::OnRspError(CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bI
 }
 
 void MdSpi::OnRspSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-  if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
-    return;
-
-  _msgq.push(EM_RSPSUBMARKETDATA, pSpecificInstrument, nRequestID, bIsLast);
+  _msgq.push(EM_RSPSUBMARKETDATA, pSpecificInstrument, pRspInfo, nRequestID, bIsLast);
 }
 
 void MdSpi::OnRspUnSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-  if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
-    return;
-
-  _msgq.push(EM_RSPUNSUBMARKETDATA, pSpecificInstrument, nRequestID, bIsLast);
+  _msgq.push(EM_RSPUNSUBMARKETDATA, pSpecificInstrument, pRspInfo, nRequestID, bIsLast);
 }
 
 void MdSpi::OnRspSubForQuoteRsp(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-  if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
-    return;
-
-  _msgq.push(EM_RSPSUBFORQUOTERSP, pSpecificInstrument, nRequestID, bIsLast);
+  _msgq.push(EM_RSPSUBFORQUOTERSP, pSpecificInstrument, pRspInfo, nRequestID, bIsLast);
 }
 
 void MdSpi::OnRspUnSubForQuoteRsp(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-  if (checkErrorRspInfo(pRspInfo, nRequestID, bIsLast))
-    return;
-
-  _msgq.push(EM_RSPUNSUBFORQUOTERSP, pSpecificInstrument, nRequestID, bIsLast);
+  _msgq.push(EM_RSPUNSUBFORQUOTERSP, pSpecificInstrument, pRspInfo, nRequestID, bIsLast);
 }
 
 void MdSpi::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) {
-  _msgq.push(EM_RTNDEPTHMARKETDATA, pDepthMarketData, 0, Undefined);
+  _msgq.push(EM_RTNDEPTHMARKETDATA, pDepthMarketData);
 }
 
 void MdSpi::OnRtnForQuoteRsp(CThostFtdcForQuoteRspField *pForQuoteRsp) {
-  _msgq.push(EM_RTNFORQUOTERSP, pForQuoteRsp, 0, Undefined);
-}
-
-bool MdSpi::checkErrorRspInfo(CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-  bool isError = pRspInfo && pRspInfo->ErrorID != 0;
-
-  if (isError)
-    OnRspError(pRspInfo, nRequestID, bIsLast);
-
-  return isError;
+  _msgq.push(EM_RTNFORQUOTERSP, pForQuoteRsp);
 }

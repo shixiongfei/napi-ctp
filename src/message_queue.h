@@ -25,26 +25,51 @@ public:
 
   bool push(int event, int data, int requestId, int isLast);
 
+  bool push(int event) { return push(event, 0, 0, Undefined); }
+  bool push(int event, int data) { return push(event, data, 0, Undefined); }
+
   template <typename T>
-  bool push(int event, T *data, int requestId, int isLast) {
-    if (!data)
-      return push(event, 0, requestId, isLast);
-
+  bool push(int event, T *data, CThostFtdcRspInfoField *pRspInfo, int requestId, int isLast) {
     int64_t timestamp = nowtick();
-    Message *message = (Message *)malloc(sizeof(Message) + sizeof(T));
+    size_t bufsize = sizeof(Message);
+
+    if (data)
+      bufsize += sizeof(T);
+
+    if (pRspInfo)
+      bufsize += sizeof(CThostFtdcRspInfoField);
+
+    Message *message = (Message *)malloc(bufsize);
     T *p = (T *)(message + 1);
+    CThostFtdcRspInfoField *e = (CThostFtdcRspInfoField *)(p + 1);
 
-    if (message)
+    if (message && data)
       *p = *data;
+    else
+      p = nullptr;
 
-    return push(message, event, (uintptr_t)p, requestId, isLast, timestamp);
+    if (message && pRspInfo)
+      *e = *pRspInfo;
+    else
+      e = nullptr;
+
+    return push(message, event, (uintptr_t)p, (uintptr_t)e, requestId, isLast, timestamp);
   }
+
+  template <typename T>
+  bool push(int event, T *data, int requestId, int isLast) { return push<T>(event, data, nullptr, requestId, isLast); }
+
+  template <typename T>
+  bool push(int event, T *data) { return push<T>(event, data, 0, Undefined); }
+
+  template <typename T>
+  bool push(int event, T *data, CThostFtdcRspInfoField *pRspInfo) { return push<T>(event, data, pRspInfo, 0, Undefined); }
 
   int pop(Message **message, unsigned int millisec);
   void done(Message *message);
 
 private:
-  bool push(Message *message, int event, uintptr_t data, int requestId, int isLast, int64_t timestamp);
+  bool push(Message *message, int event, uintptr_t data, uintptr_t rspInfo, int requestId, int isLast, int64_t timestamp);
 
 private:
   uv_cond_t _cond;

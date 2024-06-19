@@ -33,6 +33,20 @@ napi_status getMessageOptions(napi_env env, const Message *message, napi_value *
   CHECK(SetObjectInt64(env, *result, message, timestamp));
   CHECK(SetObjectInt32(env, *result, message, elapsed));
 
+  auto pRspInfo = RspInfoData(message);
+
+  if (pRspInfo) {
+    napi_value object;
+
+    CHECK(napi_create_object(env, &object));
+
+    CHECK(objectSetString(env, object, "kind", "CThostFtdcRspInfoField"));
+    CHECK(SetObjectInt32(env, object, pRspInfo, ErrorID));
+    CHECK(SetObjectString(env, object, pRspInfo, ErrorMsg));
+
+    CHECK(napi_set_named_property(env, *result, "rspInfo", object));
+  }
+
   return napi_ok;
 }
 

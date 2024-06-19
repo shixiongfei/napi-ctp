@@ -26,7 +26,7 @@ bool MessageQueue::push(int event, int data, int requestId, int isLast) {
   int64_t timestamp = nowtick();
   Message *message = (Message *)malloc(sizeof(Message));
 
-  return push(message, event, data, requestId, isLast, timestamp);
+  return push(message, event, data, 0, requestId, isLast, timestamp);
 }
 
 int MessageQueue::pop(Message **message, unsigned int millisec) {
@@ -61,7 +61,7 @@ void MessageQueue::done(Message *message) {
   free(message);
 }
 
-bool MessageQueue::push(Message *message, int event, uintptr_t data, int requestId, int isLast, int64_t timestamp) {
+bool MessageQueue::push(Message *message, int event, uintptr_t data, uintptr_t rspInfo, int requestId, int isLast, int64_t timestamp) {
   if (!message) {
     fprintf(stderr, "Push message failed, out of memory\n");
     return false;
@@ -73,6 +73,7 @@ bool MessageQueue::push(Message *message, int event, uintptr_t data, int request
   message->elapsed = -1;
   message->timestamp = timestamp;
   message->data = data;
+  message->rspInfo = rspInfo;
 
   {
     AutoLock(_mutex);

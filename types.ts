@@ -9,7 +9,7 @@
  * https://github.com/shixiongfei/napi-ctp
  */
 
-import { MessageFields } from "@napi-ctp/types";
+import { MessageFields, RspInfoField } from "@napi-ctp/types";
 
 /** 行情消息事件 */
 export enum MarketDataEvent {
@@ -316,6 +316,8 @@ export type CallbackOptions = {
   requestId?: number;
   /** 是否为该请求的最后一条消息 */
   isLast?: boolean;
+  /** CTP 返回的错误信息 */
+  rspInfo?: RspInfoField;
   /** 从 CTP 产生回调时的时间戳（毫秒） */
   timestamp: number;
   /** 从 CTP 产生回调到进入 NodeJS 主循环队列的耗时（毫秒） */
