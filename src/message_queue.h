@@ -36,7 +36,7 @@ public:
     if (data)
       bufsize += sizeof(T);
 
-    if (pRspInfo)
+    if (pRspInfo && pRspInfo->ErrorID != 0)
       bufsize += sizeof(CThostFtdcRspInfoField);
 
     Message *message = (Message *)malloc(bufsize);
@@ -48,7 +48,7 @@ public:
     else
       p = nullptr;
 
-    if (message && pRspInfo)
+    if (message && pRspInfo && pRspInfo->ErrorID != 0)
       *e = *pRspInfo;
     else
       e = nullptr;
