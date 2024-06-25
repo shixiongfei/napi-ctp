@@ -58,8 +58,8 @@ private:
   bool shouldPushEvent(int event) { return _tsfns->find(event) != _tsfns->end(); }
 
 private:
-  MessageQueue _msgq;
   const std::map<int, napi_threadsafe_function> *_tsfns;
+  MessageQueue _msgq;
 };
 
 #endif /* __SPIEVENT_H__ */

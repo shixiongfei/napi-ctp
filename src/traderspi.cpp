@@ -10,7 +10,6 @@
  */
 
 #include "traderspi.h"
-#include <map>
 #include <string>
 
 static const std::map<std::string, int> eventMaps = {

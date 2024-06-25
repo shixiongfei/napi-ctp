@@ -10,7 +10,6 @@
  */
 
 #include "mdspi.h"
-#include <map>
 #include <string>
 
 static const std::map<std::string, int> eventMaps = {

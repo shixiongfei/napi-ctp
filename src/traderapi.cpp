@@ -13,7 +13,6 @@
 #include "tradermsg.h"
 #include "traderspi.h"
 #include <string.h>
-#include <map>
 #include <functional>
 
 typedef struct Trader {

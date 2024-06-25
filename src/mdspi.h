@@ -14,7 +14,6 @@
 
 #include "spievent.h"
 #include "napi_ctp.h"
-#include <map>
 
 #define EM_BASE                       0x1000
 #define EM_QUIT                       (EM_BASE + 0)
