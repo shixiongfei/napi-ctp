@@ -43,6 +43,7 @@ import {
   VolumeConditionType,
   YesNoIndicatorType,
 } from "@napi-ctp/types";
+
 import {
   MarketDataEvent,
   TraderEvent,

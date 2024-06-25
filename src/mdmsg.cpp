@@ -14,20 +14,20 @@
 #include "ctpmsg.h"
 
 static const MessageFuncs messageFuncs = {
-    {EM_QUIT,                       msgQuit},
-    {EM_FRONTCONNECTED,             msgFrontConnected},
-    {EM_FRONTDISCONNECTED,          msgFrontDisconnected},
-    {EM_HEARTBEATWARNING,           msgHeartBeatWarning},
-    {EM_RSPUSERLOGIN,               rspUserLogin},
-    {EM_RSPUSERLOGOUT,              rspUserLogout},
-    {EM_RSPQRYMULTICASTINSTRUMENT,  rspQryMulticastInstrument},
-    {EM_RSPERROR,                   rspError},
-    {EM_RSPSUBMARKETDATA,           rspSubMarketData},
-    {EM_RSPUNSUBMARKETDATA,         rspUnSubMarketData},
-    {EM_RSPSUBFORQUOTERSP,          rspSubForQuote},
-    {EM_RSPUNSUBFORQUOTERSP,        rspUnSubForQuote},
-    {EM_RTNDEPTHMARKETDATA,         rtnDepthMarketData},
-    {EM_RTNFORQUOTERSP,             rtnForQuote},
+  { EM_QUIT,                        msgQuit },
+  { EM_FRONTCONNECTED,              msgFrontConnected },
+  { EM_FRONTDISCONNECTED,           msgFrontDisconnected },
+  { EM_HEARTBEATWARNING,            msgHeartBeatWarning },
+  { EM_RSPUSERLOGIN,                rspUserLogin },
+  { EM_RSPUSERLOGOUT,               rspUserLogout },
+  { EM_RSPQRYMULTICASTINSTRUMENT,   rspQryMulticastInstrument },
+  { EM_RSPERROR,                    rspError },
+  { EM_RSPSUBMARKETDATA,            rspSubMarketData },
+  { EM_RSPUNSUBMARKETDATA,          rspUnSubMarketData },
+  { EM_RSPSUBFORQUOTERSP,           rspSubForQuote },
+  { EM_RSPUNSUBFORQUOTERSP,         rspUnSubForQuote },
+  { EM_RTNDEPTHMARKETDATA,          rtnDepthMarketData },
+  { EM_RTNFORQUOTERSP,              rtnForQuote },
 };
 
 napi_status getMarketDataMessageValue(napi_env env, const Message *message, napi_value *result) {
