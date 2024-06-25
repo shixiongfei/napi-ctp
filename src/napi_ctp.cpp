@@ -92,9 +92,11 @@ void checkStatus(napi_env env, napi_status status, const char *file, int line) {
 #ifdef _MSC_VER
 #define atom_incr(p) InterlockedIncrement((LONG volatile *)(p))
 #define atom_cas(p, o, n) ((o) == InterlockedCompareExchange((p), (n), (o)))
+#define atom_set(p, v) InterlockedExchange((LONG volatile *)(p), (v))
 #else
 #define atom_incr(p) __sync_add_and_fetch((p), 1)
 #define atom_cas(p, o, n) __sync_bool_compare_and_swap((p), (o), (n))
+#define atom_set(p, v) __sync_lock_test_and_set((p), (v))
 #endif
 
 #define atom_get(p, v)                                                         \
@@ -103,6 +105,10 @@ void checkStatus(napi_env env, napi_status status, const char *file, int line) {
   } while (!atom_cas((p), *(v), *(v)))
 
 static long volatile sequenceLastId = 0;
+
+void setSequenceId(long seqid) {
+  atom_set(&sequenceLastId, seqid);
+}
 
 int nextSequenceId(void) {
   return (int)atom_incr(&sequenceLastId);

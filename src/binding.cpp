@@ -51,11 +51,21 @@ static napi_value getLastRequestId(napi_env env, napi_callback_info info) {
   return value;
 }
 
+static napi_value resetRequestId(napi_env env, napi_callback_info info) {
+  napi_value undefined;
+
+  CHECK(napi_get_undefined(env, &undefined));
+  setSequenceId(0);
+
+  return undefined;
+}
+
 static napi_status defineMethods(napi_env env, napi_value exports) {
   napi_property_descriptor props[] = {
       DECLARE_NAPI_METHOD(createMarketData),
       DECLARE_NAPI_METHOD(createTrader),
       DECLARE_NAPI_METHOD(getLastRequestId),
+      DECLARE_NAPI_METHOD(resetRequestId),
   };
   return napi_define_properties(env, exports, arraysize(props), props);
 }

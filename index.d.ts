@@ -2398,3 +2398,8 @@ export declare function createTrader(
  * @returns 序列ID
  */
 export declare function getLastRequestId(): number;
+
+/**
+ * 重置请求序列ID
+ */
+export declare function resetRequestId(): void;
