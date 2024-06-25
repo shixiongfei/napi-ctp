@@ -15,7 +15,6 @@
 #include "guard.h"
 #include <string.h>
 #include <map>
-#include <string>
 #include <functional>
 
 typedef struct MarketData {
@@ -24,7 +23,7 @@ typedef struct MarketData {
   uv_thread_t thread;
   MdSpi *spi;
   CThostFtdcMdApi *api;
-  std::map<std::string, napi_threadsafe_function> tsfns;
+  std::map<int, napi_threadsafe_function> tsfns;
 } MarketData;
 
 static napi_value getApiVersion(napi_env env, napi_callback_info info) {
@@ -207,14 +206,7 @@ static napi_value reqUserLogout(napi_env env, napi_callback_info info) {
 }
 
 static bool processMessage(MarketData *marketData, const Message *message) {
-  const char *eventName = MdSpi::eventName(message->event);
-
-  if (!eventName) {
-    fprintf(stderr, "<Market Data> Unknown message event %d\n", message->event);
-    return true;
-  }
-
-  auto iter = marketData->tsfns.find(eventName);
+  auto iter = marketData->tsfns.find(message->event);
 
   if (iter != marketData->tsfns.end()) {
     napi_env env = marketData->env;
@@ -277,7 +269,8 @@ static napi_value on(napi_env env, napi_callback_info info) {
   napi_value argv[2], jsthis;
   napi_threadsafe_function tsfn;
   MarketData *marketData;
-  char fname[64];
+  char eventName[64];
+  int event;
 
   CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&marketData));
@@ -287,12 +280,14 @@ static napi_value on(napi_env env, napi_callback_info info) {
   CHECK(napi_create_threadsafe_function(env, argv[1], nullptr, argv[0], 0, 1, nullptr, nullptr, marketData, callJs, &tsfn));
   CHECK(napi_ref_threadsafe_function(env, tsfn));
 
-  CHECK(napi_get_value_string_utf8(env, argv[0], fname, sizeof(fname), nullptr));
+  CHECK(napi_get_value_string_utf8(env, argv[0], eventName, sizeof(eventName), nullptr));
 
-  if (marketData->tsfns.find(fname) != marketData->tsfns.end())
-    CHECK(napi_unref_threadsafe_function(env, marketData->tsfns[fname]));
+  event = marketData->spi->eventFromName(eventName);
 
-  marketData->tsfns[fname] = tsfn;
+  if (marketData->tsfns.find(event) != marketData->tsfns.end())
+    CHECK(napi_unref_threadsafe_function(env, marketData->tsfns[event]));
+
+  marketData->tsfns[event] = tsfn;
 
   return jsthis;
 }
@@ -319,7 +314,7 @@ static void marketDataDestructor(napi_env env, void *data, void *hint) {
   if (!marketData)
     return;
 
-  bool needFree = marketData->tsfns.find(MdSpi::eventName(EM_QUIT)) == marketData->tsfns.end();
+  bool needFree = marketData->tsfns.find(EM_QUIT) == marketData->tsfns.end();
 
   if (marketData->spi) {
     marketData->spi->quit();
@@ -359,7 +354,7 @@ static napi_value marketDataNew(napi_env env, napi_callback_info info) {
   }
 
   marketData->env = env;
-  marketData->spi = new MdSpi();
+  marketData->spi = new MdSpi(&marketData->tsfns);
 
   if (!marketData->spi) {
     delete marketData;

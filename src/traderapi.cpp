@@ -14,7 +14,6 @@
 #include "traderspi.h"
 #include <string.h>
 #include <map>
-#include <string>
 #include <functional>
 
 typedef struct Trader {
@@ -23,7 +22,7 @@ typedef struct Trader {
   uv_thread_t thread;
   TraderSpi *spi;
   CThostFtdcTraderApi *api;
-  std::map<std::string, napi_threadsafe_function> tsfns;
+  std::map<int, napi_threadsafe_function> tsfns;
 } Trader;
 
 static napi_value getApiVersion(napi_env env, napi_callback_info info) {
@@ -1749,14 +1748,7 @@ static napi_value reqQryRiskSettleProductStatus(napi_env env, napi_callback_info
 }
 
 static bool processMessage(Trader *trader, const Message *message) {
-  const char *eventName = TraderSpi::eventName(message->event);
-
-  if (!eventName) {
-    fprintf(stderr, "<Trader> Unknown message event %d\n", message->event);
-    return true;
-  }
-
-  auto iter = trader->tsfns.find(eventName);
+  auto iter = trader->tsfns.find(message->event);
 
   if (iter != trader->tsfns.end()) {
     napi_env env = trader->env;
@@ -1819,7 +1811,8 @@ static napi_value on(napi_env env, napi_callback_info info) {
   napi_value argv[2], jsthis;
   napi_threadsafe_function tsfn;
   Trader *trader;
-  char fname[64];
+  char eventName[64];
+  int event;
 
   CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
   CHECK(napi_unwrap(env, jsthis, (void **)&trader));
@@ -1829,12 +1822,14 @@ static napi_value on(napi_env env, napi_callback_info info) {
   CHECK(napi_create_threadsafe_function(env, argv[1], nullptr, argv[0], 0, 1, nullptr, nullptr, trader, callJs, &tsfn));
   CHECK(napi_ref_threadsafe_function(env, tsfn));
 
-  CHECK(napi_get_value_string_utf8(env, argv[0], fname, sizeof(fname), nullptr));
+  CHECK(napi_get_value_string_utf8(env, argv[0], eventName, sizeof(eventName), nullptr));
 
-  if (trader->tsfns.find(fname) != trader->tsfns.end())
-    CHECK(napi_unref_threadsafe_function(env, trader->tsfns[fname]));
+  event = trader->spi->eventFromName(eventName);
 
-  trader->tsfns[fname] = tsfn;
+  if (trader->tsfns.find(event) != trader->tsfns.end())
+    CHECK(napi_unref_threadsafe_function(env, trader->tsfns[event]));
+
+  trader->tsfns[event] = tsfn;
 
   return jsthis;
 }
@@ -1861,7 +1856,7 @@ static void traderDestructor(napi_env env, void *data, void *hint) {
   if (!trader)
     return;
 
-  bool needFree = trader->tsfns.find(TraderSpi::eventName(ET_QUIT)) == trader->tsfns.end();
+  bool needFree = trader->tsfns.find(ET_QUIT) == trader->tsfns.end();
 
   if (trader->spi) {
     trader->spi->quit();
@@ -1901,7 +1896,7 @@ static napi_value traderNew(napi_env env, napi_callback_info info) {
   }
 
   trader->env = env;
-  trader->spi = new TraderSpi();
+  trader->spi = new TraderSpi(&trader->tsfns);
 
   if (!trader->spi) {
     delete trader;

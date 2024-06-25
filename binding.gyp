@@ -5,6 +5,7 @@
       "sources": [
         "./src/is_utf8.cpp",
         "./src/binding.cpp",
+        "./src/spievent.cpp",
         "./src/ctpmsg.cpp",
         "./src/mdapi.cpp",
         "./src/mdspi.cpp",

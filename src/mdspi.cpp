@@ -13,101 +13,89 @@
 #include <map>
 #include <string>
 
-static const std::map<int, std::string> eventNames = {
-  {EM_QUIT,                       "quit"},
-  {EM_FRONTCONNECTED,             "front-connected"},
-  {EM_FRONTDISCONNECTED,          "front-disconnected"},
-  {EM_HEARTBEATWARNING,           "heart-beat-warning"},
-  {EM_RSPUSERLOGIN,               "rsp-user-login"},
-  {EM_RSPUSERLOGOUT,              "rsp-user-logout"},
-  {EM_RSPQRYMULTICASTINSTRUMENT,  "rsp-qry-multicast-instrument"},
-  {EM_RSPERROR,                   "rsp-error"},
-  {EM_RSPSUBMARKETDATA,           "rsp-sub-market-data"},
-  {EM_RSPUNSUBMARKETDATA,         "rsp-unsub-market-data"},
-  {EM_RSPSUBFORQUOTERSP,          "rsp-sub-for-quote"},
-  {EM_RSPUNSUBFORQUOTERSP,        "rsp-unsub-for-quote"},
-  {EM_RTNDEPTHMARKETDATA,         "rtn-depth-market-data"},
-  {EM_RTNFORQUOTERSP,             "rtn-for-quote"},
+static const std::map<std::string, int> eventMaps = {
+  { "quit",                            EM_QUIT },
+  { "front-connected",                 EM_FRONTCONNECTED },
+  { "front-disconnected",              EM_FRONTDISCONNECTED },
+  { "heart-beat-warning",              EM_HEARTBEATWARNING },
+  { "rsp-user-login",                  EM_RSPUSERLOGIN },
+  { "rsp-user-logout",                 EM_RSPUSERLOGOUT },
+  { "rsp-qry-multicast-instrument",    EM_RSPQRYMULTICASTINSTRUMENT },
+  { "rsp-error",                       EM_RSPERROR },
+  { "rsp-sub-market-data",             EM_RSPSUBMARKETDATA },
+  { "rsp-unsub-market-data",           EM_RSPUNSUBMARKETDATA },
+  { "rsp-sub-for-quote",               EM_RSPSUBFORQUOTERSP },
+  { "rsp-unsub-for-quote",             EM_RSPUNSUBFORQUOTERSP },
+  { "rtn-depth-market-data",           EM_RTNDEPTHMARKETDATA },
+  { "rtn-for-quote",                   EM_RTNFORQUOTERSP },
 };
 
-MdSpi::MdSpi() {}
+MdSpi::MdSpi(const std::map<int, napi_threadsafe_function> *tsfns)
+  : SpiEvent(tsfns) {}
 
-MdSpi::~MdSpi() {
-  Message *msg;
+MdSpi::~MdSpi() {}
 
-  while (QUEUE_SUCCESS == poll(&msg, 0))
-    done(msg);
-}
+int MdSpi::eventFromName(const char *name) {
+  auto iter = eventMaps.find(name);
 
-int MdSpi::poll(Message **message, unsigned int millisec) {
-  return _msgq.pop(message, millisec);
-}
+  if (iter == eventMaps.end())
+    return 0;
 
-void MdSpi::done(Message *message) {
-  _msgq.done(message);
+  return iter->second;
 }
 
 void MdSpi::quit(int nCode) {
-  _msgq.push(EM_QUIT, nCode, 0, Undefined);
-}
-
-const char *MdSpi::eventName(int event) {
-  auto iter = eventNames.find(event);
-
-  if (iter == eventNames.end())
-    return nullptr;
-
-  return iter->second.c_str();
+  SpiEvent::quit(EM_QUIT, nCode);
 }
 
 void MdSpi::OnFrontConnected() {
-  _msgq.push(EM_FRONTCONNECTED);
+  SpiEvent::push(EM_FRONTCONNECTED);
 }
 
 void MdSpi::OnFrontDisconnected(int nReason) {
-  _msgq.push(EM_FRONTDISCONNECTED, nReason);
+  SpiEvent::push(EM_FRONTDISCONNECTED, nReason);
 }
 
 void MdSpi::OnHeartBeatWarning(int nTimeLapse) {
-  _msgq.push(EM_HEARTBEATWARNING, nTimeLapse);
+  SpiEvent::push(EM_HEARTBEATWARNING, nTimeLapse);
 }
 
 void MdSpi::OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-  _msgq.push(EM_RSPUSERLOGIN, pRspUserLogin, pRspInfo, nRequestID, bIsLast);
+  SpiEvent::push(EM_RSPUSERLOGIN, pRspUserLogin, pRspInfo, nRequestID, bIsLast);
 }
 
 void MdSpi::OnRspUserLogout(CThostFtdcUserLogoutField *pUserLogout, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-  _msgq.push(EM_RSPUSERLOGOUT, pUserLogout, pRspInfo, nRequestID, bIsLast);
+  SpiEvent::push(EM_RSPUSERLOGOUT, pUserLogout, pRspInfo, nRequestID, bIsLast);
 }
 
 void MdSpi::OnRspQryMulticastInstrument(CThostFtdcMulticastInstrumentField *pMulticastInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-  _msgq.push(EM_RSPQRYMULTICASTINSTRUMENT, pMulticastInstrument, pRspInfo, nRequestID, bIsLast);
+  SpiEvent::push(EM_RSPQRYMULTICASTINSTRUMENT, pMulticastInstrument, pRspInfo, nRequestID, bIsLast);
 }
 
 void MdSpi::OnRspError(CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-  _msgq.push(EM_RSPERROR, pRspInfo, nRequestID, bIsLast);
+  SpiEvent::push(EM_RSPERROR, pRspInfo, nRequestID, bIsLast);
 }
 
 void MdSpi::OnRspSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-  _msgq.push(EM_RSPSUBMARKETDATA, pSpecificInstrument, pRspInfo, nRequestID, bIsLast);
+  SpiEvent::push(EM_RSPSUBMARKETDATA, pSpecificInstrument, pRspInfo, nRequestID, bIsLast);
 }
 
 void MdSpi::OnRspUnSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-  _msgq.push(EM_RSPUNSUBMARKETDATA, pSpecificInstrument, pRspInfo, nRequestID, bIsLast);
+  SpiEvent::push(EM_RSPUNSUBMARKETDATA, pSpecificInstrument, pRspInfo, nRequestID, bIsLast);
 }
 
 void MdSpi::OnRspSubForQuoteRsp(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-  _msgq.push(EM_RSPSUBFORQUOTERSP, pSpecificInstrument, pRspInfo, nRequestID, bIsLast);
+  SpiEvent::push(EM_RSPSUBFORQUOTERSP, pSpecificInstrument, pRspInfo, nRequestID, bIsLast);
 }
 
 void MdSpi::OnRspUnSubForQuoteRsp(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-  _msgq.push(EM_RSPUNSUBFORQUOTERSP, pSpecificInstrument, pRspInfo, nRequestID, bIsLast);
+  SpiEvent::push(EM_RSPUNSUBFORQUOTERSP, pSpecificInstrument, pRspInfo, nRequestID, bIsLast);
 }
 
 void MdSpi::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) {
-  _msgq.push(EM_RTNDEPTHMARKETDATA, pDepthMarketData);
+  SpiEvent::push(EM_RTNDEPTHMARKETDATA, pDepthMarketData);
 }
 
 void MdSpi::OnRtnForQuoteRsp(CThostFtdcForQuoteRspField *pForQuoteRsp) {
-  _msgq.push(EM_RTNFORQUOTERSP, pForQuoteRsp);
+  SpiEvent::push(EM_RTNFORQUOTERSP, pForQuoteRsp);
 }

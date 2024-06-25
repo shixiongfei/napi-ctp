@@ -12,8 +12,9 @@
 #ifndef __MDSPI_H__
 #define __MDSPI_H__
 
-#include "message_queue.h"
+#include "spievent.h"
 #include "napi_ctp.h"
+#include <map>
 
 #define EM_BASE                       0x1000
 #define EM_QUIT                       (EM_BASE + 0)
@@ -31,19 +32,14 @@
 #define EM_RTNDEPTHMARKETDATA         (EM_BASE + 12)
 #define EM_RTNFORQUOTERSP             (EM_BASE + 13)
 
-class MdSpi : public CThostFtdcMdSpi {
+class MdSpi : public SpiEvent, public CThostFtdcMdSpi {
 public:
-  MdSpi();
+  MdSpi(const std::map<int, napi_threadsafe_function> *tsfns);
   virtual ~MdSpi();
 
-  int poll(Message **message, unsigned int millisec = UINT_MAX);
-  void done(Message *message);
+  static int eventFromName(const char *name);
   void quit(int nCode = 0);
 
-public:
-  static const char *eventName(int event);
-
-public:
   virtual void OnFrontConnected();
   virtual void OnFrontDisconnected(int nReason);
 
@@ -65,12 +61,6 @@ public:
   virtual void OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData);
   
   virtual void OnRtnForQuoteRsp(CThostFtdcForQuoteRspField *pForQuoteRsp);
-
-private:
-  bool checkErrorRspInfo(CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
-
-private:
-  MessageQueue _msgq;
 };
 
 #endif /* __MDSPI_H__ */

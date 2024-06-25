@@ -12,7 +12,7 @@
 #ifndef __TRADERSPI_H__
 #define __TRADERSPI_H__
 
-#include "message_queue.h"
+#include "spievent.h"
 #include "napi_ctp.h"
 
 #define ET_BASE                                     0x2000
@@ -148,19 +148,14 @@
 #define ET_RSPQRYRISKSETTLEINVSTPOSITION            (ET_BASE + 129)
 #define ET_RSPQRYRISKSETTLEPRODUCTSTATUS            (ET_BASE + 130)
 
-class TraderSpi : public CThostFtdcTraderSpi {
+class TraderSpi : public SpiEvent, public CThostFtdcTraderSpi {
 public:
-  TraderSpi();
+  TraderSpi(const std::map<int, napi_threadsafe_function> *tsfns);
   virtual ~TraderSpi();
 
-  int poll(Message **message, unsigned int millisec = UINT_MAX);
-  void done(Message *message);
+  static int eventFromName(const char *name);
   void quit(int nCode = 0);
 
-public:
-  static const char *eventName(int event);
-
-public:
   virtual void OnFrontConnected();
   virtual void OnFrontDisconnected(int nReason);
 
@@ -364,12 +359,6 @@ public:
 
   virtual void OnRspQryRiskSettleInvstPosition(CThostFtdcRiskSettleInvstPositionField *pRiskSettleInvstPosition, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
   virtual void OnRspQryRiskSettleProductStatus(CThostFtdcRiskSettleProductStatusField *pRiskSettleProductStatus, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
-
-private:
-  bool checkErrorRspInfo(CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
-
-private:
-  MessageQueue _msgq;
 };
 
 #endif /* __TRADERSPI_H__ */
