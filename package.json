@@ -42,9 +42,9 @@
   },
   "homepage": "https://github.com/shixiongfei/napi-ctp#readme",
   "devDependencies": {
-    "@types/node": "^22.7.5",
-    "node-gyp": "^10.2.0",
-    "typescript": "^5.6.3"
+    "@types/node": "^22.10.10",
+    "node-gyp": "^11.0.0",
+    "typescript": "^5.7.3"
   },
   "dependencies": {
     "@napi-ctp/types": "^0.1.1"
