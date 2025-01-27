@@ -318,7 +318,7 @@ napi_status objectSetString(napi_env env, napi_value object, const char *name, c
     dynarray(char, utf8str, utf8len);
     memset(utf8str, 0, utf8len);
 
-    CHECK(napi_create_string_utf8(env, toUTF8("GBK", string, len, utf8str), NAPI_AUTO_LENGTH, &value));
+    CHECK(napi_create_string_utf8(env, toUTF8("GB18030", string, len, utf8str), NAPI_AUTO_LENGTH, &value));
   }
 
   return napi_set_named_property(env, object, name, value);
