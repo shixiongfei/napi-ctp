@@ -11,6 +11,7 @@
         "./src/mdspi.cpp",
         "./src/mdmsg.cpp",
         "./src/guard.cpp",
+        "./src/message_buffer.cpp",
         "./src/message_queue.cpp",
         "./src/napi_ctp.cpp",
         "./src/traderapi.cpp",

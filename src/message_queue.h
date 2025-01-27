@@ -13,6 +13,7 @@
 #define __MESSAGE_QUEUE_H__
 
 #include "blockingconcurrentqueue.h"
+#include "message_buffer.h"
 #include "napi_ctp.h"
 
 enum { QUEUE_FAILED = -1,
@@ -44,7 +45,7 @@ public:
     if (pRspInfo && pRspInfo->ErrorID != 0)
       bufsize += sizeof(CThostFtdcRspInfoField);
 
-    Message *message = (Message *)malloc(bufsize);
+    Message *message = (Message *)_buffer.alloc(bufsize);
     T *p = (T *)(message + 1);
     CThostFtdcRspInfoField *e = (CThostFtdcRspInfoField *)(p + 1);
 
@@ -81,6 +82,9 @@ public:
 
 private:
   bool push(Message *message, int event, uintptr_t data, uintptr_t rspInfo, int requestId, int isLast, int64_t timestamp);
+
+private:
+  static MessageBuffer _buffer(4096);
 
 private:
   moodycamel::BlockingConcurrentQueue<Message *> _queue;
