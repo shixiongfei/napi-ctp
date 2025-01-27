@@ -12,6 +12,7 @@
 #include "message_queue.h"
 #include "guard.h"
 #include <chrono>
+#include <stdio.h>
 
 MessageBuffer MessageQueue::_buffer(4096);
 
