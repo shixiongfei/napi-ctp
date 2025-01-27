@@ -43,7 +43,7 @@ void *MessageBuffer::alloc(size_t size) {
 void MessageBuffer::free(void *buffer) {
   static thread_local moodycamel::ProducerToken token(_buffers);
   void *entry = bufferEntry(buffer);
-  int block_size = *(int *)entry;
+  size_t block_size = *(int *)entry;
 
   if (block_size != _block_size) {
     free(entry);
@@ -55,6 +55,6 @@ void MessageBuffer::free(void *buffer) {
 
 void *MessageBuffer::allocBlock(size_t block_size) {
   void *buffer = malloc(block_size);
-  *(int *)buffer = block_size;
+  *(int *)buffer = (int)block_size;
   return bufferOffset(buffer);
 }

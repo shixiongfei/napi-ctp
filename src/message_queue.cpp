@@ -13,6 +13,8 @@
 #include "guard.h"
 #include <chrono>
 
+MessageBuffer MessageQueue::_buffer(4096);
+
 MessageQueue::MessageQueue() {
 }
 

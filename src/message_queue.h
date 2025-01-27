@@ -84,7 +84,7 @@ private:
   bool push(Message *message, int event, uintptr_t data, uintptr_t rspInfo, int requestId, int isLast, int64_t timestamp);
 
 private:
-  static MessageBuffer _buffer(4096);
+  static MessageBuffer _buffer;
 
 private:
   moodycamel::BlockingConcurrentQueue<Message *> _queue;
