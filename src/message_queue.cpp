@@ -1,7 +1,7 @@
 /*
  * message_queue.cpp
  *
- * Copyright (c) 2022-2024 Xiongfei Shi
+ * Copyright (c) 2022-2025 Xiongfei Shi
  *
  * Author: Xiongfei Shi <xiongfei.shi(a)icloud.com>
  * License: Apache-2.0
@@ -11,15 +11,12 @@
 
 #include "message_queue.h"
 #include "guard.h"
+#include <chrono>
 
-MessageQueue::MessageQueue() : _waiting(0) {
-  uv_cond_init(&_cond);
-  uv_mutex_init_recursive(&_mutex);
+MessageQueue::MessageQueue() {
 }
 
 MessageQueue::~MessageQueue() {
-  uv_cond_destroy(&_cond);
-  uv_mutex_destroy(&_mutex);
 }
 
 bool MessageQueue::push(int event, int data, int requestId, int isLast) {
@@ -30,26 +27,13 @@ bool MessageQueue::push(int event, int data, int requestId, int isLast) {
 }
 
 int MessageQueue::pop(Message **message, unsigned int millisec) {
-  int ret;
+  static thread_local moodycamel::ConsumerToken token(_queue);
 
   if (!message)
     return QUEUE_FAILED;
 
-  {
-    AutoLock(_mutex);
-
-    while (_queue.empty()) {
-      _waiting += 1;
-      ret = uv_cond_timedwait(&_cond, &_mutex, (uint64_t)millisec * 1000 * 1000);
-      _waiting -= 1;
-
-      if (ret != 0)
-        return ret == UV_ETIMEDOUT ? QUEUE_TIMEOUT : QUEUE_FAILED;
-    }
-
-    *message = _queue.front();
-    _queue.pop();
-  }
+  if (!_queue.wait_dequeue_timed(token, *message, std::chrono::milliseconds(millisec)))
+    return QUEUE_TIMEOUT;
 
   if (*message)
     (*message)->elapsed = (int)(nowtick() - (*message)->timestamp);
@@ -62,6 +46,8 @@ void MessageQueue::done(Message *message) {
 }
 
 bool MessageQueue::push(Message *message, int event, uintptr_t data, uintptr_t rspInfo, int requestId, int isLast, int64_t timestamp) {
+  static thread_local moodycamel::ProducerToken token(_queue);
+
   if (!message) {
     fprintf(stderr, "Push message failed, out of memory\n");
     return false;
@@ -75,14 +61,5 @@ bool MessageQueue::push(Message *message, int event, uintptr_t data, uintptr_t r
   message->data = data;
   message->rspInfo = rspInfo;
 
-  {
-    AutoLock(_mutex);
-
-    _queue.push(message);
-
-    if (_waiting > 0)
-      uv_cond_signal(&_cond);
-  }
-
-  return true;
+  return _queue.enqueue(token, message);
 }

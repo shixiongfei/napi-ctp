@@ -1,7 +1,7 @@
 /*
  * mdspi.cpp
  *
- * Copyright (c) 2022-2024 Xiongfei Shi
+ * Copyright (c) 2022-2025 Xiongfei Shi
  *
  * Author: Xiongfei Shi <xiongfei.shi(a)icloud.com>
  * License: Apache-2.0
@@ -13,26 +13,28 @@
 #include <string>
 
 static const std::map<std::string, int> eventMaps = {
-  { "quit",                            EM_QUIT },
-  { "front-connected",                 EM_FRONTCONNECTED },
-  { "front-disconnected",              EM_FRONTDISCONNECTED },
-  { "heart-beat-warning",              EM_HEARTBEATWARNING },
-  { "rsp-user-login",                  EM_RSPUSERLOGIN },
-  { "rsp-user-logout",                 EM_RSPUSERLOGOUT },
-  { "rsp-qry-multicast-instrument",    EM_RSPQRYMULTICASTINSTRUMENT },
-  { "rsp-error",                       EM_RSPERROR },
-  { "rsp-sub-market-data",             EM_RSPSUBMARKETDATA },
-  { "rsp-unsub-market-data",           EM_RSPUNSUBMARKETDATA },
-  { "rsp-sub-for-quote",               EM_RSPSUBFORQUOTERSP },
-  { "rsp-unsub-for-quote",             EM_RSPUNSUBFORQUOTERSP },
-  { "rtn-depth-market-data",           EM_RTNDEPTHMARKETDATA },
-  { "rtn-for-quote",                   EM_RTNFORQUOTERSP },
+    {"quit", EM_QUIT},
+    {"front-connected", EM_FRONTCONNECTED},
+    {"front-disconnected", EM_FRONTDISCONNECTED},
+    {"heart-beat-warning", EM_HEARTBEATWARNING},
+    {"rsp-user-login", EM_RSPUSERLOGIN},
+    {"rsp-user-logout", EM_RSPUSERLOGOUT},
+    {"rsp-qry-multicast-instrument", EM_RSPQRYMULTICASTINSTRUMENT},
+    {"rsp-error", EM_RSPERROR},
+    {"rsp-sub-market-data", EM_RSPSUBMARKETDATA},
+    {"rsp-unsub-market-data", EM_RSPUNSUBMARKETDATA},
+    {"rsp-sub-for-quote", EM_RSPSUBFORQUOTERSP},
+    {"rsp-unsub-for-quote", EM_RSPUNSUBFORQUOTERSP},
+    {"rtn-depth-market-data", EM_RTNDEPTHMARKETDATA},
+    {"rtn-for-quote", EM_RTNFORQUOTERSP},
 };
 
 MdSpi::MdSpi(const std::map<int, napi_threadsafe_function> *tsfns)
-  : SpiEvent(tsfns) {}
+    : SpiEvent(tsfns) {
+}
 
-MdSpi::~MdSpi() {}
+MdSpi::~MdSpi() {
+}
 
 int MdSpi::eventFromName(const char *name) {
   auto iter = eventMaps.find(name);

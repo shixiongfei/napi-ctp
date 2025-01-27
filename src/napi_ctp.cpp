@@ -1,7 +1,7 @@
 /*
  * napi_ctp.cpp
  *
- * Copyright (c) 2022-2024 Xiongfei Shi
+ * Copyright (c) 2022-2025 Xiongfei Shi
  *
  * Author: Xiongfei Shi <xiongfei.shi(a)icloud.com>
  * License: Apache-2.0
@@ -13,8 +13,8 @@
 #include "is_utf8.h"
 #include <float.h>
 #include <math.h>
-#include <string.h>
 #include <stdio.h>
+#include <string.h>
 
 #ifdef _WIN32
 #include <WinSock2.h>
@@ -99,9 +99,9 @@ void checkStatus(napi_env env, napi_status status, const char *file, int line) {
 #define atom_set(p, v) __sync_lock_test_and_set((p), (v))
 #endif
 
-#define atom_get(p, v)                                                         \
-  do {                                                                         \
-    *(v) = *(p);                                                               \
+#define atom_get(p, v) \
+  do {                 \
+    *(v) = *(p);       \
   } while (!atom_cas((p), *(v), *(v)))
 
 static long volatile sequenceLastId = 0;
@@ -201,57 +201,57 @@ napi_status checkIsObject(napi_env env, napi_value value) {
 }
 
 static const char *getTypeString(napi_valuetype type) {
-  switch(type) {
-    case napi_undefined:
-      return "undefined";
-    case napi_null:
-      return "null";
-    case napi_boolean:
-      return "boolean";
-    case napi_number:
-      return "number";
-    case napi_string:
-      return "string";
-    case napi_symbol:
-      return "symbol";
-    case napi_object:
-      return "object";
-    case napi_function:
-      return "function";
-    case napi_external:
-      return "external";
-    case napi_bigint:
-      return "bigint";
-    default:
-      return "<unknown type>";
+  switch (type) {
+  case napi_undefined:
+    return "undefined";
+  case napi_null:
+    return "null";
+  case napi_boolean:
+    return "boolean";
+  case napi_number:
+    return "number";
+  case napi_string:
+    return "string";
+  case napi_symbol:
+    return "symbol";
+  case napi_object:
+    return "object";
+  case napi_function:
+    return "function";
+  case napi_external:
+    return "external";
+  case napi_bigint:
+    return "bigint";
+  default:
+    return "<unknown type>";
   }
   return "<unknown type>";
 }
 
 static napi_status getTypeExpected(napi_valuetype type) {
-  switch(type) {
-    case napi_undefined:
-      return napi_invalid_arg;
-    case napi_null:
-      return napi_invalid_arg;
-    case napi_boolean:
-      return napi_boolean_expected;
-    case napi_number:
-      return napi_number_expected;
-    case napi_string:
-      return napi_string_expected;
-    case napi_symbol:
-      return napi_name_expected;
-    case napi_object:
-      return napi_object_expected;
-    case napi_function:
-      return napi_function_expected;
-    case napi_external:
-      return napi_invalid_arg;
-    case napi_bigint:
-      return napi_bigint_expected;
-    default:
-      return napi_generic_failure;
+  switch (type) {
+  case napi_undefined:
+    return napi_invalid_arg;
+  case napi_null:
+    return napi_invalid_arg;
+  case napi_boolean:
+    return napi_boolean_expected;
+  case napi_number:
+    return napi_number_expected;
+  case napi_string:
+    return napi_string_expected;
+  case napi_symbol:
+    return napi_name_expected;
+  case napi_object:
+    return napi_object_expected;
+  case napi_function:
+    return napi_function_expected;
+  case napi_external:
+    return napi_invalid_arg;
+  case napi_bigint:
+    return napi_bigint_expected;
+  default:
+    return napi_generic_failure;
   }
   return napi_generic_failure;
 }
@@ -356,8 +356,8 @@ static double rounding(double number, int precision) {
   double rounded = round(value);
 
   return equal(fabs(value - rounded), 0.5)
-    ? (round(value / 2.0) * 2.0) / factor
-    : rounded / factor;
+             ? (round(value / 2.0) * 2.0) / factor
+             : rounded / factor;
 }
 
 napi_status objectSetDouble(napi_env env, napi_value object, const char *name, double number) {

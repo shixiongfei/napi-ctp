@@ -1,7 +1,7 @@
 /*
  * traderapi.cpp
  *
- * Copyright (c) 2022-2024 Xiongfei Shi
+ * Copyright (c) 2022-2025 Xiongfei Shi
  *
  * Author: Xiongfei Shi <xiongfei.shi(a)icloud.com>
  * License: Apache-2.0
@@ -12,8 +12,9 @@
 #include "traderapi.h"
 #include "tradermsg.h"
 #include "traderspi.h"
-#include <string.h>
 #include <functional>
+#include <string.h>
+#include <uv.h>
 
 typedef struct Trader {
   napi_env env;
@@ -62,7 +63,7 @@ static napi_value getTradingDay(napi_env env, napi_callback_info info) {
   return tradingDay;
 }
 
-static napi_value callRequestFunc(napi_env env, napi_callback_info info, const std::function<int(Trader*, napi_value)> &func) {
+static napi_value callRequestFunc(napi_env env, napi_callback_info info, const std::function<int(Trader *, napi_value)> &func) {
   size_t argc = 1;
   int result;
   napi_value object, jsthis, retval;
@@ -123,11 +124,11 @@ static napi_value reqUserLogin(napi_env env, napi_callback_info info) {
     CHECK(GetObjectInt32(env, object, req, ClientIPPort));
     CHECK(GetObjectString(env, object, req, ClientIPAddress));
 
-  #ifndef __APPLE__
+#ifndef __APPLE__
     return trader->api->ReqUserLogin(&req, nextSequenceId());
-  #else
+#else
     return trader->api->ReqUserLogin(&req, nextSequenceId(), 0, nullptr);
-  #endif
+#endif
   });
 }
 

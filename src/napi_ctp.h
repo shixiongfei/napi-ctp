@@ -1,7 +1,7 @@
 /*
  * napi_ctp.h
  *
- * Copyright (c) 2022-2024 Xiongfei Shi
+ * Copyright (c) 2022-2025 Xiongfei Shi
  *
  * Author: Xiongfei Shi <xiongfei.shi(a)icloud.com>
  * License: Apache-2.0
@@ -14,13 +14,13 @@
 
 #include "ThostFtdcMdApi.h"
 #include "ThostFtdcTraderApi.h"
-#include <stdlib.h>
-#include <stdint.h>
 #include <node_api.h>
+#include <stdint.h>
+#include <stdlib.h>
 
 #ifdef _MSC_VER
 #include <malloc.h>
-#define dynarray(type, name, size)                                             \
+#define dynarray(type, name, size) \
   type *name = (type *)_alloca((size) * sizeof(type))
 #else
 #define dynarray(type, name, size) type name[size]
@@ -31,7 +31,9 @@ typedef struct Constructors {
   napi_ref trader;
 } Constructors;
 
-enum { Undefined = -1, False, True };
+enum { Undefined = -1,
+       False,
+       True };
 
 typedef struct Message {
   int event;
@@ -54,8 +56,8 @@ static inline int64_t nowtick(void) {
 void checkStatus(napi_env env, napi_status status, const char *file, int line);
 #define CHECK(__expression__) checkStatus(env, __expression__, __FILE__, __LINE__)
 
-#define DECLARE_NAPI_METHOD_(name, method)                                     \
-  { name, 0, method, 0, 0, 0, napi_default, 0 }
+#define DECLARE_NAPI_METHOD_(name, method) \
+  {name, 0, method, 0, 0, 0, napi_default, 0}
 #define DECLARE_NAPI_METHOD(method) DECLARE_NAPI_METHOD_(#method, method)
 
 void setSequenceId(long seqid);
@@ -89,49 +91,49 @@ napi_status objectGetDouble(napi_env env, napi_value object, const char *name, d
 napi_status objectGetChar(napi_env env, napi_value object, const char *name, char *ch);
 napi_status objectGetBoolean(napi_env env, napi_value object, const char *name, bool *boolean);
 
-#define SetObjectString(env, object, record, name)                             \
+#define SetObjectString(env, object, record, name) \
   objectSetString(env, object, #name, (const char *)record->name)
 
-#define SetObjectInt32(env, object, record, name)                              \
+#define SetObjectInt32(env, object, record, name) \
   objectSetInt32(env, object, #name, record->name)
 
-#define SetObjectUint32(env, object, record, name)                             \
+#define SetObjectUint32(env, object, record, name) \
   objectSetUint32(env, object, #name, record->name)
 
-#define SetObjectInt64(env, object, record, name)                              \
+#define SetObjectInt64(env, object, record, name) \
   objectSetInt64(env, object, #name, record->name)
 
-#define SetObjectDouble(env, object, record, name)                             \
+#define SetObjectDouble(env, object, record, name) \
   objectSetDouble(env, object, #name, record->name)
 
-#define SetObjectChar(env, object, record, name)                               \
+#define SetObjectChar(env, object, record, name) \
   objectSetChar(env, object, #name, record->name)
 
-#define SetObjectBoolean(env, object, record, name)                            \
+#define SetObjectBoolean(env, object, record, name) \
   objectSetBoolean(env, object, #name, record->name)
 
-#define SetObjectBuffer(env, object, record, name, size)                       \
+#define SetObjectBuffer(env, object, record, name, size) \
   objectSetBuffer(env, object, #name, record->name, record->size)
 
-#define GetObjectString(env, object, record, name)                             \
+#define GetObjectString(env, object, record, name) \
   objectGetString(env, object, #name, record.name, sizeof(record.name), nullptr)
 
-#define GetObjectInt32(env, object, record, name)                              \
+#define GetObjectInt32(env, object, record, name) \
   objectGetInt32(env, object, #name, &record.name)
 
-#define GetObjectUint32(env, object, record, name)                             \
+#define GetObjectUint32(env, object, record, name) \
   objectGetUint32(env, object, #name, &record.name)
 
-#define GetObjectInt64(env, object, record, name)                              \
+#define GetObjectInt64(env, object, record, name) \
   objectGetInt64(env, object, #name, &record.name)
 
-#define GetObjectDouble(env, object, record, name)                             \
+#define GetObjectDouble(env, object, record, name) \
   objectGetDouble(env, object, #name, &record.name)
 
-#define GetObjectChar(env, object, record, name)                               \
+#define GetObjectChar(env, object, record, name) \
   objectGetChar(env, object, #name, &record.name)
 
-#define GetObjectBoolean(env, object, record, name)                            \
+#define GetObjectBoolean(env, object, record, name) \
   objectGetBoolean(env, object, #name, &record.name)
 
 template <typename T>

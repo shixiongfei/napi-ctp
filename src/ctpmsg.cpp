@@ -1,7 +1,7 @@
 /*
  * ctpmsg.cpp
  *
- * Copyright (c) 2022-2024 Xiongfei Shi
+ * Copyright (c) 2022-2025 Xiongfei Shi
  *
  * Author: Xiongfei Shi <xiongfei.shi(a)icloud.com>
  * License: Apache-2.0
@@ -95,7 +95,7 @@ napi_status rspUserLogin(napi_env env, const Message *message, napi_value *resul
 
 napi_status rspUserLogout(napi_env env, const Message *message, napi_value *result) {
   auto pUserLogout = MessageData<CThostFtdcUserLogoutField>(message);
-  
+
   if (!pUserLogout)
     return napi_get_undefined(env, result);
 
@@ -3773,7 +3773,6 @@ napi_status rtnRepealFromFutureToBankByFutureManual(napi_env env, const Message 
   CHECK(SetObjectInt32(env, *result, pRspRepeal, ErrorID));
   CHECK(SetObjectString(env, *result, pRspRepeal, ErrorMsg));
   CHECK(SetObjectString(env, *result, pRspRepeal, LongCustomerName));
-
 
   return napi_ok;
 }

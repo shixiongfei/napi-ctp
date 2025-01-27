@@ -1,7 +1,7 @@
 /*
  * message_queue.h
  *
- * Copyright (c) 2022-2024 Xiongfei Shi
+ * Copyright (c) 2022-2025 Xiongfei Shi
  *
  * Author: Xiongfei Shi <xiongfei.shi(a)icloud.com>
  * License: Apache-2.0
@@ -12,11 +12,12 @@
 #ifndef __MESSAGE_QUEUE_H__
 #define __MESSAGE_QUEUE_H__
 
+#include "blockingconcurrentqueue.h"
 #include "napi_ctp.h"
-#include <queue>
-#include <uv.h>
 
-enum { QUEUE_FAILED = -1, QUEUE_TIMEOUT, QUEUE_SUCCESS };
+enum { QUEUE_FAILED = -1,
+       QUEUE_TIMEOUT,
+       QUEUE_SUCCESS };
 
 class MessageQueue {
 public:
@@ -25,8 +26,12 @@ public:
 
   bool push(int event, int data, int requestId, int isLast);
 
-  bool push(int event) { return push(event, 0, 0, Undefined); }
-  bool push(int event, int data) { return push(event, data, 0, Undefined); }
+  bool push(int event) {
+    return push(event, 0, 0, Undefined);
+  }
+  bool push(int event, int data) {
+    return push(event, data, 0, Undefined);
+  }
 
   template <typename T>
   bool push(int event, T *data, CThostFtdcRspInfoField *pRspInfo, int requestId, int isLast) {
@@ -57,13 +62,19 @@ public:
   }
 
   template <typename T>
-  bool push(int event, T *data, int requestId, int isLast) { return push<T>(event, data, nullptr, requestId, isLast); }
+  bool push(int event, T *data, int requestId, int isLast) {
+    return push<T>(event, data, nullptr, requestId, isLast);
+  }
 
   template <typename T>
-  bool push(int event, T *data) { return push<T>(event, data, 0, Undefined); }
+  bool push(int event, T *data) {
+    return push<T>(event, data, 0, Undefined);
+  }
 
   template <typename T>
-  bool push(int event, T *data, CThostFtdcRspInfoField *pRspInfo) { return push<T>(event, data, pRspInfo, 0, Undefined); }
+  bool push(int event, T *data, CThostFtdcRspInfoField *pRspInfo) {
+    return push<T>(event, data, pRspInfo, 0, Undefined);
+  }
 
   int pop(Message **message, unsigned int millisec);
   void done(Message *message);
@@ -72,10 +83,7 @@ private:
   bool push(Message *message, int event, uintptr_t data, uintptr_t rspInfo, int requestId, int isLast, int64_t timestamp);
 
 private:
-  uv_cond_t _cond;
-  uv_mutex_t _mutex;
-  volatile int _waiting;
-  std::queue<Message *> _queue;
+  moodycamel::BlockingConcurrentQueue<Message *> _queue;
 };
 
 #endif /* __MESSAGE_QUEUE_H__ */

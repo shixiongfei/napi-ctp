@@ -1,7 +1,7 @@
 /*
  * spievent.h
  *
- * Copyright (c) 2022-2024 Xiongfei Shi
+ * Copyright (c) 2022-2025 Xiongfei Shi
  *
  * Author: Xiongfei Shi <xiongfei.shi(a)icloud.com>
  * License: Apache-2.0
@@ -55,7 +55,9 @@ protected:
   }
 
 private:
-  bool shouldPushEvent(int event) { return _tsfns->find(event) != _tsfns->end(); }
+  bool shouldPushEvent(int event) {
+    return _tsfns->find(event) != _tsfns->end();
+  }
 
 private:
   const std::map<int, napi_threadsafe_function> *_tsfns;

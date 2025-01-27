@@ -2,7 +2,8 @@ node_modules/
 build/
 flow/
 flowMd/
-.vscode/c_cpp_properties.json
+.vscode/*
+!.vscode/launch.json
 prebuilds/
 types.js
 types.d.ts

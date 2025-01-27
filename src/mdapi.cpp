@@ -1,7 +1,7 @@
 /*
  * mdapi.cpp
  *
- * Copyright (c) 2022-2024 Xiongfei Shi
+ * Copyright (c) 2022-2025 Xiongfei Shi
  *
  * Author: Xiongfei Shi <xiongfei.shi(a)icloud.com>
  * License: Apache-2.0
@@ -10,11 +10,12 @@
  */
 
 #include "mdapi.h"
+#include "guard.h"
 #include "mdmsg.h"
 #include "mdspi.h"
-#include "guard.h"
-#include <string.h>
 #include <functional>
+#include <string.h>
+#include <uv.h>
 
 typedef struct MarketData {
   napi_env env;
@@ -63,7 +64,7 @@ static napi_value getTradingDay(napi_env env, napi_callback_info info) {
   return tradingDay;
 }
 
-static napi_value callInstrumentIdsFunc(napi_env env, napi_callback_info info, const std::function<int(MarketData*, char**, int)> &func) {
+static napi_value callInstrumentIdsFunc(napi_env env, napi_callback_info info, const std::function<int(MarketData *, char **, int)> &func) {
   size_t argc = 1, size;
   uint32_t length;
   int result;
@@ -142,7 +143,7 @@ static napi_value unsubscribeForQuoteRsp(napi_env env, napi_callback_info info) 
   });
 }
 
-static napi_value callRequestFunc(napi_env env, napi_callback_info info, const std::function<int(MarketData*, napi_value)> &func) {
+static napi_value callRequestFunc(napi_env env, napi_callback_info info, const std::function<int(MarketData *, napi_value)> &func) {
   size_t argc = 1;
   int result;
   napi_value object, jsthis, retval;
