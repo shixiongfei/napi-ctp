@@ -56,9 +56,9 @@ export declare class MarketData {
   /**
    *
    * @param flowMdPath 存贮订阅信息文件的目录
-   * @param frontMdAddr 前置机网络地址
+   * @param frontMdAddrs 前置机网络地址
    */
-  constructor(flowMdPath: string, frontMdAddr: string);
+  constructor(flowMdPath: string, frontMdAddrs: string | string[]);
 
   /**
    * 获取API的版本信息
@@ -162,10 +162,10 @@ export declare class MarketData {
 export declare class Trader {
   /**
    *
-   * @param flowPath 存贮订阅信息文件的目录
-   * @param frontAddr 前置机网络地址
+   * @param flowTdPath 存贮订阅信息文件的目录
+   * @param frontTdAddrs 前置机网络地址
    */
-  constructor(flowPath: string, frontAddr: string);
+  constructor(flowTdPath: string, frontTdAddrs: string | string[]);
 
   /**
    * 获取API的版本信息
@@ -2375,23 +2375,23 @@ export declare class Trader {
 /**
  * 创建行情对象
  * @param flowMdPath 存贮订阅信息文件的目录
- * @param frontMdAddr 前置机网络地址
+ * @param frontMdAddrs 前置机网络地址
  * @returns 行情对象
  */
 export declare function createMarketData(
   flowMdPath: string,
-  frontMdAddr: string
+  frontMdAddrs: string | string[]
 ): MarketData;
 
 /**
  * 创建交易对象
- * @param flowPath 存贮订阅信息文件的目录
- * @param frontAddr 前置机网络地址
+ * @param flowTdPath 存贮订阅信息文件的目录
+ * @param frontTdAddrs 前置机网络地址
  * @returns 交易对象
  */
 export declare function createTrader(
-  flowPath: string,
-  frontAddr: string
+  flowTdPath: string,
+  frontTdAddrs: string | string[]
 ): Trader;
 
 /**

@@ -326,11 +326,13 @@ static void marketDataDestructor(napi_env env, void *data, void *hint) {
 }
 
 static napi_value marketDataNew(napi_env env, napi_callback_info info) {
-  static const napi_valuetype types[2] = {napi_string, napi_string};
+  static const napi_valuetype types[1] = {napi_string};
   size_t argc = 2;
-  napi_value target, argv[2], jsthis;
+  napi_value target, argv[2], jsthis, element;
   MarketData *marketData;
   char flowMdPath[260], frontMdAddr[64];
+  uint32_t length;
+  bool isArray;
 
   CHECK(napi_get_new_target(env, info, &target));
 
@@ -341,10 +343,15 @@ static napi_value marketDataNew(napi_env env, napi_callback_info info) {
 
   CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
 
-  CHECK(checkValueTypes(env, argc, argv, types));
-
+  CHECK(checkValueTypes(env, 1, argv, types));
   CHECK(napi_get_value_string_utf8(env, argv[0], flowMdPath, sizeof(flowMdPath), nullptr));
-  CHECK(napi_get_value_string_utf8(env, argv[1], frontMdAddr, sizeof(frontMdAddr), nullptr));
+
+  CHECK(napi_is_array(env, argv[1], &isArray));
+
+  if (isArray)
+    CHECK(checkIsStringArray(env, argv[1]));
+  else
+    CHECK(napi_get_value_string_utf8(env, argv[1], frontMdAddr, sizeof(frontMdAddr), nullptr));
 
   marketData = new MarketData();
 
@@ -381,7 +388,19 @@ static napi_value marketDataNew(napi_env env, napi_callback_info info) {
   }
 
   marketData->api->RegisterSpi(marketData->spi);
-  marketData->api->RegisterFront(frontMdAddr);
+
+  if (isArray) {
+    CHECK(napi_get_array_length(env, argv[1], &length));
+
+    for (uint32_t i = 0; i < length; ++i) {
+      CHECK(napi_get_element(env, argv[1], i, &element));
+      CHECK(napi_get_value_string_utf8(env, element, frontMdAddr, sizeof(frontMdAddr), nullptr));
+
+      marketData->api->RegisterFront(frontMdAddr);
+    }
+  } else
+    marketData->api->RegisterFront(frontMdAddr);
+
   marketData->api->Init();
 
   CHECK(napi_wrap(env, jsthis, (void *)marketData, marketDataDestructor, nullptr, &marketData->wrapper));

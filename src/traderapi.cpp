@@ -1868,11 +1868,13 @@ static void traderDestructor(napi_env env, void *data, void *hint) {
 }
 
 static napi_value traderNew(napi_env env, napi_callback_info info) {
-  static const napi_valuetype types[2] = {napi_string, napi_string};
+  static const napi_valuetype types[1] = {napi_string};
   size_t argc = 2;
-  napi_value target, argv[2], jsthis;
+  napi_value target, argv[2], jsthis, element;
   Trader *trader;
   char flowPath[260], frontAddr[64];
+  uint32_t length;
+  bool isArray;
 
   CHECK(napi_get_new_target(env, info, &target));
 
@@ -1883,10 +1885,15 @@ static napi_value traderNew(napi_env env, napi_callback_info info) {
 
   CHECK(napi_get_cb_info(env, info, &argc, argv, &jsthis, nullptr));
 
-  CHECK(checkValueTypes(env, argc, argv, types));
-
+  CHECK(checkValueTypes(env, 1, argv, types));
   CHECK(napi_get_value_string_utf8(env, argv[0], flowPath, sizeof(flowPath), nullptr));
-  CHECK(napi_get_value_string_utf8(env, argv[1], frontAddr, sizeof(frontAddr), nullptr));
+
+  CHECK(napi_is_array(env, argv[1], &isArray));
+
+  if (isArray)
+    CHECK(checkIsStringArray(env, argv[1]));
+  else
+    CHECK(napi_get_value_string_utf8(env, argv[1], frontAddr, sizeof(frontAddr), nullptr));
 
   trader = new Trader();
 
@@ -1925,7 +1932,19 @@ static napi_value traderNew(napi_env env, napi_callback_info info) {
   trader->api->RegisterSpi(trader->spi);
   trader->api->SubscribePublicTopic(THOST_TERT_QUICK);
   trader->api->SubscribePrivateTopic(THOST_TERT_QUICK);
-  trader->api->RegisterFront(frontAddr);
+
+  if (isArray) {
+    CHECK(napi_get_array_length(env, argv[1], &length));
+
+    for (uint32_t i = 0; i < length; ++i) {
+      CHECK(napi_get_element(env, argv[1], i, &element));
+      CHECK(napi_get_value_string_utf8(env, element, flowPath, sizeof(flowPath), nullptr));
+
+      trader->api->RegisterFront(frontAddr);
+    }
+  } else
+    trader->api->RegisterFront(frontAddr);
+
   trader->api->Init();
 
   CHECK(napi_wrap(env, jsthis, (void *)trader, traderDestructor, nullptr, &trader->wrapper));
