@@ -20,7 +20,7 @@ public:
   ~MessageBuffer();
 
   void *alloc(size_t size);
-  void free(void *buffer);
+  void dispose(void *buffer);
 
 private:
   void *allocBlock(size_t block_size);

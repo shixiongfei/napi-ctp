@@ -10,6 +10,7 @@
  */
 
 #include "message_buffer.h"
+#include <stdlib.h>
 
 #define bufferEntry(buffer) ((char *)buffer - sizeof(int))
 #define bufferOffset(buffer) ((char *)buffer + sizeof(int))
@@ -22,26 +23,24 @@ MessageBuffer::~MessageBuffer() {
   void *buffer = nullptr;
 
   while (_buffers.try_dequeue(buffer)) {
-    free(bufferEntry(buffer));
+    free(buffer);
     buffer = nullptr;
   }
 }
 
 void *MessageBuffer::alloc(size_t size) {
-  static thread_local moodycamel::ConsumerToken token(_buffers);
   void *buffer = nullptr;
 
   if (size > _mem_size)
     return allocBlock(size + sizeof(int));
 
-  if (!_buffers.try_dequeue(token, buffer))
+  if (!_buffers.try_dequeue(buffer))
     return allocBlock(_block_size);
 
   return bufferOffset(buffer);
 }
 
-void MessageBuffer::free(void *buffer) {
-  static thread_local moodycamel::ProducerToken token(_buffers);
+void MessageBuffer::dispose(void *buffer) {
   void *entry = bufferEntry(buffer);
   size_t block_size = *(int *)entry;
 
@@ -50,7 +49,7 @@ void MessageBuffer::free(void *buffer) {
     return;
   }
 
-  _buffers.enqueue(token, entry);
+  _buffers.enqueue(entry);
 }
 
 void *MessageBuffer::allocBlock(size_t block_size) {

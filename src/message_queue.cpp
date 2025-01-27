@@ -29,12 +29,10 @@ bool MessageQueue::push(int event, int data, int requestId, int isLast) {
 }
 
 int MessageQueue::pop(Message **message, unsigned int millisec) {
-  static thread_local moodycamel::ConsumerToken token(_queue);
-
   if (!message)
     return QUEUE_FAILED;
 
-  if (!_queue.wait_dequeue_timed(token, *message, std::chrono::milliseconds(millisec)))
+  if (!_queue.wait_dequeue_timed(*message, std::chrono::milliseconds(millisec)))
     return QUEUE_TIMEOUT;
 
   if (*message)
@@ -44,12 +42,10 @@ int MessageQueue::pop(Message **message, unsigned int millisec) {
 }
 
 void MessageQueue::done(Message *message) {
-  _buffer.free(message);
+  _buffer.dispose(message);
 }
 
 bool MessageQueue::push(Message *message, int event, uintptr_t data, uintptr_t rspInfo, int requestId, int isLast, int64_t timestamp) {
-  static thread_local moodycamel::ProducerToken token(_queue);
-
   if (!message) {
     fprintf(stderr, "Push message failed, out of memory\n");
     return false;
@@ -63,5 +59,5 @@ bool MessageQueue::push(Message *message, int event, uintptr_t data, uintptr_t r
   message->data = data;
   message->rspInfo = rspInfo;
 
-  return _queue.enqueue(token, message);
+  return _queue.enqueue(message);
 }
