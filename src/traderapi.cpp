@@ -1938,7 +1938,7 @@ static napi_value traderNew(napi_env env, napi_callback_info info) {
 
     for (uint32_t i = 0; i < length; ++i) {
       CHECK(napi_get_element(env, argv[1], i, &element));
-      CHECK(napi_get_value_string_utf8(env, element, flowPath, sizeof(flowPath), nullptr));
+      CHECK(napi_get_value_string_utf8(env, element, frontAddr, sizeof(frontAddr), nullptr));
 
       trader->api->RegisterFront(frontAddr);
     }
