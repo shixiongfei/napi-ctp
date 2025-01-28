@@ -519,14 +519,12 @@ static void adjustActionDay(CThostFtdcDepthMarketDataField *pDepthMarketData) {
 #endif
 
   strftime(today, sizeof(today), "%Y%m%d", &tm);
-  strncpy(pDepthMarketData->ActionDay, today, sizeof(pDepthMarketData->ActionDay));
+  strncpy(pDepthMarketData->ActionDay, today, sizeof(pDepthMarketData->ActionDay) - 1);
 }
 
 CThostFtdcDepthMarketDataField *adjustDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) {
-  if (!pDepthMarketData)
-    return nullptr;
-
-  adjustActionDay(pDepthMarketData);
+  if (pDepthMarketData)
+    adjustActionDay(pDepthMarketData);
 
   return pDepthMarketData;
 }

@@ -325,7 +325,7 @@ void TraderSpi::OnRspQryInstrument(CThostFtdcInstrumentField *pInstrument, CThos
 
 void TraderSpi::OnRspQryDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
   if (pDepthMarketData)
-    strncpy(pDepthMarketData->TradingDay, _api->GetTradingDay(), sizeof(pDepthMarketData->TradingDay));
+    strncpy(pDepthMarketData->TradingDay, _api->GetTradingDay(), sizeof(pDepthMarketData->TradingDay) - 1);
 
   SpiEvent::push(ET_RSPQRYDEPTHMARKETDATA, adjustDepthMarketData(pDepthMarketData), pRspInfo, nRequestID, bIsLast);
 }

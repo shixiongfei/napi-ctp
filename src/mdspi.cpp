@@ -95,7 +95,7 @@ void MdSpi::OnRspUnSubForQuoteRsp(CThostFtdcSpecificInstrumentField *pSpecificIn
 }
 
 void MdSpi::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) {
-  strncpy(pDepthMarketData->TradingDay, _api->GetTradingDay(), sizeof(pDepthMarketData->TradingDay));
+  strncpy(pDepthMarketData->TradingDay, _api->GetTradingDay(), sizeof(pDepthMarketData->TradingDay) - 1);
   SpiEvent::push(EM_RTNDEPTHMARKETDATA, adjustDepthMarketData(pDepthMarketData));
 }
 
