@@ -503,14 +503,11 @@ napi_status objectGetBoolean(napi_env env, napi_value object, const char *name, 
   return napi_get_value_bool(env, value, boolean);
 }
 
-CThostFtdcDepthMarketDataField *adjustDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) {
+static void adjustActionDay(CThostFtdcDepthMarketDataField *pDepthMarketData) {
   struct tm tm;
   time_t time;
   long sec;
   char today[9] = {0};
-
-  if (!pDepthMarketData)
-    return nullptr;
 
   hrtime(&sec, nullptr);
   time = (time_t)sec;
@@ -523,6 +520,13 @@ CThostFtdcDepthMarketDataField *adjustDepthMarketData(CThostFtdcDepthMarketDataF
 
   strftime(today, sizeof(today), "%Y%m%d", &tm);
   strncpy(pDepthMarketData->ActionDay, today, sizeof(pDepthMarketData->ActionDay));
+}
+
+CThostFtdcDepthMarketDataField *adjustDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) {
+  if (!pDepthMarketData)
+    return nullptr;
+
+  adjustActionDay(pDepthMarketData);
 
   return pDepthMarketData;
 }
