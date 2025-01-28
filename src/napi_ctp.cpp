@@ -20,9 +20,13 @@
 #ifdef _WIN32
 #include <WinSock2.h>
 #include <Windows.h>
+
+#define safe_localtime(time, tm) localtime_s(tm, time)
 #else
 #include <iconv.h>
 #include <sys/time.h>
+
+#define safe_localtime(time, tm) localtime_r(time, tm)
 #endif
 
 #ifdef _WIN32
@@ -503,23 +507,34 @@ napi_status objectGetBoolean(napi_env env, napi_value object, const char *name, 
   return napi_get_value_bool(env, value, boolean);
 }
 
+#define NIGHT_TRADING_TIME 30000
+
 static void adjustActionDay(CThostFtdcDepthMarketDataField *pDepthMarketData) {
   struct tm tm;
-  time_t time;
   long sec;
-  char today[9] = {0};
+  char actionDay[9] = {0};
 
   hrtime(&sec, nullptr);
-  time = (time_t)sec;
 
-#ifndef _WIN32
-  localtime_r(&time, &tm);
-#else
-  localtime_s(&tm, &time);
-#endif
+  time_t time = (time_t)sec;
+  safe_localtime(&time, &tm);
 
-  strftime(today, sizeof(today), "%Y%m%d", &tm);
-  strncpy(pDepthMarketData->ActionDay, today, sizeof(pDepthMarketData->ActionDay));
+  int nowTime = tm.tm_hour * 10000 + tm.tm_min * 100 + tm.tm_sec;
+
+  if (nowTime < NIGHT_TRADING_TIME) {
+    char hour[] = {pDepthMarketData->UpdateTime[0], pDepthMarketData->UpdateTime[1], '\0'};
+    char minute[] = {pDepthMarketData->UpdateTime[3], pDepthMarketData->UpdateTime[4], '\0'};
+    char second[] = {pDepthMarketData->UpdateTime[6], pDepthMarketData->UpdateTime[7], '\0'};
+    int updateTime = atoi(hour) * 10000 + atoi(minute) * 100 + atoi(second);
+
+    if (updateTime > NIGHT_TRADING_TIME) {
+      time -= (tm.tm_hour + 1) * 3600;
+      safe_localtime(&time, &tm);
+    }
+  }
+
+  strftime(actionDay, sizeof(actionDay), "%Y%m%d", &tm);
+  strncpy(pDepthMarketData->ActionDay, actionDay, sizeof(pDepthMarketData->ActionDay));
 }
 
 CThostFtdcDepthMarketDataField *adjustDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) {
