@@ -33,7 +33,7 @@
 
 class MdSpi : public SpiEvent, public CThostFtdcMdSpi {
 public:
-  MdSpi(const std::map<int, napi_threadsafe_function> *tsfns);
+  MdSpi(CThostFtdcMdApi *api, const std::map<int, napi_threadsafe_function> *tsfns);
   virtual ~MdSpi();
 
   static int eventFromName(const char *name);
@@ -60,6 +60,9 @@ public:
   virtual void OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData);
 
   virtual void OnRtnForQuoteRsp(CThostFtdcForQuoteRspField *pForQuoteRsp);
+
+private:
+  CThostFtdcMdApi *_api;
 };
 
 #endif /* __MDSPI_H__ */

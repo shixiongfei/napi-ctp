@@ -150,7 +150,7 @@
 
 class TraderSpi : public SpiEvent, public CThostFtdcTraderSpi {
 public:
-  TraderSpi(const std::map<int, napi_threadsafe_function> *tsfns);
+  TraderSpi(CThostFtdcTraderApi *api, const std::map<int, napi_threadsafe_function> *tsfns);
   virtual ~TraderSpi();
 
   static int eventFromName(const char *name);
@@ -359,6 +359,9 @@ public:
 
   virtual void OnRspQryRiskSettleInvstPosition(CThostFtdcRiskSettleInvstPositionField *pRiskSettleInvstPosition, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
   virtual void OnRspQryRiskSettleProductStatus(CThostFtdcRiskSettleProductStatusField *pRiskSettleProductStatus, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
+
+private:
+  CThostFtdcTraderApi *_api;
 };
 
 #endif /* __TRADERSPI_H__ */

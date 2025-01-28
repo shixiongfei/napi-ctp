@@ -145,4 +145,6 @@ static inline CThostFtdcRspInfoField *RspInfoData(const Message *message) {
   return (CThostFtdcRspInfoField *)message->rspInfo;
 }
 
+CThostFtdcDepthMarketDataField *adjustDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData);
+
 #endif /* __NAPI_CTP_H__ */

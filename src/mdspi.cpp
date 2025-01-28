@@ -10,6 +10,7 @@
  */
 
 #include "mdspi.h"
+#include <string.h>
 #include <string>
 
 static const std::map<std::string, int> eventMaps = {
@@ -29,8 +30,8 @@ static const std::map<std::string, int> eventMaps = {
     {"rtn-for-quote", EM_RTNFORQUOTERSP},
 };
 
-MdSpi::MdSpi(const std::map<int, napi_threadsafe_function> *tsfns)
-    : SpiEvent(tsfns) {
+MdSpi::MdSpi(CThostFtdcMdApi *api, const std::map<int, napi_threadsafe_function> *tsfns)
+    : SpiEvent(tsfns), _api(api) {
 }
 
 MdSpi::~MdSpi() {
@@ -94,7 +95,8 @@ void MdSpi::OnRspUnSubForQuoteRsp(CThostFtdcSpecificInstrumentField *pSpecificIn
 }
 
 void MdSpi::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) {
-  SpiEvent::push(EM_RTNDEPTHMARKETDATA, pDepthMarketData);
+  strncpy(pDepthMarketData->TradingDay, _api->GetTradingDay(), sizeof(pDepthMarketData->TradingDay));
+  SpiEvent::push(EM_RTNDEPTHMARKETDATA, adjustDepthMarketData(pDepthMarketData));
 }
 
 void MdSpi::OnRtnForQuoteRsp(CThostFtdcForQuoteRspField *pForQuoteRsp) {

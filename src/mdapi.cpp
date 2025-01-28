@@ -361,29 +361,29 @@ static napi_value marketDataNew(napi_env env, napi_callback_info info) {
   }
 
   marketData->env = env;
-  marketData->spi = new MdSpi(&marketData->tsfns);
+
+  marketData->api = CThostFtdcMdApi::CreateFtdcMdApi(flowMdPath);
+
+  if (!marketData->api) {
+    delete marketData;
+    napi_throw_error(env, nullptr, "Market data is out of memory");
+    return jsthis;
+  }
+
+  marketData->spi = new MdSpi(marketData->api, &marketData->tsfns);
 
   if (!marketData->spi) {
+    marketData->api->Release();
     delete marketData;
     napi_throw_error(env, nullptr, "Market data is out of memory");
     return jsthis;
   }
 
   if (0 != uv_thread_create(&marketData->thread, processThread, marketData)) {
+    marketData->api->Release();
     delete marketData->spi;
     delete marketData;
     napi_throw_error(env, nullptr, "Market data can not create thread");
-    return jsthis;
-  }
-
-  marketData->api = CThostFtdcMdApi::CreateFtdcMdApi(flowMdPath);
-
-  if (!marketData->api) {
-    marketData->spi->quit();
-    uv_thread_join(&marketData->thread);
-    delete marketData->spi;
-    delete marketData;
-    napi_throw_error(env, nullptr, "Market data is out of memory");
     return jsthis;
   }
 

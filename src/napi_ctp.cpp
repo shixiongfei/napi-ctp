@@ -15,11 +15,11 @@
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 
 #ifdef _WIN32
 #include <WinSock2.h>
 #include <Windows.h>
-#include <time.h>
 #else
 #include <iconv.h>
 #include <sys/time.h>
@@ -501,4 +501,28 @@ napi_status objectGetBoolean(napi_env env, napi_value object, const char *name, 
     return napi_ok;
 
   return napi_get_value_bool(env, value, boolean);
+}
+
+CThostFtdcDepthMarketDataField *adjustDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) {
+  struct tm tm;
+  time_t time;
+  long sec;
+  char today[9] = {0};
+
+  if (!pDepthMarketData)
+    return nullptr;
+
+  hrtime(&sec, nullptr);
+  time = (time_t)sec;
+
+#ifndef _WIN32
+  localtime_r(&time, &tm);
+#else
+  localtime_s(&tm, &time);
+#endif
+
+  strftime(today, sizeof(today), "%Y%m%d", &tm);
+  strncpy(pDepthMarketData->ActionDay, today, sizeof(pDepthMarketData->ActionDay));
+
+  return pDepthMarketData;
 }

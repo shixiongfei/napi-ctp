@@ -10,6 +10,7 @@
  */
 
 #include "traderspi.h"
+#include <string.h>
 #include <string>
 
 static const std::map<std::string, int> eventMaps = {
@@ -146,8 +147,8 @@ static const std::map<std::string, int> eventMaps = {
     {"rsp-qry-risk-settle-product-status", ET_RSPQRYRISKSETTLEPRODUCTSTATUS},
 };
 
-TraderSpi::TraderSpi(const std::map<int, napi_threadsafe_function> *tsfns)
-    : SpiEvent(tsfns) {
+TraderSpi::TraderSpi(CThostFtdcTraderApi *api, const std::map<int, napi_threadsafe_function> *tsfns)
+    : SpiEvent(tsfns), _api(api) {
 }
 
 TraderSpi::~TraderSpi() {
@@ -323,7 +324,10 @@ void TraderSpi::OnRspQryInstrument(CThostFtdcInstrumentField *pInstrument, CThos
 }
 
 void TraderSpi::OnRspQryDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-  SpiEvent::push(ET_RSPQRYDEPTHMARKETDATA, pDepthMarketData, pRspInfo, nRequestID, bIsLast);
+  if (pDepthMarketData)
+    strncpy(pDepthMarketData->TradingDay, _api->GetTradingDay(), sizeof(pDepthMarketData->TradingDay));
+
+  SpiEvent::push(ET_RSPQRYDEPTHMARKETDATA, adjustDepthMarketData(pDepthMarketData), pRspInfo, nRequestID, bIsLast);
 }
 
 void TraderSpi::OnRspQryTraderOffer(CThostFtdcTraderOfferField *pTraderOffer, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
