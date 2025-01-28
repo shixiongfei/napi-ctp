@@ -39,8 +39,6 @@ typedef struct Message {
   int event;
   int isLast;
   int requestId;
-  int elapsed;
-  int64_t timestamp;
   uintptr_t data;
   uintptr_t rspInfo;
 } Message;

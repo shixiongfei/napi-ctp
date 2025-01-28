@@ -318,10 +318,6 @@ export type CallbackOptions = {
   isLast?: boolean;
   /** CTP 返回的错误信息 */
   rspInfo?: RspInfoField;
-  /** 从 CTP 产生回调时的时间戳（毫秒） */
-  timestamp: number;
-  /** 从 CTP 产生回调到进入 NodeJS 主循环队列的耗时（毫秒） */
-  elapsed: number;
 };
 
 /** 消息事件回调接口 */

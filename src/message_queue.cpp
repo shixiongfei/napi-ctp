@@ -23,30 +23,22 @@ MessageQueue::~MessageQueue() {
 }
 
 bool MessageQueue::push(int event, int data, int requestId, int isLast) {
-  int64_t timestamp = nowtick();
   Message *message = (Message *)_buffer.alloc(sizeof(Message));
-
-  return push(message, event, data, 0, requestId, isLast, timestamp);
+  return push(message, event, data, 0, requestId, isLast);
 }
 
 int MessageQueue::pop(Message **message, unsigned int millisec) {
   if (!message)
     return QUEUE_FAILED;
 
-  if (!_queue.wait_dequeue_timed(*message, std::chrono::milliseconds(millisec)))
-    return QUEUE_TIMEOUT;
-
-  if (*message)
-    (*message)->elapsed = (int)(nowtick() - (*message)->timestamp);
-
-  return QUEUE_SUCCESS;
+  return _queue.wait_dequeue_timed(*message, std::chrono::milliseconds(millisec)) ? QUEUE_SUCCESS : QUEUE_TIMEOUT;
 }
 
 void MessageQueue::done(Message *message) {
   _buffer.dispose(message);
 }
 
-bool MessageQueue::push(Message *message, int event, uintptr_t data, uintptr_t rspInfo, int requestId, int isLast, int64_t timestamp) {
+bool MessageQueue::push(Message *message, int event, uintptr_t data, uintptr_t rspInfo, int requestId, int isLast) {
   if (!message) {
     fprintf(stderr, "Push message failed, out of memory\n");
     return false;
@@ -55,8 +47,6 @@ bool MessageQueue::push(Message *message, int event, uintptr_t data, uintptr_t r
   message->event = event;
   message->isLast = isLast;
   message->requestId = requestId;
-  message->elapsed = -1;
-  message->timestamp = timestamp;
   message->data = data;
   message->rspInfo = rspInfo;
 

@@ -30,9 +30,6 @@ napi_status getMessageOptions(napi_env env, const Message *message, napi_value *
   if (message->isLast != Undefined)
     CHECK(SetObjectBoolean(env, *result, message, isLast));
 
-  CHECK(SetObjectInt64(env, *result, message, timestamp));
-  CHECK(SetObjectInt32(env, *result, message, elapsed));
-
   auto pRspInfo = RspInfoData(message);
 
   if (pRspInfo) {

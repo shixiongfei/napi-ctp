@@ -36,7 +36,6 @@ public:
 
   template <typename T>
   bool push(int event, T *data, CThostFtdcRspInfoField *pRspInfo, int requestId, int isLast) {
-    int64_t timestamp = nowtick();
     size_t bufsize = sizeof(Message);
 
     if (data)
@@ -59,7 +58,7 @@ public:
     else
       e = nullptr;
 
-    return push(message, event, (uintptr_t)p, (uintptr_t)e, requestId, isLast, timestamp);
+    return push(message, event, (uintptr_t)p, (uintptr_t)e, requestId, isLast);
   }
 
   template <typename T>
@@ -81,7 +80,7 @@ public:
   void done(Message *message);
 
 private:
-  bool push(Message *message, int event, uintptr_t data, uintptr_t rspInfo, int requestId, int isLast, int64_t timestamp);
+  bool push(Message *message, int event, uintptr_t data, uintptr_t rspInfo, int requestId, int isLast);
 
 private:
   static MessageBuffer _buffer;
