@@ -58,7 +58,7 @@ void checkStatus(napi_env env, napi_status status, const char *file, int line);
   {name, 0, method, 0, 0, 0, napi_default, 0}
 #define DECLARE_NAPI_METHOD(method) DECLARE_NAPI_METHOD_(#method, method)
 
-void setSequenceId(long seqid);
+void setSequenceId(int seqid);
 int nextSequenceId(void);
 int currentSequenceId(void);
 

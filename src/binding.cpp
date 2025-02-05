@@ -55,7 +55,7 @@ static napi_value resetRequestId(napi_env env, napi_callback_info info) {
   napi_value undefined;
 
   CHECK(napi_get_undefined(env, &undefined));
-  setSequenceId(0);
+  setSequenceId(1);
 
   return undefined;
 }
