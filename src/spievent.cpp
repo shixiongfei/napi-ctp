@@ -13,7 +13,7 @@
 
 MessageBuffer SpiEvent::_buffer(4096);
 
-SpiEvent::SpiEvent(napi_env env, const std::map<int, napi_threadsafe_function> *tsfns)
+SpiEvent::SpiEvent(napi_env env, const std::unordered_map<int, napi_threadsafe_function> *tsfns)
     : _env(env), _tsfns(tsfns) {
 }
 

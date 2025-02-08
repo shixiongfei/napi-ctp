@@ -20,7 +20,7 @@ typedef struct Trader {
   napi_ref wrapper;
   TraderSpi *spi;
   CThostFtdcTraderApi *api;
-  std::map<int, napi_threadsafe_function> tsfns;
+  std::unordered_map<int, napi_threadsafe_function> tsfns;
 } Trader;
 
 static napi_value getApiVersion(napi_env env, napi_callback_info info) {

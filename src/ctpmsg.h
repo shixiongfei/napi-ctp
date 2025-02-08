@@ -13,10 +13,10 @@
 #define __CTPMSG_H__
 
 #include "napi_ctp.h"
-#include <map>
+#include <unordered_map>
 
 typedef napi_status (*MessageHandler)(napi_env env, const Message *message, napi_value *result);
-typedef std::map<int, MessageHandler> MessageFuncs;
+typedef std::unordered_map<int, MessageHandler> MessageFuncs;
 
 napi_status getMessageValue(napi_env env, const MessageFuncs &messageFuncs, const Message *message, napi_value *result);
 napi_status getMessageOptions(napi_env env, const Message *message, napi_value *result);

@@ -21,7 +21,7 @@ typedef struct MarketData {
   napi_ref wrapper;
   MdSpi *spi;
   CThostFtdcMdApi *api;
-  std::map<int, napi_threadsafe_function> tsfns;
+  std::unordered_map<int, napi_threadsafe_function> tsfns;
 } MarketData;
 
 static napi_value getApiVersion(napi_env env, napi_callback_info info) {

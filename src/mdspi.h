@@ -32,7 +32,7 @@
 
 class MdSpi : public SpiEvent, public CThostFtdcMdSpi {
 public:
-  MdSpi(CThostFtdcMdApi *api, napi_env env, const std::map<int, napi_threadsafe_function> *tsfns);
+  MdSpi(CThostFtdcMdApi *api, napi_env env, const std::unordered_map<int, napi_threadsafe_function> *tsfns);
   virtual ~MdSpi();
 
   static int eventFromName(const char *name);

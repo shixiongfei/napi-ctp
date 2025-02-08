@@ -14,11 +14,11 @@
 
 #include "message_buffer.h"
 #include "napi_ctp.h"
-#include <map>
+#include <unordered_map>
 
 class SpiEvent {
 public:
-  SpiEvent(napi_env env, const std::map<int, napi_threadsafe_function> *tsfns);
+  SpiEvent(napi_env env, const std::unordered_map<int, napi_threadsafe_function> *tsfns);
   virtual ~SpiEvent();
 
   void done(Message *message);
@@ -83,7 +83,7 @@ private:
 
 private:
   napi_env _env;
-  const std::map<int, napi_threadsafe_function> *_tsfns;
+  const std::unordered_map<int, napi_threadsafe_function> *_tsfns;
 };
 
 #endif /* __SPIEVENT_H__ */

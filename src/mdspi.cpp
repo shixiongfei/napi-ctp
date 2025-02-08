@@ -13,7 +13,7 @@
 #include <string.h>
 #include <string>
 
-static const std::map<std::string, int> eventMaps = {
+static const std::unordered_map<std::string, int> eventMaps = {
     {"front-connected", EM_FRONTCONNECTED},
     {"front-disconnected", EM_FRONTDISCONNECTED},
     {"heart-beat-warning", EM_HEARTBEATWARNING},
@@ -29,7 +29,7 @@ static const std::map<std::string, int> eventMaps = {
     {"rtn-for-quote", EM_RTNFORQUOTERSP},
 };
 
-MdSpi::MdSpi(CThostFtdcMdApi *api, napi_env env, const std::map<int, napi_threadsafe_function> *tsfns)
+MdSpi::MdSpi(CThostFtdcMdApi *api, napi_env env, const std::unordered_map<int, napi_threadsafe_function> *tsfns)
     : SpiEvent(env, tsfns), _api(api) {
 }
 

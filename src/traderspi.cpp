@@ -13,7 +13,7 @@
 #include <string.h>
 #include <string>
 
-static const std::map<std::string, int> eventMaps = {
+static const std::unordered_map<std::string, int> eventMaps = {
     {"front-connected", ET_FRONTCONNECTED},
     {"front-disconnected", ET_FRONTDISCONNECTED},
     {"heart-beat-warning", ET_HEARTBEATWARNING},
@@ -146,7 +146,7 @@ static const std::map<std::string, int> eventMaps = {
     {"rsp-qry-risk-settle-product-status", ET_RSPQRYRISKSETTLEPRODUCTSTATUS},
 };
 
-TraderSpi::TraderSpi(CThostFtdcTraderApi *api, napi_env env, const std::map<int, napi_threadsafe_function> *tsfns)
+TraderSpi::TraderSpi(CThostFtdcTraderApi *api, napi_env env, const std::unordered_map<int, napi_threadsafe_function> *tsfns)
     : SpiEvent(env, tsfns), _api(api) {
 }
 

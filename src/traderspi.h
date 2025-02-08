@@ -149,7 +149,7 @@
 
 class TraderSpi : public SpiEvent, public CThostFtdcTraderSpi {
 public:
-  TraderSpi(CThostFtdcTraderApi *api, napi_env env, const std::map<int, napi_threadsafe_function> *tsfns);
+  TraderSpi(CThostFtdcTraderApi *api, napi_env env, const std::unordered_map<int, napi_threadsafe_function> *tsfns);
   virtual ~TraderSpi();
 
   static int eventFromName(const char *name);
