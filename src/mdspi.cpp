@@ -10,10 +10,11 @@
  */
 
 #include "mdspi.h"
+#include <map>
 #include <string.h>
 #include <string>
 
-static const std::unordered_map<std::string, int> eventMaps = {
+static const std::map<std::string, int> eventMaps = {
     {"front-connected", EM_FRONTCONNECTED},
     {"front-disconnected", EM_FRONTDISCONNECTED},
     {"heart-beat-warning", EM_HEARTBEATWARNING},

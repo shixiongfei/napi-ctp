@@ -10,10 +10,11 @@
  */
 
 #include "traderspi.h"
+#include <map>
 #include <string.h>
 #include <string>
 
-static const std::unordered_map<std::string, int> eventMaps = {
+static const std::map<std::string, int> eventMaps = {
     {"front-connected", ET_FRONTCONNECTED},
     {"front-disconnected", ET_FRONTDISCONNECTED},
     {"heart-beat-warning", ET_HEARTBEATWARNING},
