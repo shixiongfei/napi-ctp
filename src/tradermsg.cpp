@@ -14,7 +14,6 @@
 #include "traderspi.h"
 
 static const MessageFuncs messageFuncs = {
-    {ET_QUIT, msgQuit},
     {ET_FRONTCONNECTED, msgFrontConnected},
     {ET_FRONTDISCONNECTED, msgFrontDisconnected},
     {ET_HEARTBEATWARNING, msgHeartBeatWarning},

@@ -16,7 +16,6 @@
 #include "spievent.h"
 
 #define EM_BASE 0x1000
-#define EM_QUIT (EM_BASE + 0)
 #define EM_FRONTCONNECTED (EM_BASE + 1)
 #define EM_FRONTDISCONNECTED (EM_BASE + 2)
 #define EM_HEARTBEATWARNING (EM_BASE + 3)
@@ -33,11 +32,10 @@
 
 class MdSpi : public SpiEvent, public CThostFtdcMdSpi {
 public:
-  MdSpi(CThostFtdcMdApi *api, const std::map<int, napi_threadsafe_function> *tsfns);
+  MdSpi(CThostFtdcMdApi *api, napi_env env, const std::map<int, napi_threadsafe_function> *tsfns);
   virtual ~MdSpi();
 
   static int eventFromName(const char *name);
-  void quit(int nCode = 0);
 
   virtual void OnFrontConnected();
   virtual void OnFrontDisconnected(int nReason);

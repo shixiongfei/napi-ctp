@@ -47,10 +47,6 @@ napi_status getMessageOptions(napi_env env, const Message *message, napi_value *
   return napi_ok;
 }
 
-napi_status msgQuit(napi_env env, const Message *message, napi_value *result) {
-  return napi_create_int32(env, (int32_t)message->data, result);
-}
-
 napi_status msgFrontConnected(napi_env env, const Message *message, napi_value *result) {
   return napi_get_undefined(env, result);
 }

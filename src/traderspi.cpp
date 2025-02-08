@@ -14,7 +14,6 @@
 #include <string>
 
 static const std::map<std::string, int> eventMaps = {
-    {"quit", ET_QUIT},
     {"front-connected", ET_FRONTCONNECTED},
     {"front-disconnected", ET_FRONTDISCONNECTED},
     {"heart-beat-warning", ET_HEARTBEATWARNING},
@@ -147,8 +146,8 @@ static const std::map<std::string, int> eventMaps = {
     {"rsp-qry-risk-settle-product-status", ET_RSPQRYRISKSETTLEPRODUCTSTATUS},
 };
 
-TraderSpi::TraderSpi(CThostFtdcTraderApi *api, const std::map<int, napi_threadsafe_function> *tsfns)
-    : SpiEvent(tsfns), _api(api) {
+TraderSpi::TraderSpi(CThostFtdcTraderApi *api, napi_env env, const std::map<int, napi_threadsafe_function> *tsfns)
+    : SpiEvent(env, tsfns), _api(api) {
 }
 
 TraderSpi::~TraderSpi() {
@@ -161,10 +160,6 @@ int TraderSpi::eventFromName(const char *name) {
     return 0;
 
   return iter->second;
-}
-
-void TraderSpi::quit(int nCode) {
-  SpiEvent::quit(ET_QUIT, nCode);
 }
 
 void TraderSpi::OnFrontConnected() {

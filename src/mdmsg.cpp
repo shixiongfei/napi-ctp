@@ -14,7 +14,6 @@
 #include "mdspi.h"
 
 static const MessageFuncs messageFuncs = {
-    {EM_QUIT, msgQuit},
     {EM_FRONTCONNECTED, msgFrontConnected},
     {EM_FRONTDISCONNECTED, msgFrontDisconnected},
     {EM_HEARTBEATWARNING, msgHeartBeatWarning},

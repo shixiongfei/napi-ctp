@@ -1,7 +1,7 @@
 /*
  * types.ts
  *
- * Copyright (c) 2022-2024 Xiongfei Shi
+ * Copyright (c) 2022-2025 Xiongfei Shi
  *
  * Author: Xiongfei Shi <xiongfei.shi(a)icloud.com>
  * License: Apache-2.0
@@ -13,8 +13,6 @@ import { MessageFields, RspInfoField } from "@napi-ctp/types";
 
 /** 行情消息事件 */
 export enum MarketDataEvent {
-  /** 退出 */
-  Quit = "quit",
   /** 当客户端与交易后台建立起通信连接时（还未登录前） */
   FrontConnected = "front-connected",
   /** 当客户端与交易后台通信连接断开时。当发生这个情况后，API会自动重新连接，客户端可不做处理 */
@@ -45,8 +43,6 @@ export enum MarketDataEvent {
 
 /** 交易消息事件 */
 export enum TraderEvent {
-  /** 退出 */
-  Quit = "quit",
   /** 当客户端与交易后台建立起通信连接时（还未登录前） */
   FrontConnected = "front-connected",
   /** 当客户端与交易后台通信连接断开时。当发生这个情况后，API会自动重新连接，客户端可不做处理 */

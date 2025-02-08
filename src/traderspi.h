@@ -16,7 +16,6 @@
 #include "spievent.h"
 
 #define ET_BASE 0x2000
-#define ET_QUIT (ET_BASE + 0)
 #define ET_FRONTCONNECTED (ET_BASE + 1)
 #define ET_FRONTDISCONNECTED (ET_BASE + 2)
 #define ET_HEARTBEATWARNING (ET_BASE + 3)
@@ -150,11 +149,10 @@
 
 class TraderSpi : public SpiEvent, public CThostFtdcTraderSpi {
 public:
-  TraderSpi(CThostFtdcTraderApi *api, const std::map<int, napi_threadsafe_function> *tsfns);
+  TraderSpi(CThostFtdcTraderApi *api, napi_env env, const std::map<int, napi_threadsafe_function> *tsfns);
   virtual ~TraderSpi();
 
   static int eventFromName(const char *name);
-  void quit(int nCode = 0);
 
   virtual void OnFrontConnected();
   virtual void OnFrontDisconnected(int nReason);

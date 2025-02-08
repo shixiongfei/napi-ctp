@@ -11,35 +11,49 @@
 
 #include "spievent.h"
 
-SpiEvent::SpiEvent(const std::map<int, napi_threadsafe_function> *tsfns)
-    : _tsfns(tsfns) {
+MessageBuffer SpiEvent::_buffer(4096);
+
+SpiEvent::SpiEvent(napi_env env, const std::map<int, napi_threadsafe_function> *tsfns)
+    : _env(env), _tsfns(tsfns) {
 }
 
 SpiEvent::~SpiEvent() {
-  Message *msg;
-
-  while (QUEUE_SUCCESS == poll(&msg, 0))
-    done(msg);
-}
-
-int SpiEvent::poll(Message **message, unsigned int millisec) {
-  return _msgq.pop(message, millisec);
 }
 
 void SpiEvent::done(Message *message) {
-  _msgq.done(message);
-}
-
-void SpiEvent::quit(int event, int nCode) {
-  _msgq.push(event, nCode);
+  _buffer.dispose(message);
 }
 
 void SpiEvent::push(int event) {
-  if (shouldPushEvent(event))
-    _msgq.push(event);
+  push(event, 0, 0, Undefined);
 }
 
 void SpiEvent::push(int event, int data) {
-  if (shouldPushEvent(event))
-    _msgq.push(event, data);
+  push(event, data, 0, Undefined);
+}
+
+void SpiEvent::push(int event, int data, int requestId, int isLast) {
+  auto iter = _tsfns->find(event);
+
+  if (iter == _tsfns->end())
+    return;
+
+  Message *message = (Message *)_buffer.alloc(sizeof(Message));
+  push(iter->second, message, event, data, 0, requestId, isLast);
+}
+
+void SpiEvent::push(napi_threadsafe_function tsfn, Message *message, int event, uintptr_t data, uintptr_t rspInfo, int requestId, int isLast) {
+  if (!message) {
+    fprintf(stderr, "Push message failed, out of memory\n");
+    return;
+  }
+
+  message->event = event;
+  message->isLast = isLast;
+  message->requestId = requestId;
+  message->data = data;
+  message->rspInfo = rspInfo;
+
+  napi_env env = _env;
+  CHECK(napi_call_threadsafe_function(tsfn, (void *)message, napi_tsfn_blocking));
 }

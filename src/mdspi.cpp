@@ -14,7 +14,6 @@
 #include <string>
 
 static const std::map<std::string, int> eventMaps = {
-    {"quit", EM_QUIT},
     {"front-connected", EM_FRONTCONNECTED},
     {"front-disconnected", EM_FRONTDISCONNECTED},
     {"heart-beat-warning", EM_HEARTBEATWARNING},
@@ -30,8 +29,8 @@ static const std::map<std::string, int> eventMaps = {
     {"rtn-for-quote", EM_RTNFORQUOTERSP},
 };
 
-MdSpi::MdSpi(CThostFtdcMdApi *api, const std::map<int, napi_threadsafe_function> *tsfns)
-    : SpiEvent(tsfns), _api(api) {
+MdSpi::MdSpi(CThostFtdcMdApi *api, napi_env env, const std::map<int, napi_threadsafe_function> *tsfns)
+    : SpiEvent(env, tsfns), _api(api) {
 }
 
 MdSpi::~MdSpi() {
@@ -44,10 +43,6 @@ int MdSpi::eventFromName(const char *name) {
     return 0;
 
   return iter->second;
-}
-
-void MdSpi::quit(int nCode) {
-  SpiEvent::quit(EM_QUIT, nCode);
 }
 
 void MdSpi::OnFrontConnected() {

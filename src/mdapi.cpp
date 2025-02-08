@@ -15,12 +15,10 @@
 #include "mdspi.h"
 #include <functional>
 #include <string.h>
-#include <uv.h>
 
 typedef struct MarketData {
   napi_env env;
   napi_ref wrapper;
-  uv_thread_t thread;
   MdSpi *spi;
   CThostFtdcMdApi *api;
   std::map<int, napi_threadsafe_function> tsfns;
@@ -205,31 +203,6 @@ static napi_value reqUserLogout(napi_env env, napi_callback_info info) {
   });
 }
 
-static bool processMessage(MarketData *marketData, const Message *message) {
-  auto iter = marketData->tsfns.find(message->event);
-
-  if (iter != marketData->tsfns.end()) {
-    napi_env env = marketData->env;
-    napi_threadsafe_function tsfn = iter->second;
-    CHECK(napi_call_threadsafe_function(tsfn, (void *)message, napi_tsfn_blocking));
-  }
-
-  return EM_QUIT != message->event;
-}
-
-static void processThread(void *data) {
-  MarketData *marketData = (MarketData *)data;
-  Message *message;
-  bool isRunning = true;
-
-  while (isRunning) {
-    if (QUEUE_SUCCESS != marketData->spi->poll(&message))
-      continue;
-
-    isRunning = processMessage(marketData, message);
-  }
-}
-
 static void marketDataFree(napi_env env, MarketData *marketData) {
   for (auto it = marketData->tsfns.begin(); it != marketData->tsfns.end(); ++it)
     napi_unref_threadsafe_function(env, it->second);
@@ -249,7 +222,6 @@ static void marketDataFree(napi_env env, MarketData *marketData) {
 static void callJs(napi_env env, napi_value js_cb, void *context, void *data) {
   MarketData *marketData = (MarketData *)context;
   Message *message = (Message *)data;
-  int event = message->event;
   napi_value undefined, argv[2];
 
   CHECK(napi_get_undefined(env, &undefined));
@@ -258,9 +230,6 @@ static void callJs(napi_env env, napi_value js_cb, void *context, void *data) {
   CHECK(napi_call_function(env, undefined, js_cb, 2, argv, nullptr));
 
   marketData->spi->done(message);
-
-  if (EM_QUIT == event)
-    marketDataFree(env, marketData);
 }
 
 static napi_value on(napi_env env, napi_callback_info info) {
@@ -314,15 +283,7 @@ static void marketDataDestructor(napi_env env, void *data, void *hint) {
   if (!marketData)
     return;
 
-  bool needFree = marketData->tsfns.find(EM_QUIT) == marketData->tsfns.end();
-
-  if (marketData->spi) {
-    marketData->spi->quit();
-    uv_thread_join(&marketData->thread);
-  }
-
-  if (needFree)
-    marketDataFree(env, marketData);
+  marketDataFree(env, marketData);
 }
 
 static napi_value marketDataNew(napi_env env, napi_callback_info info) {
@@ -370,20 +331,12 @@ static napi_value marketDataNew(napi_env env, napi_callback_info info) {
     return jsthis;
   }
 
-  marketData->spi = new MdSpi(marketData->api, &marketData->tsfns);
+  marketData->spi = new MdSpi(marketData->api, marketData->env, &marketData->tsfns);
 
   if (!marketData->spi) {
     marketData->api->Release();
     delete marketData;
     napi_throw_error(env, nullptr, "Market data is out of memory");
-    return jsthis;
-  }
-
-  if (0 != uv_thread_create(&marketData->thread, processThread, marketData)) {
-    marketData->api->Release();
-    delete marketData->spi;
-    delete marketData;
-    napi_throw_error(env, nullptr, "Market data can not create thread");
     return jsthis;
   }
 

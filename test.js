@@ -1,7 +1,7 @@
 /*
  * test.js
  *
- * Copyright (c) 2022-2024 Xiongfei Shi
+ * Copyright (c) 2022-2025 Xiongfei Shi
  *
  * Author: Xiongfei Shi <xiongfei.shi(a)icloud.com>
  * License: Apache-2.0
@@ -17,8 +17,8 @@ if (!fs.existsSync("./flow/")) {
 }
 const trader = ctp.createTrader("./flow/", "tcp://180.168.146.187:10202");
 
-trader.on(ctp.TraderEvent.Quit, (...args) => {
-  console.log("Trader Quit:", ...args);
+trader.on(ctp.TraderEvent.FrontConnected, (...args) => {
+  console.log("Trader Connected:", ...args);
 });
 
 if (!fs.existsSync("./flowMd/")) {
@@ -26,8 +26,8 @@ if (!fs.existsSync("./flowMd/")) {
 }
 const md = ctp.createMarketData("./flowMd/", "tcp://180.168.146.187:10212");
 
-md.on(ctp.MarketDataEvent.Quit, (...args) => {
-  console.log("Market Data Quit:", ...args);
+md.on(ctp.MarketDataEvent.FrontConnected, (...args) => {
+  console.log("Market Data Connected:", ...args);
 });
 
 console.log(trader.getApiVersion());

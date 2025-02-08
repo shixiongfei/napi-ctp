@@ -14,12 +14,10 @@
 #include "traderspi.h"
 #include <functional>
 #include <string.h>
-#include <uv.h>
 
 typedef struct Trader {
   napi_env env;
   napi_ref wrapper;
-  uv_thread_t thread;
   TraderSpi *spi;
   CThostFtdcTraderApi *api;
   std::map<int, napi_threadsafe_function> tsfns;
@@ -1747,31 +1745,6 @@ static napi_value reqQryRiskSettleProductStatus(napi_env env, napi_callback_info
   });
 }
 
-static bool processMessage(Trader *trader, const Message *message) {
-  auto iter = trader->tsfns.find(message->event);
-
-  if (iter != trader->tsfns.end()) {
-    napi_env env = trader->env;
-    napi_threadsafe_function tsfn = iter->second;
-    CHECK(napi_call_threadsafe_function(tsfn, (void *)message, napi_tsfn_blocking));
-  }
-
-  return ET_QUIT != message->event;
-}
-
-static void processThread(void *data) {
-  Trader *trader = (Trader *)data;
-  Message *message;
-  bool isRunning = true;
-
-  while (isRunning) {
-    if (QUEUE_SUCCESS != trader->spi->poll(&message))
-      continue;
-
-    isRunning = processMessage(trader, message);
-  }
-}
-
 static void traderFree(napi_env env, Trader *trader) {
   for (auto it = trader->tsfns.begin(); it != trader->tsfns.end(); ++it)
     napi_unref_threadsafe_function(env, it->second);
@@ -1791,7 +1764,6 @@ static void traderFree(napi_env env, Trader *trader) {
 static void callJs(napi_env env, napi_value js_cb, void *context, void *data) {
   Trader *trader = (Trader *)context;
   Message *message = (Message *)data;
-  int event = message->event;
   napi_value undefined, argv[2];
 
   CHECK(napi_get_undefined(env, &undefined));
@@ -1800,9 +1772,6 @@ static void callJs(napi_env env, napi_value js_cb, void *context, void *data) {
   CHECK(napi_call_function(env, undefined, js_cb, 2, argv, nullptr));
 
   trader->spi->done(message);
-
-  if (ET_QUIT == event)
-    traderFree(env, trader);
 }
 
 static napi_value on(napi_env env, napi_callback_info info) {
@@ -1856,15 +1825,7 @@ static void traderDestructor(napi_env env, void *data, void *hint) {
   if (!trader)
     return;
 
-  bool needFree = trader->tsfns.find(ET_QUIT) == trader->tsfns.end();
-
-  if (trader->spi) {
-    trader->spi->quit();
-    uv_thread_join(&trader->thread);
-  }
-
-  if (needFree)
-    traderFree(env, trader);
+  traderFree(env, trader);
 }
 
 static napi_value traderNew(napi_env env, napi_callback_info info) {
@@ -1912,20 +1873,12 @@ static napi_value traderNew(napi_env env, napi_callback_info info) {
     return jsthis;
   }
 
-  trader->spi = new TraderSpi(trader->api, &trader->tsfns);
+  trader->spi = new TraderSpi(trader->api, trader->env, &trader->tsfns);
 
   if (!trader->spi) {
     trader->api->Release();
     delete trader;
     napi_throw_error(env, nullptr, "Trader is out of memory");
-    return jsthis;
-  }
-
-  if (0 != uv_thread_create(&trader->thread, processThread, trader)) {
-    trader->api->Release();
-    delete trader->spi;
-    delete trader;
-    napi_throw_error(env, nullptr, "Trader can not create thread");
     return jsthis;
   }
 
