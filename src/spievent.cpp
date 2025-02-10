@@ -10,6 +10,7 @@
  */
 
 #include "spievent.h"
+#include <stdio.h>
 
 MessageBuffer SpiEvent::_buffer(4096);
 
