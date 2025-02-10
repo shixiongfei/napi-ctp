@@ -28,7 +28,15 @@ const md = ctp.createMarketData("./flowMd/", "tcp://180.168.146.187:10212");
 
 md.on(ctp.MarketDataEvent.FrontConnected, (...args) => {
   console.log("Market Data Connected:", ...args);
-});
+  md.reqUserLogin();
+})
+  .on(ctp.MarketDataEvent.RspUserLogin, (...args) => {
+    console.log("Market Data Login:", ...args);
+    md.subscribeMarketData(["rb2505"]);
+  })
+  .on(ctp.MarketDataEvent.RtnDepthMarketData, (...args) => {
+    console.log("Market Data:", ...args);
+  });
 
 console.log(trader.getApiVersion());
 console.log(md.getApiVersion());
