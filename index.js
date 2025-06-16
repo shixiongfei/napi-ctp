@@ -12,10 +12,16 @@
 const napi_ctp_types = require("@napi-ctp/types");
 const types = require("./types.js");
 
-try {
-  const binding = require("./build/Release/napi_ctp.node");
-  module.exports = Object.assign(binding, Object.assign(napi_ctp_types, types));
-} catch {
-  const binding = require("./build/Debug/napi_ctp.node");
-  module.exports = Object.assign(binding, Object.assign(napi_ctp_types, types));
-}
+const binding = () => {
+  try {
+    return require("./build/Release/napi_ctp.node");
+  } catch {
+    try {
+      return require("./build/Debug/napi_ctp.node");
+    } catch {
+      throw new Error("Cannot find module 'napi_ctp.node'");
+    }
+  }
+};
+
+module.exports = Object.assign(binding(), Object.assign(napi_ctp_types, types));
