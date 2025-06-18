@@ -17,7 +17,7 @@ if (!fs.existsSync("./flow/")) {
 }
 const trader = ctp.createTrader("./flow/", "tcp://180.168.146.187:10202");
 
-trader.on(ctp.TraderEvent.FrontConnected, (...args) => {
+trader.on("front-connected", (...args) => {
   console.log("Trader Connected:", ...args);
 });
 
@@ -26,15 +26,15 @@ if (!fs.existsSync("./flowMd/")) {
 }
 const md = ctp.createMarketData("./flowMd/", "tcp://180.168.146.187:10212");
 
-md.on(ctp.MarketDataEvent.FrontConnected, (...args) => {
+md.on("front-connected", (...args) => {
   console.log("Market Data Connected:", ...args);
   md.reqUserLogin();
 })
-  .on(ctp.MarketDataEvent.RspUserLogin, (...args) => {
+  .on("rsp-user-login", (...args) => {
     console.log("Market Data Login:", ...args);
-    md.subscribeMarketData(["rb2505"]);
+    md.subscribeMarketData(["rb2510"]);
   })
-  .on(ctp.MarketDataEvent.RtnDepthMarketData, (...args) => {
+  .on("rtn-depth-market-data", (...args) => {
     console.log("Market Data:", ...args);
   });
 

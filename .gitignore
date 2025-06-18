@@ -6,4 +6,5 @@ flowMd/
 !.vscode/launch.json
 prebuilds/
 types.js
+types.js.map
 types.d.ts
