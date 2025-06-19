@@ -9,9 +9,9 @@
  * https://github.com/shixiongfei/napi-ctp
  */
 
-if (process.platform === "darwin") {
-  const fs = require("node:fs");
+import fs from "node:fs";
 
+if (process.platform === "darwin") {
   const symlinks = [
     [
       "./tradeapi/macos/thostmduserapi_se.framework/thostmduserapi_se",

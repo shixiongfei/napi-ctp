@@ -9,15 +9,20 @@
  * https://github.com/shixiongfei/napi-ctp
  */
 
-const ctp = require(".");
-const fs = require("node:fs");
+import fs from "node:fs";
+
+import ctp, {
+  TraderEvent,
+  MarketDataEvent,
+  ProductClassType,
+} from "./index.js";
 
 if (!fs.existsSync("./flow/")) {
   fs.mkdirSync("./flow/", { recursive: true });
 }
 const trader = ctp.createTrader("./flow/", "tcp://180.168.146.187:10202");
 
-trader.on("front-connected", (...args) => {
+trader.on(TraderEvent.FrontConnected, (...args) => {
   console.log("Trader Connected:", ...args);
 });
 
@@ -26,15 +31,15 @@ if (!fs.existsSync("./flowMd/")) {
 }
 const md = ctp.createMarketData("./flowMd/", "tcp://180.168.146.187:10212");
 
-md.on("front-connected", (...args) => {
+md.on(MarketDataEvent.FrontConnected, (...args) => {
   console.log("Market Data Connected:", ...args);
   md.reqUserLogin();
 })
-  .on("rsp-user-login", (...args) => {
+  .on(MarketDataEvent.RspUserLogin, (...args) => {
     console.log("Market Data Login:", ...args);
     md.subscribeMarketData(["rb2510"]);
   })
-  .on("rtn-depth-market-data", (...args) => {
+  .on(MarketDataEvent.RtnDepthMarketData, (...args) => {
     console.log("Market Data:", ...args);
   });
 
@@ -46,4 +51,4 @@ console.log(md.getTradingDay());
 
 console.log(ctp.getLastRequestId());
 
-console.log(ctp.ProductClassType.Futures);
+console.log(ProductClassType.Futures);

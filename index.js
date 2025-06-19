@@ -9,19 +9,26 @@
  * https://github.com/shixiongfei/napi-ctp
  */
 
-const napi_ctp_types = require("@napi-ctp/types");
-const types = require("./types.js");
+export * from "@napi-ctp/types";
+export * from "./types.js";
+
+import { dlopen } from "node:process";
+import { constants } from "node:os";
 
 const binding = () => {
+  const module = { exports: {} };
+
   try {
-    return require("./build/Release/napi_ctp.node");
+    dlopen(module, "./build/Release/napi_ctp.node", constants.dlopen.RTLD_LAZY);
   } catch {
     try {
-      return require("./build/Debug/napi_ctp.node");
+      dlopen(module, "./build/Debug/napi_ctp.node", constants.dlopen.RTLD_LAZY);
     } catch {
       throw new Error("Cannot find module 'napi_ctp.node'");
     }
   }
+
+  return module;
 };
 
-module.exports = Object.assign(binding(), Object.assign(napi_ctp_types, types));
+export default binding().exports;
