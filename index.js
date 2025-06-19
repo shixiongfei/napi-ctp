@@ -14,11 +14,11 @@ export * from "./types.js";
 
 import { dlopen } from "node:process";
 import { constants } from "node:os";
-import * as types from "@napi-ctp/types";
-import { MarketDataEvent, TraderEvent } from "./types.js";
+import * as types1 from "@napi-ctp/types";
+import * as types2 from "./types.js";
 
 const binding = () => {
-  const module = { exports: { MarketDataEvent, TraderEvent, ...types } };
+  const module = { exports: {} };
 
   try {
     dlopen(module, "./build/Release/napi_ctp.node", constants.dlopen.RTLD_LAZY);
@@ -33,4 +33,11 @@ const binding = () => {
   return module;
 };
 
-export default binding().exports;
+const native = binding().exports;
+
+export const createMarketData = native.createMarketData;
+export const createTrader = native.createTrader;
+export const getLastRequestId = native.getLastRequestId;
+export const resetRequestId = native.resetRequestId;
+
+export default Object.assign(native, types1, types2);
