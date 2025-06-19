@@ -9,6 +9,7 @@
  * https://github.com/shixiongfei/napi-ctp
  */
 
+import process from "node:process";
 import fs from "node:fs";
 
 if (process.platform === "darwin") {
