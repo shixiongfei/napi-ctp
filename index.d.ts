@@ -12,44 +12,9 @@
 export * from "@napi-ctp/types";
 export * from "./types.js";
 
-import {
-  ActionFlagType,
-  ActionTypeType,
-  BankAccTypeType,
-  BizTypeType,
-  ClassTypeType,
-  ClientIDTypeType,
-  CombDirectionType,
-  ContingentConditionType,
-  CustTypeType,
-  DirectionType,
-  ExecOrderCloseFlagType,
-  FeePayFlagType,
-  ForceCloseReasonType,
-  HedgeFlagType,
-  IdCardTypeType,
-  LastFragmentType,
-  OffsetFlagType,
-  OptSelfCloseFlagType,
-  OrderPriceTypeType,
-  ParkedOrderStatusType,
-  PosiDirectionType,
-  ProductClassType,
-  PwdFlagType,
-  TimeConditionType,
-  TradingTypeType,
-  TransferStatusType,
-  UserTypeType,
-  VolumeConditionType,
-  YesNoIndicatorType,
-} from "@napi-ctp/types";
-
-import {
-  MarketDataEvent,
-  TraderEvent,
-  CallbackFunction,
-  CallbackMessage,
-} from "./types.js";
+import * as types from "@napi-ctp/types";
+import { MarketDataEvent, TraderEvent } from "./types.js";
+import type { CallbackFunction, CallbackMessage } from "./types.js";
 
 /** 行情对象 */
 export declare class MarketData {
@@ -439,9 +404,9 @@ export declare class Trader {
       /** 用户代码 */
       UserID: string;
       /** 报单价格条件 */
-      OrderPriceType: OrderPriceTypeType;
+      OrderPriceType: types.OrderPriceTypeType;
       /** 买卖方向 */
-      Direction: DirectionType;
+      Direction: types.DirectionType;
       /** 组合开平标志 @type [OffsetFlagType].join("") */
       CombOffsetFlag: string;
       /** 组合投机套保标志 @type [HedgeFlagType].join("") */
@@ -451,19 +416,19 @@ export declare class Trader {
       /** 数量 */
       VolumeTotalOriginal: number;
       /** 有效期类型 */
-      TimeCondition: TimeConditionType;
+      TimeCondition: types.TimeConditionType;
       /** GTD日期 */
       GTDDate: string;
       /** 成交量类型 */
-      VolumeCondition: VolumeConditionType;
+      VolumeCondition: types.VolumeConditionType;
       /** 最小成交量 */
       MinVolume: number;
       /** 触发条件 */
-      ContingentCondition: ContingentConditionType;
+      ContingentCondition: types.ContingentConditionType;
       /** 止损价 */
       StopPrice: number;
       /** 强平原因 */
-      ForceCloseReason: ForceCloseReasonType;
+      ForceCloseReason: types.ForceCloseReasonType;
       /** 自动挂起标志 */
       IsAutoSuspend: number;
       /** 业务单元 */
@@ -508,9 +473,9 @@ export declare class Trader {
       /** 用户代码 */
       UserID: string;
       /** 报单价格条件 */
-      OrderPriceType: OrderPriceTypeType;
+      OrderPriceType: types.OrderPriceTypeType;
       /** 买卖方向 */
-      Direction: DirectionType;
+      Direction: types.DirectionType;
       /** 组合开平标志 @type [OffsetFlagType].join("") */
       CombOffsetFlag: string;
       /** 组合投机套保标志 @type [HedgeFlagType].join("") */
@@ -520,19 +485,19 @@ export declare class Trader {
       /** 数量 */
       VolumeTotalOriginal: number;
       /** 有效期类型 */
-      TimeCondition: TimeConditionType;
+      TimeCondition: types.TimeConditionType;
       /** GTD日期 */
       GTDDate: string;
       /** 成交量类型 */
-      VolumeCondition: VolumeConditionType;
+      VolumeCondition: types.VolumeConditionType;
       /** 最小成交量 */
       MinVolume: number;
       /** 触发条件 */
-      ContingentCondition: ContingentConditionType;
+      ContingentCondition: types.ContingentConditionType;
       /** 止损价 */
       StopPrice: number;
       /** 强平原因 */
-      ForceCloseReason: ForceCloseReasonType;
+      ForceCloseReason: types.ForceCloseReasonType;
       /** 自动挂起标志 */
       IsAutoSuspend: number;
       /** 业务单元 */
@@ -546,9 +511,9 @@ export declare class Trader {
       /** 预埋报单编号 */
       ParkedOrderID: string;
       /** 用户类型 */
-      UserType: UserTypeType;
+      UserType: types.UserTypeType;
       /** 预埋单状态 */
-      Status: ParkedOrderStatusType;
+      Status: types.ParkedOrderStatusType;
       /** 错误代码 */
       ErrorID: number;
       /** 错误信息 */
@@ -597,7 +562,7 @@ export declare class Trader {
       /** 报单编号 */
       OrderSysID: string;
       /** 操作标志 */
-      ActionFlag: ActionFlagType;
+      ActionFlag: types.ActionFlagType;
       /** 价格 */
       LimitPrice: number;
       /** 数量变化 */
@@ -607,9 +572,9 @@ export declare class Trader {
       /** 预埋撤单单编号 */
       ParkedOrderActionID: string;
       /** 用户类型 */
-      UserType: UserTypeType;
+      UserType: types.UserTypeType;
       /** 预埋撤单状态 */
-      Status: ParkedOrderStatusType;
+      Status: types.ParkedOrderStatusType;
       /** 错误代码 */
       ErrorID: number;
       /** 错误信息 */
@@ -650,7 +615,7 @@ export declare class Trader {
       /** 报单编号 */
       OrderSysID: string;
       /** 操作标志 */
-      ActionFlag: ActionFlagType;
+      ActionFlag: types.ActionFlagType;
       /** 价格 */
       LimitPrice: number;
       /** 数量变化 */
@@ -679,11 +644,11 @@ export declare class Trader {
       /** 投资者代码 */
       InvestorID: string;
       /** 买卖方向 */
-      Direction: DirectionType;
+      Direction: types.DirectionType;
       /** 开平标志 */
-      OffsetFlag: OffsetFlagType;
+      OffsetFlag: types.OffsetFlagType;
       /** 投机套保标志 */
-      HedgeFlag: HedgeFlagType;
+      HedgeFlag: types.HedgeFlagType;
       /** 最大允许报单数量 */
       MaxVolume: number;
       /** 交易所代码 */
@@ -773,15 +738,15 @@ export declare class Trader {
       /** 业务单元 */
       BusinessUnit: string;
       /** 开平标志 */
-      OffsetFlag: OffsetFlagType;
+      OffsetFlag: types.OffsetFlagType;
       /** 投机套保标志 */
-      HedgeFlag: HedgeFlagType;
+      HedgeFlag: types.HedgeFlagType;
       /** 执行类型 */
-      ActionType: ActionTypeType;
+      ActionType: types.ActionTypeType;
       /** 保留头寸申请的持仓方向 */
-      PosiDirection: PosiDirectionType;
+      PosiDirection: types.PosiDirectionType;
       /** 期权行权后生成的头寸是否自动平仓 */
-      CloseFlag: ExecOrderCloseFlagType;
+      CloseFlag: types.ExecOrderCloseFlagType;
       /** 交易所代码 */
       ExchangeID: string;
       /** 投资单元代码 */
@@ -826,7 +791,7 @@ export declare class Trader {
       /** 执行宣告编号 */
       ExecOrderSysID: number;
       /** 操作标志 */
-      ActionFlag: ActionFlagType;
+      ActionFlag: types.ActionFlagType;
       /** 用户代码 */
       UserID: string;
       /** 投资单元代码 */
@@ -894,13 +859,13 @@ export declare class Trader {
       /** 业务单元 */
       BusinessUnit: string;
       /** 卖开平标志 */
-      AskOffsetFlag: OffsetFlagType;
+      AskOffsetFlag: types.OffsetFlagType;
       /** 买开平标志 */
-      BidOffsetFlag: OffsetFlagType;
+      BidOffsetFlag: types.OffsetFlagType;
       /** 卖投机套保标志 */
-      AskHedgeFlag: HedgeFlagType;
+      AskHedgeFlag: types.HedgeFlagType;
       /** 买投机套保标志 */
-      BidHedgeFlag: HedgeFlagType;
+      BidHedgeFlag: types.HedgeFlagType;
       /** 衍生卖报单引用 */
       AskOrderRef: string;
       /** 衍生买报单引用 */
@@ -949,7 +914,7 @@ export declare class Trader {
       /** 报价操作编号 */
       QuoteSysID: string;
       /** 操作标志 */
-      ActionFlag: ActionFlagType;
+      ActionFlag: types.ActionFlagType;
       /** 用户代码 */
       UserID: string;
       /** 投资单元代码 */
@@ -1017,9 +982,9 @@ export declare class Trader {
       /** 业务单元 */
       BusinessUnit: string;
       /** 投机套保标志 */
-      HedgeFlag: HedgeFlagType;
+      HedgeFlag: types.HedgeFlagType;
       /** 期权行权的头寸是否自对冲 */
-      OptSelfCloseFlag: OptSelfCloseFlagType;
+      OptSelfCloseFlag: types.OptSelfCloseFlagType;
       /** 交易所代码 */
       ExchangeID: string;
       /** 投资单元代码 */
@@ -1064,7 +1029,7 @@ export declare class Trader {
       /** 期权自对冲操作编号 */
       OptionSelfCloseSysID: string;
       /** 操作标志 */
-      ActionFlag: ActionFlagType;
+      ActionFlag: types.ActionFlagType;
       /** 用户代码 */
       UserID: string;
       /** 投资单元代码 */
@@ -1093,13 +1058,13 @@ export declare class Trader {
       /** 用户代码 */
       UserID: string;
       /** 买卖方向 */
-      Direction: DirectionType;
+      Direction: types.DirectionType;
       /** 数量 */
       Volume: number;
       /** 组合指令方向 */
-      CombDirection: CombDirectionType;
+      CombDirection: types.CombDirectionType;
       /** 投机套保标志 */
-      HedgeFlag: HedgeFlagType;
+      HedgeFlag: types.HedgeFlagType;
       /** 交易所代码 */
       ExchangeID: string;
       /** Mac地址 */
@@ -1199,7 +1164,7 @@ export declare class Trader {
       /** 币种代码 */
       CurrencyID: string;
       /** 业务类型 */
-      BizType: BizTypeType;
+      BizType: types.BizTypeType;
       /** 资金账号 */
       AccountID: string;
     }>
@@ -1233,7 +1198,7 @@ export declare class Trader {
       /** 客户代码 */
       ClientID: string;
       /** 交易编码类型 */
-      ClientIDType: ClientIDTypeType;
+      ClientIDType: types.ClientIDTypeType;
       /** 投资单元代码 */
       InvestUnitID: string;
     }>
@@ -1250,7 +1215,7 @@ export declare class Trader {
       /** 投资者代码 */
       InvestorID: string;
       /** 投机套保标志 */
-      HedgeFlag: HedgeFlagType;
+      HedgeFlag: types.HedgeFlagType;
       /** 交易所代码 */
       ExchangeID: string;
       /** 投资单元代码 */
@@ -1297,7 +1262,7 @@ export declare class Trader {
   reqQryProduct(
     req?: Partial<{
       /** 产品类型 */
-      ProductClass: ProductClassType;
+      ProductClass: types.ProductClassType;
       /** 交易所代码 */
       ExchangeID: string;
       /** 产品代码 */
@@ -1491,7 +1456,7 @@ export declare class Trader {
       /** 投资者代码 */
       InvestorID: string;
       /** 投机套保标志 */
-      HedgeFlag: HedgeFlagType;
+      HedgeFlag: types.HedgeFlagType;
       /** 交易所代码 */
       ExchangeID: string;
       /** 投资单元代码 */
@@ -1510,7 +1475,7 @@ export declare class Trader {
       /** 经纪公司代码 */
       BrokerID: string;
       /** 投机套保标志 */
-      HedgeFlag: HedgeFlagType;
+      HedgeFlag: types.HedgeFlagType;
       /** 交易所代码 */
       ExchangeID: string;
       /** 合约代码 */
@@ -1527,7 +1492,7 @@ export declare class Trader {
       /** 经纪公司代码 */
       BrokerID: string;
       /** 投机套保标志 */
-      HedgeFlag: HedgeFlagType;
+      HedgeFlag: types.HedgeFlagType;
       /** 合约代码 */
       InstrumentID: string;
     }>
@@ -1649,7 +1614,7 @@ export declare class Trader {
       /** 币种代码 */
       CurrencyID: string;
       /** 业务类型 */
-      BizType: BizTypeType;
+      BizType: types.BizTypeType;
       /** 资金账号 */
       AccountID: string;
     }>
@@ -1692,7 +1657,7 @@ export declare class Trader {
       /** 投资者代码 */
       InvestorID: string;
       /** 投机套保标志 */
-      HedgeFlag: HedgeFlagType;
+      HedgeFlag: types.HedgeFlagType;
       /** 期权合约报价 */
       InputPrice: number;
       /** 标的价格,填0则用昨结算价 */
@@ -2046,17 +2011,17 @@ export declare class Trader {
       /** 期平台消息流水号 */
       PlateSerial: number;
       /** 最后分片标志 */
-      LastFragment: LastFragmentType;
+      LastFragment: types.LastFragmentType;
       /** 会话编号 */
       SessionID: number;
       /** 客户姓名 */
       CustomerName: string;
       /** 证件类型 */
-      IdCardType: IdCardTypeType;
+      IdCardType: types.IdCardTypeType;
       /** 证件号码 */
       IdentifiedCardNo: string;
       /** 客户类型 */
-      CustType: CustTypeType;
+      CustType: types.CustTypeType;
       /** 银行帐号 */
       BankAccount: string;
       /** 银行密码 */
@@ -2072,7 +2037,7 @@ export declare class Trader {
       /** 用户代码 */
       UserID: string;
       /** 验证客户证件号码标志 */
-      VerifyCertNoFlag: YesNoIndicatorType;
+      VerifyCertNoFlag: types.YesNoIndicatorType;
       /** 币种代码 */
       CurrencyID: string;
       /** 转帐金额 */
@@ -2080,7 +2045,7 @@ export declare class Trader {
       /** 期货可取金额 */
       FutureFetchAmount: number;
       /** 费用支付标志 */
-      FeePayFlag: FeePayFlagType;
+      FeePayFlag: types.FeePayFlagType;
       /** 应收客户费用 */
       CustFee: number;
       /** 应收期货公司费用 */
@@ -2090,19 +2055,19 @@ export declare class Trader {
       /** 摘要 */
       Digest: string;
       /** 银行帐号类型 */
-      BankAccType: BankAccTypeType;
+      BankAccType: types.BankAccTypeType;
       /** 渠道标志 */
       DeviceID: string;
       /** 期货单位帐号类型 */
-      BankSecuAccType: BankAccTypeType;
+      BankSecuAccType: types.BankAccTypeType;
       /** 期货公司银行编码 */
       BrokerIDByBank: string;
       /** 期货单位帐号 */
       BankSecuAcc: string;
       /** 银行密码标志 */
-      BankPwdFlag: PwdFlagType;
+      BankPwdFlag: types.PwdFlagType;
       /** 期货资金密码核对标志 */
-      SecuPwdFlag: PwdFlagType;
+      SecuPwdFlag: types.PwdFlagType;
       /** 交易柜员 */
       OperNo: string;
       /** 请求编号 */
@@ -2110,7 +2075,7 @@ export declare class Trader {
       /** 交易ID */
       TID: number;
       /** 转账交易状态 */
-      TransferStatus: TransferStatusType;
+      TransferStatus: types.TransferStatusType;
       /** 长客户姓名 */
       LongCustomerName: string;
     }>
@@ -2143,17 +2108,17 @@ export declare class Trader {
       /** 期平台消息流水号 */
       PlateSerial: number;
       /** 最后分片标志 */
-      LastFragment: LastFragmentType;
+      LastFragment: types.LastFragmentType;
       /** 会话编号 */
       SessionID: number;
       /** 客户姓名 */
       CustomerName: string;
       /** 证件类型 */
-      IdCardType: IdCardTypeType;
+      IdCardType: types.IdCardTypeType;
       /** 证件号码 */
       IdentifiedCardNo: string;
       /** 客户类型 */
-      CustType: CustTypeType;
+      CustType: types.CustTypeType;
       /** 银行帐号 */
       BankAccount: string;
       /** 银行密码 */
@@ -2169,7 +2134,7 @@ export declare class Trader {
       /** 用户代码 */
       UserID: string;
       /** 验证客户证件号码标志 */
-      VerifyCertNoFlag: YesNoIndicatorType;
+      VerifyCertNoFlag: types.YesNoIndicatorType;
       /** 币种代码 */
       CurrencyID: string;
       /** 转帐金额 */
@@ -2177,7 +2142,7 @@ export declare class Trader {
       /** 期货可取金额 */
       FutureFetchAmount: number;
       /** 费用支付标志 */
-      FeePayFlag: FeePayFlagType;
+      FeePayFlag: types.FeePayFlagType;
       /** 应收客户费用 */
       CustFee: number;
       /** 应收期货公司费用 */
@@ -2187,19 +2152,19 @@ export declare class Trader {
       /** 摘要 */
       Digest: string;
       /** 银行帐号类型 */
-      BankAccType: BankAccTypeType;
+      BankAccType: types.BankAccTypeType;
       /** 渠道标志 */
       DeviceID: string;
       /** 期货单位帐号类型 */
-      BankSecuAccType: BankAccTypeType;
+      BankSecuAccType: types.BankAccTypeType;
       /** 期货公司银行编码 */
       BrokerIDByBank: string;
       /** 期货单位帐号 */
       BankSecuAcc: string;
       /** 银行密码标志 */
-      BankPwdFlag: PwdFlagType;
+      BankPwdFlag: types.PwdFlagType;
       /** 期货资金密码核对标志 */
-      SecuPwdFlag: PwdFlagType;
+      SecuPwdFlag: types.PwdFlagType;
       /** 交易柜员 */
       OperNo: string;
       /** 请求编号 */
@@ -2207,7 +2172,7 @@ export declare class Trader {
       /** 交易ID */
       TID: number;
       /** 转账交易状态 */
-      TransferStatus: TransferStatusType;
+      TransferStatus: types.TransferStatusType;
       /** 长客户姓名 */
       LongCustomerName: string;
     }>
@@ -2240,17 +2205,17 @@ export declare class Trader {
       /** 期平台消息流水号 */
       PlateSerial: number;
       /** 最后分片标志 */
-      LastFragment: LastFragmentType;
+      LastFragment: types.LastFragmentType;
       /** 会话编号 */
       SessionID: number;
       /** 客户姓名 */
       CustomerName: string;
       /** 证件类型 */
-      IdCardType: IdCardTypeType;
+      IdCardType: types.IdCardTypeType;
       /** 证件号码 */
       IdentifiedCardNo: string;
       /** 客户类型 */
-      CustType: CustTypeType;
+      CustType: types.CustTypeType;
       /** 银行帐号 */
       BankAccount: string;
       /** 银行密码 */
@@ -2266,25 +2231,25 @@ export declare class Trader {
       /** 用户代码 */
       UserID: string;
       /** 验证客户证件号码标志 */
-      VerifyCertNoFlag: YesNoIndicatorType;
+      VerifyCertNoFlag: types.YesNoIndicatorType;
       /** 币种代码 */
       CurrencyID: string;
       /** 摘要 */
       Digest: string;
       /** 银行帐号类型 */
-      BankAccType: BankAccTypeType;
+      BankAccType: types.BankAccTypeType;
       /** 渠道标志 */
       DeviceID: string;
       /** 期货单位帐号类型 */
-      BankSecuAccType: BankAccTypeType;
+      BankSecuAccType: types.BankAccTypeType;
       /** 期货公司银行编码 */
       BrokerIDByBank: string;
       /** 期货单位帐号 */
       BankSecuAcc: string;
       /** 银行密码标志 */
-      BankPwdFlag: PwdFlagType;
+      BankPwdFlag: types.PwdFlagType;
       /** 期货资金密码核对标志 */
-      SecuPwdFlag: PwdFlagType;
+      SecuPwdFlag: types.PwdFlagType;
       /** 交易柜员 */
       OperNo: string;
       /** 请求编号 */
@@ -2311,9 +2276,9 @@ export declare class Trader {
       /** 产品代码 */
       ProductID: string;
       /** 合约交易状态 */
-      TradingType: TradingTypeType;
+      TradingType: types.TradingTypeType;
       /** 合约分类类型 */
-      ClassType: ClassTypeType;
+      ClassType: types.ClassTypeType;
     }>
   ): number;
 
@@ -2404,3 +2369,15 @@ export declare function getLastRequestId(): number;
  * 重置请求序列ID
  */
 export declare function resetRequestId(): void;
+
+export default {
+  MarketData,
+  MarketDataEvent,
+  Trader,
+  TraderEvent,
+  createMarketData,
+  createTrader,
+  getLastRequestId,
+  resetRequestId,
+  ...types,
+};

@@ -10,19 +10,14 @@
  */
 
 import fs from "node:fs";
-
-import ctp, {
-  TraderEvent,
-  MarketDataEvent,
-  ProductClassType,
-} from "./index.js";
+import ctp from "./index.js";
 
 if (!fs.existsSync("./flow/")) {
   fs.mkdirSync("./flow/", { recursive: true });
 }
 const trader = ctp.createTrader("./flow/", "tcp://180.168.146.187:10202");
 
-trader.on(TraderEvent.FrontConnected, (...args) => {
+trader.on(ctp.TraderEvent.FrontConnected, (...args) => {
   console.log("Trader Connected:", ...args);
 });
 
@@ -31,15 +26,15 @@ if (!fs.existsSync("./flowMd/")) {
 }
 const md = ctp.createMarketData("./flowMd/", "tcp://180.168.146.187:10212");
 
-md.on(MarketDataEvent.FrontConnected, (...args) => {
+md.on(ctp.MarketDataEvent.FrontConnected, (...args) => {
   console.log("Market Data Connected:", ...args);
   md.reqUserLogin();
 })
-  .on(MarketDataEvent.RspUserLogin, (...args) => {
+  .on(ctp.MarketDataEvent.RspUserLogin, (...args) => {
     console.log("Market Data Login:", ...args);
     md.subscribeMarketData(["rb2510"]);
   })
-  .on(MarketDataEvent.RtnDepthMarketData, (...args) => {
+  .on(ctp.MarketDataEvent.RtnDepthMarketData, (...args) => {
     console.log("Market Data:", ...args);
   });
 
@@ -51,4 +46,4 @@ console.log(md.getTradingDay());
 
 console.log(ctp.getLastRequestId());
 
-console.log(ProductClassType.Futures);
+console.log(ctp.ProductClassType.Futures);

@@ -14,9 +14,11 @@ export * from "./types.js";
 
 import { dlopen } from "node:process";
 import { constants } from "node:os";
+import * as types from "@napi-ctp/types";
+import { MarketDataEvent, TraderEvent } from "./types.js";
 
 const binding = () => {
-  const module = { exports: {} };
+  const module = { exports: { MarketDataEvent, TraderEvent, ...types } };
 
   try {
     dlopen(module, "./build/Release/napi_ctp.node", constants.dlopen.RTLD_LAZY);

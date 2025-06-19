@@ -8,3 +8,6 @@ prebuilds/
 types.js
 types.js.map
 types.d.ts
+test.js
+test.js.map
+test.d.ts
