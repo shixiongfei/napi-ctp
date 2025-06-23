@@ -29,7 +29,8 @@ static void destructor(napi_env env, void *data, void *hint) {
   free(constructors);
 }
 
-static napi_status defineConstructors(napi_env env) {
+static napi_status defineConstructors(napi_env env, napi_value exports) {
+  napi_value marketDataConstructor, traderConstructor;
   Constructors *constructors = (Constructors *)malloc(sizeof(Constructors));
 
   if (!constructors) {
@@ -39,8 +40,13 @@ static napi_status defineConstructors(napi_env env) {
 
   memset(constructors, 0, sizeof(Constructors));
 
-  CHECK(defineMarketData(env, &constructors->marketData));
-  CHECK(defineTrader(env, &constructors->trader));
+  CHECK(defineMarketData(env, &marketDataConstructor));
+  CHECK(napi_set_named_property(env, exports, "MarketData", marketDataConstructor));
+  CHECK(napi_create_reference(env, marketDataConstructor, 1, &constructors->marketData));
+
+  CHECK(defineTrader(env, &traderConstructor));
+  CHECK(napi_set_named_property(env, exports, "Trader", traderConstructor));
+  CHECK(napi_create_reference(env, traderConstructor, 1, &constructors->trader));
 
   return napi_set_instance_data(env, constructors, destructor, nullptr);
 }
@@ -71,7 +77,7 @@ static napi_status defineMethods(napi_env env, napi_value exports) {
 }
 
 static napi_value init(napi_env env, napi_value exports) {
-  CHECK(defineConstructors(env));
+  CHECK(defineConstructors(env, exports));
   CHECK(defineMethods(env, exports));
 
   return exports;

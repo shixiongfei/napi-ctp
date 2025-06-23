@@ -46,6 +46,8 @@ const binding = () => {
 
 const native = binding().exports;
 
+export const Trader = native.Trader;
+export const MarketData = native.MarketData;
 export const createMarketData = native.createMarketData;
 export const createTrader = native.createTrader;
 export const getLastRequestId = native.getLastRequestId;

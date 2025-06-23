@@ -22,7 +22,7 @@
     "build": "node prebuild.js && node-gyp clean && node-gyp configure && node-gyp build && tsc",
     "build:debug": "node prebuild.js && node-gyp clean && node-gyp configure && node-gyp build --debug && tsc",
     "install": "node prebuild.js && node-gyp configure && node-gyp build",
-    "test": "node test.js"
+    "test": "tsc && node test.js"
   },
   "repository": {
     "type": "git",

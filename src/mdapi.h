@@ -14,7 +14,7 @@
 
 #include "napi_ctp.h"
 
-napi_status defineMarketData(napi_env env, napi_ref *constructor);
+napi_status defineMarketData(napi_env env, napi_value *constructor);
 napi_value createMarketData(napi_env env, napi_callback_info info);
 
 #endif /* __MDAPI_H__ */

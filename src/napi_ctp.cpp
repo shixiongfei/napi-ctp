@@ -123,13 +123,6 @@ Constructors *getConstructors(napi_env env) {
   return constructors;
 }
 
-napi_status defineClass(napi_env env, const char *name, napi_callback constructor, size_t propertyCount, const napi_property_descriptor *properties, napi_ref *result) {
-  napi_value cons;
-
-  CHECK(napi_define_class(env, name, NAPI_AUTO_LENGTH, constructor, nullptr, propertyCount, properties, &cons));
-  return napi_create_reference(env, cons, 1, result);
-}
-
 napi_value createInstance(napi_env env, napi_callback_info info, napi_ref constructor, size_t argc) {
   napi_value cons, instance;
 

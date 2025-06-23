@@ -1905,7 +1905,7 @@ static napi_value traderNew(napi_env env, napi_callback_info info) {
   return jsthis;
 }
 
-napi_status defineTrader(napi_env env, napi_ref *constructor) {
+napi_status defineTrader(napi_env env, napi_value *constructor) {
   napi_property_descriptor props[] = {
       DECLARE_NAPI_METHOD(getApiVersion),
       DECLARE_NAPI_METHOD(getTradingDay),
@@ -1999,7 +1999,7 @@ napi_status defineTrader(napi_env env, napi_ref *constructor) {
       DECLARE_NAPI_METHOD(on),
       DECLARE_NAPI_METHOD(close),
   };
-  return defineClass(env, "Trader", traderNew, arraysize(props), props, constructor);
+  return napi_define_class(env, "Trader", NAPI_AUTO_LENGTH, traderNew, nullptr, arraysize(props), props, constructor);
 }
 
 napi_value createTrader(napi_env env, napi_callback_info info) {
